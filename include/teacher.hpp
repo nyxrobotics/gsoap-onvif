@@ -16,7 +16,7 @@ public:
   TeaAnalyser() {
     //Initialize(gpu);
   };
-  void SetReader(const wl::CameraConfig& config,std::unique_ptr<HttpLink> & httplink);
+  void SetReader(const wl::CameraConfig& config);
   void Run();
 	std::string ObjectNameProduce(bool realtime);
 

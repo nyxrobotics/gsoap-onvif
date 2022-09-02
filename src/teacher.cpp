@@ -9,10 +9,7 @@ using namespace std;
 using namespace wl;
 
 
-void TeaAnalyser::SetReader(const wl::CameraConfig& config
-)
-
-{
+void TeaAnalyser::SetReader(const wl::CameraConfig& config) {
   LOG(INFO) << "Test HIKIPCameraReader.";
   std::string url = "rtsp://" + config.username + ":" + config.password + "@"
     + config.ip + "/mpeg4/ch1/sub/av_stream";

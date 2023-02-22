@@ -45,6 +45,8 @@ public:
 
   std::string getProfileName();
 
+  std::vector<std::string> getProfilesNames();
+
   std::vector<std::string> getProfilesTokens();
 
   std::vector<std::string> getVideoSourceConfigurationsTokens();
@@ -58,6 +60,7 @@ private:
   std::string _profileName;
 
   // vector containing all profiles tokens of the device, setted by getProfiles() function
+  std::vector<std::string> _profilesNames;
   std::vector<std::string> _profilesTokens;
 
   // vector containing all tokens from the different Video Source Configurations of the device

@@ -143,6 +143,7 @@ void OnvifClientMedia::getProfiles()
     {
       for (int i = 0; i < trt__GetProfilesResponse->Profiles.size(); i++)
       {
+        this->_profilesNames.push_back(trt__GetProfilesResponse->Profiles[i]->Name);
         this->_profilesTokens.push_back(trt__GetProfilesResponse->Profiles[i]->token);
       }
     }
@@ -555,6 +556,11 @@ void OnvifClientMedia::addPTZConfiguration(std::string profileToken, std::string
 std::string OnvifClientMedia::getProfileName()
 {
   return _profileName;
+}
+
+std::vector<std::string> OnvifClientMedia::getProfilesNames()
+{
+  return _profilesNames;
 }
 
 std::vector<std::string> OnvifClientMedia::getProfilesTokens()

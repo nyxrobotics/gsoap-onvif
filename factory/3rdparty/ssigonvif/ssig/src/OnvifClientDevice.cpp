@@ -1,5 +1,8 @@
 #include "OnvifClientDevice.hpp"
 #include "DeviceBinding.nsmap"
+#include "glog/logging.h"
+#include <iostream>
+#include <sstream>
 #include <stdexcept>
 #include <string>
 

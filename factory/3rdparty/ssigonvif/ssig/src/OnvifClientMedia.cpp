@@ -1,4 +1,5 @@
 #include "OnvifClientMedia.hpp"
+#include "glog/logging.h"
 #include <stdexcept>
 
 OnvifClientMedia::OnvifClientMedia(std::string url, std::string user, std::string password) : OnvifClientDevice(url, user, password){

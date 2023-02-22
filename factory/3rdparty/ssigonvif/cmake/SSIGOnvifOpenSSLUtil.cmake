@@ -23,6 +23,6 @@ macro(ssigonvif_link_openssl TARGET)
 	ssigonvif_find_openssl(COMPONENTS ${ARGN} REQUIRED)	
 	target_compile_definitions(${TARGET} PUBLIC WITH_OPENSSL)
 	target_include_directories(${TARGET} PUBLIC ${OPENSSL_INCLUDE_DIR})	
-	target_link_libraries(${TARGET} ${OPENSSL_LIBRARIES})
+	target_link_libraries(${TARGET} ${OPENSSL_LIBRARIES} -lcrypto -lssl)
 	
 endmacro()

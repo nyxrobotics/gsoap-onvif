@@ -1,4 +1,5 @@
 #include "OnvifClientPTZ.hpp"
+#include "glog/logging.h"
 
 OnvifClientPTZ::OnvifClientPTZ(std::string url, std::string user, std::string password) : OnvifClientDevice(url, user, password){
 	if(_hasPTZ){
@@ -196,7 +197,7 @@ void  OnvifClientPTZ::continuousMove(std::string profileToken, float panSpeed, f
 	tptz__ContinuousMove->Velocity->Zoom = soap_new_tt__Vector1D(soap, -1);
 	tptz__ContinuousMove->Velocity->Zoom->x = zoomSpeed;
 
-	long long tempo = 1;
+	int64_t tempo = 1;
 	tptz__ContinuousMove->Timeout = &tempo;
 
 	if(SOAP_OK != proxyPTZ.ContinuousMove(tptz__ContinuousMove, tptz__ContinuousMoveResponse)){

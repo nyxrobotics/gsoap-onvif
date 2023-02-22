@@ -1,5 +1,5 @@
 set(ONVIF_NAME "onvif")
-set(ONVIF_PATH "${PROJECT_SOURCE_DIR}/3rdparty/onvif")
+set(ONVIF_PATH "${CMAKE_CURRENT_LIST_DIR}")
 
 # files glob
 file(GLOB ONVIF_INCLUDE_FILES		"${ONVIF_PATH}/include/onvif/*.h")

@@ -44,15 +44,15 @@ string GetFullPath()
   if (nRet>256 || nRet<0) {
     return  "";
   }
-  //上面已经获取到了可执行文件的据对路径了(包含文件名)，
-  //下面的for循环是为了去除路径中的文件名，如果需要的话
+  //The path to the executable file (including the file name) has been obtained above.
+  //The following for loop is to remove the filename from the path, if needed
   for (int i = nRet; i>0; i--) {
     if (szCurWorkPath[i] == '/' || szCurWorkPath[i] == '\\') {
       szCurWorkPath[i] = '\0';
       break;
     }
   }
-  //这就是最终的文件路径，例如  "/usr/var"
+  //This is the final file path, e.g. "/usr/var"
   string szRet = szCurWorkPath;
   return szRet;
 #endif
@@ -261,14 +261,14 @@ vector<string> ListSubDir(const string& dpath) {
 }
 
 datetime DatetimeToString(time_t time) {
-  tm *tm_ = localtime(&time);                // 将time_t格式转换为tm结构体
-  int year, month, day, hour, minute, second;// 定义时间的各个int临时变量。
-  year = tm_->tm_year + 1900;                // 临时变量，年，由于tm结构体存储的是从1900年开始的时间，所以临时变量int为tm_year加上1900。
-  month = tm_->tm_mon + 1;                   // 临时变量，月，由于tm结构体的月份存储范围为0-11，所以临时变量int为tm_mon加上1。
-  day = tm_->tm_mday;                        // 临时变量，日。
-  hour = tm_->tm_hour;                       // 临时变量，时。
-  minute = tm_->tm_min;                      // 临时变量，分。
-  second = tm_->tm_sec;                      // 临时变量，秒。
+  tm *tm_ = localtime(&time);                // Convert time_t format to tm structure
+  int year, month, day, hour, minute, second;// Defines the individual int temporary variables for the time.
+  year = tm_->tm_year + 1900;                // Temporary variable, year, since the tm structure stores the time from 1900, the temporary variable int is tm_year plus 1900.
+  month = tm_->tm_mon + 1;                   // Temporary variable, month. Since the month storage range of tm structure is 0-11, the temporary variable int is tm_mon plus 1.
+  day = tm_->tm_mday;                        // Temporary variables, day.
+  hour = tm_->tm_hour;                       // Temporary variables, hours.
+  minute = tm_->tm_min;                      // Temporary variables, mins.
+  second = tm_->tm_sec;                      // Temporary variable, seconds.
 
   std::string yearStr = std::to_string(year);
   std::string monthStr = std::to_string(month);

@@ -54,6 +54,7 @@ void OnvifClientPTZ::getConfigurations()
   {
     for (int i = 0; i < tptz__GetConfigurationsResponse->PTZConfiguration.size(); ++i)
     {
+      this->_PTZConfigurationsNames.push_back(tptz__GetConfigurationsResponse->PTZConfiguration[i]->Name);
       this->_PTZConfigurationsTokens.push_back(tptz__GetConfigurationsResponse->PTZConfiguration[i]->token);
     }
   }
@@ -174,8 +175,10 @@ void OnvifClientPTZ::getPresets(std::string profileToken)
 
   for (int i = 0; i < get_presetsResponse->Preset.size(); ++i)
   {
-    LOG(INFO) << " profile : " << get_presetsResponse->Preset[i]->Name
-              << " Token : " << get_presetsResponse->Preset[i]->token;
+    LOG(INFO) << " Preset : " << *get_presetsResponse->Preset[i]->Name
+              << " Token : " << *get_presetsResponse->Preset[i]->token;
+    this->_PTZPresetNames.push_back(*get_presetsResponse->Preset[i]->Name);
+    this->_PTZPresetTokens.push_back(*get_presetsResponse->Preset[i]->token);
   }
   soap_destroy(soap);
   soap_end(soap);
@@ -524,9 +527,23 @@ void OnvifClientPTZ::zoomOut(std::string profileToken)
   return relativeMove(profileToken, 0.0, 0.0, 0.0, 0.0, -0.05, 1.0);
 }
 
+std::vector<std::string> OnvifClientPTZ::getPTZConfigurationsNames()
+{
+  return _PTZConfigurationsNames;
+}
 std::vector<std::string> OnvifClientPTZ::getPTZConfigurationsTokens()
 {
   return _PTZConfigurationsTokens;
+}
+
+std::vector<std::string> OnvifClientPTZ::getPTZPresetNames()
+{
+  return _PTZPresetNames;
+}
+
+std::vector<std::string> OnvifClientPTZ::getPTZPresetTokens()
+{
+  return _PTZPresetTokens;
 }
 
 std::vector<float> OnvifClientPTZ::getPosition()

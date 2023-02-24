@@ -54,14 +54,21 @@ public:
   void zoomOut(std::string profileToken);
 
   // getter for _PTZConfigurationsTokens
+  std::vector<std::string> getPTZConfigurationsNames();
   std::vector<std::string> getPTZConfigurationsTokens();
+  std::vector<std::string> getPTZPresetNames();
+  std::vector<std::string> getPTZPresetTokens();
 
   // getter for _positon
   std::vector<float> getPosition();
 
 private:
   // vector containing the exixting PTZConfigurations Tokens on the device
+  std::vector<std::string> _PTZConfigurationsNames;
   std::vector<std::string> _PTZConfigurationsTokens;
+  // vector containing the exixting PTZ Presets on the device
+  std::vector<std::string> _PTZPresetNames;
+  std::vector<std::string> _PTZPresetTokens;
 
   // PTZ camera position, values of PAN, TILT and ZOOM respectively
   std::vector<float> _position;

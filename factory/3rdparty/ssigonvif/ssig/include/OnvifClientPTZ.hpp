@@ -17,6 +17,10 @@ public:
   void getConfigurations();
   // get the PTZ Status and sets the vector position
   void getStatus(std::string profileToken);
+
+  void gotoPreset(std::string profileToken, int PresetToken, float Speed);
+
+  void getPresets(std::string profileToken);
   // absolute move
   void absoluteMove(std::string profileToken, float pan, float panSpeed, float tilt, float tiltSpeed, float zoom,
                     float zoomSpeed);

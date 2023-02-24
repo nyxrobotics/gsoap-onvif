@@ -104,6 +104,83 @@ void OnvifClientPTZ::getStatus(std::string profileToken)
   soap_end(soap);
 }
 
+void OnvifClientPTZ::gotoPreset(std::string profileToken, int PresetToken, float Speed)
+{
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    std::string errorDetail;
+    errorDetail += "ERROR:\nError Code:";
+    if (soap->fault->faultcode != NULL)
+      errorDetail += soap->fault->faultcode;
+    errorDetail += "\nFault:";
+    if (soap->fault->faultcode != NULL)
+      errorDetail += soap->fault->faultstring;
+    errorDetail + "\n";
+    throw std::runtime_error(errorDetail);
+  }
+  _tptz__GotoPreset* go_preset = soap_new__tptz__GotoPreset(soap, -1);
+  _tptz__GotoPresetResponse* go_presetResponse = soap_new__tptz__GotoPresetResponse(soap, -1);
+  int dwPresetIndex = 1;
+  std::string strPresetToken = std::to_string(PresetToken);
+  go_preset->ProfileToken = profileToken;
+  go_preset->PresetToken = strPresetToken;
+  if (SOAP_OK != proxyPTZ.GotoPreset(go_preset, go_presetResponse))
+  {
+    std::string errorDetail;
+    errorDetail += "ERROR:\nError Code:";
+    if (soap->fault->faultcode != NULL)
+      errorDetail += soap->fault->faultcode;
+    errorDetail += "\nFault:";
+    if (soap->fault->faultcode != NULL)
+      errorDetail += soap->fault->faultstring;
+    errorDetail + "\n";
+    throw std::runtime_error(errorDetail);
+  }
+  soap_destroy(soap);
+  soap_end(soap);
+}
+
+void OnvifClientPTZ::getPresets(std::string profileToken)
+{
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    std::string errorDetail;
+    errorDetail += "ERROR:\nError Code:";
+    if (soap->fault->faultcode != NULL)
+      errorDetail += soap->fault->faultcode;
+    errorDetail += "\nFault:";
+    if (soap->fault->faultcode != NULL)
+      errorDetail += soap->fault->faultstring;
+    errorDetail + "\n";
+    throw std::runtime_error(errorDetail);
+  }
+  struct soap* soap = soap_new();
+  _tptz__GetPresets* get_presets = soap_new__tptz__GetPresets(soap);
+  _tptz__GetPresetsResponse* get_presetsResponse = soap_new__tptz__GetPresetsResponse(soap);
+  get_presets->ProfileToken = profileToken.c_str();
+  if (SOAP_OK != proxyPTZ.GetPresets(get_presets, get_presetsResponse))
+  {
+    std::string errorDetail;
+    errorDetail += "ERROR:\nError Code:";
+    if (soap->fault->faultcode != NULL)
+      errorDetail += soap->fault->faultcode;
+    errorDetail += "\nFault:";
+    if (soap->fault->faultcode != NULL)
+      errorDetail += soap->fault->faultstring;
+    errorDetail + "\n";
+    throw std::runtime_error(errorDetail);
+  }
+  LOG(INFO) << get_presetsResponse;
+
+  for (int i = 0; i < get_presetsResponse->Preset.size(); ++i)
+  {
+    LOG(INFO) << " profile : " << get_presetsResponse->Preset[i]->Name
+              << " Token : " << get_presetsResponse->Preset[i]->token;
+  }
+  soap_destroy(soap);
+  soap_end(soap);
+}
+
 void OnvifClientPTZ::absoluteMove(std::string profileToken, float pan, float panSpeed, float tilt, float tiltSpeed,
                                   float zoom, float zoomSpeed)
 {

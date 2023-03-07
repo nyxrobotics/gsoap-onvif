@@ -1,15 +1,16 @@
 #include <chrono>
 #include <memory>
 #ifdef _MSC_VER
-  #include <windows.h>
-#endif 
+#include <windows.h>
+#endif
 #include "teacher.hpp"
 #include "fs.hpp"
 #include "logger.hpp"
 
 using namespace std;
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv)
+{
   TeaAnalyser teacher(0);
   wl::CameraConfig config;
   config.ip = "192.168.66.64";
@@ -20,4 +21,3 @@ int main(int argc, char** argv) {
   teacher.Run();
   return 0;
 }
-

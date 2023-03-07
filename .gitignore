@@ -34,3 +34,5 @@ build/*
 factory/build/
 
 build/
+
+.vscode/

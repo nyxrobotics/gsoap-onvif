@@ -197,8 +197,8 @@ void  OnvifClientPTZ::continuousMove(std::string profileToken, float panSpeed, f
 	tptz__ContinuousMove->Velocity->Zoom = soap_new_tt__Vector1D(soap, -1);
 	tptz__ContinuousMove->Velocity->Zoom->x = zoomSpeed;
 
-	int64_t tempo = 1;
-	tptz__ContinuousMove->Timeout = &tempo;
+	// int64_t tempo = 1;
+	// tptz__ContinuousMove->Timeout = &tempo;
 
 	if(SOAP_OK != proxyPTZ.ContinuousMove(tptz__ContinuousMove, tptz__ContinuousMoveResponse)){
 		std::string errorDetail;

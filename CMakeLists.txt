@@ -1,4 +1,4 @@
-project(zoom_tea)
+project(onvif_ptz_test)
 cmake_minimum_required(VERSION 2.8)
 
 list(
@@ -29,22 +29,11 @@ file(
   src/*.cpp
 )
 
-source_group(include FILES ${INC})
-source_group(src FILES ${SRC})
-
-add_executable(zoom_tea ${INC} ${SRC})
+add_executable(onvif_ptz_test ${INC} ${SRC})
 
 target_link_libraries(
-  zoom_tea
+  onvif_ptz_test
   wl
   ${OpenCV_LIBS}
   ${CURSES_LIBRARIES}
 )
-
-list(
-  APPEND
-  CUDA_NVCC_FLAGS
-  "-std=c++11"
-)
-set(CUDA_PROPAGATE_HOST_FLAGS OFF)
-set(CMAKE_CXX_FLAGS "-std=c++0x")

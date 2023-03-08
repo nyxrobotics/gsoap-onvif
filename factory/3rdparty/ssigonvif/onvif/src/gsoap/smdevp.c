@@ -1,7 +1,7 @@
 /*
-	smdevp.c
+  smdevp.c
 
-	gSOAP interface for (signed) message digest
+  gSOAP interface for (signed) message digest
 
 gSOAP XML Web services tools
 Copyright (C) 2000-2010, Robert van Engelen, Genivia Inc., All Rights Reserved.
@@ -88,7 +88,7 @@ The smdevp engine wraps the EVP API with three new functions:
 - @ref soap_smd_init	to initialize the engine
 - @ref soap_smd_update	to update the state with a message part
 - @ref soap_smd_final	to compute the digest, signature, or verify a signature
-			and deallocate the engine
+      and deallocate the engine
 
 A higher-level interface for computing (signed) message digests over
 messages produced by the gSOAP engine is defined by two new functions:
@@ -119,7 +119,7 @@ key applied to the SHA1 digest of the serialized object:
     else if (soap_smd_end(soap, sig, &siglen))
       soap_print_fault(soap, stderr);
     else
-      ... // sig contains RSA-SHA1 signature of length siglen 
+      ... // sig contains RSA-SHA1 signature of length siglen
     EVP_PKEY_free(key);
 @endcode
 
@@ -150,7 +150,7 @@ SOAP_SMD_PASSTHRU flag with the algorithm selection as follows:
     else if (soap_smd_end(soap, sig, &siglen))
       soap_print_fault(soap, stderr);
     else
-      ... // sig contains RSA-SHA1 signature of length siglen 
+      ... // sig contains RSA-SHA1 signature of length siglen
     close(soap->sendfd);
     EVP_PKEY_free(key);
 @endcode
@@ -288,9 +288,9 @@ extern "C" {
  *
 \******************************************************************************/
 
-static int soap_smd_send(struct soap *soap, const char *buf, size_t len);
-static size_t soap_smd_recv(struct soap *soap, char *buf, size_t len);
-static int soap_smd_check(struct soap *soap, struct soap_smd_data *data, int err, const char *msg);
+static int soap_smd_send(struct soap* soap, const char* buf, size_t len);
+static size_t soap_smd_recv(struct soap* soap, char* buf, size_t len);
+static int soap_smd_check(struct soap* soap, struct soap_smd_data* data, int err, const char* msg);
 
 /******************************************************************************\
  *
@@ -308,17 +308,19 @@ static int soap_smd_check(struct soap *soap, struct soap_smd_data *data, int err
 
 The values returned for digests are SOAP_SMD_MD5_SIZE, SOAP_SMD_SHA1_SIZE, SOAP_SMD_SHA256_SIZE, SOAP_SMD_SHA512_SIZE.
 */
-size_t
-soap_smd_size(int alg, const void *key)
-{ switch (alg & SOAP_SMD_ALGO)
-  { case SOAP_SMD_SIGN:
+size_t soap_smd_size(int alg, const void* key)
+{
+  switch (alg & SOAP_SMD_ALGO)
+  {
+    case SOAP_SMD_SIGN:
     case SOAP_SMD_VRFY:
       /* OpenSSL EVP_PKEY_size returns size of signatures given a key */
       return EVP_PKEY_size((EVP_PKEY*)key);
     case SOAP_SMD_HMAC:
     case SOAP_SMD_DGST:
       switch (alg & SOAP_SMD_HASH)
-      { case SOAP_SMD_MD5:
+      {
+        case SOAP_SMD_MD5:
           return SOAP_SMD_MD5_SIZE;
         case SOAP_SMD_SHA1:
           return SOAP_SMD_SHA1_SIZE;
@@ -326,8 +328,8 @@ soap_smd_size(int alg, const void *key)
           return SOAP_SMD_SHA256_SIZE;
         case SOAP_SMD_SHA512:
           return SOAP_SMD_SHA512_SIZE;
-	default:
-	  break;
+        default:
+          break;
       }
     default:
       break;
@@ -344,9 +346,9 @@ soap_smd_size(int alg, const void *key)
 @param[in] keylen is the length of the HMAC key or 0
 @return SOAP_OK, SOAP_EOM, or SOAP_SSL_ERROR
 */
-int
-soap_smd_begin(struct soap *soap, int alg, const void *key, int keylen)
-{ struct soap_smd_data *data;
+int soap_smd_begin(struct soap* soap, int alg, const void* key, int keylen)
+{
+  struct soap_smd_data* data;
   data = (struct soap_smd_data*)SOAP_MALLOC(soap, sizeof(struct soap_smd_data));
   if (!data)
     return soap->error = SOAP_EOM;
@@ -375,7 +377,8 @@ soap_smd_begin(struct soap *soap, int alg, const void *key, int keylen)
 
 /**
 @fn int soap_smd_end(struct soap *soap, char *buf, int *len)
-@brief Completes a digest or signature computation. Also deallocates temporary storage allocated by soap_smd_begin(), so MUST be called after soap_smd_begin().
+@brief Completes a digest or signature computation. Also deallocates temporary storage allocated by soap_smd_begin(), so
+MUST be called after soap_smd_begin().
 @param soap context
 @param[in] buf contains signature for verification (when using a SOAP_SMD_VRFY algorithm) or NULL for cleanup
 @param[out] buf is populated with the digest or signature with maximum length soap_smd_size(alg, key)
@@ -383,13 +386,14 @@ soap_smd_begin(struct soap *soap, int alg, const void *key, int keylen)
 @param[out] len points to length of stored digest or signature (when not NULL)
 @return SOAP_OK, SOAP_USER_ERROR, or SOAP_SSL_ERROR
 */
-int
-soap_smd_end(struct soap *soap, char *buf, int *len)
-{ struct soap_smd_data *data;
+int soap_smd_end(struct soap* soap, char* buf, int* len)
+{
+  struct soap_smd_data* data;
   int err;
   data = (struct soap_smd_data*)soap->data[0];
   if (!data)
-  { if (soap->error)
+  {
+    if (soap->error)
       return soap->error;
     return soap->error = SOAP_USER_ERROR;
   }
@@ -418,10 +422,10 @@ soap_smd_end(struct soap *soap, char *buf, int *len)
 @param[in] keylen is length of HMAC key (when provided)
 @return SOAP_OK or SOAP_SSL_ERROR
 */
-int
-soap_smd_init(struct soap *soap, struct soap_smd_data *data, int alg, const void *key, int keylen)
-{ int err = 1;
-  const EVP_MD *type;
+int soap_smd_init(struct soap* soap, struct soap_smd_data* data, int alg, const void* key, int keylen)
+{
+  int err = 1;
+  const EVP_MD* type;
   soap_ssl_init();
   /* the algorithm to use */
   data->alg = alg;
@@ -429,17 +433,28 @@ soap_smd_init(struct soap *soap, struct soap_smd_data *data, int alg, const void
   data->key = key;
   /* allocate and init the OpenSSL HMAC or EVP_MD context */
   if ((alg & SOAP_SMD_ALGO) == SOAP_SMD_HMAC)
-  { data->ctx = (void*)SOAP_MALLOC(soap, sizeof(HMAC_CTX));
+  {
+#if OPENSSL_VERSION_NUMBER >= 0x1010000fL
+    data->ctx = HMAC_CTX_new();
+#else
+    data->ctx = (void*)SOAP_MALLOC(soap, sizeof(HMAC_CTX));
     HMAC_CTX_init((HMAC_CTX*)data->ctx);
+#endif
   }
   else
-  { data->ctx = (void*)SOAP_MALLOC(soap, sizeof(EVP_MD_CTX));
+  {
+#if OPENSSL_VERSION_NUMBER >= 0x1010000fL
+    data->ctx = EVP_MD_CTX_new();
+#else
+    data->ctx = (void*)SOAP_MALLOC(soap, sizeof(EVP_MD_CTX));
+#endif
     EVP_MD_CTX_init((EVP_MD_CTX*)data->ctx);
   }
   DBGLOG(TEST, SOAP_MESSAGE(fdebug, "-- SMD Init alg=%x (%p) --\n", alg, data->ctx));
   /* init the digest or signature computations */
   switch (alg & SOAP_SMD_HASH)
-  { case SOAP_SMD_MD5:
+  {
+    case SOAP_SMD_MD5:
       type = EVP_md5();
       break;
     case SOAP_SMD_SHA1:
@@ -455,7 +470,8 @@ soap_smd_init(struct soap *soap, struct soap_smd_data *data, int alg, const void
       type = EVP_md_null();
   }
   switch (alg & SOAP_SMD_ALGO)
-  { case SOAP_SMD_HMAC:
+  {
+    case SOAP_SMD_HMAC:
       HMAC_Init((HMAC_CTX*)data->ctx, key, keylen, type);
       break;
     case SOAP_SMD_DGST:
@@ -483,14 +499,15 @@ soap_smd_init(struct soap *soap, struct soap_smd_data *data, int alg, const void
 @param[in] len of message part
 @return SOAP_OK or SOAP_SSL_ERROR
 */
-int
-soap_smd_update(struct soap *soap, struct soap_smd_data *data, const char *buf, size_t len)
-{ int err = 1;
+int soap_smd_update(struct soap* soap, struct soap_smd_data* data, const char* buf, size_t len)
+{
+  int err = 1;
   if (!data->ctx)
     return soap_set_receiver_error(soap, "soap_smd_update() failed", "No context", SOAP_SSL_ERROR);
   DBGLOG(TEST, SOAP_MESSAGE(fdebug, "-- SMD Update alg=%x n=%lu (%p) --\n", data->alg, (unsigned long)len, data->ctx));
   switch (data->alg & SOAP_SMD_ALGO)
-  { case SOAP_SMD_HMAC:
+  {
+    case SOAP_SMD_HMAC:
       HMAC_Update((HMAC_CTX*)data->ctx, (const unsigned char*)buf, len);
       break;
     case SOAP_SMD_DGST:
@@ -520,18 +537,23 @@ soap_smd_update(struct soap *soap, struct soap_smd_data *data, const char *buf, 
 @param[out] len points to length of stored digest or signature (pass NULL if you are not interested in this value)
 @return SOAP_OK or SOAP_SSL_ERROR
 */
-int
-soap_smd_final(struct soap *soap, struct soap_smd_data *data, char *buf, int *len)
-{ unsigned int n = 0;
+int soap_smd_final(struct soap* soap, struct soap_smd_data* data, char* buf, int* len)
+{
+  unsigned int n = 0;
   int err = 1;
   if (!data->ctx)
     return soap_set_receiver_error(soap, "soap_smd_final() failed", "No context", SOAP_SSL_ERROR);
   if (buf)
   { /* finalize the digest or signature computation */
     switch (data->alg & SOAP_SMD_ALGO)
-    { case SOAP_SMD_HMAC:
+    {
+      case SOAP_SMD_HMAC:
         HMAC_Final((HMAC_CTX*)data->ctx, (unsigned char*)buf, &n);
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+        HMAC_CTX_free((HMAC_CTX*)data->ctx);
+#else
         HMAC_CTX_cleanup((HMAC_CTX*)data->ctx);
+#endif
         break;
       case SOAP_SMD_DGST:
         EVP_DigestFinal((EVP_MD_CTX*)data->ctx, (unsigned char*)buf, &n);
@@ -541,7 +563,8 @@ soap_smd_final(struct soap *soap, struct soap_smd_data *data, char *buf, int *le
         break;
       case SOAP_SMD_VRFY:
         if (len)
-        { n = (unsigned int)*len;
+        {
+          n = (unsigned int)*len;
           err = EVP_VerifyFinal((EVP_MD_CTX*)data->ctx, (unsigned char*)buf, n, (EVP_PKEY*)data->key);
         }
         else
@@ -576,19 +599,34 @@ soap_smd_final(struct soap *soap, struct soap_smd_data *data, char *buf, int *le
 @param[in] msg error message
 @return SOAP_OK or SOAP_SSL_ERROR
 */
-static int
-soap_smd_check(struct soap *soap, struct soap_smd_data *data, int err, const char *msg)
-{ if (err <= 0)
-  { unsigned long r;
+static int soap_smd_check(struct soap* soap, struct soap_smd_data* data, int err, const char* msg)
+{
+  if (err <= 0)
+  {
+    unsigned long r;
     while ((r = ERR_get_error()))
-    { ERR_error_string_n(r, soap->msgbuf, sizeof(soap->msgbuf));
+    {
+      ERR_error_string_n(r, soap->msgbuf, sizeof(soap->msgbuf));
       DBGLOG(TEST, SOAP_MESSAGE(fdebug, "-- SMD Error (%d) %s: %s\n", err, msg, soap->msgbuf));
     }
     if (data->ctx)
-    { if ((data->alg & SOAP_SMD_ALGO) == SOAP_SMD_HMAC)
+    {
+      if ((data->alg & SOAP_SMD_ALGO) == SOAP_SMD_HMAC)
+      {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+        HMAC_CTX_free((HMAC_CTX*)data->ctx);
+#else
         HMAC_CTX_cleanup((HMAC_CTX*)data->ctx);
+#endif
+      }
       else
+      {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+        EVP_MD_CTX_free((EVP_MD_CTX*)data->ctx);
+#else
         EVP_MD_CTX_cleanup((EVP_MD_CTX*)data->ctx);
+#endif
+      }
       SOAP_FREE(soap, data->ctx);
       data->ctx = NULL;
     }
@@ -611,11 +649,12 @@ soap_smd_check(struct soap *soap, struct soap_smd_data *data, int err, const cha
 @param[in] len message length
 @return SOAP_OK or SOAP_SSL_ERROR
 */
-static int
-soap_smd_send(struct soap *soap, const char *buf, size_t len)
-{ int err;
+static int soap_smd_send(struct soap* soap, const char* buf, size_t len)
+{
+  int err;
   if (((struct soap_smd_data*)soap->data[0])->alg & SOAP_SMD_PASSTHRU)
-  { if ((err = ((struct soap_smd_data*)soap->data[0])->fsend(soap, buf, len)))
+  {
+    if ((err = ((struct soap_smd_data*)soap->data[0])->fsend(soap, buf, len)))
       return err;
   }
   return soap_smd_update(soap, (struct soap_smd_data*)soap->data[0], buf, len);
@@ -629,9 +668,9 @@ soap_smd_send(struct soap *soap, const char *buf, size_t len)
 @param[in] len max buffer length
 @return message size in buffer or 0 on error.
 */
-static size_t
-soap_smd_recv(struct soap *soap, char *buf, size_t len)
-{ size_t ret = ((struct soap_smd_data*)soap->data[0])->frecv(soap, buf, len);
+static size_t soap_smd_recv(struct soap* soap, char* buf, size_t len)
+{
+  size_t ret = ((struct soap_smd_data*)soap->data[0])->frecv(soap, buf, len);
   if (ret && soap_smd_update(soap, (struct soap_smd_data*)soap->data[0], buf, ret))
     return 0;
   return ret;
@@ -640,4 +679,3 @@ soap_smd_recv(struct soap *soap, char *buf, size_t len)
 #ifdef __cplusplus
 }
 #endif
-

@@ -582,3 +582,49 @@ std::string OnvifClientMedia::returnStreamUri()
 {
   return _streamUri;
 }
+std::string OnvifClientMedia::ErrorString()
+{
+  std::string result = "";
+  result += std::to_string(proxyMedia.soap->error);
+  result += " FaultString : ";
+  if (*soap_faultstring(proxyMedia.soap))
+  {
+    std::string faultstring(*soap_faultstring(proxyMedia.soap));
+    result += faultstring;
+  }
+  else
+  {
+    result += "null";
+  }
+  result += " FaultCode : ";
+  if (*soap_faultcode(proxyMedia.soap))
+  {
+    std::string faultcode(*soap_faultcode(proxyMedia.soap));
+    result += faultcode;
+  }
+  else
+  {
+    result += "null";
+  }
+  result += " FaultSubcode : ";
+  if (*soap_faultsubcode(proxyMedia.soap))
+  {
+    std::string faultsubcode(*soap_faultsubcode(proxyMedia.soap));
+    result += faultsubcode;
+  }
+  else
+  {
+    result += "null";
+  }
+  result += " FaultDetail : ";
+  if (*soap_faultdetail(proxyMedia.soap))
+  {
+    std::string faultdetail(*soap_faultdetail(proxyMedia.soap));
+    result += faultdetail;
+  }
+  else
+  {
+    result += "null";
+  }
+  return result;
+}

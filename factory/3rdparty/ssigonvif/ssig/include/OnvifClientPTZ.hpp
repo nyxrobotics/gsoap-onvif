@@ -61,6 +61,8 @@ public:
 
   // getter for _positon
   std::vector<float> getPosition();
+  // Show error message
+  virtual std::string ErrorString();
 
 private:
   // vector containing the exixting PTZConfigurations Tokens on the device

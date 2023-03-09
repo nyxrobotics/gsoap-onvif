@@ -54,6 +54,8 @@ public:
   std::vector<std::string> getVideoEncoderConfigurationsTokens();
 
   std::string returnStreamUri();
+  // Show error message
+  virtual std::string ErrorString();
 
 private:
   // name of the profile with profileToken setted by getProfile(profileToken) function

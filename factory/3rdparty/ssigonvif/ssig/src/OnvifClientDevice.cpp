@@ -128,3 +128,50 @@ std::vector<std::string> OnvifClientDevice::getUsernames()
 {
   return _username;
 }
+
+std::string OnvifClientDevice::ErrorString()
+{
+  std::string result = "";
+  result += std::to_string(proxyDevice.soap->error);
+  result += " FaultString : ";
+  if (*soap_faultstring(proxyDevice.soap))
+  {
+    std::string faultstring(*soap_faultstring(proxyDevice.soap));
+    result += faultstring;
+  }
+  else
+  {
+    result += "null";
+  }
+  result += " FaultCode : ";
+  if (*soap_faultcode(proxyDevice.soap))
+  {
+    std::string faultcode(*soap_faultcode(proxyDevice.soap));
+    result += faultcode;
+  }
+  else
+  {
+    result += "null";
+  }
+  result += " FaultSubcode : ";
+  if (*soap_faultsubcode(proxyDevice.soap))
+  {
+    std::string faultsubcode(*soap_faultsubcode(proxyDevice.soap));
+    result += faultsubcode;
+  }
+  else
+  {
+    result += "null";
+  }
+  result += " FaultDetail : ";
+  if (*soap_faultdetail(proxyDevice.soap))
+  {
+    std::string faultdetail(*soap_faultdetail(proxyDevice.soap));
+    result += faultdetail;
+  }
+  else
+  {
+    result += "null";
+  }
+  return result;
+}

@@ -549,3 +549,50 @@ std::vector<float> OnvifClientPTZ::getPosition()
 {
   return _position;
 }
+
+std::string OnvifClientPTZ::ErrorString()
+{
+  std::string result = "";
+  result += std::to_string(proxyPTZ.soap->error);
+  result += " FaultString : ";
+  if (*soap_faultstring(proxyPTZ.soap))
+  {
+    std::string faultstring(*soap_faultstring(proxyPTZ.soap));
+    result += faultstring;
+  }
+  else
+  {
+    result += "null";
+  }
+  result += " FaultCode : ";
+  if (*soap_faultcode(proxyPTZ.soap))
+  {
+    std::string faultcode(*soap_faultcode(proxyPTZ.soap));
+    result += faultcode;
+  }
+  else
+  {
+    result += "null";
+  }
+  result += " FaultSubcode : ";
+  if (*soap_faultsubcode(proxyPTZ.soap))
+  {
+    std::string faultsubcode(*soap_faultsubcode(proxyPTZ.soap));
+    result += faultsubcode;
+  }
+  else
+  {
+    result += "null";
+  }
+  result += " FaultDetail : ";
+  if (*soap_faultdetail(proxyPTZ.soap))
+  {
+    std::string faultdetail(*soap_faultdetail(proxyPTZ.soap));
+    result += faultdetail;
+  }
+  else
+  {
+    result += "null";
+  }
+  return result;
+}

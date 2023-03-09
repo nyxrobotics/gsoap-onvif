@@ -16,12 +16,10 @@ public:
   OnvifClientDevice();
   OnvifClientDevice(std::string url, std::string user, std::string password);
   ~OnvifClientDevice();
-
-public:
   void getUsers();
   std::vector<std::string> getUsernames();
-
-public:
+  // Show error message
+  virtual std::string ErrorString();
   bool _hasMedia;
   bool _hasPTZ;
 

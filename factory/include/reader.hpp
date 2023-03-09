@@ -13,6 +13,11 @@
 
 namespace wl
 {
+static void wait(int t)
+{
+  std::this_thread::sleep_for(std::chrono::milliseconds(t));
+}
+
 struct Frame
 {
   cv::Mat img;
@@ -53,7 +58,8 @@ public:
   void ZoomIn(float scale);
   void ZoomOut();
   void Reset();
-  void GotoPreset(int PresetToken);
+  std::vector<std::string> GetPresetTokens();
+  void GotoPreset(std::string PresetToken);
 
 private:
   std::string ip_;
@@ -61,7 +67,6 @@ private:
   std::string passwd_;
   std::shared_ptr<OnvifClientPTZ> ptz_;
   std::shared_ptr<OnvifClientMedia> media_;
-  std::vector<_ocp_Profile> profiles_;
   bool zoom_;
   float zoom_scale_;
   float speed_;

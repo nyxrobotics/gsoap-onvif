@@ -150,7 +150,7 @@ string JoinPath(std::initializer_list<string> args)
   std::vector<string> paths(std::move(args));
   CHECK_GE(paths.size(), 2);
   string res = paths[0];
-  for (int i = 1; i < paths.size(); i++)
+  for (int i = 1; i < (int)paths.size(); i++)
   {
 #ifdef WIN32
     res += "\\" + paths[i];
@@ -163,7 +163,7 @@ string JoinPath(std::initializer_list<string> args)
 string GetFileName(const string& path)
 {
   int pos = path.find_last_of("/");
-  if (pos == string::npos)
+  if (pos == (int)string::npos)
   {  // xxx.yyy
     return path.substr(0, path.find_last_of("."));
   }
@@ -176,7 +176,7 @@ string GetFileName(const string& path)
 string GetFileExtension(const string& path)
 {
   int pos = path.find_last_of(".");
-  if (pos == string::npos)
+  if (pos == (int)string::npos)
   {
     return "";
   }
@@ -234,7 +234,6 @@ vector<string> ListDir(const string& dpath, const vector<string>& exts)
 #else
   DIR* dir;
   struct dirent* file;
-  struct stat st;
   if (!(dir = opendir(dpath.c_str())))
   {
     return lists;
@@ -248,7 +247,7 @@ vector<string> ListDir(const string& dpath, const vector<string>& exts)
       continue;
     }
     string ext = GetFileExtension(fn);
-    for (int i = 0; i < exts.size(); i++)
+    for (int i = 0; i < (int)exts.size(); i++)
     {
       if (StringCompareCaseInsensitive(ext, exts[i]))
       {

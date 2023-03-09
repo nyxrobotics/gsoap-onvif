@@ -15,9 +15,7 @@ public:
 class TeaAnalyser
 {
 public:
-  TeaAnalyser(){
-    // Initialize(gpu);
-  };
+  TeaAnalyser();
   void SetReader(const wl::CameraConfig& config);
   void Run();
   std::string ObjectNameProduce(bool realtime);

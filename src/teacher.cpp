@@ -7,6 +7,10 @@ using namespace cv;
 using namespace std;
 using namespace wl;
 
+TeaAnalyser::TeaAnalyser(){
+  // Initialize(gpu);
+};
+
 void TeaAnalyser::SetReader(const wl::CameraConfig& config)
 {
   LOG(INFO) << "Test HIKIPCameraReader.";
@@ -19,6 +23,7 @@ void TeaAnalyser::Run()
 {
   fs::Timer timer;
   // std::vector<int> PresetTokens = {1,2};
+  std::vector<std::string> PresetTokens = ptzer_->GetPresetTokens();
   while (!cam_is_stop_)
   {
     timer.tic();

@@ -524,8 +524,7 @@ static int fsend(struct soap* soap, const char* s, size_t n)
         else
           nwritten = send(sk, s, (SOAP_WINSOCKINT)n, soap->socket_flags);
         /* retry and back-off algorithm */
-        /* TODO: this is not very clear from specs so verify and limit conditions under which we should loop (e.g.
-         * ENOBUFS) */
+        /* TODO: this is not very clear from specs so verify and limit conditions under which we should loop (e.g. ENOBUFS) */
         if (nwritten < 0)
         {
           int udp_repeat;
@@ -2939,10 +2938,9 @@ struct soap_nlist* SOAP_FMAC2 soap_push_namespace(struct soap* soap, const char*
   if (i < 0)
   {
     np->ns = strcpy((char*)np->id + n + 1, ns);
-    DBGLOG(TEST, SOAP_MESSAGE(fdebug,
-                              "Push NOT OK: no match found for '%s' in namespace mapping table (added to stack "
-                              "anyway)\n",
-                              ns));
+    DBGLOG(TEST, SOAP_MESSAGE(
+                     fdebug,
+                     "Push NOT OK: no match found for '%s' in namespace mapping table (added to stack anyway)\n", ns));
   }
   else
   {
@@ -3370,9 +3368,8 @@ const char* SOAP_FMAC2 soap_ssl_error(struct soap* soap, int ret)
     switch (ret)
     {
       case 0:
-        strcpy(soap->msgbuf,
-               "EOF was observed that violates the SSL/TLS protocol. The client probably provided invalid "
-               "authentication information.");
+        strcpy(soap->msgbuf, "EOF was observed that violates the SSL/TLS protocol. The client probably provided "
+                             "invalid authentication information.");
         break;
       case -1:
 #ifdef HAVE_SNPRINTF
@@ -7764,8 +7761,8 @@ int SOAP_FMAC2 soap_begin_send(struct soap* soap)
 #ifdef WIN32
 #ifndef UNDER_CE
 #ifndef WITH_FASTCGI
-  if (!soap_valid_socket(soap->socket) && !soap->os) /* Set win32 stdout or soap->sendfd to BINARY, e.g. to support DIME
-                                                      */
+  if (!soap_valid_socket(soap->socket) &&
+      !soap->os) /* Set win32 stdout or soap->sendfd to BINARY, e.g. to support DIME */
 #ifdef __BORLANDC__
     setmode(soap->sendfd, _O_BINARY);
 #else
@@ -16058,8 +16055,8 @@ int SOAP_FMAC2 soap_begin_recv(struct soap* soap)
 #ifdef WIN32
 #ifndef UNDER_CE
 #ifndef WITH_FASTCGI
-  if (!soap_valid_socket(soap->socket) && !soap->is) /* Set win32 stdout or soap->sendfd to BINARY, e.g. to support DIME
-                                                      */
+  if (!soap_valid_socket(soap->socket) &&
+      !soap->is) /* Set win32 stdout or soap->sendfd to BINARY, e.g. to support DIME */
 #ifdef __BORLANDC__
     setmode(soap->recvfd, _O_BINARY);
 #else

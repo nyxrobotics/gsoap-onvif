@@ -1,17 +1,18 @@
 #include "OnvifClientMedia.hpp"
 #include "glog/logging.h"
+#include <stdexcept>
 
-OnvifClientMedia::OnvifClientMedia(std::string url, std::string user, std::string password, bool showCapabilities)
-  : OnvifClientDevice(url, user, password, showCapabilities), has_move_profile_(false), has_ptz_config_(false)
+OnvifClientMedia::OnvifClientMedia(std::string url, std::string user, std::string password)
+  : OnvifClientDevice(url, user, password)
 {
-  if (has_media_)
+  if (_hasMedia)
   {
-    proxy_media_.soap_endpoint = media_url_.c_str();
-    soap_register_plugin(proxy_media_.soap, soap_wsse);
+    proxyMedia.soap_endpoint = _strUrl.c_str();
+    soap_register_plugin(proxyMedia.soap, soap_wsse);
   }
   else
   {
-    LOG(FATAL) << "Camera didn't implement Media functions";
+    throw std::runtime_error(std::string("Camera does not implement Media functions"));
   }
 }
 
@@ -19,176 +20,376 @@ OnvifClientMedia::~OnvifClientMedia()
 {
 }
 
-void OnvifClientMedia::getProfile(std::string profileToken)
-{
-  CHECK_EQ(SOAP_OK, soap_wsse_add_UsernameTokenDigest(proxy_media_.soap, NULL, user_.c_str(), passwd_.c_str())) << "wss"
-                                                                                                                   "e "
-                                                                                                                   "err"
-                                                                                                                   "or";
-  auto* profile = soap_new__trt__GetProfile(soap_, -1);
-  auto* profileResponse = soap_new__trt__GetProfileResponse(soap_, -1);
-
-  profile->ProfileToken = profileToken;
-  CHECK_EQ(SOAP_OK, proxy_media_.GetProfile(profile, profileResponse)) << "get profile error " << ErrorString();
-
-  LOG(INFO) << "Video Source token: " << profileResponse->Profile->VideoSourceConfiguration->token;
-  LOG(INFO) << "Video Encoder token: " << profileResponse->Profile->VideoEncoderConfiguration->token;
-
-  soap_destroy(soap_);
-  soap_end(soap_);
-}
-
 void OnvifClientMedia::createProfile(std::string profileName, std::string profileToken)
 {
-  // getProfiles(profileToken);
-  if (!has_move_profile_)
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    CHECK_EQ(SOAP_OK, soap_wsse_add_UsernameTokenDigest(proxy_media_.soap, NULL, user_.c_str(), passwd_.c_str()))
-        << "wsse error";
-    auto* cr_profile = soap_new__trt__CreateProfile(soap_, -1);
-    auto* cr_profileResponse = soap_new__trt__CreateProfileResponse(soap_, -1);
-
-    cr_profile->Name = profileName;
-    cr_profile->Token = &profileToken;
-    CHECK_EQ(SOAP_OK, proxy_media_.CreateProfile(cr_profile, cr_profileResponse))
-        << "create profile error " << ErrorString();
-
-    soap_destroy(soap_);
-    soap_end(soap_);
+    throw std::runtime_error(ErrorString());
   }
-  else
+
+  _trt__CreateProfile* trt__CreateProfile = soap_new__trt__CreateProfile(soap, -1);
+  _trt__CreateProfileResponse* trt__CreateProfileResponse = soap_new__trt__CreateProfileResponse(soap, -1);
+
+  trt__CreateProfile->Name = profileName;
+  trt__CreateProfile->Token = &profileToken;
+
+  if (SOAP_OK != proxyMedia.CreateProfile(trt__CreateProfile, trt__CreateProfileResponse))
   {
-    LOG(WARNING) << "Already has this profile, doesn't need to create again";
-  }
-}
-
-void OnvifClientMedia::deleteProfile(std::string profileToken)
-{
-  CHECK_EQ(SOAP_OK, soap_wsse_add_UsernameTokenDigest(proxy_media_.soap, NULL, user_.c_str(), passwd_.c_str())) << "wss"
-                                                                                                                   "e "
-                                                                                                                   "err"
-                                                                                                                   "or";
-  auto* del_profile = soap_new__trt__DeleteProfile(soap_, -1);
-  auto* del_profileResponse = soap_new__trt__DeleteProfileResponse(soap_, -1);
-
-  del_profile->ProfileToken = profileToken;
-  CHECK_EQ(SOAP_OK, proxy_media_.DeleteProfile(del_profile, del_profileResponse))
-      << "delete profile error " << ErrorString();
-
-  soap_destroy(soap_);
-  soap_end(soap_);
-}
-
-void OnvifClientMedia::addPTZConfiguration(std::string profileToken, std::string configurationToken)
-{
-  CHECK_EQ(SOAP_OK, soap_wsse_add_UsernameTokenDigest(proxy_media_.soap, NULL, user_.c_str(), passwd_.c_str())) << "wss"
-                                                                                                                   "e "
-                                                                                                                   "err"
-                                                                                                                   "or";
-  auto* add_config = soap_new__trt__AddPTZConfiguration(soap_, -1);
-  auto* add_configResponse = soap_new__trt__AddPTZConfigurationResponse(soap_, -1);
-
-  add_config->ProfileToken = profileToken;
-  add_config->ConfigurationToken = configurationToken;
-  CHECK_EQ(SOAP_OK, proxy_media_.AddPTZConfiguration(add_config, add_configResponse))
-      << "add ptz config error " << ErrorString();
-
-  soap_destroy(soap_);
-  soap_end(soap_);
-}
-/*
-bool OnvifClientMedia::GetProfiles(std::vector<_ocp_Profile> & __profiles) {
-
-  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _ocp_username.c_str(), _ocp_password.c_str()))
-{
-//		PrintErr(proxyMedia.soap);
-    return false;
-  }
-
-  struct soap* soap = soap_new();
-  _trt__GetProfiles * request = soap_new__trt__GetProfiles(soap);
-  _trt__GetProfilesResponse * response = soap_new__trt__GetProfilesResponse(soap);
-
-  bool execute_result = true;
-
-    __profiles.clear();
-  if (SOAP_OK == proxyMedia.GetProfiles(request,response)) {
-    for (int i = 0; i < response->Profiles.size(); ++i) {
-      _ocp_Profile profile;
-      profile.profileName = response->Profiles[i]->Name;
-      profile.profileToken = response->Profiles[i]->token;
-      __profiles.emplace_back(profile);
-    }
-    execute_result = true;
-  } else {
-//		PrintErr(proxyMedia.soap);
-    execute_result = false;
+    throw std::runtime_error(ErrorString());
   }
 
   soap_destroy(soap);
   soap_end(soap);
-  return execute_result;
 }
-
-*/
-void OnvifClientMedia::getProfiles(std::vector<_ocp_Profile>& profilesResponse)
+void OnvifClientMedia::deleteProfile(std::string profileToken)
 {
-  CHECK_EQ(SOAP_OK, soap_wsse_add_UsernameTokenDigest(proxy_media_.soap, NULL, user_.c_str(), passwd_.c_str())) << "wss"
-                                                                                                                   "e "
-                                                                                                                   "err"
-                                                                                                                   "or";
-  CHECK_EQ(SOAP_OK, soap_wsse_add_Timestamp(proxy_media_.soap, "Time", 10)) << "wsse add timestamp error";
-
-  struct soap* soap = soap_new();
-  _trt__GetProfiles* get_profiles = soap_new__trt__GetProfiles(soap);
-  _trt__GetProfilesResponse* get_profilesResponse = soap_new__trt__GetProfilesResponse(soap);
-
-  // auto *get_profiles = soap_new__trt__GetProfiles(soap_, -1);
-  // auto *get_profilesResponse = soap_new__trt__GetProfilesResponse(soap_, -1);
-
-  CHECK_EQ(SOAP_OK, proxy_media_.GetProfiles(get_profiles, get_profilesResponse))
-      << "get profiles error " << ErrorString();
-  /*
-    auto *getstream_uri = soap_new__trt__GetStreamUri(soap_, -1);
-    getstream_uri->StreamSetup = soap_new_tt__StreamSetup(soap_, -1);
-    getstream_uri->StreamSetup->Stream = tt__StreamType__RTP_Unicast;
-    getstream_uri->StreamSetup->Transport = soap_new_tt__Transport(soap_, -1);
-    getstream_uri->StreamSetup->Transport->Protocol = tt__TransportProtocol__RTSP;
-
-    auto *getstream_uriResponse = soap_new__trt__GetStreamUriResponse(soap_, -1);
-  */
-  /*
-      getstream_uri->ProfileToken = get_profilesResponse->Profiles[i]->token;
-      CHECK_EQ(SOAP_OK, soap_wsse_add_UsernameTokenDigest(proxy_media_.soap, NULL,
-        user_.c_str(), passwd_.c_str())) << "wsse error";
-
-      CHECK_EQ(SOAP_OK, proxy_media_.GetStreamUri(getstream_uri, getstream_uriResponse))
-        << "get profiles error " << ErrorString();
-   */
-
-  profilesResponse.clear();
-  for (int i = 0; i < get_profilesResponse->Profiles.size(); ++i)
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    LOG(INFO) << " profile : " << get_profilesResponse->Profiles[i]->Name
-              << " Token : " << get_profilesResponse->Profiles[i]->token;
-    _ocp_Profile profile;
-    profile.profileName = get_profilesResponse->Profiles[i]->Name;
-    profile.profileToken = get_profilesResponse->Profiles[i]->token;
-    profilesResponse.emplace_back(profile);
+    throw std::runtime_error(ErrorString());
   }
 
-  soap_destroy(soap_);
-  soap_end(soap_);
+  _trt__DeleteProfile* trt__DeleteProfile = soap_new__trt__DeleteProfile(soap, -1);
+  _trt__DeleteProfileResponse* trt__DeleteProfileResponse = soap_new__trt__DeleteProfileResponse(soap, -1);
+
+  trt__DeleteProfile->ProfileToken = profileToken;
+
+  if (SOAP_OK != proxyMedia.DeleteProfile(trt__DeleteProfile, trt__DeleteProfileResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+
+  soap_destroy(soap);
+  soap_end(soap);
 }
 
+void OnvifClientMedia::getProfiles()
+{
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+
+  if (SOAP_OK != soap_wsse_add_Timestamp(proxyMedia.soap, "Time", 100000))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+
+  _trt__GetProfiles* trt__GetProfiles = soap_new__trt__GetProfiles(soap, -1);
+  _trt__GetProfilesResponse* trt__GetProfilesResponse = soap_new__trt__GetProfilesResponse(soap, -1);
+
+  if (SOAP_OK != proxyMedia.GetProfiles(trt__GetProfiles, trt__GetProfilesResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+  else
+  {
+    if (trt__GetProfilesResponse->Profiles.size() > 0)
+    {
+      for (int i = 0; i < (int)trt__GetProfilesResponse->Profiles.size(); i++)
+      {
+        this->_profilesNames.push_back(trt__GetProfilesResponse->Profiles[i]->Name);
+        this->_profilesTokens.push_back(trt__GetProfilesResponse->Profiles[i]->token);
+      }
+    }
+    else
+    {
+      throw std::runtime_error("There are no Media Profiles on the device");
+    }
+  }
+  soap_destroy(soap);
+  soap_end(soap);
+}
+void OnvifClientMedia::getProfile(std::string profileToken)
+{
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+
+  _trt__GetProfile* trt__GetProfile = soap_new__trt__GetProfile(soap, -1);
+  _trt__GetProfileResponse* trt__GetProfileResponse = soap_new__trt__GetProfileResponse(soap, -1);
+
+  trt__GetProfile->ProfileToken = profileToken;
+
+  if (SOAP_OK != proxyMedia.GetProfile(trt__GetProfile, trt__GetProfileResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+  else
+  {
+    this->_profileName = trt__GetProfileResponse->Profile->Name;
+  }
+
+  soap_destroy(soap);
+  soap_end(soap);
+}
+
+void OnvifClientMedia::getVideoSourceConfigurations()
+{
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+
+  _trt__GetVideoSourceConfigurations* trt__GetVideoSourceConfigurations =
+      soap_new__trt__GetVideoSourceConfigurations(soap, -1);
+  _trt__GetVideoSourceConfigurationsResponse* trt__GetVideoSourceConfigurationsResponse =
+      soap_new__trt__GetVideoSourceConfigurationsResponse(soap, -1);
+
+  if (SOAP_OK != proxyMedia.GetVideoSourceConfigurations(trt__GetVideoSourceConfigurations,
+                                                         trt__GetVideoSourceConfigurationsResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+  else
+  {
+    if (trt__GetVideoSourceConfigurationsResponse->Configurations.size() > 0)
+    {
+      for (int i = 0; i < (int)trt__GetVideoSourceConfigurationsResponse->Configurations.size(); ++i)
+      {
+        this->_videoSourceConfigurationsTokens.push_back(
+            trt__GetVideoSourceConfigurationsResponse->Configurations[i]->token);
+      }
+    }
+    else
+    {
+      throw std::runtime_error("There are no Video Source Configurations on the device\n");
+    }
+  }
+
+  soap_destroy(soap);
+  soap_end(soap);
+}
+void OnvifClientMedia::addVideoSourceConfiguration(std::string profileToken, std::string configurationToken)
+{
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+
+  _trt__AddVideoSourceConfiguration* trt__AddVideoSourceConfiguration =
+      soap_new__trt__AddVideoSourceConfiguration(soap, -1);
+  _trt__AddVideoSourceConfigurationResponse* trt__AddVideoSourceConfigurationResponse =
+      soap_new__trt__AddVideoSourceConfigurationResponse(soap, -1);
+
+  trt__AddVideoSourceConfiguration->ProfileToken = profileToken;
+  trt__AddVideoSourceConfiguration->ConfigurationToken = configurationToken;
+
+  if (SOAP_OK != proxyMedia.AddVideoSourceConfiguration(trt__AddVideoSourceConfiguration,
+                                                        trt__AddVideoSourceConfigurationResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+
+  soap_destroy(soap);
+  soap_end(soap);
+}
+
+void OnvifClientMedia::getVideoEncoderConfigurations()
+{
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+
+  _trt__GetVideoEncoderConfigurations* trt__GetVideoEncoderConfigurations =
+      soap_new__trt__GetVideoEncoderConfigurations(soap, -1);
+  _trt__GetVideoEncoderConfigurationsResponse* trt__GetVideoEncoderConfigurationsResponse =
+      soap_new__trt__GetVideoEncoderConfigurationsResponse(soap, -1);
+
+  if (SOAP_OK != proxyMedia.GetVideoEncoderConfigurations(trt__GetVideoEncoderConfigurations,
+                                                          trt__GetVideoEncoderConfigurationsResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+  else
+  {
+    if (trt__GetVideoEncoderConfigurationsResponse->Configurations.size() > 0)
+    {
+      for (int i = 0; i < (int)trt__GetVideoEncoderConfigurationsResponse->Configurations.size(); ++i)
+      {
+        this->_videoEncoderConfigurationsTokens.push_back(
+            trt__GetVideoEncoderConfigurationsResponse->Configurations[i]->token);
+      }
+    }
+    else
+    {
+      throw std::runtime_error("There are no Video Source Configurations on the device\n");
+    }
+  }
+
+  soap_destroy(soap);
+  soap_end(soap);
+}
+void OnvifClientMedia::addVideoEncoderConfiguration(std::string profileToken, std::string configurationToken)
+{
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+
+  _trt__AddVideoEncoderConfiguration* trt__AddVideoEncoderConfiguration =
+      soap_new__trt__AddVideoEncoderConfiguration(soap, -1);
+  _trt__AddVideoEncoderConfigurationResponse* trt__AddVideoEncoderConfigurationResponse =
+      soap_new__trt__AddVideoEncoderConfigurationResponse(soap, -1);
+
+  trt__AddVideoEncoderConfiguration->ProfileToken = profileToken;
+  trt__AddVideoEncoderConfiguration->ConfigurationToken = configurationToken;
+
+  if (SOAP_OK != proxyMedia.AddVideoEncoderConfiguration(trt__AddVideoEncoderConfiguration,
+                                                         trt__AddVideoEncoderConfigurationResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+
+  soap_destroy(soap);
+  soap_end(soap);
+}
+void OnvifClientMedia::getVideoEncoderConfigurationOptions(std::string profileToken, std::string configurationToken)
+{
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+
+  _trt__GetVideoEncoderConfigurationOptions* trt__GetVideoEncoderConfigurationOptions =
+      soap_new__trt__GetVideoEncoderConfigurationOptions(soap, -1);
+  _trt__GetVideoEncoderConfigurationOptionsResponse* trt__GetVideoEncoderConfigurationOptionsResponse =
+      soap_new__trt__GetVideoEncoderConfigurationOptionsResponse(soap, -1);
+
+  if (SOAP_OK != proxyMedia.GetVideoEncoderConfigurationOptions(trt__GetVideoEncoderConfigurationOptions,
+                                                                trt__GetVideoEncoderConfigurationOptionsResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+
+  soap_destroy(soap);
+  soap_end(soap);
+}
+void OnvifClientMedia::setVideoEncoderConfiguration(std::string configurationToken)
+{
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+
+  _trt__SetVideoEncoderConfiguration* trt__SetVideoEncoderConfiguration =
+      soap_new__trt__SetVideoEncoderConfiguration(soap, -1);
+  _trt__SetVideoEncoderConfigurationResponse* trt__SetVideoEncoderConfigurationResponse =
+      soap_new__trt__SetVideoEncoderConfigurationResponse(soap, -1);
+
+  trt__SetVideoEncoderConfiguration->Configuration = soap_new_tt__VideoEncoderConfiguration(soap, -1);
+  trt__SetVideoEncoderConfiguration->Configuration->token = "default_1_jpeg";
+  trt__SetVideoEncoderConfiguration->Configuration->Resolution = soap_new_tt__VideoResolution(soap, -1);
+  trt__SetVideoEncoderConfiguration->Configuration->Resolution->Width = 704;
+  trt__SetVideoEncoderConfiguration->Configuration->Resolution->Height = 408;
+  trt__SetVideoEncoderConfiguration->Configuration->Encoding = tt__VideoEncoding__MPEG4;
+
+  if (SOAP_OK != proxyMedia.SetVideoEncoderConfiguration(trt__SetVideoEncoderConfiguration,
+                                                         trt__SetVideoEncoderConfigurationResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+
+  soap_destroy(soap);
+  soap_end(soap);
+}
+
+void OnvifClientMedia::getStreamURI(std::string profileToken)
+{
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+  _trt__GetStreamUri* trt__GetStreamUri = soap_new__trt__GetStreamUri(soap, -1);
+  trt__GetStreamUri->StreamSetup = soap_new_tt__StreamSetup(soap, -1);
+  trt__GetStreamUri->StreamSetup->Stream = tt__StreamType__RTP_Unicast;
+  trt__GetStreamUri->StreamSetup->Transport = soap_new_tt__Transport(soap, -1);
+  trt__GetStreamUri->StreamSetup->Transport->Protocol = tt__TransportProtocol__RTSP;
+  trt__GetStreamUri->ProfileToken = profileToken;
+
+  _trt__GetStreamUriResponse* trt__GetStreamUriResponse = soap_new__trt__GetStreamUriResponse(soap, -1);
+
+  if (SOAP_OK != proxyMedia.GetStreamUri(trt__GetStreamUri, trt__GetStreamUriResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+  else
+  {
+    if (trt__GetStreamUriResponse->MediaUri != NULL)
+    {
+      this->_streamUri = trt__GetStreamUriResponse->MediaUri->Uri;
+    }
+    else
+    {
+      throw std::runtime_error("Error");
+    }
+  }
+
+  soap_destroy(soap);
+  soap_end(soap);
+}
+
+void OnvifClientMedia::addPTZConfiguration(std::string profileToken, std::string configurationToken)
+{
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+
+  _trt__AddPTZConfiguration* trt__AddPTZConfiguration = soap_new__trt__AddPTZConfiguration(soap, -1);
+  _trt__AddPTZConfigurationResponse* trt__AddPTZConfigurationResponse =
+      soap_new__trt__AddPTZConfigurationResponse(soap, -1);
+
+  trt__AddPTZConfiguration->ProfileToken = profileToken;
+  trt__AddPTZConfiguration->ConfigurationToken = configurationToken;
+
+  if (SOAP_OK != proxyMedia.AddPTZConfiguration(trt__AddPTZConfiguration, trt__AddPTZConfigurationResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+
+  soap_destroy(soap);
+  soap_end(soap);
+}
+
+std::string OnvifClientMedia::getProfileName()
+{
+  return _profileName;
+}
+
+std::vector<std::string> OnvifClientMedia::getProfilesNames()
+{
+  return _profilesNames;
+}
+
+std::vector<std::string> OnvifClientMedia::getProfilesTokens()
+{
+  return _profilesTokens;
+}
+
+std::vector<std::string> OnvifClientMedia::getVideoSourceConfigurationsTokens()
+{
+  return _videoSourceConfigurationsTokens;
+}
+
+std::vector<std::string> OnvifClientMedia::getVideoEncoderConfigurationsTokens()
+{
+  return _videoEncoderConfigurationsTokens;
+}
+
+std::string OnvifClientMedia::returnStreamUri()
+{
+  return _streamUri;
+}
 std::string OnvifClientMedia::ErrorString()
 {
   std::string result = "";
-  result += std::to_string(proxy_media_.soap->error);
+  result += std::to_string(proxyMedia.soap->error);
   result += " FaultString : ";
-  if (*soap_faultstring(proxy_media_.soap))
+  if (*soap_faultstring(proxyMedia.soap))
   {
-    std::string faultstring(*soap_faultstring(proxy_media_.soap));
+    std::string faultstring(*soap_faultstring(proxyMedia.soap));
     result += faultstring;
   }
   else
@@ -196,9 +397,9 @@ std::string OnvifClientMedia::ErrorString()
     result += "null";
   }
   result += " FaultCode : ";
-  if (*soap_faultcode(proxy_media_.soap))
+  if (*soap_faultcode(proxyMedia.soap))
   {
-    std::string faultcode(*soap_faultcode(proxy_media_.soap));
+    std::string faultcode(*soap_faultcode(proxyMedia.soap));
     result += faultcode;
   }
   else
@@ -206,9 +407,9 @@ std::string OnvifClientMedia::ErrorString()
     result += "null";
   }
   result += " FaultSubcode : ";
-  if (*soap_faultsubcode(proxy_media_.soap))
+  if (*soap_faultsubcode(proxyMedia.soap))
   {
-    std::string faultsubcode(*soap_faultsubcode(proxy_media_.soap));
+    std::string faultsubcode(*soap_faultsubcode(proxyMedia.soap));
     result += faultsubcode;
   }
   else
@@ -216,9 +417,9 @@ std::string OnvifClientMedia::ErrorString()
     result += "null";
   }
   result += " FaultDetail : ";
-  if (*soap_faultdetail(proxy_media_.soap))
+  if (*soap_faultdetail(proxyMedia.soap))
   {
-    std::string faultdetail(*soap_faultdetail(proxy_media_.soap));
+    std::string faultdetail(*soap_faultdetail(proxyMedia.soap));
     result += faultdetail;
   }
   else

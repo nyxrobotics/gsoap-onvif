@@ -1,18 +1,17 @@
 #include "OnvifClientPTZ.hpp"
 #include "glog/logging.h"
 
-OnvifClientPTZ::OnvifClientPTZ(std::string url, std::string user, std::string password, bool showCapabilities)
-  : OnvifClientDevice(url, user, password, showCapabilities)
+OnvifClientPTZ::OnvifClientPTZ(std::string url, std::string user, std::string password)
+  : OnvifClientDevice(url, user, password)
 {
-  if (has_ptz_)
+  if (_hasPTZ)
   {
-    proxy_ptz_.soap_endpoint = ptz_url_.c_str();
-    LOG(INFO) << "proxy_ptz_.soap_endpoint:" << proxy_ptz_.soap_endpoint;
-    soap_register_plugin(proxy_ptz_.soap, soap_wsse);
+    proxyPTZ.soap_endpoint = _strUrl.c_str();
+    soap_register_plugin(proxyPTZ.soap, soap_wsse);
   }
   else
   {
-    LOG(FATAL) << "Camera does not implement PTZ functions";
+    throw "Camera does not implement PTZ functions";
   }
 }
 
@@ -20,299 +19,301 @@ OnvifClientPTZ::~OnvifClientPTZ()
 {
 }
 
-void OnvifClientPTZ::getPTZConfigurations()
+void OnvifClientPTZ::getConfigurations()
 {
-  CHECK_EQ(SOAP_OK, soap_wsse_add_UsernameTokenDigest(proxy_ptz_.soap, NULL, user_.c_str(), passwd_.c_str())) << "wsse "
-                                                                                                                 "erro"
-                                                                                                                 "r";
-
-  auto* configs = soap_new__tptz__GetConfigurations(soap_, -1);
-  auto* configresponse = soap_new__tptz__GetConfigurationsResponse(soap_, -1);
-  CHECK_EQ(SOAP_OK, proxy_ptz_.GetConfigurations(configs, configresponse))
-      << "get ptz configurations error " << ErrorString();
-
-  for (int i = 0; i < configresponse->PTZConfiguration.size(); ++i)
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    LOG(INFO) << "ConfigurationToken #" << i << ": " << configresponse->PTZConfiguration[i]->token;
+    throw std::runtime_error(ErrorString());
   }
-  soap_destroy(soap_);
-  soap_end(soap_);
+
+  _tptz__GetConfigurations* tptz__GetConfigurations = soap_new__tptz__GetConfigurations(soap, -1);
+  _tptz__GetConfigurationsResponse* tptz__GetConfigurationsResponse =
+      soap_new__tptz__GetConfigurationsResponse(soap, -1);
+
+  if (SOAP_OK != proxyPTZ.GetConfigurations(tptz__GetConfigurations, tptz__GetConfigurationsResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+  else
+  {
+    for (int i = 0; i < (int)tptz__GetConfigurationsResponse->PTZConfiguration.size(); ++i)
+    {
+      this->_PTZConfigurationsNames.push_back(tptz__GetConfigurationsResponse->PTZConfiguration[i]->Name);
+      this->_PTZConfigurationsTokens.push_back(tptz__GetConfigurationsResponse->PTZConfiguration[i]->token);
+    }
+  }
+
+  soap_destroy(soap);
+  soap_end(soap);
 }
 
 void OnvifClientPTZ::getStatus(std::string profileToken)
 {
-  CHECK_EQ(SOAP_OK, soap_wsse_add_UsernameTokenDigest(proxy_ptz_.soap, NULL, user_.c_str(), passwd_.c_str())) << "wsse "
-                                                                                                                 "erro"
-                                                                                                                 "r";
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    throw std::runtime_error(ErrorString());
+  }
 
-  auto* status = soap_new__tptz__GetStatus(soap_, -1);
-  auto* status_response = soap_new__tptz__GetStatusResponse(soap_, -1);
+  _tptz__GetStatus* tptz__GetStatus = soap_new__tptz__GetStatus(soap, -1);
+  _tptz__GetStatusResponse* tptz__GetStatusResponse = soap_new__tptz__GetStatusResponse(soap, -1);
 
-  status->ProfileToken = profileToken.c_str();
-  CHECK_EQ(SOAP_OK, proxy_ptz_.GetStatus(status, status_response)) << "get status error " << ErrorString();
+  tptz__GetStatus->ProfileToken = profileToken.c_str();
 
-  LOG(INFO) << "PAN: " << status_response->PTZStatus->Position->PanTilt->x;
-  LOG(INFO) << "TILT: " << status_response->PTZStatus->Position->PanTilt->y;
-  LOG(INFO) << "ZOOM:" << status_response->PTZStatus->Position->Zoom->x;
-  LOG(INFO) << "PanTilt:" << status_response->PTZStatus->MoveStatus->PanTilt;
-  LOG(INFO) << "ZoomStatus" << status_response->PTZStatus->MoveStatus->Zoom;
-  LOG(INFO) << "ERROR: " << status_response->PTZStatus->Error;
-  LOG(INFO) << "UtcTime: " << status_response->PTZStatus->UtcTime;
-  soap_destroy(soap_);
-  soap_end(soap_);
+  if (SOAP_OK != proxyPTZ.GetStatus(tptz__GetStatus, tptz__GetStatusResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+  else
+  {
+    this->_position.push_back(tptz__GetStatusResponse->PTZStatus->Position->PanTilt->x);  // pan value
+    this->_position.push_back(tptz__GetStatusResponse->PTZStatus->Position->PanTilt->y);  // tilt value
+    this->_position.push_back(tptz__GetStatusResponse->PTZStatus->Position->Zoom->x);     // zoom value
+  }
+  soap_destroy(soap);
+  soap_end(soap);
 }
+
 void OnvifClientPTZ::gotoPreset(std::string profileToken, int PresetToken, float Speed)
 {
-  CHECK_EQ(SOAP_OK, soap_wsse_add_UsernameTokenDigest(proxy_ptz_.soap, NULL, user_.c_str(), passwd_.c_str())) << "wsse "
-                                                                                                                 "erro"
-                                                                                                                 "r";
-  auto* go_preset = soap_new__tptz__GotoPreset(soap_, -1);
-  auto* go_presetResponse = soap_new__tptz__GotoPresetResponse(soap_, -1);
-  int dwPresetIndex = 1;
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+  _tptz__GotoPreset* go_preset = soap_new__tptz__GotoPreset(soap, -1);
+  _tptz__GotoPresetResponse* go_presetResponse = soap_new__tptz__GotoPresetResponse(soap, -1);
   std::string strPresetToken = std::to_string(PresetToken);
   go_preset->ProfileToken = profileToken;
   go_preset->PresetToken = strPresetToken;
-  CHECK_EQ(SOAP_OK, proxy_ptz_.GotoPreset(go_preset, go_presetResponse)) << " goto preset error" << ErrorString();
-
-  soap_destroy(soap_);
-  soap_end(soap_);
+  if (SOAP_OK != proxyPTZ.GotoPreset(go_preset, go_presetResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+  soap_destroy(soap);
+  soap_end(soap);
 }
 
 void OnvifClientPTZ::getPresets(std::string profileToken)
 {
-  CHECK_EQ(SOAP_OK, soap_wsse_add_UsernameTokenDigest(proxy_ptz_.soap, NULL, user_.c_str(), passwd_.c_str())) << "wsse "
-                                                                                                                 "erro"
-                                                                                                                 "r";
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    throw std::runtime_error(ErrorString());
+  }
   struct soap* soap = soap_new();
   _tptz__GetPresets* get_presets = soap_new__tptz__GetPresets(soap);
   _tptz__GetPresetsResponse* get_presetsResponse = soap_new__tptz__GetPresetsResponse(soap);
   get_presets->ProfileToken = profileToken.c_str();
-  CHECK_EQ(SOAP_OK, proxy_ptz_.GetPresets(get_presets, get_presetsResponse)) << "get profiles error " << ErrorString();
+  if (SOAP_OK != proxyPTZ.GetPresets(get_presets, get_presetsResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
   LOG(INFO) << get_presetsResponse;
 
-  for (int i = 0; i < get_presetsResponse->Preset.size(); ++i)
+  for (int i = 0; i < (int)get_presetsResponse->Preset.size(); ++i)
   {
-    LOG(INFO) << " profile : " << get_presetsResponse->Preset[i]->Name
-              << " Token : " << get_presetsResponse->Preset[i]->token;
+    LOG(INFO) << " Preset : " << *get_presetsResponse->Preset[i]->Name
+              << " Token : " << *get_presetsResponse->Preset[i]->token;
+    this->_PTZPresetNames.push_back(*get_presetsResponse->Preset[i]->Name);
+    this->_PTZPresetTokens.push_back(*get_presetsResponse->Preset[i]->token);
   }
-
-  /*
-        _ocp_Profile profile;
-        profile.profileName = get_profilesResponse->Profiles[i]->Name;
-        profile.profileToken = get_profilesResponse->Profiles[i]->token;
-        profilesResponse.emplace_back(profile);
-  */
-
-  soap_destroy(soap_);
-  soap_end(soap_);
+  soap_destroy(soap);
+  soap_end(soap);
 }
+
 void OnvifClientPTZ::absoluteMove(std::string profileToken, float pan, float panSpeed, float tilt, float tiltSpeed,
                                   float zoom, float zoomSpeed)
 {
-  CHECK_EQ(SOAP_OK, soap_wsse_add_UsernameTokenDigest(proxy_ptz_.soap, NULL, user_.c_str(), passwd_.c_str())) << "wsse "
-                                                                                                                 "erro"
-                                                                                                                 "r";
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    throw std::runtime_error(ErrorString());
+  }
 
-  auto* abs_move = soap_new__tptz__AbsoluteMove(soap_, -1);
-  auto* abs_moveResponse = soap_new__tptz__AbsoluteMoveResponse(soap_, -1);
+  _tptz__AbsoluteMove* tptz__AbsoluteMove = soap_new__tptz__AbsoluteMove(soap, -1);
+  _tptz__AbsoluteMoveResponse* tptz__AbsoluteMoveResponse = soap_new__tptz__AbsoluteMoveResponse(soap, -1);
 
-  abs_move->ProfileToken = profileToken;
+  tptz__AbsoluteMove->ProfileToken = profileToken;
 
   // setting pan and tilt
-  abs_move->Position = soap_new_tt__PTZVector(soap_, -1);
-  abs_move->Position->PanTilt = soap_new_tt__Vector2D(soap_, -1);
-  abs_move->Speed = soap_new_tt__PTZSpeed(soap_, -1);
-  abs_move->Speed->PanTilt = soap_new_tt__Vector2D(soap_, -1);
+  tptz__AbsoluteMove->Position = soap_new_tt__PTZVector(soap, -1);
+  tptz__AbsoluteMove->Position->PanTilt = soap_new_tt__Vector2D(soap, -1);
+  tptz__AbsoluteMove->Speed = soap_new_tt__PTZSpeed(soap, -1);
+  tptz__AbsoluteMove->Speed->PanTilt = soap_new_tt__Vector2D(soap, -1);
   // pan
-  abs_move->Position->PanTilt->x = pan;
-  abs_move->Speed->PanTilt->x = panSpeed;
+  tptz__AbsoluteMove->Position->PanTilt->x = pan;
+  tptz__AbsoluteMove->Speed->PanTilt->x = panSpeed;
   // tilt
-  abs_move->Position->PanTilt->y = tilt;
-  abs_move->Speed->PanTilt->y = tiltSpeed;
+  tptz__AbsoluteMove->Position->PanTilt->y = tilt;
+  tptz__AbsoluteMove->Speed->PanTilt->y = tiltSpeed;
   // setting zoom
-  abs_move->Position->Zoom = soap_new_tt__Vector1D(soap_, -1);
-  abs_move->Speed->Zoom = soap_new_tt__Vector1D(soap_, -1);
-  abs_move->Position->Zoom->x = zoom;
-  abs_move->Speed->Zoom->x = zoomSpeed;
+  tptz__AbsoluteMove->Position->Zoom = soap_new_tt__Vector1D(soap, -1);
+  tptz__AbsoluteMove->Speed->Zoom = soap_new_tt__Vector1D(soap, -1);
+  tptz__AbsoluteMove->Position->Zoom->x = zoom;
+  tptz__AbsoluteMove->Speed->Zoom->x = zoomSpeed;
 
-  CHECK_EQ(SOAP_OK, proxy_ptz_.AbsoluteMove(abs_move, abs_moveResponse)) << "absoulte move error " << ErrorString();
+  if (SOAP_OK != proxyPTZ.AbsoluteMove(tptz__AbsoluteMove, tptz__AbsoluteMoveResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
 
-  soap_destroy(soap_);
-  soap_end(soap_);
+  soap_destroy(soap);
+  soap_end(soap);
 }
 
 void OnvifClientPTZ::relativeMove(std::string profileToken, float pan, float panSpeed, float tilt, float tiltSpeed,
                                   float zoom, float zoomSpeed)
 {
-  CHECK_EQ(SOAP_OK, soap_wsse_add_UsernameTokenDigest(proxy_ptz_.soap, NULL, user_.c_str(), passwd_.c_str())) << "wsse "
-                                                                                                                 "erro"
-                                                                                                                 "r";
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    throw std::runtime_error(ErrorString());
+  }
 
-  auto* rlt_move = soap_new__tptz__RelativeMove(soap_, -1);
-  auto* rlt_moveResponse = soap_new__tptz__RelativeMoveResponse(soap_, -1);
+  _tptz__RelativeMove* tptz__RelativeMove = soap_new__tptz__RelativeMove(soap, -1);
+  _tptz__RelativeMoveResponse* tptz__RelativeMoveResponse = soap_new__tptz__RelativeMoveResponse(soap, -1);
 
-  rlt_move->ProfileToken = profileToken;
+  tptz__RelativeMove->ProfileToken = profileToken;
 
   // setting pan and tilt
-  rlt_move->Translation = soap_new_tt__PTZVector(soap_, -1);
-  rlt_move->Translation->PanTilt = soap_new_tt__Vector2D(soap_, -1);
-  rlt_move->Speed = soap_new_tt__PTZSpeed(soap_, -1);
-  rlt_move->Speed->PanTilt = soap_new_tt__Vector2D(soap_, -1);
+  tptz__RelativeMove->Translation = soap_new_tt__PTZVector(soap, -1);
+  tptz__RelativeMove->Translation->PanTilt = soap_new_tt__Vector2D(soap, -1);
+  tptz__RelativeMove->Speed = soap_new_tt__PTZSpeed(soap, -1);
+  tptz__RelativeMove->Speed->PanTilt = soap_new_tt__Vector2D(soap, -1);
   // pan
-  rlt_move->Translation->PanTilt->x = pan;
-  rlt_move->Speed->PanTilt->x = panSpeed;
+  tptz__RelativeMove->Translation->PanTilt->x = pan;
+  tptz__RelativeMove->Speed->PanTilt->x = panSpeed;
   // tilt
-  rlt_move->Translation->PanTilt->y = tilt;
-  rlt_move->Speed->PanTilt->y = tiltSpeed;
+  tptz__RelativeMove->Translation->PanTilt->y = tilt;
+  tptz__RelativeMove->Speed->PanTilt->y = tiltSpeed;
   // setting zoom
-  rlt_move->Translation->Zoom = soap_new_tt__Vector1D(soap_, -1);
-  rlt_move->Speed->Zoom = soap_new_tt__Vector1D(soap_, -1);
-  rlt_move->Translation->Zoom->x = zoom;
-  rlt_move->Speed->Zoom->x = zoomSpeed;
+  tptz__RelativeMove->Translation->Zoom = soap_new_tt__Vector1D(soap, -1);
+  tptz__RelativeMove->Speed->Zoom = soap_new_tt__Vector1D(soap, -1);
+  tptz__RelativeMove->Translation->Zoom->x = zoom;
+  tptz__RelativeMove->Speed->Zoom->x = zoomSpeed;
 
-  proxy_ptz_.RelativeMove(rlt_move, rlt_moveResponse);
-  /*
-    CHECK_EQ(SOAP_OK, proxy_ptz_.RelativeMove(rlt_move, rlt_moveResponse))
-      << "relative move error " << ErrorString();
-  */
-  soap_destroy(soap_);
-  soap_end(soap_);
+  if (SOAP_OK != proxyPTZ.RelativeMove(tptz__RelativeMove, tptz__RelativeMoveResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+  soap_destroy(soap);
+  soap_end(soap);
 }
 
 void OnvifClientPTZ::continuousMove(std::string profileToken, float panSpeed, float tiltSpeed, float zoomSpeed)
 {
-  CHECK_EQ(SOAP_OK, soap_wsse_add_UsernameTokenDigest(proxy_ptz_.soap, NULL, user_.c_str(), passwd_.c_str())) << "wsse "
-                                                                                                                 "erro"
-                                                                                                                 "r";
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    throw std::runtime_error(ErrorString());
+  }
 
-  auto* cnt_move = soap_new__tptz__ContinuousMove(soap_, -1);
-  auto* cnt_moveResponse = soap_new__tptz__ContinuousMoveResponse(soap_, -1);
+  _tptz__ContinuousMove* tptz__ContinuousMove = soap_new__tptz__ContinuousMove(soap, -1);
+  _tptz__ContinuousMoveResponse* tptz__ContinuousMoveResponse = soap_new__tptz__ContinuousMoveResponse(soap, -1);
 
-  cnt_move->ProfileToken = profileToken;
+  tptz__ContinuousMove->ProfileToken = profileToken;
 
   // setting pan and tilt speed
-  cnt_move->Velocity = soap_new_tt__PTZSpeed(soap_, -1);
-  cnt_move->Velocity->PanTilt = soap_new_tt__Vector2D(soap_, -1);
-  cnt_move->Velocity->PanTilt->x = panSpeed;
-  cnt_move->Velocity->PanTilt->y = tiltSpeed;
+  tptz__ContinuousMove->Velocity = soap_new_tt__PTZSpeed(soap, -1);
+  tptz__ContinuousMove->Velocity->PanTilt = soap_new_tt__Vector2D(soap, -1);
+  tptz__ContinuousMove->Velocity->PanTilt->x = panSpeed;
+  tptz__ContinuousMove->Velocity->PanTilt->y = tiltSpeed;
 
   // setting zoom speed
-  cnt_move->Velocity->Zoom = soap_new_tt__Vector1D(soap_, -1);
-  cnt_move->Velocity->Zoom->x = zoomSpeed;
+  tptz__ContinuousMove->Velocity->Zoom = soap_new_tt__Vector1D(soap, -1);
+  tptz__ContinuousMove->Velocity->Zoom->x = zoomSpeed;
 
-  int64_t tempo = 1;
-  cnt_move->Timeout = &tempo;
+  // int64_t tempo = 1;
+  // tptz__ContinuousMove->Timeout = &tempo;
 
-  CHECK_EQ(SOAP_OK, proxy_ptz_.ContinuousMove(cnt_move, cnt_moveResponse)) << "relative move error " << ErrorString();
+  if (SOAP_OK != proxyPTZ.ContinuousMove(tptz__ContinuousMove, tptz__ContinuousMoveResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
 
-  soap_destroy(soap_);
-  soap_end(soap_);
+  soap_destroy(soap);
+  soap_end(soap);
 }
 
 void OnvifClientPTZ::stop(std::string profileToken, bool panTilt, bool zoom)
 {
-  CHECK_EQ(SOAP_OK, soap_wsse_add_UsernameTokenDigest(proxy_ptz_.soap, NULL, user_.c_str(), passwd_.c_str())) << "wsse "
-                                                                                                                 "erro"
-                                                                                                                 "r";
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    throw std::runtime_error(ErrorString());
+  }
 
-  auto* stop = soap_new__tptz__Stop(soap_, -1);
-  auto* stop_response = soap_new__tptz__StopResponse(soap_, -1);
+  _tptz__Stop* tptz__Stop = soap_new__tptz__Stop(soap, -1);
+  _tptz__StopResponse* tptz__StopResponse = soap_new__tptz__StopResponse(soap, -1);
 
-  stop->ProfileToken = profileToken;
-  stop->PanTilt = &panTilt;
-  stop->Zoom = &zoom;
+  tptz__Stop->ProfileToken = profileToken;
+  tptz__Stop->PanTilt = &panTilt;
+  tptz__Stop->Zoom = &zoom;
 
-  CHECK_EQ(SOAP_OK, proxy_ptz_.Stop(stop, stop_response)) << "stop error" << ErrorString();
+  if (SOAP_OK != proxyPTZ.Stop(tptz__Stop, tptz__StopResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
 
-  soap_destroy(soap_);
-  soap_end(soap_);
+  soap_destroy(soap);
+  soap_end(soap);
 }
 
 void OnvifClientPTZ::setHomePosition(std::string profileToken)
 {
-  CHECK_EQ(SOAP_OK, soap_wsse_add_UsernameTokenDigest(proxy_ptz_.soap, NULL, user_.c_str(), passwd_.c_str())) << "wsse "
-                                                                                                                 "erro"
-                                                                                                                 "r";
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    throw std::runtime_error(ErrorString());
+  }
 
-  auto* set_home = soap_new__tptz__SetHomePosition(soap_, -1);
-  auto* set_homeResponse = soap_new__tptz__SetHomePositionResponse(soap_, -1);
+  _tptz__SetHomePosition* tptz__SetHomePosition = soap_new__tptz__SetHomePosition(soap, -1);
+  _tptz__SetHomePositionResponse* tptz__SetHomePositionResponse = soap_new__tptz__SetHomePositionResponse(soap, -1);
 
-  set_home->ProfileToken = profileToken;
-  proxy_ptz_.SetHomePosition(set_home, set_homeResponse);
-  /*
-    CHECK_EQ(SOAP_OK, proxy_ptz_.SetHomePosition(set_home, set_homeResponse))
-      << "set home position error" << ErrorString();
-  */
-  soap_destroy(soap_);
-  soap_end(soap_);
+  tptz__SetHomePosition->ProfileToken = profileToken;
+
+  if (SOAP_OK != proxyPTZ.SetHomePosition(tptz__SetHomePosition, tptz__SetHomePositionResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+
+  soap_destroy(soap);
+  soap_end(soap);
 }
 
 void OnvifClientPTZ::goToHomePosition(std::string profileToken)
 {
-  CHECK_EQ(SOAP_OK, soap_wsse_add_UsernameTokenDigest(proxy_ptz_.soap, NULL, user_.c_str(), passwd_.c_str())) << "wsse "
-                                                                                                                 "erro"
-                                                                                                                 "r";
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    throw std::runtime_error(ErrorString());
+  }
 
-  auto* go_home = soap_new__tptz__GotoHomePosition(soap_, -1);
-  auto* go_homeResponse = soap_new__tptz__GotoHomePositionResponse(soap_, -1);
+  _tptz__GotoHomePosition* tptz__GotoHomePosition = soap_new__tptz__GotoHomePosition(soap, -1);
+  _tptz__GotoHomePositionResponse* tptz__GotoHomePositionResponse = soap_new__tptz__GotoHomePositionResponse(soap, -1);
 
-  go_home->ProfileToken = profileToken;
+  tptz__GotoHomePosition->ProfileToken = profileToken;
 
-  CHECK_EQ(SOAP_OK, proxy_ptz_.GotoHomePosition(go_home, go_homeResponse)) << " go home error" << ErrorString();
+  if (SOAP_OK != proxyPTZ.GotoHomePosition(tptz__GotoHomePosition, tptz__GotoHomePositionResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
 
-  soap_destroy(soap_);
-  soap_end(soap_);
+  soap_destroy(soap);
+  soap_end(soap);
 }
 
 void OnvifClientPTZ::getConfiguration(std::string configurationToken)
 {
-  CHECK_EQ(SOAP_OK, soap_wsse_add_UsernameTokenDigest(proxy_ptz_.soap, NULL, user_.c_str(), passwd_.c_str())) << "wsse "
-                                                                                                                 "erro"
-                                                                                                                 "r";
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    throw std::runtime_error(ErrorString());
+  }
 
-  auto* config = soap_new__tptz__GetConfiguration(soap_, -1);
-  auto* configResponse = soap_new__tptz__GetConfigurationResponse(soap_, -1);
+  _tptz__GetConfiguration* tptz__GetConfiguration = soap_new__tptz__GetConfiguration(soap, -1);
+  _tptz__GetConfigurationResponse* tptz__GetConfigurationResponse = soap_new__tptz__GetConfigurationResponse(soap, -1);
 
-  config->PTZConfigurationToken = configurationToken;
-  CHECK_EQ(SOAP_OK, proxy_ptz_.GetConfiguration(config, configResponse)) << " get configuration error" << ErrorString();
-  /*for (int i = 0; i < configResponse->PTZConfiguration.size(); i++) {
-  //for (int i = 0; i < 12; i++) {
-    LOG(INFO) << " profile : " << configResponse->PTZConfiguration[i].Name
-              << " Token : " << configResponse->PTZConfiguration[i].token;
+  tptz__GetConfiguration->PTZConfigurationToken = configurationToken;
 
-  }*/
-  LOG(INFO) << "Absolute Pan Tilt Position Space: "
-            << configResponse->PTZConfiguration->DefaultAbsolutePantTiltPositionSpace->c_str();
-  LOG(INFO) << "Absolute Zoom Position Space: "
-            << configResponse->PTZConfiguration->DefaultAbsoluteZoomPositionSpace->c_str();
-  LOG(INFO) << "Relative Pan Tilt Translation Space: "
-            << configResponse->PTZConfiguration->DefaultRelativeZoomTranslationSpace->c_str();
-  LOG(INFO) << "Relative Zoom Translation Space: "
-            << configResponse->PTZConfiguration->DefaultContinuousPanTiltVelocitySpace->c_str();
-  LOG(INFO) << "Continuous Pan Tilt Velocity Space: "
-            << configResponse->PTZConfiguration->DefaultContinuousZoomVelocitySpace->c_str();
-  LOG(INFO) << "Continuous Zoom Velocity Space: "
-            << configResponse->PTZConfiguration->DefaultContinuousZoomVelocitySpace->c_str();
+  if (SOAP_OK != proxyPTZ.GetConfiguration(tptz__GetConfiguration, tptz__GetConfigurationResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
 
-  LOG(INFO) << "Default PTZ Timeout: " << *configResponse->PTZConfiguration->DefaultPTZTimeout / 1000;
-  LOG(INFO) << "Pan Min Limit: " << configResponse->PTZConfiguration->PanTiltLimits->Range->XRange->Min;
-  LOG(INFO) << "Pan Max Limit: " << configResponse->PTZConfiguration->PanTiltLimits->Range->XRange->Max;
-  LOG(INFO) << "Tilt Min limit: " << configResponse->PTZConfiguration->PanTiltLimits->Range->YRange->Min;
-  LOG(INFO) << "Tilt Max limit: " << configResponse->PTZConfiguration->PanTiltLimits->Range->YRange->Max;
-
-  LOG(INFO) << "Coordinate System: " << configResponse->PTZConfiguration->PanTiltLimits->Range->URI.c_str();
-
-  LOG(INFO) << "Zoom Min limit: " << configResponse->PTZConfiguration->ZoomLimits->Range->XRange->Min;
-  LOG(INFO) << "Zoom Max limit: " << configResponse->PTZConfiguration->ZoomLimits->Range->XRange->Max;
-  LOG(INFO) << "Default Pan Speed: " << configResponse->PTZConfiguration->DefaultPTZSpeed->PanTilt->x;
-  LOG(INFO) << "Default Tilt Speed: " << configResponse->PTZConfiguration->DefaultPTZSpeed->PanTilt->y;
-  LOG(INFO) << "Default Zoom Speed: " << configResponse->PTZConfiguration->DefaultPTZSpeed->Zoom->x;
-
-  LOG(INFO) << "Coordinate System: " << configResponse->PTZConfiguration->DefaultPTZSpeed->PanTilt->space->c_str();
-  LOG(INFO) << "Coordinate System: " << configResponse->PTZConfiguration->DefaultPTZSpeed->Zoom->space->c_str();
-
-  soap_destroy(soap_);
-  soap_end(soap_);
+  soap_destroy(soap);
+  soap_end(soap);
 }
 
 void OnvifClientPTZ::panLeft(std::string profileToken, int nDegrees)
@@ -339,14 +340,48 @@ void OnvifClientPTZ::tiltUp(std::string profileToken, int nDegrees)
   return relativeMove(profileToken, 0.0, 0.0, tilt, 1.0, 0.0, 0.0);
 }
 
+void OnvifClientPTZ::zoomIn(std::string profileToken)
+{
+  return relativeMove(profileToken, 0.0, 0.0, 0.0, 0.0, 0.05, 1.0);
+}
+
+void OnvifClientPTZ::zoomOut(std::string profileToken)
+{
+  return relativeMove(profileToken, 0.0, 0.0, 0.0, 0.0, -0.05, 1.0);
+}
+
+std::vector<std::string> OnvifClientPTZ::getPTZConfigurationsNames()
+{
+  return _PTZConfigurationsNames;
+}
+std::vector<std::string> OnvifClientPTZ::getPTZConfigurationsTokens()
+{
+  return _PTZConfigurationsTokens;
+}
+
+std::vector<std::string> OnvifClientPTZ::getPTZPresetNames()
+{
+  return _PTZPresetNames;
+}
+
+std::vector<std::string> OnvifClientPTZ::getPTZPresetTokens()
+{
+  return _PTZPresetTokens;
+}
+
+std::vector<float> OnvifClientPTZ::getPosition()
+{
+  return _position;
+}
+
 std::string OnvifClientPTZ::ErrorString()
 {
   std::string result = "";
-  result += std::to_string(proxy_ptz_.soap->error);
+  result += std::to_string(proxyPTZ.soap->error);
   result += " FaultString : ";
-  if (*soap_faultstring(proxy_ptz_.soap))
+  if (*soap_faultstring(proxyPTZ.soap))
   {
-    std::string faultstring(*soap_faultstring(proxy_ptz_.soap));
+    std::string faultstring(*soap_faultstring(proxyPTZ.soap));
     result += faultstring;
   }
   else
@@ -354,9 +389,9 @@ std::string OnvifClientPTZ::ErrorString()
     result += "null";
   }
   result += " FaultCode : ";
-  if (*soap_faultcode(proxy_ptz_.soap))
+  if (*soap_faultcode(proxyPTZ.soap))
   {
-    std::string faultcode(*soap_faultcode(proxy_ptz_.soap));
+    std::string faultcode(*soap_faultcode(proxyPTZ.soap));
     result += faultcode;
   }
   else
@@ -364,9 +399,9 @@ std::string OnvifClientPTZ::ErrorString()
     result += "null";
   }
   result += " FaultSubcode : ";
-  if (*soap_faultsubcode(proxy_ptz_.soap))
+  if (*soap_faultsubcode(proxyPTZ.soap))
   {
-    std::string faultsubcode(*soap_faultsubcode(proxy_ptz_.soap));
+    std::string faultsubcode(*soap_faultsubcode(proxyPTZ.soap));
     result += faultsubcode;
   }
   else
@@ -374,9 +409,9 @@ std::string OnvifClientPTZ::ErrorString()
     result += "null";
   }
   result += " FaultDetail : ";
-  if (*soap_faultdetail(proxy_ptz_.soap))
+  if (*soap_faultdetail(proxyPTZ.soap))
   {
-    std::string faultdetail(*soap_faultdetail(proxy_ptz_.soap));
+    std::string faultdetail(*soap_faultdetail(proxyPTZ.soap));
     result += faultdetail;
   }
   else

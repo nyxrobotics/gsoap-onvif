@@ -546,9 +546,9 @@ const char* soap_wsa_faultAction = "http://schemas.xmlsoap.org/ws/2004/08/addres
 #endif
 
 /** anonymous URI of 2004 and 2005 schemas */
-const char* soap_wsa_allAnonymousURI = "http://schemas.xmlsoap.org/ws/2004/03/addressing/role/anonymous "
-                                       "http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous "
-                                       "http://www.w3.org/2005/08/addressing/anonymous";
+const char* soap_wsa_allAnonymousURI =
+    "http://schemas.xmlsoap.org/ws/2004/03/addressing/role/anonymous "
+    "http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous http://www.w3.org/2005/08/addressing/anonymous";
 
 /******************************************************************************\
  *
@@ -1296,10 +1296,10 @@ int soap_wsa_error(struct soap* soap, SOAP_WSA(FaultCodesType) fault, const char
         soap->fault->SOAP_ENV__Detail->__type = SOAP_WSA_(SOAP_TYPE_, ProblemHeaderQName);
         soap->fault->SOAP_ENV__Detail->fault = (void*)info;
       }
-      soap_wsa_sender_fault_subcode(soap, code,
-                                    "A header representing a Message Addressing Property is not valid and the message "
-                                    "cannot be processed.",
-                                    NULL);
+      soap_wsa_sender_fault_subcode(
+          soap, code,
+          "A header representing a Message Addressing Property is not valid and the message cannot be processed.",
+          NULL);
       break;
     case SOAP_WSA(InvalidAddress):
       soap_wsa_sender_fault_subcode(soap, code, "Invalid address.", NULL);
@@ -1406,22 +1406,19 @@ int soap_wsa_error(struct soap* soap, SOAP_WSA(FaultSubcodeValues) fault)
   switch (fault)
   {
     case SOAP_WSA(InvalidMessageInformationHeader):
-      return soap_wsa_sender_fault_subcode(soap, code,
-                                           "A message information header is not valid and the message cannot be "
-                                           "processed. The validity failure can be either structural or semantic, e.g. "
-                                           "a [destination] that is not a URI or a [relationship] to a [message id] "
-                                           "that was never issued.",
-                                           "Invalid header");
+      return soap_wsa_sender_fault_subcode(
+          soap, code,
+          "A message information header is not valid and the message cannot be processed. The validity failure can be "
+          "either structural or semantic, e.g. a [destination] that is not a URI or a [relationship] to a [message id] "
+          "that was never issued.",
+          "Invalid header");
     case SOAP_WSA(MessageInformationHeaderRequired):
-      return soap_wsa_sender_fault_subcode(soap, code,
-                                           "A required message information header, To, MessageID, or Action, is not "
-                                           "present.",
-                                           "Missing Header QName");
+      return soap_wsa_sender_fault_subcode(
+          soap, code, "A required message information header, To, MessageID, or Action, is not present.",
+          "Missing Header QName");
     case SOAP_WSA(DestinationUnreachable):
-      return soap_wsa_sender_fault_subcode(soap, code,
-                                           "No route can be determined to reach the destination role defined by the "
-                                           "WS-Addressing To.",
-                                           NULL);
+      return soap_wsa_sender_fault_subcode(
+          soap, code, "No route can be determined to reach the destination role defined by the WS-Addressing To.", NULL);
     case SOAP_WSA(ActionNotSupported):
       return soap_wsa_sender_fault_subcode(soap, code, "The [action] cannot be processed at the receiver.",
                                            soap->action);

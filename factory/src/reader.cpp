@@ -5,11 +5,6 @@
 
 namespace wl
 {
-static void wait(int t)
-{
-  std::this_thread::sleep_for(std::chrono::milliseconds(t));
-}
-
 OpenCVCameraReader::OpenCVCameraReader(const std::string uri) : uri_(uri), counter_(0), ch_(2)
 {
   worker_ = std::thread([this] {
@@ -51,13 +46,13 @@ bool OpenCVCameraReader::Next(Frame* frame)
 Ptz::Ptz(const CameraConfig& config)
   : ip_(config.ip), name_(config.username), passwd_(config.password), zoom_(false), speed_(0.0), zoom_scale_(0.0)
 {
-  ptz_.reset(new OnvifClientPTZ(ip_, name_, passwd_, true));
-  media_.reset(new OnvifClientMedia(ip_, name_, passwd_, true));
+  ptz_.reset(new OnvifClientPTZ(ip_, name_, passwd_));
+  media_.reset(new OnvifClientMedia(ip_, name_, passwd_));
   // get media profile
-  media_->getProfiles(profiles_);
-  for (int i = 0; i < profiles_.size(); ++i)
+  media_->getProfiles();
+  for (int i = 0; i < (int)media_->getProfilesTokens().size(); ++i)
   {
-    LOG(INFO) << i << " " << profiles_[i].profileName << "  " << profiles_[i].profileToken;
+    LOG(INFO) << i << " " << media_->getProfilesNames()[i] << "  " << media_->getProfilesTokens()[i];
   }
 }
 
@@ -66,9 +61,15 @@ Ptz::~Ptz()
   Reset();
 }
 
-void Ptz::GotoPreset(int PresetToken)
+std::vector<std::string> Ptz::GetPresetTokens()
 {
-  ptz_->gotoPreset(profiles_[0].profileToken, PresetToken, 0.5);
+  return ptz_->getPTZPresetTokens();
+}
+
+void Ptz::GotoPreset(std::string PresetToken)
+{
+  int PresetTokenInt = stoi(PresetToken);
+  ptz_->gotoPreset(media_->getProfilesTokens()[0], PresetTokenInt, 0.5);
 }
 
 // if speed > 0, move right; else move left
@@ -84,7 +85,7 @@ void Ptz::Move(float speed)
   if (speed - 0.0 < 0.0001 && speed - 0.0 > -0.0001)
   {
     // stop move when speed->0
-    ptz_->stop(profiles_[0].profileToken, 0, 0);
+    ptz_->stop(media_->getProfilesTokens()[0], 0, 0);
   }
   else
   {
@@ -96,7 +97,7 @@ void Ptz::Move(float speed)
     {
       LOG(INFO) << "Move left";
     }
-    ptz_->continuousMove(profiles_[0].profileToken, speed, 0, 0);
+    ptz_->continuousMove(media_->getProfilesTokens()[0], speed, 0, 0);
   }
 }
 
@@ -108,7 +109,7 @@ void Ptz::ZoomIn(float scale)
     CHECK_GE(scale, -1.0) << "scale can't be smaller than -1.0";
     zoom_scale_ = scale;
     zoom_ = true;
-    ptz_->relativeMove(profiles_[0].profileToken, 0.0, 0.0, 0.0, 0.0, scale, 1);
+    ptz_->relativeMove(media_->getProfilesTokens()[0], 0.0, 0.0, 0.0, 0.0, scale, 1);
     wait(500);
   }
 }
@@ -122,7 +123,7 @@ void Ptz::ZoomOut()
     CHECK(zoom_) << "can't zoom out without zoom in";
     zoom_ = false;
     float scale = 0 - zoom_scale_;
-    ptz_->relativeMove(profiles_[0].profileToken, 0.0, 0.0, 0.0, 0.0, scale, 1);
+    ptz_->relativeMove(media_->getProfilesTokens()[0], 0.0, 0.0, 0.0, 0.0, scale, 1);
     wait(500);
   }
 }
@@ -130,7 +131,7 @@ void Ptz::ZoomOut()
 void Ptz::Reset()
 {
   ZoomOut();
-  ptz_->goToHomePosition(profiles_[0].profileToken);
+  ptz_->goToHomePosition(media_->getProfilesTokens()[0]);
   wait(800);
 }
 
@@ -167,7 +168,7 @@ OpenCVImageReader::OpenCVImageReader(const std::vector<std::string>& img_lst) : 
 
 bool OpenCVImageReader::Next(Frame* frame)
 {
-  if (counter_ < img_lst_.size())
+  if (counter_ < (int)img_lst_.size())
   {
     cv::Mat img = cv::imread(img_lst_[counter_]);
     CHECK(img.data) << "Can\'t read " << img_lst_[counter_];

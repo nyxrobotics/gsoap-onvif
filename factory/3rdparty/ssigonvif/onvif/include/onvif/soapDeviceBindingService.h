@@ -59,12 +59,12 @@ public:
   /// Disables and removes SOAP Header from message
   virtual void soap_noheader();
   /// Put SOAP Header in message
-  virtual void soap_header(char* wsa5__MessageID, struct wsa5__RelatesToType* wsa5__RelatesTo,
-                           struct wsa5__EndpointReferenceType* wsa5__From,
+  virtual void soap_header(struct _wsse__Security* wsse__Security, char* wsa5__MessageID,
+                           struct wsa5__RelatesToType* wsa5__RelatesTo, struct wsa5__EndpointReferenceType* wsa5__From,
                            struct wsa5__EndpointReferenceType* wsa5__ReplyTo,
                            struct wsa5__EndpointReferenceType* wsa5__FaultTo, char* wsa5__To, char* wsa5__Action,
                            struct chan__ChannelInstanceType* chan__ChannelInstance,
-                           struct _wsse__Security* wsse__Security);
+                           struct wsdd__AppSequenceType* wsdd__AppSequence);
   /// Get SOAP Header structure (NULL when absent)
   virtual const SOAP_ENV__Header* soap_header();
   /// Run simple single-thread iterative service on port until a connection error occurs (returns error code or

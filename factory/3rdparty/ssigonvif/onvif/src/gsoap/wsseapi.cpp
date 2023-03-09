@@ -1963,8 +1963,7 @@ int soap_wsse_verify_Password(struct soap* soap, const char* password)
       if (token->Nonce && token->wsu__Created && strlen(token->Password->__item) == 28) /* digest pw len = 28 */
       {
         char HA1[SOAP_SMD_SHA1_SIZE], HA2[SOAP_SMD_SHA1_SIZE];
-        /* The specs are not clear: compute digest over binary nonce or base64 nonce? The formet appears to be the case:
-         */
+        /* The specs are not clear: compute digest over binary nonce or base64 nonce? The formet appears to be the case: */
         int noncelen;
         const char* nonce = soap_base642s(soap, token->Nonce, NULL, 0, &noncelen);
         /* compute HA1 = SHA1(created, nonce, password) */
@@ -2067,8 +2066,7 @@ int soap_wsse_add_BinarySecurityTokenX509(struct soap* soap, const char* id, X50
 @param soap context
 @param[in] id string for signature reference
 @param[in] filename
-@return SOAP_OK or SOAP_FAULT with wsse__InvalidSecurity fault when file cannot be read or does not contain a valid
-certificate
+@return SOAP_OK or SOAP_FAULT with wsse__InvalidSecurity fault when file cannot be read or does not contain a valid certificate
 
 This function uses PEM_read_X509 from the the OpenSSL library to read a
 certificate from a PEM formatted file.
@@ -2111,8 +2109,7 @@ struct _wsse__BinarySecurityToken* soap_wsse_BinarySecurityToken(struct soap* so
 }
 
 /**
-@fn int soap_wsse_get_BinarySecurityToken(struct soap *soap, const char *id, char **valueType, unsigned char **data, int
-*size)
+@fn int soap_wsse_get_BinarySecurityToken(struct soap *soap, const char *id, char **valueType, unsigned char **data, int *size)
 @brief Get wsse:BinarySecurityToken element token data in binary form.
 @param soap context
 @param[in] id string of token to get or NULL
@@ -2511,8 +2508,7 @@ int soap_wsse_get_SignedInfo_SignatureMethod(struct soap* soap, int* alg)
 
 /**
 @fn int soap_wsse_add_SignatureValue(struct soap *soap, int alg, const void *key, int keylen)
-@brief Adds SignedInfo/SignatureMethod element, signs the SignedInfo element, and adds the resulting SignatureValue
-element.
+@brief Adds SignedInfo/SignatureMethod element, signs the SignedInfo element, and adds the resulting SignatureValue element.
 @param soap context
 @param[in] alg is SOAP_SMD_HMAC_SHA1, SOAP_SMD_SIGN_DSA_SHA1, or SOAP_SMD_SIGN_RSA_SHA1
 @param[in] key to use to sign (HMAC or EVP_PKEY)
@@ -2819,8 +2815,7 @@ int soap_wsse_verify_SignedInfo(struct soap* soap)
 }
 
 /**
-@fn int soap_wsse_verify_digest(struct soap *soap, int alg, int canonical, const char *id, unsigned char
-hash[SOAP_SMD_MAX_SIZE])
+@fn int soap_wsse_verify_digest(struct soap *soap, int alg, int canonical, const char *id, unsigned char hash[SOAP_SMD_MAX_SIZE])
 @brief Verifies the digest value of an XML element referenced by id against the hash.
 @param soap context
 @param[in] alg digest algorithm

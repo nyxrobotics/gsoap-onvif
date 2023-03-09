@@ -1,82 +1,126 @@
 #include "OnvifClientDevice.hpp"
+#include "DeviceBinding.nsmap"
+#include "glog/logging.h"
 #include <iostream>
 #include <sstream>
-#include "glog/logging.h"
-#include "DeviceBinding.nsmap"
+#include <stdexcept>
+#include <string>
 
-OnvifClientDevice::OnvifClientDevice(std::string url, std::string user, std::string password, bool showCapabilities)
+OnvifClientDevice::OnvifClientDevice()
 {
-  device_url_ = "http://" + url + "/onvif/device_service";
-  user_ = user;
-  passwd_ = password;
+}
 
-  has_media_ = false;
-  has_ptz_ = false;
+OnvifClientDevice::OnvifClientDevice(std::string url, std::string user, std::string password)
+{
+  _strUrl = "http://" + url + "/onvif/services";
+  _user = user;
+  _password = password;
 
-  proxy_device_.soap_endpoint = device_url_.c_str();
+  _hasMedia = false;
+  _hasPTZ = false;
 
-  soap_register_plugin(proxy_device_.soap, soap_wsse);
-  soap_ = soap_new();
+  proxyDevice.soap_endpoint = _strUrl.c_str();
 
-  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxy_device_.soap, NULL, user.c_str(), password.c_str()))
+  soap_register_plugin(proxyDevice.soap, soap_wsse);
+  soap = soap_new();
+
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyDevice.soap, NULL, user.c_str(), password.c_str()))
   {
-    LOG(INFO) << "Device binding 1 Error";
-  }
-
-  if (SOAP_OK != soap_wsse_add_Timestamp(proxy_device_.soap, "Time", 10))
-  {
-    LOG(INFO) << "Device binding 2 Error";
-  }
-
-  auto* get_cap = soap_new__tds__GetCapabilities(soap_, -1);
-  get_cap->Category.push_back(tt__CapabilityCategory__All);
-  auto* response = soap_new__tds__GetCapabilitiesResponse(soap_, -1);
-
-  if (SOAP_OK == proxy_device_.GetCapabilities(get_cap, response))
-  {
-    if (response->Capabilities->Media != NULL)
+    std::string errorDetail;
+    if (soap->fault != NULL)
     {
-      has_media_ = true;
+      errorDetail += "ERROR:\nError Code:";
+      if (soap->fault != NULL)
+        errorDetail += soap->fault->faultcode;
+      errorDetail += "\nFault:";
+      if (soap->fault != NULL)
+        errorDetail += soap->fault->faultstring;
+      errorDetail + "\n";
+      throw std::runtime_error(errorDetail);
+    }
+  }
 
-      if (showCapabilities)
-      {
-        LOG(INFO) << "--------------------------Media-----------------------";
-        LOG(INFO) << "XAddr : " << response->Capabilities->Media->XAddr;
-      }
-      media_url_ = response->Capabilities->Media->XAddr;
+  _tds__GetCapabilities* tds__GetCapabilities = soap_new__tds__GetCapabilities(soap, -1);
+  tds__GetCapabilities->Category.push_back(tt__CapabilityCategory__All);
+
+  _tds__GetCapabilitiesResponse* tds__GetCapabilitiesResponse = soap_new__tds__GetCapabilitiesResponse(soap, -1);
+
+  if (SOAP_OK == proxyDevice.GetCapabilities(tds__GetCapabilities, tds__GetCapabilitiesResponse))
+  {
+    if (tds__GetCapabilitiesResponse->Capabilities->Media != NULL)
+    {
+      _hasMedia = true;
     }
 
-    if (response->Capabilities->PTZ != NULL)
+    if (tds__GetCapabilitiesResponse->Capabilities->PTZ != NULL)
     {
-      has_ptz_ = true;
-      if (showCapabilities)
-      {
-        LOG(INFO) << "--------------------------PTZ-------------------------";
-        LOG(INFO) << "XAddr : " << response->Capabilities->PTZ->XAddr;
-      }
-      ptz_url_ = response->Capabilities->PTZ->XAddr;
+      _hasPTZ = true;
     }
   }
   else
   {
-    LOG(FATAL) << "Error : " << ErrorString();
+    std::string errorDetail;
+    if (soap->fault != NULL)
+    {
+      errorDetail += "ERROR:\nError Code: ";
+      errorDetail += soap->fault->faultcode;
+      errorDetail += "\nFault: ";
+      errorDetail += soap->fault->faultstring;
+      errorDetail + "\n";
+      throw std::runtime_error(errorDetail);
+    }
+    else
+    {
+      errorDetail += "Error: ";
+      errorDetail += proxyDevice.soap->msgbuf;
+      throw std::runtime_error(errorDetail);
+    }
   }
-  soap_destroy(soap_);
-  soap_end(soap_);
+
+  soap_destroy(soap);
+  soap_end(soap);
 }
 
 OnvifClientDevice::~OnvifClientDevice()
 {
 }
 
+void OnvifClientDevice::getUsers()
+{
+  if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyDevice.soap, NULL, _user.c_str(), _password.c_str()))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+
+  _tds__GetUsers* tds_GetUsers = soap_new__tds__GetUsers(soap, -1);
+  _tds__GetUsersResponse* tds_GetUsersResponse = soap_new__tds__GetUsersResponse(soap, -1);
+
+  if (SOAP_OK != proxyDevice.GetUsers(tds_GetUsers, tds_GetUsersResponse))
+  {
+    throw std::runtime_error(ErrorString());
+  }
+  else
+  {
+    for (int i = 0; i < (int)tds_GetUsersResponse->User.size(); ++i)
+    {
+      this->_username.push_back(tds_GetUsersResponse->User[i]->Username);
+    }
+  }
+}
+
+std::vector<std::string> OnvifClientDevice::getUsernames()
+{
+  return _username;
+}
+
 std::string OnvifClientDevice::ErrorString()
 {
   std::string result = "";
-  result += std::to_string(proxy_device_.soap->error);
+  result += std::to_string(proxyDevice.soap->error);
   result += " FaultString : ";
-  if (*soap_faultstring(proxy_device_.soap))
+  if (*soap_faultstring(proxyDevice.soap))
   {
-    std::string faultstring(*soap_faultstring(proxy_device_.soap));
+    std::string faultstring(*soap_faultstring(proxyDevice.soap));
     result += faultstring;
   }
   else
@@ -84,9 +128,9 @@ std::string OnvifClientDevice::ErrorString()
     result += "null";
   }
   result += " FaultCode : ";
-  if (*soap_faultcode(proxy_device_.soap))
+  if (*soap_faultcode(proxyDevice.soap))
   {
-    std::string faultcode(*soap_faultcode(proxy_device_.soap));
+    std::string faultcode(*soap_faultcode(proxyDevice.soap));
     result += faultcode;
   }
   else
@@ -94,9 +138,9 @@ std::string OnvifClientDevice::ErrorString()
     result += "null";
   }
   result += " FaultSubcode : ";
-  if (*soap_faultsubcode(proxy_device_.soap))
+  if (*soap_faultsubcode(proxyDevice.soap))
   {
-    std::string faultsubcode(*soap_faultsubcode(proxy_device_.soap));
+    std::string faultsubcode(*soap_faultsubcode(proxyDevice.soap));
     result += faultsubcode;
   }
   else
@@ -104,9 +148,9 @@ std::string OnvifClientDevice::ErrorString()
     result += "null";
   }
   result += " FaultDetail : ";
-  if (*soap_faultdetail(proxy_device_.soap))
+  if (*soap_faultdetail(proxyDevice.soap))
   {
-    std::string faultdetail(*soap_faultdetail(proxy_device_.soap));
+    std::string faultdetail(*soap_faultdetail(proxyDevice.soap));
     result += faultdetail;
   }
   else

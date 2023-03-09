@@ -10,9 +10,10 @@ compiling, linking, and/or using OpenSSL is allowed.
 
 #ifndef soapStub_H
 #define soapStub_H
+#define SOAP_NAMESPACE_OF_wsc "http://schemas.xmlsoap.org/ws/2005/02/sc"
 #include <vector>
 #define SOAP_WSA_2005
-#define SOAP_NAMESPACE_OF_wsc "http://schemas.xmlsoap.org/ws/2005/02/sc"
+#define SOAP_NAMESPACE_OF_wsdd "http://docs.oasis-open.org/ws-dd/ns/discovery/2009/01"
 #define SOAP_NAMESPACE_OF_tds "http://www.onvif.org/ver10/device/wsdl"
 #define SOAP_NAMESPACE_OF_tt "http://www.onvif.org/ver10/schema"
 #define SOAP_NAMESPACE_OF_wsnt "http://docs.oasis-open.org/wsn/b-2"
@@ -20,6 +21,7 @@ compiling, linking, and/or using OpenSSL is allowed.
 #define SOAP_NAMESPACE_OF_wstop "http://docs.oasis-open.org/wsn/t-1"
 #define SOAP_NAMESPACE_OF_tptz "http://www.onvif.org/ver20/ptz/wsdl"
 #define SOAP_NAMESPACE_OF_trt "http://www.onvif.org/ver10/media/wsdl"
+#define SOAP_NAMESPACE_OF_tdn "http://www.onvif.org/ver10/network/wsdl"
 #include "stdsoap2.h"
 #if GSOAP_VERSION != 20817
 #error "GSOAP VERSION MISMATCH IN GENERATED CODE: PLEASE REINSTALL PACKAGE"
@@ -31,8 +33,47 @@ compiling, linking, and/or using OpenSSL is allowed.
  *                                                                            *
 \******************************************************************************/
 
+#ifndef SOAP_TYPE_wsu__tTimestampFault
+#define SOAP_TYPE_wsu__tTimestampFault (7)
+/* wsu:tTimestampFault */
+enum wsu__tTimestampFault
+{
+  wsu__MessageExpired = 0
+};
+typedef enum wsu__tTimestampFault wsu__tTimestampFault;
+#endif
+
+#ifndef SOAP_TYPE_wsse__FaultcodeEnum
+#define SOAP_TYPE_wsse__FaultcodeEnum (9)
+/* wsse:FaultcodeEnum */
+enum wsse__FaultcodeEnum
+{
+  wsse__UnsupportedSecurityToken = 0,
+  wsse__UnsupportedAlgorithm = 1,
+  wsse__InvalidSecurity = 2,
+  wsse__InvalidSecurityToken = 3,
+  wsse__FailedAuthentication = 4,
+  wsse__FailedCheck = 5,
+  wsse__SecurityTokenUnavailable = 6
+};
+typedef enum wsse__FaultcodeEnum wsse__FaultcodeEnum;
+#endif
+
+#ifndef SOAP_TYPE_wsc__FaultCodeType
+#define SOAP_TYPE_wsc__FaultCodeType (82)
+/* wsc:FaultCodeType */
+enum wsc__FaultCodeType
+{
+  wsc__BadContextToken = 0,
+  wsc__UnsupportedContextToken = 1,
+  wsc__UnknownDerivationSource = 2,
+  wsc__RenewNeeded = 3,
+  wsc__UnableToRenew = 4
+};
+#endif
+
 #ifndef SOAP_TYPE_wsa5__RelationshipType
-#define SOAP_TYPE_wsa5__RelationshipType (19)
+#define SOAP_TYPE_wsa5__RelationshipType (109)
 /* wsa5:RelationshipType */
 enum wsa5__RelationshipType
 {
@@ -42,7 +83,7 @@ typedef enum wsa5__RelationshipType wsa5__RelationshipType;
 #endif
 
 #ifndef SOAP_TYPE_wsa5__FaultCodesType
-#define SOAP_TYPE_wsa5__FaultCodesType (20)
+#define SOAP_TYPE_wsa5__FaultCodesType (110)
 /* wsa5:FaultCodesType */
 enum wsa5__FaultCodesType
 {
@@ -62,7 +103,7 @@ typedef enum wsa5__FaultCodesType wsa5__FaultCodesType;
 #endif
 
 #ifndef SOAP_TYPE__wsa5__IsReferenceParameter
-#define SOAP_TYPE__wsa5__IsReferenceParameter (40)
+#define SOAP_TYPE__wsa5__IsReferenceParameter (128)
 /* wsa5:IsReferenceParameter */
 enum _wsa5__IsReferenceParameter
 {
@@ -72,47 +113,18 @@ enum _wsa5__IsReferenceParameter
 typedef enum _wsa5__IsReferenceParameter _wsa5__IsReferenceParameter;
 #endif
 
-#ifndef SOAP_TYPE_wsu__tTimestampFault
-#define SOAP_TYPE_wsu__tTimestampFault (57)
-/* wsu:tTimestampFault */
-enum wsu__tTimestampFault
+#ifndef SOAP_TYPE_wsdd__FaultCodeType
+#define SOAP_TYPE_wsdd__FaultCodeType (159)
+/* wsdd:FaultCodeType */
+enum wsdd__FaultCodeType
 {
-  wsu__MessageExpired = 0
+  wsdd__MatchingRuleNotSupported = 0
 };
-typedef enum wsu__tTimestampFault wsu__tTimestampFault;
-#endif
-
-#ifndef SOAP_TYPE_wsse__FaultcodeEnum
-#define SOAP_TYPE_wsse__FaultcodeEnum (59)
-/* wsse:FaultcodeEnum */
-enum wsse__FaultcodeEnum
-{
-  wsse__UnsupportedSecurityToken = 0,
-  wsse__UnsupportedAlgorithm = 1,
-  wsse__InvalidSecurity = 2,
-  wsse__InvalidSecurityToken = 3,
-  wsse__FailedAuthentication = 4,
-  wsse__FailedCheck = 5,
-  wsse__SecurityTokenUnavailable = 6
-};
-typedef enum wsse__FaultcodeEnum wsse__FaultcodeEnum;
-#endif
-
-#ifndef SOAP_TYPE_wsc__FaultCodeType
-#define SOAP_TYPE_wsc__FaultCodeType (131)
-/* wsc:FaultCodeType */
-enum wsc__FaultCodeType
-{
-  wsc__BadContextToken = 0,
-  wsc__UnsupportedContextToken = 1,
-  wsc__UnknownDerivationSource = 2,
-  wsc__RenewNeeded = 3,
-  wsc__UnableToRenew = 4
-};
+typedef enum wsdd__FaultCodeType wsdd__FaultCodeType;
 #endif
 
 #ifndef SOAP_TYPE_tds__StorageType
-#define SOAP_TYPE_tds__StorageType (1128)
+#define SOAP_TYPE_tds__StorageType (1177)
 /* tds:StorageType */
 enum tds__StorageType
 {
@@ -123,7 +135,7 @@ enum tds__StorageType
 #endif
 
 #ifndef SOAP_TYPE_tt__RotateMode
-#define SOAP_TYPE_tt__RotateMode (1134)
+#define SOAP_TYPE_tt__RotateMode (1183)
 /* tt:RotateMode */
 enum tt__RotateMode
 {
@@ -134,7 +146,7 @@ enum tt__RotateMode
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoEncoding
-#define SOAP_TYPE_tt__VideoEncoding (1136)
+#define SOAP_TYPE_tt__VideoEncoding (1185)
 /* tt:VideoEncoding */
 enum tt__VideoEncoding
 {
@@ -145,7 +157,7 @@ enum tt__VideoEncoding
 #endif
 
 #ifndef SOAP_TYPE_tt__Mpeg4Profile
-#define SOAP_TYPE_tt__Mpeg4Profile (1138)
+#define SOAP_TYPE_tt__Mpeg4Profile (1187)
 /* tt:Mpeg4Profile */
 enum tt__Mpeg4Profile
 {
@@ -155,7 +167,7 @@ enum tt__Mpeg4Profile
 #endif
 
 #ifndef SOAP_TYPE_tt__H264Profile
-#define SOAP_TYPE_tt__H264Profile (1140)
+#define SOAP_TYPE_tt__H264Profile (1189)
 /* tt:H264Profile */
 enum tt__H264Profile
 {
@@ -166,8 +178,35 @@ enum tt__H264Profile
 };
 #endif
 
+#ifndef SOAP_TYPE_tt__VideoEncodingMimeNames
+#define SOAP_TYPE_tt__VideoEncodingMimeNames (1191)
+/* tt:VideoEncodingMimeNames */
+enum tt__VideoEncodingMimeNames
+{
+  tt__VideoEncodingMimeNames__JPEG = 0,
+  tt__VideoEncodingMimeNames__MPV4_ES = 1,
+  tt__VideoEncodingMimeNames__H264 = 2,
+  tt__VideoEncodingMimeNames__H265 = 3
+};
+#endif
+
+#ifndef SOAP_TYPE_tt__VideoEncodingProfiles
+#define SOAP_TYPE_tt__VideoEncodingProfiles (1193)
+/* tt:VideoEncodingProfiles */
+enum tt__VideoEncodingProfiles
+{
+  tt__VideoEncodingProfiles__Simple = 0,
+  tt__VideoEncodingProfiles__AdvancedSimple = 1,
+  tt__VideoEncodingProfiles__Baseline = 2,
+  tt__VideoEncodingProfiles__Main = 3,
+  tt__VideoEncodingProfiles__Main10 = 4,
+  tt__VideoEncodingProfiles__Extended = 5,
+  tt__VideoEncodingProfiles__High = 6
+};
+#endif
+
 #ifndef SOAP_TYPE_tt__AudioEncoding
-#define SOAP_TYPE_tt__AudioEncoding (1142)
+#define SOAP_TYPE_tt__AudioEncoding (1195)
 /* tt:AudioEncoding */
 enum tt__AudioEncoding
 {
@@ -177,8 +216,19 @@ enum tt__AudioEncoding
 };
 #endif
 
+#ifndef SOAP_TYPE_tt__AudioEncodingMimeNames
+#define SOAP_TYPE_tt__AudioEncodingMimeNames (1197)
+/* tt:AudioEncodingMimeNames */
+enum tt__AudioEncodingMimeNames
+{
+  tt__AudioEncodingMimeNames__PCMU = 0,
+  tt__AudioEncodingMimeNames__G726 = 1,
+  tt__AudioEncodingMimeNames__MP4A_LATM = 2
+};
+#endif
+
 #ifndef SOAP_TYPE_tt__MetadataCompressionType
-#define SOAP_TYPE_tt__MetadataCompressionType (1144)
+#define SOAP_TYPE_tt__MetadataCompressionType (1199)
 /* tt:MetadataCompressionType */
 enum tt__MetadataCompressionType
 {
@@ -189,7 +239,7 @@ enum tt__MetadataCompressionType
 #endif
 
 #ifndef SOAP_TYPE_tt__StreamType
-#define SOAP_TYPE_tt__StreamType (1146)
+#define SOAP_TYPE_tt__StreamType (1201)
 /* tt:StreamType */
 enum tt__StreamType
 {
@@ -199,7 +249,7 @@ enum tt__StreamType
 #endif
 
 #ifndef SOAP_TYPE_tt__TransportProtocol
-#define SOAP_TYPE_tt__TransportProtocol (1148)
+#define SOAP_TYPE_tt__TransportProtocol (1203)
 /* tt:TransportProtocol */
 enum tt__TransportProtocol
 {
@@ -211,7 +261,7 @@ enum tt__TransportProtocol
 #endif
 
 #ifndef SOAP_TYPE_tt__ScopeDefinition
-#define SOAP_TYPE_tt__ScopeDefinition (1150)
+#define SOAP_TYPE_tt__ScopeDefinition (1205)
 /* tt:ScopeDefinition */
 enum tt__ScopeDefinition
 {
@@ -221,7 +271,7 @@ enum tt__ScopeDefinition
 #endif
 
 #ifndef SOAP_TYPE_tt__DiscoveryMode
-#define SOAP_TYPE_tt__DiscoveryMode (1152)
+#define SOAP_TYPE_tt__DiscoveryMode (1207)
 /* tt:DiscoveryMode */
 enum tt__DiscoveryMode
 {
@@ -231,7 +281,7 @@ enum tt__DiscoveryMode
 #endif
 
 #ifndef SOAP_TYPE_tt__Duplex
-#define SOAP_TYPE_tt__Duplex (1156)
+#define SOAP_TYPE_tt__Duplex (1211)
 /* tt:Duplex */
 enum tt__Duplex
 {
@@ -241,7 +291,7 @@ enum tt__Duplex
 #endif
 
 #ifndef SOAP_TYPE_tt__IPv6DHCPConfiguration
-#define SOAP_TYPE_tt__IPv6DHCPConfiguration (1160)
+#define SOAP_TYPE_tt__IPv6DHCPConfiguration (1215)
 /* tt:IPv6DHCPConfiguration */
 enum tt__IPv6DHCPConfiguration
 {
@@ -253,7 +303,7 @@ enum tt__IPv6DHCPConfiguration
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkProtocolType
-#define SOAP_TYPE_tt__NetworkProtocolType (1162)
+#define SOAP_TYPE_tt__NetworkProtocolType (1217)
 /* tt:NetworkProtocolType */
 enum tt__NetworkProtocolType
 {
@@ -264,7 +314,7 @@ enum tt__NetworkProtocolType
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkHostType
-#define SOAP_TYPE_tt__NetworkHostType (1164)
+#define SOAP_TYPE_tt__NetworkHostType (1219)
 /* tt:NetworkHostType */
 enum tt__NetworkHostType
 {
@@ -275,7 +325,7 @@ enum tt__NetworkHostType
 #endif
 
 #ifndef SOAP_TYPE_tt__IPType
-#define SOAP_TYPE_tt__IPType (1172)
+#define SOAP_TYPE_tt__IPType (1227)
 /* tt:IPType */
 enum tt__IPType
 {
@@ -285,7 +335,7 @@ enum tt__IPType
 #endif
 
 #ifndef SOAP_TYPE_tt__IPAddressFilterType
-#define SOAP_TYPE_tt__IPAddressFilterType (1178)
+#define SOAP_TYPE_tt__IPAddressFilterType (1233)
 /* tt:IPAddressFilterType */
 enum tt__IPAddressFilterType
 {
@@ -295,7 +345,7 @@ enum tt__IPAddressFilterType
 #endif
 
 #ifndef SOAP_TYPE_tt__DynamicDNSType
-#define SOAP_TYPE_tt__DynamicDNSType (1180)
+#define SOAP_TYPE_tt__DynamicDNSType (1235)
 /* tt:DynamicDNSType */
 enum tt__DynamicDNSType
 {
@@ -306,7 +356,7 @@ enum tt__DynamicDNSType
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11StationMode
-#define SOAP_TYPE_tt__Dot11StationMode (1184)
+#define SOAP_TYPE_tt__Dot11StationMode (1239)
 /* tt:Dot11StationMode */
 enum tt__Dot11StationMode
 {
@@ -317,7 +367,7 @@ enum tt__Dot11StationMode
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11SecurityMode
-#define SOAP_TYPE_tt__Dot11SecurityMode (1186)
+#define SOAP_TYPE_tt__Dot11SecurityMode (1241)
 /* tt:Dot11SecurityMode */
 enum tt__Dot11SecurityMode
 {
@@ -330,7 +380,7 @@ enum tt__Dot11SecurityMode
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11Cipher
-#define SOAP_TYPE_tt__Dot11Cipher (1188)
+#define SOAP_TYPE_tt__Dot11Cipher (1243)
 /* tt:Dot11Cipher */
 enum tt__Dot11Cipher
 {
@@ -342,7 +392,7 @@ enum tt__Dot11Cipher
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11SignalStrength
-#define SOAP_TYPE_tt__Dot11SignalStrength (1194)
+#define SOAP_TYPE_tt__Dot11SignalStrength (1249)
 /* tt:Dot11SignalStrength */
 enum tt__Dot11SignalStrength
 {
@@ -356,7 +406,7 @@ enum tt__Dot11SignalStrength
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11AuthAndMangementSuite
-#define SOAP_TYPE_tt__Dot11AuthAndMangementSuite (1196)
+#define SOAP_TYPE_tt__Dot11AuthAndMangementSuite (1251)
 /* tt:Dot11AuthAndMangementSuite */
 enum tt__Dot11AuthAndMangementSuite
 {
@@ -368,7 +418,7 @@ enum tt__Dot11AuthAndMangementSuite
 #endif
 
 #ifndef SOAP_TYPE_tt__CapabilityCategory
-#define SOAP_TYPE_tt__CapabilityCategory (1198)
+#define SOAP_TYPE_tt__CapabilityCategory (1253)
 /* tt:CapabilityCategory */
 enum tt__CapabilityCategory
 {
@@ -383,7 +433,7 @@ enum tt__CapabilityCategory
 #endif
 
 #ifndef SOAP_TYPE_tt__SystemLogType
-#define SOAP_TYPE_tt__SystemLogType (1200)
+#define SOAP_TYPE_tt__SystemLogType (1255)
 /* tt:SystemLogType */
 enum tt__SystemLogType
 {
@@ -393,7 +443,7 @@ enum tt__SystemLogType
 #endif
 
 #ifndef SOAP_TYPE_tt__FactoryDefaultType
-#define SOAP_TYPE_tt__FactoryDefaultType (1202)
+#define SOAP_TYPE_tt__FactoryDefaultType (1257)
 /* tt:FactoryDefaultType */
 enum tt__FactoryDefaultType
 {
@@ -403,7 +453,7 @@ enum tt__FactoryDefaultType
 #endif
 
 #ifndef SOAP_TYPE_tt__SetDateTimeType
-#define SOAP_TYPE_tt__SetDateTimeType (1204)
+#define SOAP_TYPE_tt__SetDateTimeType (1259)
 /* tt:SetDateTimeType */
 enum tt__SetDateTimeType
 {
@@ -413,7 +463,7 @@ enum tt__SetDateTimeType
 #endif
 
 #ifndef SOAP_TYPE_tt__UserLevel
-#define SOAP_TYPE_tt__UserLevel (1206)
+#define SOAP_TYPE_tt__UserLevel (1261)
 /* tt:UserLevel */
 enum tt__UserLevel
 {
@@ -426,7 +476,7 @@ enum tt__UserLevel
 #endif
 
 #ifndef SOAP_TYPE_tt__RelayLogicalState
-#define SOAP_TYPE_tt__RelayLogicalState (1208)
+#define SOAP_TYPE_tt__RelayLogicalState (1263)
 /* tt:RelayLogicalState */
 enum tt__RelayLogicalState
 {
@@ -436,7 +486,7 @@ enum tt__RelayLogicalState
 #endif
 
 #ifndef SOAP_TYPE_tt__RelayIdleState
-#define SOAP_TYPE_tt__RelayIdleState (1210)
+#define SOAP_TYPE_tt__RelayIdleState (1265)
 /* tt:RelayIdleState */
 enum tt__RelayIdleState
 {
@@ -446,7 +496,7 @@ enum tt__RelayIdleState
 #endif
 
 #ifndef SOAP_TYPE_tt__RelayMode
-#define SOAP_TYPE_tt__RelayMode (1212)
+#define SOAP_TYPE_tt__RelayMode (1267)
 /* tt:RelayMode */
 enum tt__RelayMode
 {
@@ -455,8 +505,18 @@ enum tt__RelayMode
 };
 #endif
 
+#ifndef SOAP_TYPE_tt__DigitalIdleState
+#define SOAP_TYPE_tt__DigitalIdleState (1269)
+/* tt:DigitalIdleState */
+enum tt__DigitalIdleState
+{
+  tt__DigitalIdleState__closed = 0,
+  tt__DigitalIdleState__open = 1
+};
+#endif
+
 #ifndef SOAP_TYPE_tt__EFlipMode
-#define SOAP_TYPE_tt__EFlipMode (1214)
+#define SOAP_TYPE_tt__EFlipMode (1271)
 /* tt:EFlipMode */
 enum tt__EFlipMode
 {
@@ -467,7 +527,7 @@ enum tt__EFlipMode
 #endif
 
 #ifndef SOAP_TYPE_tt__ReverseMode
-#define SOAP_TYPE_tt__ReverseMode (1216)
+#define SOAP_TYPE_tt__ReverseMode (1273)
 /* tt:ReverseMode */
 enum tt__ReverseMode
 {
@@ -479,7 +539,7 @@ enum tt__ReverseMode
 #endif
 
 #ifndef SOAP_TYPE_tt__MoveStatus
-#define SOAP_TYPE_tt__MoveStatus (1220)
+#define SOAP_TYPE_tt__MoveStatus (1277)
 /* tt:MoveStatus */
 enum tt__MoveStatus
 {
@@ -490,7 +550,7 @@ enum tt__MoveStatus
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourState
-#define SOAP_TYPE_tt__PTZPresetTourState (1222)
+#define SOAP_TYPE_tt__PTZPresetTourState (1279)
 /* tt:PTZPresetTourState */
 enum tt__PTZPresetTourState
 {
@@ -502,7 +562,7 @@ enum tt__PTZPresetTourState
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourDirection
-#define SOAP_TYPE_tt__PTZPresetTourDirection (1224)
+#define SOAP_TYPE_tt__PTZPresetTourDirection (1281)
 /* tt:PTZPresetTourDirection */
 enum tt__PTZPresetTourDirection
 {
@@ -513,7 +573,7 @@ enum tt__PTZPresetTourDirection
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourOperation
-#define SOAP_TYPE_tt__PTZPresetTourOperation (1226)
+#define SOAP_TYPE_tt__PTZPresetTourOperation (1283)
 /* tt:PTZPresetTourOperation */
 enum tt__PTZPresetTourOperation
 {
@@ -525,7 +585,7 @@ enum tt__PTZPresetTourOperation
 #endif
 
 #ifndef SOAP_TYPE_tt__AutoFocusMode
-#define SOAP_TYPE_tt__AutoFocusMode (1228)
+#define SOAP_TYPE_tt__AutoFocusMode (1285)
 /* tt:AutoFocusMode */
 enum tt__AutoFocusMode
 {
@@ -535,7 +595,7 @@ enum tt__AutoFocusMode
 #endif
 
 #ifndef SOAP_TYPE_tt__WideDynamicMode
-#define SOAP_TYPE_tt__WideDynamicMode (1230)
+#define SOAP_TYPE_tt__WideDynamicMode (1287)
 /* tt:WideDynamicMode */
 enum tt__WideDynamicMode
 {
@@ -545,7 +605,7 @@ enum tt__WideDynamicMode
 #endif
 
 #ifndef SOAP_TYPE_tt__BacklightCompensationMode
-#define SOAP_TYPE_tt__BacklightCompensationMode (1232)
+#define SOAP_TYPE_tt__BacklightCompensationMode (1289)
 /* tt:BacklightCompensationMode */
 enum tt__BacklightCompensationMode
 {
@@ -555,7 +615,7 @@ enum tt__BacklightCompensationMode
 #endif
 
 #ifndef SOAP_TYPE_tt__ExposurePriority
-#define SOAP_TYPE_tt__ExposurePriority (1234)
+#define SOAP_TYPE_tt__ExposurePriority (1291)
 /* tt:ExposurePriority */
 enum tt__ExposurePriority
 {
@@ -565,7 +625,7 @@ enum tt__ExposurePriority
 #endif
 
 #ifndef SOAP_TYPE_tt__ExposureMode
-#define SOAP_TYPE_tt__ExposureMode (1236)
+#define SOAP_TYPE_tt__ExposureMode (1293)
 /* tt:ExposureMode */
 enum tt__ExposureMode
 {
@@ -575,7 +635,7 @@ enum tt__ExposureMode
 #endif
 
 #ifndef SOAP_TYPE_tt__Enabled
-#define SOAP_TYPE_tt__Enabled (1238)
+#define SOAP_TYPE_tt__Enabled (1295)
 /* tt:Enabled */
 enum tt__Enabled
 {
@@ -585,7 +645,7 @@ enum tt__Enabled
 #endif
 
 #ifndef SOAP_TYPE_tt__WhiteBalanceMode
-#define SOAP_TYPE_tt__WhiteBalanceMode (1240)
+#define SOAP_TYPE_tt__WhiteBalanceMode (1297)
 /* tt:WhiteBalanceMode */
 enum tt__WhiteBalanceMode
 {
@@ -595,7 +655,7 @@ enum tt__WhiteBalanceMode
 #endif
 
 #ifndef SOAP_TYPE_tt__IrCutFilterMode
-#define SOAP_TYPE_tt__IrCutFilterMode (1242)
+#define SOAP_TYPE_tt__IrCutFilterMode (1299)
 /* tt:IrCutFilterMode */
 enum tt__IrCutFilterMode
 {
@@ -606,7 +666,7 @@ enum tt__IrCutFilterMode
 #endif
 
 #ifndef SOAP_TYPE_tt__ImageStabilizationMode
-#define SOAP_TYPE_tt__ImageStabilizationMode (1244)
+#define SOAP_TYPE_tt__ImageStabilizationMode (1301)
 /* tt:ImageStabilizationMode */
 enum tt__ImageStabilizationMode
 {
@@ -618,7 +678,7 @@ enum tt__ImageStabilizationMode
 #endif
 
 #ifndef SOAP_TYPE_tt__IrCutFilterAutoBoundaryType
-#define SOAP_TYPE_tt__IrCutFilterAutoBoundaryType (1246)
+#define SOAP_TYPE_tt__IrCutFilterAutoBoundaryType (1303)
 /* tt:IrCutFilterAutoBoundaryType */
 enum tt__IrCutFilterAutoBoundaryType
 {
@@ -630,7 +690,7 @@ enum tt__IrCutFilterAutoBoundaryType
 #endif
 
 #ifndef SOAP_TYPE_tt__ToneCompensationMode
-#define SOAP_TYPE_tt__ToneCompensationMode (1248)
+#define SOAP_TYPE_tt__ToneCompensationMode (1305)
 /* tt:ToneCompensationMode */
 enum tt__ToneCompensationMode
 {
@@ -641,7 +701,7 @@ enum tt__ToneCompensationMode
 #endif
 
 #ifndef SOAP_TYPE_tt__DefoggingMode
-#define SOAP_TYPE_tt__DefoggingMode (1250)
+#define SOAP_TYPE_tt__DefoggingMode (1307)
 /* tt:DefoggingMode */
 enum tt__DefoggingMode
 {
@@ -652,7 +712,7 @@ enum tt__DefoggingMode
 #endif
 
 #ifndef SOAP_TYPE_tt__PropertyOperation
-#define SOAP_TYPE_tt__PropertyOperation (1254)
+#define SOAP_TYPE_tt__PropertyOperation (1311)
 /* tt:PropertyOperation */
 enum tt__PropertyOperation
 {
@@ -663,7 +723,7 @@ enum tt__PropertyOperation
 #endif
 
 #ifndef SOAP_TYPE_tt__Direction
-#define SOAP_TYPE_tt__Direction (1256)
+#define SOAP_TYPE_tt__Direction (1313)
 /* tt:Direction */
 enum tt__Direction
 {
@@ -674,7 +734,7 @@ enum tt__Direction
 #endif
 
 #ifndef SOAP_TYPE_tt__ClassType
-#define SOAP_TYPE_tt__ClassType (1258)
+#define SOAP_TYPE_tt__ClassType (1315)
 /* tt:ClassType */
 enum tt__ClassType
 {
@@ -687,7 +747,7 @@ enum tt__ClassType
 #endif
 
 #ifndef SOAP_TYPE_tt__ReceiverMode
-#define SOAP_TYPE_tt__ReceiverMode (1260)
+#define SOAP_TYPE_tt__ReceiverMode (1317)
 /* tt:ReceiverMode */
 enum tt__ReceiverMode
 {
@@ -699,7 +759,7 @@ enum tt__ReceiverMode
 #endif
 
 #ifndef SOAP_TYPE_tt__ReceiverState
-#define SOAP_TYPE_tt__ReceiverState (1262)
+#define SOAP_TYPE_tt__ReceiverState (1319)
 /* tt:ReceiverState */
 enum tt__ReceiverState
 {
@@ -711,7 +771,7 @@ enum tt__ReceiverState
 #endif
 
 #ifndef SOAP_TYPE_tt__SearchState
-#define SOAP_TYPE_tt__SearchState (1268)
+#define SOAP_TYPE_tt__SearchState (1325)
 /* tt:SearchState */
 enum tt__SearchState
 {
@@ -723,7 +783,7 @@ enum tt__SearchState
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingStatus
-#define SOAP_TYPE_tt__RecordingStatus (1270)
+#define SOAP_TYPE_tt__RecordingStatus (1327)
 /* tt:RecordingStatus */
 enum tt__RecordingStatus
 {
@@ -737,7 +797,7 @@ enum tt__RecordingStatus
 #endif
 
 #ifndef SOAP_TYPE_tt__TrackType
-#define SOAP_TYPE_tt__TrackType (1272)
+#define SOAP_TYPE_tt__TrackType (1329)
 /* tt:TrackType */
 enum tt__TrackType
 {
@@ -749,7 +809,7 @@ enum tt__TrackType
 #endif
 
 #ifndef SOAP_TYPE_tt__ModeOfOperation
-#define SOAP_TYPE_tt__ModeOfOperation (1278)
+#define SOAP_TYPE_tt__ModeOfOperation (1335)
 /* tt:ModeOfOperation */
 enum tt__ModeOfOperation
 {
@@ -760,7 +820,7 @@ enum tt__ModeOfOperation
 #endif
 
 #ifndef SOAP_TYPE_tt__OSDType
-#define SOAP_TYPE_tt__OSDType (1282)
+#define SOAP_TYPE_tt__OSDType (1339)
 /* tt:OSDType */
 enum tt__OSDType
 {
@@ -777,11 +837,11 @@ enum tt__OSDType
 \******************************************************************************/
 
 #ifndef SOAP_TYPE_xsd__duration
-#define SOAP_TYPE_xsd__duration (158)
+#define SOAP_TYPE_xsd__duration (198)
 typedef LONG64 xsd__duration;
 #endif
 #ifndef SOAP_TYPE_xsd__QName
-#define SOAP_TYPE_xsd__QName (153)
+#define SOAP_TYPE_xsd__QName (193)
 typedef std::string xsd__QName;
 #endif
 
@@ -795,248 +855,8 @@ typedef std::string xsd__QName;
 
 #endif
 
-#ifndef SOAP_TYPE__xop__Include
-#define SOAP_TYPE__xop__Include (8)
-/* Base64 schema type: */
-struct _xop__Include
-{
-public:
-  unsigned char* __ptr;
-  int __size;
-  char* id;      /* optional element of type xsd:string */
-  char* type;    /* optional element of type xsd:string */
-  char* options; /* optional element of type xsd:string */
-public:
-  int soap_type() const
-  {
-    return 8;
-  } /* = unique type id SOAP_TYPE__xop__Include */
-};
-typedef struct _xop__Include _xop__Include;
-#endif
-
-#ifndef SOAP_TYPE_wsa5__EndpointReferenceType
-#define SOAP_TYPE_wsa5__EndpointReferenceType (12)
-/* wsa5:EndpointReferenceType */
-struct wsa5__EndpointReferenceType
-{
-public:
-  char* Address;                                             /* required element of type xsd:string */
-  struct wsa5__ReferenceParametersType* ReferenceParameters; /* optional element of type wsa5:ReferenceParametersType */
-  struct wsa5__MetadataType* Metadata;                       /* optional element of type wsa5:MetadataType */
-  int __size;                                                /* sequence of elements <-any> */
-  char** __any;
-  char* __anyAttribute; /* optional attribute of type xsd:anyType */
-public:
-  int soap_type() const
-  {
-    return 12;
-  } /* = unique type id SOAP_TYPE_wsa5__EndpointReferenceType */
-};
-typedef struct wsa5__EndpointReferenceType wsa5__EndpointReferenceType;
-#endif
-
-#ifndef SOAP_TYPE_wsa5__ReferenceParametersType
-#define SOAP_TYPE_wsa5__ReferenceParametersType (13)
-/* wsa5:ReferenceParametersType */
-struct wsa5__ReferenceParametersType
-{
-public:
-  int* chan__ChannelInstance; /* optional element of type xsd:int */
-  int __size;                 /* sequence of elements <-any> */
-  char** __any;
-  char* __anyAttribute; /* optional attribute of type xsd:anyType */
-public:
-  int soap_type() const
-  {
-    return 13;
-  } /* = unique type id SOAP_TYPE_wsa5__ReferenceParametersType */
-};
-typedef struct wsa5__ReferenceParametersType wsa5__ReferenceParametersType;
-#endif
-
-#ifndef SOAP_TYPE_wsa5__MetadataType
-#define SOAP_TYPE_wsa5__MetadataType (14)
-/* wsa5:MetadataType */
-struct wsa5__MetadataType
-{
-public:
-  int __size; /* sequence of elements <-any> */
-  char** __any;
-  char* __anyAttribute; /* optional attribute of type xsd:anyType */
-public:
-  int soap_type() const
-  {
-    return 14;
-  } /* = unique type id SOAP_TYPE_wsa5__MetadataType */
-};
-typedef struct wsa5__MetadataType wsa5__MetadataType;
-#endif
-
-#ifndef SOAP_TYPE_wsa5__ProblemActionType
-#define SOAP_TYPE_wsa5__ProblemActionType (16)
-/* wsa5:ProblemActionType */
-struct wsa5__ProblemActionType
-{
-public:
-  char* Action;         /* optional element of type xsd:string */
-  char* SoapAction;     /* optional element of type xsd:string */
-  char* __anyAttribute; /* optional attribute of type xsd:anyType */
-public:
-  int soap_type() const
-  {
-    return 16;
-  } /* = unique type id SOAP_TYPE_wsa5__ProblemActionType */
-};
-typedef struct wsa5__ProblemActionType wsa5__ProblemActionType;
-#endif
-
-#ifndef SOAP_TYPE_wsa5__RelatesToType
-#define SOAP_TYPE_wsa5__RelatesToType (15)
-/* Primitive wsa5:RelatesToType schema type: */
-struct wsa5__RelatesToType
-{
-public:
-  char* __item;
-  char* RelationshipType; /* optional attribute of type wsa5:RelationshipTypeOpenEnum */
-  char* __anyAttribute;   /* optional attribute of type xsd:anyType */
-public:
-  int soap_type() const
-  {
-    return 15;
-  } /* = unique type id SOAP_TYPE_wsa5__RelatesToType */
-};
-typedef struct wsa5__RelatesToType wsa5__RelatesToType;
-#endif
-
-#ifndef SOAP_TYPE_chan__ChannelInstanceType
-#define SOAP_TYPE_chan__ChannelInstanceType (41)
-/* Primitive chan:ChannelInstanceType schema type: */
-struct chan__ChannelInstanceType
-{
-public:
-  int __item;
-  enum _wsa5__IsReferenceParameter wsa5__IsReferenceParameter; /* optional attribute of type wsa5:IsReferenceParameter */
-public:
-  int soap_type() const
-  {
-    return 41;
-  } /* = unique type id SOAP_TYPE_chan__ChannelInstanceType */
-};
-#endif
-
-#ifndef WITH_NOGLOBAL
-
-#ifndef SOAP_TYPE_SOAP_ENV__Header
-#define SOAP_TYPE_SOAP_ENV__Header (42)
-/* SOAP Header: */
-struct SOAP_ENV__Header
-{
-public:
-  char* wsa5__MessageID;                                   /* optional element of type wsa5:MessageID */
-  struct wsa5__RelatesToType* wsa5__RelatesTo;             /* optional element of type wsa5:RelatesTo */
-  struct wsa5__EndpointReferenceType* wsa5__From;          /* optional element of type wsa5:From */
-  struct wsa5__EndpointReferenceType* wsa5__ReplyTo;       /* mustUnderstand */
-  struct wsa5__EndpointReferenceType* wsa5__FaultTo;       /* mustUnderstand */
-  char* wsa5__To;                                          /* mustUnderstand */
-  char* wsa5__Action;                                      /* mustUnderstand */
-  struct chan__ChannelInstanceType* chan__ChannelInstance; /* optional element of type chan:ChannelInstanceType */
-  struct _wsse__Security* wsse__Security;                  /* mustUnderstand */
-public:
-  int soap_type() const
-  {
-    return 42;
-  } /* = unique type id SOAP_TYPE_SOAP_ENV__Header */
-};
-#endif
-
-#endif
-
-#ifndef WITH_NOGLOBAL
-
-#ifndef SOAP_TYPE_SOAP_ENV__Detail
-#define SOAP_TYPE_SOAP_ENV__Detail (48)
-/* SOAP-ENV:Detail */
-struct SOAP_ENV__Detail
-{
-public:
-  char* __any;
-  int __type;  /* any type of element <fault> (defined below) */
-  void* fault; /* transient */
-public:
-  int soap_type() const
-  {
-    return 48;
-  } /* = unique type id SOAP_TYPE_SOAP_ENV__Detail */
-};
-#endif
-
-#endif
-
-#ifndef WITH_NOGLOBAL
-
-#ifndef SOAP_TYPE_SOAP_ENV__Code
-#define SOAP_TYPE_SOAP_ENV__Code (50)
-/* SOAP Fault Code: */
-struct SOAP_ENV__Code
-{
-public:
-  char* SOAP_ENV__Value;                    /* optional element of type xsd:QName */
-  struct SOAP_ENV__Code* SOAP_ENV__Subcode; /* optional element of type SOAP-ENV:Code */
-public:
-  int soap_type() const
-  {
-    return 50;
-  } /* = unique type id SOAP_TYPE_SOAP_ENV__Code */
-};
-#endif
-
-#endif
-
-#ifndef WITH_NOGLOBAL
-
-#ifndef SOAP_TYPE_SOAP_ENV__Reason
-#define SOAP_TYPE_SOAP_ENV__Reason (52)
-/* SOAP-ENV:Reason */
-struct SOAP_ENV__Reason
-{
-public:
-  char* SOAP_ENV__Text; /* optional element of type xsd:string */
-public:
-  int soap_type() const
-  {
-    return 52;
-  } /* = unique type id SOAP_TYPE_SOAP_ENV__Reason */
-};
-#endif
-
-#endif
-
-#ifndef SOAP_TYPE_SOAP_ENV__Fault__xsmart
-#define SOAP_TYPE_SOAP_ENV__Fault__xsmart (56)
-/* SOAP-ENV:Fault--xsmart */
-struct SOAP_ENV__Fault__xsmart
-{
-public:
-  char* faultcode;                           /* optional element of type xsd:QName */
-  char* faultstring;                         /* optional element of type xsd:string */
-  char* faultactor;                          /* optional element of type xsd:string */
-  struct SOAP_ENV__Detail* detail;           /* optional element of type SOAP-ENV:Detail */
-  struct SOAP_ENV__Code* SOAP_ENV__Code;     /* optional element of type SOAP-ENV:Code */
-  struct SOAP_ENV__Reason* SOAP_ENV__Reason; /* optional element of type SOAP-ENV:Reason */
-  char* SOAP_ENV__Node;                      /* optional element of type xsd:string */
-  char* SOAP_ENV__Role;                      /* optional element of type xsd:string */
-  struct SOAP_ENV__Detail* SOAP_ENV__Detail; /* optional element of type SOAP-ENV:Detail */
-public:
-  int soap_type() const
-  {
-    return 56;
-  } /* = unique type id SOAP_TYPE_SOAP_ENV__Fault__xsmart */
-};
-#endif
-
 #ifndef SOAP_TYPE__wsu__Timestamp
-#define SOAP_TYPE__wsu__Timestamp (58)
+#define SOAP_TYPE__wsu__Timestamp (8)
 /* wsu:Timestamp */
 struct _wsu__Timestamp
 {
@@ -1047,14 +867,14 @@ public:
 public:
   int soap_type() const
   {
-    return 58;
+    return 8;
   } /* = unique type id SOAP_TYPE__wsu__Timestamp */
 };
 typedef struct _wsu__Timestamp _wsu__Timestamp;
 #endif
 
 #ifndef SOAP_TYPE__wsse__UsernameToken
-#define SOAP_TYPE__wsse__UsernameToken (60)
+#define SOAP_TYPE__wsse__UsernameToken (10)
 /* wsse:UsernameToken */
 struct _wsse__UsernameToken
 {
@@ -1067,14 +887,14 @@ public:
 public:
   int soap_type() const
   {
-    return 60;
+    return 10;
   } /* = unique type id SOAP_TYPE__wsse__UsernameToken */
 };
 typedef struct _wsse__UsernameToken _wsse__UsernameToken;
 #endif
 
 #ifndef SOAP_TYPE__wsse__BinarySecurityToken
-#define SOAP_TYPE__wsse__BinarySecurityToken (63)
+#define SOAP_TYPE__wsse__BinarySecurityToken (13)
 /* Primitive wsse:BinarySecurityToken schema type: */
 struct _wsse__BinarySecurityToken
 {
@@ -1086,14 +906,14 @@ public:
 public:
   int soap_type() const
   {
-    return 63;
+    return 13;
   } /* = unique type id SOAP_TYPE__wsse__BinarySecurityToken */
 };
 typedef struct _wsse__BinarySecurityToken _wsse__BinarySecurityToken;
 #endif
 
 #ifndef SOAP_TYPE__wsse__Reference
-#define SOAP_TYPE__wsse__Reference (64)
+#define SOAP_TYPE__wsse__Reference (14)
 /* wsse:Reference */
 struct _wsse__Reference
 {
@@ -1103,14 +923,14 @@ public:
 public:
   int soap_type() const
   {
-    return 64;
+    return 14;
   } /* = unique type id SOAP_TYPE__wsse__Reference */
 };
 typedef struct _wsse__Reference _wsse__Reference;
 #endif
 
 #ifndef SOAP_TYPE__wsse__Embedded
-#define SOAP_TYPE__wsse__Embedded (65)
+#define SOAP_TYPE__wsse__Embedded (15)
 /* wsse:Embedded */
 struct _wsse__Embedded
 {
@@ -1120,14 +940,14 @@ public:
 public:
   int soap_type() const
   {
-    return 65;
+    return 15;
   } /* = unique type id SOAP_TYPE__wsse__Embedded */
 };
 typedef struct _wsse__Embedded _wsse__Embedded;
 #endif
 
 #ifndef SOAP_TYPE__wsse__KeyIdentifier
-#define SOAP_TYPE__wsse__KeyIdentifier (66)
+#define SOAP_TYPE__wsse__KeyIdentifier (16)
 /* Primitive wsse:KeyIdentifier schema type: */
 struct _wsse__KeyIdentifier
 {
@@ -1139,14 +959,14 @@ public:
 public:
   int soap_type() const
   {
-    return 66;
+    return 16;
   } /* = unique type id SOAP_TYPE__wsse__KeyIdentifier */
 };
 typedef struct _wsse__KeyIdentifier _wsse__KeyIdentifier;
 #endif
 
 #ifndef SOAP_TYPE__wsse__SecurityTokenReference
-#define SOAP_TYPE__wsse__SecurityTokenReference (67)
+#define SOAP_TYPE__wsse__SecurityTokenReference (17)
 /* wsse:SecurityTokenReference */
 struct _wsse__SecurityTokenReference
 {
@@ -1161,14 +981,14 @@ public:
 public:
   int soap_type() const
   {
-    return 67;
+    return 17;
   } /* = unique type id SOAP_TYPE__wsse__SecurityTokenReference */
 };
 typedef struct _wsse__SecurityTokenReference _wsse__SecurityTokenReference;
 #endif
 
 #ifndef SOAP_TYPE_ds__SignatureType
-#define SOAP_TYPE_ds__SignatureType (73)
+#define SOAP_TYPE_ds__SignatureType (23)
 /* ds:SignatureType */
 struct ds__SignatureType
 {
@@ -1180,14 +1000,14 @@ public:
 public:
   int soap_type() const
   {
-    return 73;
+    return 23;
   } /* = unique type id SOAP_TYPE_ds__SignatureType */
 };
 typedef struct ds__SignatureType ds__SignatureType;
 #endif
 
 #ifndef SOAP_TYPE__c14n__InclusiveNamespaces
-#define SOAP_TYPE__c14n__InclusiveNamespaces (83)
+#define SOAP_TYPE__c14n__InclusiveNamespaces (33)
 /* c14n:InclusiveNamespaces */
 struct _c14n__InclusiveNamespaces
 {
@@ -1196,14 +1016,14 @@ public:
 public:
   int soap_type() const
   {
-    return 83;
+    return 33;
   } /* = unique type id SOAP_TYPE__c14n__InclusiveNamespaces */
 };
 typedef struct _c14n__InclusiveNamespaces _c14n__InclusiveNamespaces;
 #endif
 
 #ifndef SOAP_TYPE_ds__TransformType
-#define SOAP_TYPE_ds__TransformType (84)
+#define SOAP_TYPE_ds__TransformType (34)
 /* ds:TransformType */
 struct ds__TransformType
 {
@@ -1214,14 +1034,14 @@ public:
 public:
   int soap_type() const
   {
-    return 84;
+    return 34;
   } /* = unique type id SOAP_TYPE_ds__TransformType */
 };
 typedef struct ds__TransformType ds__TransformType;
 #endif
 
 #ifndef SOAP_TYPE_ds__KeyInfoType
-#define SOAP_TYPE_ds__KeyInfoType (76)
+#define SOAP_TYPE_ds__KeyInfoType (26)
 /* ds:KeyInfoType */
 struct ds__KeyInfoType
 {
@@ -1236,14 +1056,14 @@ public:
 public:
   int soap_type() const
   {
-    return 76;
+    return 26;
   } /* = unique type id SOAP_TYPE_ds__KeyInfoType */
 };
 typedef struct ds__KeyInfoType ds__KeyInfoType;
 #endif
 
 #ifndef SOAP_TYPE_ds__SignedInfoType
-#define SOAP_TYPE_ds__SignedInfoType (74)
+#define SOAP_TYPE_ds__SignedInfoType (24)
 /* ds:SignedInfoType */
 struct ds__SignedInfoType
 {
@@ -1257,14 +1077,14 @@ public:
 public:
   int soap_type() const
   {
-    return 74;
+    return 24;
   } /* = unique type id SOAP_TYPE_ds__SignedInfoType */
 };
 typedef struct ds__SignedInfoType ds__SignedInfoType;
 #endif
 
 #ifndef SOAP_TYPE_ds__CanonicalizationMethodType
-#define SOAP_TYPE_ds__CanonicalizationMethodType (79)
+#define SOAP_TYPE_ds__CanonicalizationMethodType (29)
 /* ds:CanonicalizationMethodType */
 struct ds__CanonicalizationMethodType
 {
@@ -1274,14 +1094,14 @@ public:
 public:
   int soap_type() const
   {
-    return 79;
+    return 29;
   } /* = unique type id SOAP_TYPE_ds__CanonicalizationMethodType */
 };
 typedef struct ds__CanonicalizationMethodType ds__CanonicalizationMethodType;
 #endif
 
 #ifndef SOAP_TYPE_ds__SignatureMethodType
-#define SOAP_TYPE_ds__SignatureMethodType (80)
+#define SOAP_TYPE_ds__SignatureMethodType (30)
 /* ds:SignatureMethodType */
 struct ds__SignatureMethodType
 {
@@ -1291,14 +1111,14 @@ public:
 public:
   int soap_type() const
   {
-    return 80;
+    return 30;
   } /* = unique type id SOAP_TYPE_ds__SignatureMethodType */
 };
 typedef struct ds__SignatureMethodType ds__SignatureMethodType;
 #endif
 
 #ifndef SOAP_TYPE_ds__ReferenceType
-#define SOAP_TYPE_ds__ReferenceType (81)
+#define SOAP_TYPE_ds__ReferenceType (31)
 /* ds:ReferenceType */
 struct ds__ReferenceType
 {
@@ -1312,14 +1132,14 @@ public:
 public:
   int soap_type() const
   {
-    return 81;
+    return 31;
   } /* = unique type id SOAP_TYPE_ds__ReferenceType */
 };
 typedef struct ds__ReferenceType ds__ReferenceType;
 #endif
 
 #ifndef SOAP_TYPE_ds__TransformsType
-#define SOAP_TYPE_ds__TransformsType (82)
+#define SOAP_TYPE_ds__TransformsType (32)
 /* ds:TransformsType */
 struct ds__TransformsType
 {
@@ -1329,14 +1149,14 @@ public:
 public:
   int soap_type() const
   {
-    return 82;
+    return 32;
   } /* = unique type id SOAP_TYPE_ds__TransformsType */
 };
 typedef struct ds__TransformsType ds__TransformsType;
 #endif
 
 #ifndef SOAP_TYPE_ds__DigestMethodType
-#define SOAP_TYPE_ds__DigestMethodType (87)
+#define SOAP_TYPE_ds__DigestMethodType (37)
 /* ds:DigestMethodType */
 struct ds__DigestMethodType
 {
@@ -1345,14 +1165,14 @@ public:
 public:
   int soap_type() const
   {
-    return 87;
+    return 37;
   } /* = unique type id SOAP_TYPE_ds__DigestMethodType */
 };
 typedef struct ds__DigestMethodType ds__DigestMethodType;
 #endif
 
 #ifndef SOAP_TYPE_ds__KeyValueType
-#define SOAP_TYPE_ds__KeyValueType (88)
+#define SOAP_TYPE_ds__KeyValueType (38)
 /* ds:KeyValueType */
 struct ds__KeyValueType
 {
@@ -1362,14 +1182,14 @@ public:
 public:
   int soap_type() const
   {
-    return 88;
+    return 38;
   } /* = unique type id SOAP_TYPE_ds__KeyValueType */
 };
 typedef struct ds__KeyValueType ds__KeyValueType;
 #endif
 
 #ifndef SOAP_TYPE_ds__RetrievalMethodType
-#define SOAP_TYPE_ds__RetrievalMethodType (90)
+#define SOAP_TYPE_ds__RetrievalMethodType (40)
 /* ds:RetrievalMethodType */
 struct ds__RetrievalMethodType
 {
@@ -1380,14 +1200,14 @@ public:
 public:
   int soap_type() const
   {
-    return 90;
+    return 40;
   } /* = unique type id SOAP_TYPE_ds__RetrievalMethodType */
 };
 typedef struct ds__RetrievalMethodType ds__RetrievalMethodType;
 #endif
 
 #ifndef SOAP_TYPE_ds__X509DataType
-#define SOAP_TYPE_ds__X509DataType (71)
+#define SOAP_TYPE_ds__X509DataType (21)
 /* ds:X509DataType */
 struct ds__X509DataType
 {
@@ -1400,14 +1220,14 @@ public:
 public:
   int soap_type() const
   {
-    return 71;
+    return 21;
   } /* = unique type id SOAP_TYPE_ds__X509DataType */
 };
 typedef struct ds__X509DataType ds__X509DataType;
 #endif
 
 #ifndef SOAP_TYPE_ds__X509IssuerSerialType
-#define SOAP_TYPE_ds__X509IssuerSerialType (94)
+#define SOAP_TYPE_ds__X509IssuerSerialType (44)
 /* ds:X509IssuerSerialType */
 struct ds__X509IssuerSerialType
 {
@@ -1417,14 +1237,14 @@ public:
 public:
   int soap_type() const
   {
-    return 94;
+    return 44;
   } /* = unique type id SOAP_TYPE_ds__X509IssuerSerialType */
 };
 typedef struct ds__X509IssuerSerialType ds__X509IssuerSerialType;
 #endif
 
 #ifndef SOAP_TYPE_ds__DSAKeyValueType
-#define SOAP_TYPE_ds__DSAKeyValueType (95)
+#define SOAP_TYPE_ds__DSAKeyValueType (45)
 /* ds:DSAKeyValueType */
 struct ds__DSAKeyValueType
 {
@@ -1439,14 +1259,14 @@ public:
 public:
   int soap_type() const
   {
-    return 95;
+    return 45;
   } /* = unique type id SOAP_TYPE_ds__DSAKeyValueType */
 };
 typedef struct ds__DSAKeyValueType ds__DSAKeyValueType;
 #endif
 
 #ifndef SOAP_TYPE_ds__RSAKeyValueType
-#define SOAP_TYPE_ds__RSAKeyValueType (96)
+#define SOAP_TYPE_ds__RSAKeyValueType (46)
 /* ds:RSAKeyValueType */
 struct ds__RSAKeyValueType
 {
@@ -1456,14 +1276,14 @@ public:
 public:
   int soap_type() const
   {
-    return 96;
+    return 46;
   } /* = unique type id SOAP_TYPE_ds__RSAKeyValueType */
 };
 typedef struct ds__RSAKeyValueType ds__RSAKeyValueType;
 #endif
 
 #ifndef SOAP_TYPE_xenc__EncryptionPropertyType
-#define SOAP_TYPE_xenc__EncryptionPropertyType (117)
+#define SOAP_TYPE_xenc__EncryptionPropertyType (68)
 /* xenc:EncryptionPropertyType */
 struct xenc__EncryptionPropertyType
 {
@@ -1473,14 +1293,14 @@ public:
 public:
   int soap_type() const
   {
-    return 117;
+    return 68;
   } /* = unique type id SOAP_TYPE_xenc__EncryptionPropertyType */
 };
 typedef struct xenc__EncryptionPropertyType xenc__EncryptionPropertyType;
 #endif
 
 #ifndef SOAP_TYPE_xenc__EncryptedType
-#define SOAP_TYPE_xenc__EncryptedType (107)
+#define SOAP_TYPE_xenc__EncryptedType (58)
 /* xenc:EncryptedType */
 struct xenc__EncryptedType
 {
@@ -1497,14 +1317,14 @@ public:
 public:
   int soap_type() const
   {
-    return 107;
+    return 58;
   } /* = unique type id SOAP_TYPE_xenc__EncryptedType */
 };
 typedef struct xenc__EncryptedType xenc__EncryptedType;
 #endif
 
 #ifndef SOAP_TYPE_xenc__EncryptionMethodType
-#define SOAP_TYPE_xenc__EncryptionMethodType (108)
+#define SOAP_TYPE_xenc__EncryptionMethodType (59)
 /* xenc:EncryptionMethodType */
 struct xenc__EncryptionMethodType
 {
@@ -1518,14 +1338,14 @@ public:
 public:
   int soap_type() const
   {
-    return 108;
+    return 59;
   } /* = unique type id SOAP_TYPE_xenc__EncryptionMethodType */
 };
 typedef struct xenc__EncryptionMethodType xenc__EncryptionMethodType;
 #endif
 
 #ifndef SOAP_TYPE_xenc__CipherDataType
-#define SOAP_TYPE_xenc__CipherDataType (109)
+#define SOAP_TYPE_xenc__CipherDataType (60)
 /* xenc:CipherDataType */
 struct xenc__CipherDataType
 {
@@ -1535,14 +1355,14 @@ public:
 public:
   int soap_type() const
   {
-    return 109;
+    return 60;
   } /* = unique type id SOAP_TYPE_xenc__CipherDataType */
 };
 typedef struct xenc__CipherDataType xenc__CipherDataType;
 #endif
 
 #ifndef SOAP_TYPE_xenc__CipherReferenceType
-#define SOAP_TYPE_xenc__CipherReferenceType (110)
+#define SOAP_TYPE_xenc__CipherReferenceType (61)
 /* xenc:CipherReferenceType */
 struct xenc__CipherReferenceType
 {
@@ -1552,14 +1372,14 @@ public:
 public:
   int soap_type() const
   {
-    return 110;
+    return 61;
   } /* = unique type id SOAP_TYPE_xenc__CipherReferenceType */
 };
 typedef struct xenc__CipherReferenceType xenc__CipherReferenceType;
 #endif
 
 #ifndef SOAP_TYPE_xenc__TransformsType
-#define SOAP_TYPE_xenc__TransformsType (111)
+#define SOAP_TYPE_xenc__TransformsType (62)
 /* xenc:TransformsType */
 struct xenc__TransformsType
 {
@@ -1568,14 +1388,14 @@ public:
 public:
   int soap_type() const
   {
-    return 111;
+    return 62;
   } /* = unique type id SOAP_TYPE_xenc__TransformsType */
 };
 typedef struct xenc__TransformsType xenc__TransformsType;
 #endif
 
 #ifndef SOAP_TYPE_xenc__AgreementMethodType
-#define SOAP_TYPE_xenc__AgreementMethodType (114)
+#define SOAP_TYPE_xenc__AgreementMethodType (65)
 /* xenc:AgreementMethodType */
 struct xenc__AgreementMethodType
 {
@@ -1589,14 +1409,14 @@ public:
 public:
   int soap_type() const
   {
-    return 114;
+    return 65;
   } /* = unique type id SOAP_TYPE_xenc__AgreementMethodType */
 };
 typedef struct xenc__AgreementMethodType xenc__AgreementMethodType;
 #endif
 
 #ifndef SOAP_TYPE_xenc__ReferenceType
-#define SOAP_TYPE_xenc__ReferenceType (115)
+#define SOAP_TYPE_xenc__ReferenceType (66)
 /* xenc:ReferenceType */
 struct xenc__ReferenceType
 {
@@ -1605,14 +1425,14 @@ public:
 public:
   int soap_type() const
   {
-    return 115;
+    return 66;
   } /* = unique type id SOAP_TYPE_xenc__ReferenceType */
 };
 typedef struct xenc__ReferenceType xenc__ReferenceType;
 #endif
 
 #ifndef SOAP_TYPE_xenc__EncryptionPropertiesType
-#define SOAP_TYPE_xenc__EncryptionPropertiesType (116)
+#define SOAP_TYPE_xenc__EncryptionPropertiesType (67)
 /* xenc:EncryptionPropertiesType */
 struct xenc__EncryptionPropertiesType
 {
@@ -1623,14 +1443,14 @@ public:
 public:
   int soap_type() const
   {
-    return 116;
+    return 67;
   } /* = unique type id SOAP_TYPE_xenc__EncryptionPropertiesType */
 };
 typedef struct xenc__EncryptionPropertiesType xenc__EncryptionPropertiesType;
 #endif
 
 #ifndef SOAP_TYPE___xenc__union_ReferenceList
-#define SOAP_TYPE___xenc__union_ReferenceList (126)
+#define SOAP_TYPE___xenc__union_ReferenceList (77)
 /* Operation wrapper: */
 struct __xenc__union_ReferenceList
 {
@@ -1640,13 +1460,13 @@ public:
 public:
   int soap_type() const
   {
-    return 126;
+    return 77;
   } /* = unique type id SOAP_TYPE___xenc__union_ReferenceList */
 };
 #endif
 
 #ifndef SOAP_TYPE__xenc__ReferenceList
-#define SOAP_TYPE__xenc__ReferenceList (118)
+#define SOAP_TYPE__xenc__ReferenceList (69)
 /* xenc:ReferenceList */
 struct _xenc__ReferenceList
 {
@@ -1657,14 +1477,14 @@ public:
 public:
   int soap_type() const
   {
-    return 118;
+    return 69;
   } /* = unique type id SOAP_TYPE__xenc__ReferenceList */
 };
 typedef struct _xenc__ReferenceList _xenc__ReferenceList;
 #endif
 
 #ifndef SOAP_TYPE_xenc__EncryptedDataType
-#define SOAP_TYPE_xenc__EncryptedDataType (112)
+#define SOAP_TYPE_xenc__EncryptedDataType (63)
 /* xenc:EncryptedDataType */
 struct xenc__EncryptedDataType
 {
@@ -1681,14 +1501,14 @@ public:
 public:
   int soap_type() const
   {
-    return 112;
+    return 63;
   } /* = unique type id SOAP_TYPE_xenc__EncryptedDataType */
 };
 typedef struct xenc__EncryptedDataType xenc__EncryptedDataType;
 #endif
 
 #ifndef SOAP_TYPE_xenc__EncryptedKeyType
-#define SOAP_TYPE_xenc__EncryptedKeyType (113)
+#define SOAP_TYPE_xenc__EncryptedKeyType (64)
 /* xenc:EncryptedKeyType */
 struct xenc__EncryptedKeyType
 {
@@ -1708,14 +1528,14 @@ public:
 public:
   int soap_type() const
   {
-    return 113;
+    return 64;
   } /* = unique type id SOAP_TYPE_xenc__EncryptedKeyType */
 };
 typedef struct xenc__EncryptedKeyType xenc__EncryptedKeyType;
 #endif
 
 #ifndef SOAP_TYPE_wsc__SecurityContextTokenType
-#define SOAP_TYPE_wsc__SecurityContextTokenType (132)
+#define SOAP_TYPE_wsc__SecurityContextTokenType (83)
 /* wsc:SecurityContextTokenType */
 struct wsc__SecurityContextTokenType
 {
@@ -1726,13 +1546,13 @@ public:
 public:
   int soap_type() const
   {
-    return 132;
+    return 83;
   } /* = unique type id SOAP_TYPE_wsc__SecurityContextTokenType */
 };
 #endif
 
 #ifndef SOAP_TYPE__wsc__union_DerivedKeyTokenType
-#define SOAP_TYPE__wsc__union_DerivedKeyTokenType (137)
+#define SOAP_TYPE__wsc__union_DerivedKeyTokenType (89)
 /* xsd:choice */
 union _wsc__union_DerivedKeyTokenType
 {
@@ -1744,7 +1564,7 @@ union _wsc__union_DerivedKeyTokenType
 #endif
 
 #ifndef SOAP_TYPE___wsc__DerivedKeyTokenType_sequence
-#define SOAP_TYPE___wsc__DerivedKeyTokenType_sequence (136)
+#define SOAP_TYPE___wsc__DerivedKeyTokenType_sequence (87)
 /* Operation wrapper: */
 struct __wsc__DerivedKeyTokenType_sequence
 {
@@ -1755,13 +1575,13 @@ public:
 public:
   int soap_type() const
   {
-    return 136;
+    return 87;
   } /* = unique type id SOAP_TYPE___wsc__DerivedKeyTokenType_sequence */
 };
 #endif
 
 #ifndef SOAP_TYPE_wsc__DerivedKeyTokenType
-#define SOAP_TYPE_wsc__DerivedKeyTokenType (133)
+#define SOAP_TYPE_wsc__DerivedKeyTokenType (84)
 /* wsc:DerivedKeyTokenType */
 struct wsc__DerivedKeyTokenType
 {
@@ -1778,20 +1598,20 @@ public:
 public:
   int soap_type() const
   {
-    return 133;
+    return 84;
   } /* = unique type id SOAP_TYPE_wsc__DerivedKeyTokenType */
 };
 #endif
 
 #ifndef SOAP_TYPE_wsc__PropertiesType
-#define SOAP_TYPE_wsc__PropertiesType (134)
+#define SOAP_TYPE_wsc__PropertiesType (85)
 /* wsc:PropertiesType */
 struct wsc__PropertiesType
 {
 public:
   int soap_type() const
   {
-    return 134;
+    return 85;
   } /* = unique type id SOAP_TYPE_wsc__PropertiesType */
 #ifdef WITH_NOEMPTYSTRUCT
 private:
@@ -1801,7 +1621,7 @@ private:
 #endif
 
 #ifndef SOAP_TYPE__wsse__Security
-#define SOAP_TYPE__wsse__Security (140)
+#define SOAP_TYPE__wsse__Security (92)
 /* wsse:Security */
 struct _wsse__Security
 {
@@ -1819,14 +1639,14 @@ public:
 public:
   int soap_type() const
   {
-    return 140;
+    return 92;
   } /* = unique type id SOAP_TYPE__wsse__Security */
 };
 typedef struct _wsse__Security _wsse__Security;
 #endif
 
 #ifndef SOAP_TYPE__wsse__Password
-#define SOAP_TYPE__wsse__Password (61)
+#define SOAP_TYPE__wsse__Password (11)
 /* Primitive wsse:Password schema type: */
 struct _wsse__Password
 {
@@ -1836,14 +1656,567 @@ public:
 public:
   int soap_type() const
   {
-    return 61;
+    return 11;
   } /* = unique type id SOAP_TYPE__wsse__Password */
 };
 typedef struct _wsse__Password _wsse__Password;
 #endif
 
+#ifndef WITH_NOGLOBAL
+
+#ifndef SOAP_TYPE_SOAP_ENV__Header
+#define SOAP_TYPE_SOAP_ENV__Header (99)
+/* SOAP Header: */
+struct SOAP_ENV__Header
+{
+public:
+  struct _wsse__Security* wsse__Security;                  /* mustUnderstand */
+  char* wsa5__MessageID;                                   /* optional element of type wsa5:MessageID */
+  struct wsa5__RelatesToType* wsa5__RelatesTo;             /* optional element of type wsa5:RelatesTo */
+  struct wsa5__EndpointReferenceType* wsa5__From;          /* optional element of type wsa5:From */
+  struct wsa5__EndpointReferenceType* wsa5__ReplyTo;       /* mustUnderstand */
+  struct wsa5__EndpointReferenceType* wsa5__FaultTo;       /* mustUnderstand */
+  char* wsa5__To;                                          /* mustUnderstand */
+  char* wsa5__Action;                                      /* mustUnderstand */
+  struct chan__ChannelInstanceType* chan__ChannelInstance; /* optional element of type chan:ChannelInstanceType */
+  struct wsdd__AppSequenceType* wsdd__AppSequence;         /* optional element of type wsdd:AppSequenceType */
+public:
+  int soap_type() const
+  {
+    return 99;
+  } /* = unique type id SOAP_TYPE_SOAP_ENV__Header */
+};
+#endif
+
+#endif
+
+#ifndef SOAP_TYPE_wsa5__EndpointReferenceType
+#define SOAP_TYPE_wsa5__EndpointReferenceType (102)
+/* wsa5:EndpointReferenceType */
+struct wsa5__EndpointReferenceType
+{
+public:
+  char* Address;                                             /* required element of type xsd:string */
+  struct wsa5__ReferenceParametersType* ReferenceParameters; /* optional element of type wsa5:ReferenceParametersType */
+  struct wsa5__MetadataType* Metadata;                       /* optional element of type wsa5:MetadataType */
+  int __size;                                                /* sequence of elements <-any> */
+  char** __any;
+  char* __anyAttribute; /* optional attribute of type xsd:anyType */
+public:
+  int soap_type() const
+  {
+    return 102;
+  } /* = unique type id SOAP_TYPE_wsa5__EndpointReferenceType */
+};
+typedef struct wsa5__EndpointReferenceType wsa5__EndpointReferenceType;
+#endif
+
+#ifndef SOAP_TYPE_wsa5__ReferenceParametersType
+#define SOAP_TYPE_wsa5__ReferenceParametersType (103)
+/* wsa5:ReferenceParametersType */
+struct wsa5__ReferenceParametersType
+{
+public:
+  int* chan__ChannelInstance; /* optional element of type xsd:int */
+  int __size;                 /* sequence of elements <-any> */
+  char** __any;
+  char* __anyAttribute; /* optional attribute of type xsd:anyType */
+public:
+  int soap_type() const
+  {
+    return 103;
+  } /* = unique type id SOAP_TYPE_wsa5__ReferenceParametersType */
+};
+typedef struct wsa5__ReferenceParametersType wsa5__ReferenceParametersType;
+#endif
+
+#ifndef SOAP_TYPE_wsa5__MetadataType
+#define SOAP_TYPE_wsa5__MetadataType (104)
+/* wsa5:MetadataType */
+struct wsa5__MetadataType
+{
+public:
+  int __size; /* sequence of elements <-any> */
+  char** __any;
+  char* __anyAttribute; /* optional attribute of type xsd:anyType */
+public:
+  int soap_type() const
+  {
+    return 104;
+  } /* = unique type id SOAP_TYPE_wsa5__MetadataType */
+};
+typedef struct wsa5__MetadataType wsa5__MetadataType;
+#endif
+
+#ifndef SOAP_TYPE_wsa5__ProblemActionType
+#define SOAP_TYPE_wsa5__ProblemActionType (106)
+/* wsa5:ProblemActionType */
+struct wsa5__ProblemActionType
+{
+public:
+  char* Action;         /* optional element of type xsd:string */
+  char* SoapAction;     /* optional element of type xsd:string */
+  char* __anyAttribute; /* optional attribute of type xsd:anyType */
+public:
+  int soap_type() const
+  {
+    return 106;
+  } /* = unique type id SOAP_TYPE_wsa5__ProblemActionType */
+};
+typedef struct wsa5__ProblemActionType wsa5__ProblemActionType;
+#endif
+
+#ifndef SOAP_TYPE_wsa5__RelatesToType
+#define SOAP_TYPE_wsa5__RelatesToType (105)
+/* Primitive wsa5:RelatesToType schema type: */
+struct wsa5__RelatesToType
+{
+public:
+  char* __item;
+  char* RelationshipType; /* optional attribute of type wsa5:RelationshipTypeOpenEnum */
+  char* __anyAttribute;   /* optional attribute of type xsd:anyType */
+public:
+  int soap_type() const
+  {
+    return 105;
+  } /* = unique type id SOAP_TYPE_wsa5__RelatesToType */
+};
+typedef struct wsa5__RelatesToType wsa5__RelatesToType;
+#endif
+
+#ifndef SOAP_TYPE_chan__ChannelInstanceType
+#define SOAP_TYPE_chan__ChannelInstanceType (129)
+/* Primitive chan:ChannelInstanceType schema type: */
+struct chan__ChannelInstanceType
+{
+public:
+  int __item;
+  enum _wsa5__IsReferenceParameter wsa5__IsReferenceParameter; /* optional attribute of type wsa5:IsReferenceParameter */
+public:
+  int soap_type() const
+  {
+    return 129;
+  } /* = unique type id SOAP_TYPE_chan__ChannelInstanceType */
+};
+#endif
+
+#ifndef WITH_NOGLOBAL
+
+#ifndef SOAP_TYPE_SOAP_ENV__Detail
+#define SOAP_TYPE_SOAP_ENV__Detail (135)
+/* SOAP-ENV:Detail */
+struct SOAP_ENV__Detail
+{
+public:
+  char* __any;
+  int __type;  /* any type of element <fault> (defined below) */
+  void* fault; /* transient */
+public:
+  int soap_type() const
+  {
+    return 135;
+  } /* = unique type id SOAP_TYPE_SOAP_ENV__Detail */
+};
+#endif
+
+#endif
+
+#ifndef WITH_NOGLOBAL
+
+#ifndef SOAP_TYPE_SOAP_ENV__Code
+#define SOAP_TYPE_SOAP_ENV__Code (137)
+/* SOAP Fault Code: */
+struct SOAP_ENV__Code
+{
+public:
+  char* SOAP_ENV__Value;                    /* optional element of type xsd:QName */
+  struct SOAP_ENV__Code* SOAP_ENV__Subcode; /* optional element of type SOAP-ENV:Code */
+public:
+  int soap_type() const
+  {
+    return 137;
+  } /* = unique type id SOAP_TYPE_SOAP_ENV__Code */
+};
+#endif
+
+#endif
+
+#ifndef WITH_NOGLOBAL
+
+#ifndef SOAP_TYPE_SOAP_ENV__Reason
+#define SOAP_TYPE_SOAP_ENV__Reason (139)
+/* SOAP-ENV:Reason */
+struct SOAP_ENV__Reason
+{
+public:
+  char* SOAP_ENV__Text; /* optional element of type xsd:string */
+public:
+  int soap_type() const
+  {
+    return 139;
+  } /* = unique type id SOAP_TYPE_SOAP_ENV__Reason */
+};
+#endif
+
+#endif
+
+#ifndef WITH_NOGLOBAL
+
+#ifndef SOAP_TYPE_SOAP_ENV__Fault
+#define SOAP_TYPE_SOAP_ENV__Fault (143)
+/* SOAP Fault: */
+struct SOAP_ENV__Fault
+{
+public:
+  char* faultcode;                           /* optional element of type xsd:QName */
+  char* faultstring;                         /* optional element of type xsd:string */
+  char* faultactor;                          /* optional element of type xsd:string */
+  struct SOAP_ENV__Detail* detail;           /* optional element of type SOAP-ENV:Detail */
+  struct SOAP_ENV__Code* SOAP_ENV__Code;     /* optional element of type SOAP-ENV:Code */
+  struct SOAP_ENV__Reason* SOAP_ENV__Reason; /* optional element of type SOAP-ENV:Reason */
+  char* SOAP_ENV__Node;                      /* optional element of type xsd:string */
+  char* SOAP_ENV__Role;                      /* optional element of type xsd:string */
+  struct SOAP_ENV__Detail* SOAP_ENV__Detail; /* optional element of type SOAP-ENV:Detail */
+public:
+  int soap_type() const
+  {
+    return 143;
+  } /* = unique type id SOAP_TYPE_SOAP_ENV__Fault */
+};
+#endif
+
+#endif
+
+#ifndef SOAP_TYPE_wsdd__HelloType
+#define SOAP_TYPE_wsdd__HelloType (144)
+/* wsdd:HelloType */
+struct wsdd__HelloType
+{
+public:
+  struct wsa5__EndpointReferenceType wsa5__EndpointReference; /* required element of type wsa5:EndpointReference */
+  char* Types;                                                /* optional element of type xsd:QName */
+  struct wsdd__ScopesType* Scopes;                            /* optional element of type wsdd:ScopesType */
+  char* XAddrs;                                               /* optional element of type wsdd:UriListType */
+  unsigned int MetadataVersion;                               /* required element of type xsd:unsignedInt */
+public:
+  int soap_type() const
+  {
+    return 144;
+  } /* = unique type id SOAP_TYPE_wsdd__HelloType */
+};
+typedef struct wsdd__HelloType wsdd__HelloType;
+#endif
+
+#ifndef SOAP_TYPE_wsdd__ByeType
+#define SOAP_TYPE_wsdd__ByeType (145)
+/* wsdd:ByeType */
+struct wsdd__ByeType
+{
+public:
+  struct wsa5__EndpointReferenceType wsa5__EndpointReference; /* required element of type wsa5:EndpointReference */
+  char* Types;                                                /* optional element of type xsd:QName */
+  struct wsdd__ScopesType* Scopes;                            /* optional element of type wsdd:ScopesType */
+  char* XAddrs;                                               /* optional element of type wsdd:UriListType */
+  unsigned int* MetadataVersion;                              /* optional element of type xsd:unsignedInt */
+public:
+  int soap_type() const
+  {
+    return 145;
+  } /* = unique type id SOAP_TYPE_wsdd__ByeType */
+};
+typedef struct wsdd__ByeType wsdd__ByeType;
+#endif
+
+#ifndef SOAP_TYPE_wsdd__ProbeType
+#define SOAP_TYPE_wsdd__ProbeType (146)
+/* wsdd:ProbeType */
+struct wsdd__ProbeType
+{
+public:
+  char* Types;                     /* optional element of type xsd:QName */
+  struct wsdd__ScopesType* Scopes; /* optional element of type wsdd:ScopesType */
+public:
+  int soap_type() const
+  {
+    return 146;
+  } /* = unique type id SOAP_TYPE_wsdd__ProbeType */
+};
+typedef struct wsdd__ProbeType wsdd__ProbeType;
+#endif
+
+#ifndef SOAP_TYPE_wsdd__ProbeMatchesType
+#define SOAP_TYPE_wsdd__ProbeMatchesType (147)
+/* wsdd:ProbeMatchesType */
+struct wsdd__ProbeMatchesType
+{
+public:
+  int __sizeProbeMatch;
+  /* SOAP 1.2 RPC return element (when namespace qualified) */ /* sequence of elements <ProbeMatch> */
+  struct wsdd__ProbeMatchType* ProbeMatch;                     /* optional element of type wsdd:ProbeMatchType */
+public:
+  int soap_type() const
+  {
+    return 147;
+  } /* = unique type id SOAP_TYPE_wsdd__ProbeMatchesType */
+};
+typedef struct wsdd__ProbeMatchesType wsdd__ProbeMatchesType;
+#endif
+
+#ifndef SOAP_TYPE_wsdd__ProbeMatchType
+#define SOAP_TYPE_wsdd__ProbeMatchType (148)
+/* wsdd:ProbeMatchType */
+struct wsdd__ProbeMatchType
+{
+public:
+  struct wsa5__EndpointReferenceType wsa5__EndpointReference; /* required element of type wsa5:EndpointReference */
+  char* Types;                                                /* optional element of type xsd:QName */
+  struct wsdd__ScopesType* Scopes;                            /* optional element of type wsdd:ScopesType */
+  char* XAddrs;                                               /* optional element of type wsdd:UriListType */
+  unsigned int MetadataVersion;                               /* required element of type xsd:unsignedInt */
+public:
+  int soap_type() const
+  {
+    return 148;
+  } /* = unique type id SOAP_TYPE_wsdd__ProbeMatchType */
+};
+typedef struct wsdd__ProbeMatchType wsdd__ProbeMatchType;
+#endif
+
+#ifndef SOAP_TYPE_wsdd__ResolveType
+#define SOAP_TYPE_wsdd__ResolveType (149)
+/* wsdd:ResolveType */
+struct wsdd__ResolveType
+{
+public:
+  struct wsa5__EndpointReferenceType wsa5__EndpointReference;
+  /* SOAP 1.2 RPC return element (when namespace qualified) */ /* required element of type wsa5:EndpointReference */
+public:
+  int soap_type() const
+  {
+    return 149;
+  } /* = unique type id SOAP_TYPE_wsdd__ResolveType */
+};
+typedef struct wsdd__ResolveType wsdd__ResolveType;
+#endif
+
+#ifndef SOAP_TYPE_wsdd__ResolveMatchesType
+#define SOAP_TYPE_wsdd__ResolveMatchesType (150)
+/* wsdd:ResolveMatchesType */
+struct wsdd__ResolveMatchesType
+{
+public:
+  struct wsdd__ResolveMatchType* ResolveMatch; /* optional element of type wsdd:ResolveMatchType */
+public:
+  int soap_type() const
+  {
+    return 150;
+  } /* = unique type id SOAP_TYPE_wsdd__ResolveMatchesType */
+};
+typedef struct wsdd__ResolveMatchesType wsdd__ResolveMatchesType;
+#endif
+
+#ifndef SOAP_TYPE_wsdd__ResolveMatchType
+#define SOAP_TYPE_wsdd__ResolveMatchType (151)
+/* wsdd:ResolveMatchType */
+struct wsdd__ResolveMatchType
+{
+public:
+  struct wsa5__EndpointReferenceType wsa5__EndpointReference; /* required element of type wsa5:EndpointReference */
+  char* Types;                                                /* optional element of type xsd:QName */
+  struct wsdd__ScopesType* Scopes;                            /* optional element of type wsdd:ScopesType */
+  char* XAddrs;                                               /* optional element of type wsdd:UriListType */
+  unsigned int MetadataVersion;                               /* required element of type xsd:unsignedInt */
+public:
+  int soap_type() const
+  {
+    return 151;
+  } /* = unique type id SOAP_TYPE_wsdd__ResolveMatchType */
+};
+typedef struct wsdd__ResolveMatchType wsdd__ResolveMatchType;
+#endif
+
+#ifndef SOAP_TYPE_wsdd__SecurityType
+#define SOAP_TYPE_wsdd__SecurityType (153)
+/* wsdd:SecurityType */
+struct wsdd__SecurityType
+{
+public:
+  struct wsdd__SigType* Sig; /* optional element of type wsdd:SigType */
+public:
+  int soap_type() const
+  {
+    return 153;
+  } /* = unique type id SOAP_TYPE_wsdd__SecurityType */
+};
+typedef struct wsdd__SecurityType wsdd__SecurityType;
+#endif
+
+#ifndef SOAP_TYPE_wsdd__SigType
+#define SOAP_TYPE_wsdd__SigType (154)
+/* wsdd:SigType */
+struct wsdd__SigType
+{
+public:
+  char* Scheme; /* required attribute of type xsd:string */
+  char* KeyId;  /* optional attribute of type xsd:string */
+  char* Refs;   /* required attribute of type xsd:string */
+  char* Sig;    /* required attribute of type xsd:string */
+public:
+  int soap_type() const
+  {
+    return 154;
+  } /* = unique type id SOAP_TYPE_wsdd__SigType */
+};
+typedef struct wsdd__SigType wsdd__SigType;
+#endif
+
+#ifndef SOAP_TYPE_wsdd__ScopesType
+#define SOAP_TYPE_wsdd__ScopesType (152)
+/* Primitive wsdd:ScopesType schema type: */
+struct wsdd__ScopesType
+{
+public:
+  char* __item;
+  char* MatchBy; /* optional attribute of type xsd:string */
+public:
+  int soap_type() const
+  {
+    return 152;
+  } /* = unique type id SOAP_TYPE_wsdd__ScopesType */
+};
+typedef struct wsdd__ScopesType wsdd__ScopesType;
+#endif
+
+#ifndef SOAP_TYPE_wsdd__AppSequenceType
+#define SOAP_TYPE_wsdd__AppSequenceType (155)
+/* wsdd:AppSequenceType */
+struct wsdd__AppSequenceType
+{
+public:
+  unsigned int InstanceId;    /* required attribute of type xsd:unsignedInt */
+  char* SequenceId;           /* optional attribute of type xsd:string */
+  unsigned int MessageNumber; /* required attribute of type xsd:unsignedInt */
+public:
+  int soap_type() const
+  {
+    return 155;
+  } /* = unique type id SOAP_TYPE_wsdd__AppSequenceType */
+};
+typedef struct wsdd__AppSequenceType wsdd__AppSequenceType;
+#endif
+
+#ifndef SOAP_TYPE___wsdd__Hello
+#define SOAP_TYPE___wsdd__Hello (169)
+/* Operation wrapper: */
+struct __wsdd__Hello
+{
+public:
+  struct wsdd__HelloType* wsdd__Hello; /* optional element of type wsdd:HelloType */
+public:
+  int soap_type() const
+  {
+    return 169;
+  } /* = unique type id SOAP_TYPE___wsdd__Hello */
+};
+#endif
+
+#ifndef SOAP_TYPE___wsdd__Bye
+#define SOAP_TYPE___wsdd__Bye (172)
+/* Operation wrapper: */
+struct __wsdd__Bye
+{
+public:
+  struct wsdd__ByeType* wsdd__Bye; /* optional element of type wsdd:ByeType */
+public:
+  int soap_type() const
+  {
+    return 172;
+  } /* = unique type id SOAP_TYPE___wsdd__Bye */
+};
+#endif
+
+#ifndef SOAP_TYPE___wsdd__Probe
+#define SOAP_TYPE___wsdd__Probe (175)
+/* Operation wrapper: */
+struct __wsdd__Probe
+{
+public:
+  struct wsdd__ProbeType* wsdd__Probe; /* optional element of type wsdd:ProbeType */
+public:
+  int soap_type() const
+  {
+    return 175;
+  } /* = unique type id SOAP_TYPE___wsdd__Probe */
+};
+#endif
+
+#ifndef SOAP_TYPE___wsdd__ProbeMatches
+#define SOAP_TYPE___wsdd__ProbeMatches (178)
+/* Operation wrapper: */
+struct __wsdd__ProbeMatches
+{
+public:
+  struct wsdd__ProbeMatchesType* wsdd__ProbeMatches; /* optional element of type wsdd:ProbeMatchesType */
+public:
+  int soap_type() const
+  {
+    return 178;
+  } /* = unique type id SOAP_TYPE___wsdd__ProbeMatches */
+};
+#endif
+
+#ifndef SOAP_TYPE___wsdd__Resolve
+#define SOAP_TYPE___wsdd__Resolve (181)
+/* Operation wrapper: */
+struct __wsdd__Resolve
+{
+public:
+  struct wsdd__ResolveType* wsdd__Resolve; /* optional element of type wsdd:ResolveType */
+public:
+  int soap_type() const
+  {
+    return 181;
+  } /* = unique type id SOAP_TYPE___wsdd__Resolve */
+};
+#endif
+
+#ifndef SOAP_TYPE___wsdd__ResolveMatches
+#define SOAP_TYPE___wsdd__ResolveMatches (184)
+/* Operation wrapper: */
+struct __wsdd__ResolveMatches
+{
+public:
+  struct wsdd__ResolveMatchesType* wsdd__ResolveMatches; /* optional element of type wsdd:ResolveMatchesType */
+public:
+  int soap_type() const
+  {
+    return 184;
+  } /* = unique type id SOAP_TYPE___wsdd__ResolveMatches */
+};
+#endif
+
+#ifndef SOAP_TYPE__xop__Include
+#define SOAP_TYPE__xop__Include (185)
+/* Base64 schema type: */
+struct _xop__Include
+{
+public:
+  unsigned char* __ptr;
+  int __size;
+  char* id;      /* optional element of type xsd:string */
+  char* type;    /* optional element of type xsd:string */
+  char* options; /* optional element of type xsd:string */
+public:
+  int soap_type() const
+  {
+    return 185;
+  } /* = unique type id SOAP_TYPE__xop__Include */
+};
+typedef struct _xop__Include _xop__Include;
+#endif
+
 #ifndef SOAP_TYPE_xsd__anyType
-#define SOAP_TYPE_xsd__anyType (148)
+#define SOAP_TYPE_xsd__anyType (188)
 /* Primitive xsd:anyType schema type: */
 class SOAP_CMAC xsd__anyType
 {
@@ -1853,7 +2226,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 148;
+    return 188;
   } /* = unique type id SOAP_TYPE_xsd__anyType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -1872,7 +2245,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_SOAP_ENV__Envelope
-#define SOAP_TYPE_SOAP_ENV__Envelope (150)
+#define SOAP_TYPE_SOAP_ENV__Envelope (190)
 /* SOAP-ENV:Envelope */
 struct SOAP_ENV__Envelope
 {
@@ -1882,7 +2255,7 @@ public:
 public:
   int soap_type() const
   {
-    return 150;
+    return 190;
   } /* = unique type id SOAP_TYPE_SOAP_ENV__Envelope */
 };
 #endif
@@ -1892,7 +2265,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_xsd__base64Binary
-#define SOAP_TYPE_xsd__base64Binary (154)
+#define SOAP_TYPE_xsd__base64Binary (194)
 /* Base64 schema type: */
 class SOAP_CMAC xsd__base64Binary
 {
@@ -1906,7 +2279,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 154;
+    return 194;
   } /* = unique type id SOAP_TYPE_xsd__base64Binary */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -1925,7 +2298,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_xsd__hexBinary
-#define SOAP_TYPE_xsd__hexBinary (159)
+#define SOAP_TYPE_xsd__hexBinary (199)
 /* hexBinary schema type: */
 class SOAP_CMAC xsd__hexBinary
 {
@@ -1936,7 +2309,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 159;
+    return 199;
   } /* = unique type id SOAP_TYPE_xsd__hexBinary */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -1955,7 +2328,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_xsd__NCName_
-#define SOAP_TYPE_xsd__NCName_ (161)
+#define SOAP_TYPE_xsd__NCName_ (201)
 /* Primitive xsd:NCName schema type: */
 class SOAP_CMAC xsd__NCName_ : public xsd__anyType
 {
@@ -1965,7 +2338,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 161;
+    return 201;
   } /* = unique type id SOAP_TYPE_xsd__NCName_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -1984,7 +2357,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_xsd__QName_
-#define SOAP_TYPE_xsd__QName_ (162)
+#define SOAP_TYPE_xsd__QName_ (202)
 /* Primitive xsd:QName schema type: */
 class SOAP_CMAC xsd__QName_ : public xsd__anyType
 {
@@ -1994,7 +2367,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 162;
+    return 202;
   } /* = unique type id SOAP_TYPE_xsd__QName_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2013,7 +2386,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_xsd__anySimpleType_
-#define SOAP_TYPE_xsd__anySimpleType_ (164)
+#define SOAP_TYPE_xsd__anySimpleType_ (204)
 /* Primitive xsd:anySimpleType schema type: */
 class SOAP_CMAC xsd__anySimpleType_ : public xsd__anyType
 {
@@ -2023,7 +2396,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 164;
+    return 204;
   } /* = unique type id SOAP_TYPE_xsd__anySimpleType_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2042,7 +2415,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_xsd__anyURI_
-#define SOAP_TYPE_xsd__anyURI_ (166)
+#define SOAP_TYPE_xsd__anyURI_ (206)
 /* Primitive xsd:anyURI schema type: */
 class SOAP_CMAC xsd__anyURI_ : public xsd__anyType
 {
@@ -2052,7 +2425,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 166;
+    return 206;
   } /* = unique type id SOAP_TYPE_xsd__anyURI_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2071,7 +2444,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_xsd__base64Binary_
-#define SOAP_TYPE_xsd__base64Binary_ (167)
+#define SOAP_TYPE_xsd__base64Binary_ (207)
 /* Primitive xsd:base64Binary schema type: */
 class SOAP_CMAC xsd__base64Binary_ : public xsd__anyType
 {
@@ -2081,7 +2454,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 167;
+    return 207;
   } /* = unique type id SOAP_TYPE_xsd__base64Binary_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2100,7 +2473,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_xsd__boolean
-#define SOAP_TYPE_xsd__boolean (168)
+#define SOAP_TYPE_xsd__boolean (208)
 /* Primitive xsd:boolean schema type: */
 class SOAP_CMAC xsd__boolean : public xsd__anyType
 {
@@ -2110,7 +2483,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 168;
+    return 208;
   } /* = unique type id SOAP_TYPE_xsd__boolean */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2129,7 +2502,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_xsd__dateTime
-#define SOAP_TYPE_xsd__dateTime (170)
+#define SOAP_TYPE_xsd__dateTime (210)
 /* Primitive xsd:dateTime schema type: */
 class SOAP_CMAC xsd__dateTime : public xsd__anyType
 {
@@ -2139,7 +2512,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 170;
+    return 210;
   } /* = unique type id SOAP_TYPE_xsd__dateTime */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2158,7 +2531,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_xsd__duration_
-#define SOAP_TYPE_xsd__duration_ (172)
+#define SOAP_TYPE_xsd__duration_ (212)
 /* Primitive xsd:duration schema type: */
 class SOAP_CMAC xsd__duration_ : public xsd__anyType
 {
@@ -2167,7 +2540,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 172;
+    return 212;
   } /* = unique type id SOAP_TYPE_xsd__duration_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2186,7 +2559,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_xsd__float
-#define SOAP_TYPE_xsd__float (173)
+#define SOAP_TYPE_xsd__float (213)
 /* Primitive xsd:float schema type: */
 class SOAP_CMAC xsd__float : public xsd__anyType
 {
@@ -2196,7 +2569,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 173;
+    return 213;
   } /* = unique type id SOAP_TYPE_xsd__float */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2215,7 +2588,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_xsd__hexBinary_
-#define SOAP_TYPE_xsd__hexBinary_ (175)
+#define SOAP_TYPE_xsd__hexBinary_ (215)
 /* Primitive xsd:hexBinary schema type: */
 class SOAP_CMAC xsd__hexBinary_ : public xsd__anyType
 {
@@ -2225,7 +2598,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 175;
+    return 215;
   } /* = unique type id SOAP_TYPE_xsd__hexBinary_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2244,7 +2617,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_xsd__int
-#define SOAP_TYPE_xsd__int (176)
+#define SOAP_TYPE_xsd__int (216)
 /* Primitive xsd:int schema type: */
 class SOAP_CMAC xsd__int : public xsd__anyType
 {
@@ -2254,7 +2627,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 176;
+    return 216;
   } /* = unique type id SOAP_TYPE_xsd__int */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2273,7 +2646,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_xsd__integer_
-#define SOAP_TYPE_xsd__integer_ (178)
+#define SOAP_TYPE_xsd__integer_ (218)
 /* Primitive xsd:integer schema type: */
 class SOAP_CMAC xsd__integer_ : public xsd__anyType
 {
@@ -2283,7 +2656,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 178;
+    return 218;
   } /* = unique type id SOAP_TYPE_xsd__integer_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2302,7 +2675,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_xsd__nonNegativeInteger_
-#define SOAP_TYPE_xsd__nonNegativeInteger_ (180)
+#define SOAP_TYPE_xsd__nonNegativeInteger_ (220)
 /* Primitive xsd:nonNegativeInteger schema type: */
 class SOAP_CMAC xsd__nonNegativeInteger_ : public xsd__anyType
 {
@@ -2312,7 +2685,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 180;
+    return 220;
   } /* = unique type id SOAP_TYPE_xsd__nonNegativeInteger_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2331,7 +2704,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_xsd__string
-#define SOAP_TYPE_xsd__string (181)
+#define SOAP_TYPE_xsd__string (221)
 /* Primitive xsd:string schema type: */
 class SOAP_CMAC xsd__string : public xsd__anyType
 {
@@ -2341,7 +2714,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 181;
+    return 221;
   } /* = unique type id SOAP_TYPE_xsd__string */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2360,7 +2733,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_xsd__token_
-#define SOAP_TYPE_xsd__token_ (183)
+#define SOAP_TYPE_xsd__token_ (223)
 /* Primitive xsd:token schema type: */
 class SOAP_CMAC xsd__token_ : public xsd__anyType
 {
@@ -2370,7 +2743,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 183;
+    return 223;
   } /* = unique type id SOAP_TYPE_xsd__token_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2389,7 +2762,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tds__StorageType_
-#define SOAP_TYPE_tds__StorageType_ (1129)
+#define SOAP_TYPE_tds__StorageType_ (1178)
 /* Primitive tds:StorageType schema type: */
 class SOAP_CMAC tds__StorageType_ : public xsd__anyType
 {
@@ -2399,7 +2772,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1129;
+    return 1178;
   } /* = unique type id SOAP_TYPE_tds__StorageType_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2418,7 +2791,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ReferenceToken__
-#define SOAP_TYPE_tt__ReferenceToken__ (1131)
+#define SOAP_TYPE_tt__ReferenceToken__ (1180)
 /* Primitive tt:ReferenceToken schema type: */
 class SOAP_CMAC tt__ReferenceToken__ : public xsd__anyType
 {
@@ -2428,7 +2801,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1131;
+    return 1180;
   } /* = unique type id SOAP_TYPE_tt__ReferenceToken__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2447,7 +2820,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Name__
-#define SOAP_TYPE_tt__Name__ (1133)
+#define SOAP_TYPE_tt__Name__ (1182)
 /* Primitive tt:Name schema type: */
 class SOAP_CMAC tt__Name__ : public xsd__anyType
 {
@@ -2457,7 +2830,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1133;
+    return 1182;
   } /* = unique type id SOAP_TYPE_tt__Name__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2476,7 +2849,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RotateMode_
-#define SOAP_TYPE_tt__RotateMode_ (1135)
+#define SOAP_TYPE_tt__RotateMode_ (1184)
 /* Primitive tt:RotateMode schema type: */
 class SOAP_CMAC tt__RotateMode_ : public xsd__anyType
 {
@@ -2486,7 +2859,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1135;
+    return 1184;
   } /* = unique type id SOAP_TYPE_tt__RotateMode_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2505,7 +2878,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoEncoding_
-#define SOAP_TYPE_tt__VideoEncoding_ (1137)
+#define SOAP_TYPE_tt__VideoEncoding_ (1186)
 /* Primitive tt:VideoEncoding schema type: */
 class SOAP_CMAC tt__VideoEncoding_ : public xsd__anyType
 {
@@ -2515,7 +2888,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1137;
+    return 1186;
   } /* = unique type id SOAP_TYPE_tt__VideoEncoding_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2534,7 +2907,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Mpeg4Profile_
-#define SOAP_TYPE_tt__Mpeg4Profile_ (1139)
+#define SOAP_TYPE_tt__Mpeg4Profile_ (1188)
 /* Primitive tt:Mpeg4Profile schema type: */
 class SOAP_CMAC tt__Mpeg4Profile_ : public xsd__anyType
 {
@@ -2544,7 +2917,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1139;
+    return 1188;
   } /* = unique type id SOAP_TYPE_tt__Mpeg4Profile_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2563,7 +2936,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__H264Profile_
-#define SOAP_TYPE_tt__H264Profile_ (1141)
+#define SOAP_TYPE_tt__H264Profile_ (1190)
 /* Primitive tt:H264Profile schema type: */
 class SOAP_CMAC tt__H264Profile_ : public xsd__anyType
 {
@@ -2573,7 +2946,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1141;
+    return 1190;
   } /* = unique type id SOAP_TYPE_tt__H264Profile_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2591,8 +2964,66 @@ public:
 };
 #endif
 
+#ifndef SOAP_TYPE_tt__VideoEncodingMimeNames_
+#define SOAP_TYPE_tt__VideoEncodingMimeNames_ (1192)
+/* Primitive tt:VideoEncodingMimeNames schema type: */
+class SOAP_CMAC tt__VideoEncodingMimeNames_ : public xsd__anyType
+{
+public:
+  enum tt__VideoEncodingMimeNames __item;
+
+public:
+  virtual int soap_type() const
+  {
+    return 1192;
+  } /* = unique type id SOAP_TYPE_tt__VideoEncodingMimeNames_ */
+  virtual void soap_default(struct soap*);
+  virtual void soap_serialize(struct soap*) const;
+  virtual int soap_put(struct soap*, const char*, const char*) const;
+  virtual int soap_out(struct soap*, const char*, int, const char*) const;
+  virtual void* soap_get(struct soap*, const char*, const char*);
+  virtual void* soap_in(struct soap*, const char*, const char*);
+  tt__VideoEncodingMimeNames_()
+  {
+    tt__VideoEncodingMimeNames_::soap_default(NULL);
+  }
+  virtual ~tt__VideoEncodingMimeNames_()
+  {
+  }
+};
+#endif
+
+#ifndef SOAP_TYPE_tt__VideoEncodingProfiles_
+#define SOAP_TYPE_tt__VideoEncodingProfiles_ (1194)
+/* Primitive tt:VideoEncodingProfiles schema type: */
+class SOAP_CMAC tt__VideoEncodingProfiles_ : public xsd__anyType
+{
+public:
+  enum tt__VideoEncodingProfiles __item;
+
+public:
+  virtual int soap_type() const
+  {
+    return 1194;
+  } /* = unique type id SOAP_TYPE_tt__VideoEncodingProfiles_ */
+  virtual void soap_default(struct soap*);
+  virtual void soap_serialize(struct soap*) const;
+  virtual int soap_put(struct soap*, const char*, const char*) const;
+  virtual int soap_out(struct soap*, const char*, int, const char*) const;
+  virtual void* soap_get(struct soap*, const char*, const char*);
+  virtual void* soap_in(struct soap*, const char*, const char*);
+  tt__VideoEncodingProfiles_()
+  {
+    tt__VideoEncodingProfiles_::soap_default(NULL);
+  }
+  virtual ~tt__VideoEncodingProfiles_()
+  {
+  }
+};
+#endif
+
 #ifndef SOAP_TYPE_tt__AudioEncoding_
-#define SOAP_TYPE_tt__AudioEncoding_ (1143)
+#define SOAP_TYPE_tt__AudioEncoding_ (1196)
 /* Primitive tt:AudioEncoding schema type: */
 class SOAP_CMAC tt__AudioEncoding_ : public xsd__anyType
 {
@@ -2602,7 +3033,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1143;
+    return 1196;
   } /* = unique type id SOAP_TYPE_tt__AudioEncoding_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2620,8 +3051,37 @@ public:
 };
 #endif
 
+#ifndef SOAP_TYPE_tt__AudioEncodingMimeNames_
+#define SOAP_TYPE_tt__AudioEncodingMimeNames_ (1198)
+/* Primitive tt:AudioEncodingMimeNames schema type: */
+class SOAP_CMAC tt__AudioEncodingMimeNames_ : public xsd__anyType
+{
+public:
+  enum tt__AudioEncodingMimeNames __item;
+
+public:
+  virtual int soap_type() const
+  {
+    return 1198;
+  } /* = unique type id SOAP_TYPE_tt__AudioEncodingMimeNames_ */
+  virtual void soap_default(struct soap*);
+  virtual void soap_serialize(struct soap*) const;
+  virtual int soap_put(struct soap*, const char*, const char*) const;
+  virtual int soap_out(struct soap*, const char*, int, const char*) const;
+  virtual void* soap_get(struct soap*, const char*, const char*);
+  virtual void* soap_in(struct soap*, const char*, const char*);
+  tt__AudioEncodingMimeNames_()
+  {
+    tt__AudioEncodingMimeNames_::soap_default(NULL);
+  }
+  virtual ~tt__AudioEncodingMimeNames_()
+  {
+  }
+};
+#endif
+
 #ifndef SOAP_TYPE_tt__MetadataCompressionType_
-#define SOAP_TYPE_tt__MetadataCompressionType_ (1145)
+#define SOAP_TYPE_tt__MetadataCompressionType_ (1200)
 /* Primitive tt:MetadataCompressionType schema type: */
 class SOAP_CMAC tt__MetadataCompressionType_ : public xsd__anyType
 {
@@ -2631,7 +3091,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1145;
+    return 1200;
   } /* = unique type id SOAP_TYPE_tt__MetadataCompressionType_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2650,7 +3110,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__StreamType_
-#define SOAP_TYPE_tt__StreamType_ (1147)
+#define SOAP_TYPE_tt__StreamType_ (1202)
 /* Primitive tt:StreamType schema type: */
 class SOAP_CMAC tt__StreamType_ : public xsd__anyType
 {
@@ -2660,7 +3120,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1147;
+    return 1202;
   } /* = unique type id SOAP_TYPE_tt__StreamType_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2679,7 +3139,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__TransportProtocol_
-#define SOAP_TYPE_tt__TransportProtocol_ (1149)
+#define SOAP_TYPE_tt__TransportProtocol_ (1204)
 /* Primitive tt:TransportProtocol schema type: */
 class SOAP_CMAC tt__TransportProtocol_ : public xsd__anyType
 {
@@ -2689,7 +3149,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1149;
+    return 1204;
   } /* = unique type id SOAP_TYPE_tt__TransportProtocol_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2708,7 +3168,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ScopeDefinition_
-#define SOAP_TYPE_tt__ScopeDefinition_ (1151)
+#define SOAP_TYPE_tt__ScopeDefinition_ (1206)
 /* Primitive tt:ScopeDefinition schema type: */
 class SOAP_CMAC tt__ScopeDefinition_ : public xsd__anyType
 {
@@ -2718,7 +3178,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1151;
+    return 1206;
   } /* = unique type id SOAP_TYPE_tt__ScopeDefinition_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2737,7 +3197,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__DiscoveryMode_
-#define SOAP_TYPE_tt__DiscoveryMode_ (1153)
+#define SOAP_TYPE_tt__DiscoveryMode_ (1208)
 /* Primitive tt:DiscoveryMode schema type: */
 class SOAP_CMAC tt__DiscoveryMode_ : public xsd__anyType
 {
@@ -2747,7 +3207,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1153;
+    return 1208;
   } /* = unique type id SOAP_TYPE_tt__DiscoveryMode_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2766,7 +3226,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkInterfaceConfigPriority__
-#define SOAP_TYPE_tt__NetworkInterfaceConfigPriority__ (1155)
+#define SOAP_TYPE_tt__NetworkInterfaceConfigPriority__ (1210)
 /* Primitive tt:NetworkInterfaceConfigPriority schema type: */
 class SOAP_CMAC tt__NetworkInterfaceConfigPriority__ : public xsd__anyType
 {
@@ -2776,7 +3236,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1155;
+    return 1210;
   } /* = unique type id SOAP_TYPE_tt__NetworkInterfaceConfigPriority__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2795,7 +3255,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Duplex_
-#define SOAP_TYPE_tt__Duplex_ (1157)
+#define SOAP_TYPE_tt__Duplex_ (1212)
 /* Primitive tt:Duplex schema type: */
 class SOAP_CMAC tt__Duplex_ : public xsd__anyType
 {
@@ -2805,7 +3265,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1157;
+    return 1212;
   } /* = unique type id SOAP_TYPE_tt__Duplex_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2824,7 +3284,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IANA_IfTypes__
-#define SOAP_TYPE_tt__IANA_IfTypes__ (1159)
+#define SOAP_TYPE_tt__IANA_IfTypes__ (1214)
 /* Primitive tt:IANA-IfTypes schema type: */
 class SOAP_CMAC tt__IANA_IfTypes__ : public xsd__anyType
 {
@@ -2834,7 +3294,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1159;
+    return 1214;
   } /* = unique type id SOAP_TYPE_tt__IANA_IfTypes__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2853,7 +3313,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IPv6DHCPConfiguration_
-#define SOAP_TYPE_tt__IPv6DHCPConfiguration_ (1161)
+#define SOAP_TYPE_tt__IPv6DHCPConfiguration_ (1216)
 /* Primitive tt:IPv6DHCPConfiguration schema type: */
 class SOAP_CMAC tt__IPv6DHCPConfiguration_ : public xsd__anyType
 {
@@ -2863,7 +3323,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1161;
+    return 1216;
   } /* = unique type id SOAP_TYPE_tt__IPv6DHCPConfiguration_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2882,7 +3342,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkProtocolType_
-#define SOAP_TYPE_tt__NetworkProtocolType_ (1163)
+#define SOAP_TYPE_tt__NetworkProtocolType_ (1218)
 /* Primitive tt:NetworkProtocolType schema type: */
 class SOAP_CMAC tt__NetworkProtocolType_ : public xsd__anyType
 {
@@ -2892,7 +3352,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1163;
+    return 1218;
   } /* = unique type id SOAP_TYPE_tt__NetworkProtocolType_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2911,7 +3371,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkHostType_
-#define SOAP_TYPE_tt__NetworkHostType_ (1165)
+#define SOAP_TYPE_tt__NetworkHostType_ (1220)
 /* Primitive tt:NetworkHostType schema type: */
 class SOAP_CMAC tt__NetworkHostType_ : public xsd__anyType
 {
@@ -2921,7 +3381,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1165;
+    return 1220;
   } /* = unique type id SOAP_TYPE_tt__NetworkHostType_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2940,7 +3400,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IPv4Address__
-#define SOAP_TYPE_tt__IPv4Address__ (1167)
+#define SOAP_TYPE_tt__IPv4Address__ (1222)
 /* Primitive tt:IPv4Address schema type: */
 class SOAP_CMAC tt__IPv4Address__ : public xsd__anyType
 {
@@ -2950,7 +3410,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1167;
+    return 1222;
   } /* = unique type id SOAP_TYPE_tt__IPv4Address__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2969,7 +3429,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IPv6Address__
-#define SOAP_TYPE_tt__IPv6Address__ (1169)
+#define SOAP_TYPE_tt__IPv6Address__ (1224)
 /* Primitive tt:IPv6Address schema type: */
 class SOAP_CMAC tt__IPv6Address__ : public xsd__anyType
 {
@@ -2979,7 +3439,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1169;
+    return 1224;
   } /* = unique type id SOAP_TYPE_tt__IPv6Address__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -2998,7 +3458,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__HwAddress__
-#define SOAP_TYPE_tt__HwAddress__ (1171)
+#define SOAP_TYPE_tt__HwAddress__ (1226)
 /* Primitive tt:HwAddress schema type: */
 class SOAP_CMAC tt__HwAddress__ : public xsd__anyType
 {
@@ -3008,7 +3468,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1171;
+    return 1226;
   } /* = unique type id SOAP_TYPE_tt__HwAddress__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3027,7 +3487,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IPType_
-#define SOAP_TYPE_tt__IPType_ (1173)
+#define SOAP_TYPE_tt__IPType_ (1228)
 /* Primitive tt:IPType schema type: */
 class SOAP_CMAC tt__IPType_ : public xsd__anyType
 {
@@ -3037,7 +3497,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1173;
+    return 1228;
   } /* = unique type id SOAP_TYPE_tt__IPType_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3056,7 +3516,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__DNSName__
-#define SOAP_TYPE_tt__DNSName__ (1175)
+#define SOAP_TYPE_tt__DNSName__ (1230)
 /* Primitive tt:DNSName schema type: */
 class SOAP_CMAC tt__DNSName__ : public xsd__anyType
 {
@@ -3066,7 +3526,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1175;
+    return 1230;
   } /* = unique type id SOAP_TYPE_tt__DNSName__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3085,7 +3545,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Domain__
-#define SOAP_TYPE_tt__Domain__ (1177)
+#define SOAP_TYPE_tt__Domain__ (1232)
 /* Primitive tt:Domain schema type: */
 class SOAP_CMAC tt__Domain__ : public xsd__anyType
 {
@@ -3095,7 +3555,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1177;
+    return 1232;
   } /* = unique type id SOAP_TYPE_tt__Domain__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3114,7 +3574,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IPAddressFilterType_
-#define SOAP_TYPE_tt__IPAddressFilterType_ (1179)
+#define SOAP_TYPE_tt__IPAddressFilterType_ (1234)
 /* Primitive tt:IPAddressFilterType schema type: */
 class SOAP_CMAC tt__IPAddressFilterType_ : public xsd__anyType
 {
@@ -3124,7 +3584,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1179;
+    return 1234;
   } /* = unique type id SOAP_TYPE_tt__IPAddressFilterType_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3143,7 +3603,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__DynamicDNSType_
-#define SOAP_TYPE_tt__DynamicDNSType_ (1181)
+#define SOAP_TYPE_tt__DynamicDNSType_ (1236)
 /* Primitive tt:DynamicDNSType schema type: */
 class SOAP_CMAC tt__DynamicDNSType_ : public xsd__anyType
 {
@@ -3153,7 +3613,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1181;
+    return 1236;
   } /* = unique type id SOAP_TYPE_tt__DynamicDNSType_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3172,7 +3632,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11SSIDType__
-#define SOAP_TYPE_tt__Dot11SSIDType__ (1183)
+#define SOAP_TYPE_tt__Dot11SSIDType__ (1238)
 /* Primitive tt:Dot11SSIDType schema type: */
 class SOAP_CMAC tt__Dot11SSIDType__ : public xsd__anyType
 {
@@ -3182,7 +3642,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1183;
+    return 1238;
   } /* = unique type id SOAP_TYPE_tt__Dot11SSIDType__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3201,7 +3661,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11StationMode_
-#define SOAP_TYPE_tt__Dot11StationMode_ (1185)
+#define SOAP_TYPE_tt__Dot11StationMode_ (1240)
 /* Primitive tt:Dot11StationMode schema type: */
 class SOAP_CMAC tt__Dot11StationMode_ : public xsd__anyType
 {
@@ -3211,7 +3671,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1185;
+    return 1240;
   } /* = unique type id SOAP_TYPE_tt__Dot11StationMode_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3230,7 +3690,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11SecurityMode_
-#define SOAP_TYPE_tt__Dot11SecurityMode_ (1187)
+#define SOAP_TYPE_tt__Dot11SecurityMode_ (1242)
 /* Primitive tt:Dot11SecurityMode schema type: */
 class SOAP_CMAC tt__Dot11SecurityMode_ : public xsd__anyType
 {
@@ -3240,7 +3700,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1187;
+    return 1242;
   } /* = unique type id SOAP_TYPE_tt__Dot11SecurityMode_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3259,7 +3719,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11Cipher_
-#define SOAP_TYPE_tt__Dot11Cipher_ (1189)
+#define SOAP_TYPE_tt__Dot11Cipher_ (1244)
 /* Primitive tt:Dot11Cipher schema type: */
 class SOAP_CMAC tt__Dot11Cipher_ : public xsd__anyType
 {
@@ -3269,7 +3729,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1189;
+    return 1244;
   } /* = unique type id SOAP_TYPE_tt__Dot11Cipher_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3288,7 +3748,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11PSK__
-#define SOAP_TYPE_tt__Dot11PSK__ (1191)
+#define SOAP_TYPE_tt__Dot11PSK__ (1246)
 /* Primitive tt:Dot11PSK schema type: */
 class SOAP_CMAC tt__Dot11PSK__ : public xsd__anyType
 {
@@ -3298,7 +3758,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1191;
+    return 1246;
   } /* = unique type id SOAP_TYPE_tt__Dot11PSK__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3317,7 +3777,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11PSKPassphrase__
-#define SOAP_TYPE_tt__Dot11PSKPassphrase__ (1193)
+#define SOAP_TYPE_tt__Dot11PSKPassphrase__ (1248)
 /* Primitive tt:Dot11PSKPassphrase schema type: */
 class SOAP_CMAC tt__Dot11PSKPassphrase__ : public xsd__anyType
 {
@@ -3327,7 +3787,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1193;
+    return 1248;
   } /* = unique type id SOAP_TYPE_tt__Dot11PSKPassphrase__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3346,7 +3806,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11SignalStrength_
-#define SOAP_TYPE_tt__Dot11SignalStrength_ (1195)
+#define SOAP_TYPE_tt__Dot11SignalStrength_ (1250)
 /* Primitive tt:Dot11SignalStrength schema type: */
 class SOAP_CMAC tt__Dot11SignalStrength_ : public xsd__anyType
 {
@@ -3356,7 +3816,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1195;
+    return 1250;
   } /* = unique type id SOAP_TYPE_tt__Dot11SignalStrength_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3375,7 +3835,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11AuthAndMangementSuite_
-#define SOAP_TYPE_tt__Dot11AuthAndMangementSuite_ (1197)
+#define SOAP_TYPE_tt__Dot11AuthAndMangementSuite_ (1252)
 /* Primitive tt:Dot11AuthAndMangementSuite schema type: */
 class SOAP_CMAC tt__Dot11AuthAndMangementSuite_ : public xsd__anyType
 {
@@ -3385,7 +3845,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1197;
+    return 1252;
   } /* = unique type id SOAP_TYPE_tt__Dot11AuthAndMangementSuite_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3404,7 +3864,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__CapabilityCategory_
-#define SOAP_TYPE_tt__CapabilityCategory_ (1199)
+#define SOAP_TYPE_tt__CapabilityCategory_ (1254)
 /* Primitive tt:CapabilityCategory schema type: */
 class SOAP_CMAC tt__CapabilityCategory_ : public xsd__anyType
 {
@@ -3414,7 +3874,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1199;
+    return 1254;
   } /* = unique type id SOAP_TYPE_tt__CapabilityCategory_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3433,7 +3893,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SystemLogType_
-#define SOAP_TYPE_tt__SystemLogType_ (1201)
+#define SOAP_TYPE_tt__SystemLogType_ (1256)
 /* Primitive tt:SystemLogType schema type: */
 class SOAP_CMAC tt__SystemLogType_ : public xsd__anyType
 {
@@ -3443,7 +3903,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1201;
+    return 1256;
   } /* = unique type id SOAP_TYPE_tt__SystemLogType_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3462,7 +3922,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FactoryDefaultType_
-#define SOAP_TYPE_tt__FactoryDefaultType_ (1203)
+#define SOAP_TYPE_tt__FactoryDefaultType_ (1258)
 /* Primitive tt:FactoryDefaultType schema type: */
 class SOAP_CMAC tt__FactoryDefaultType_ : public xsd__anyType
 {
@@ -3472,7 +3932,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1203;
+    return 1258;
   } /* = unique type id SOAP_TYPE_tt__FactoryDefaultType_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3491,7 +3951,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SetDateTimeType_
-#define SOAP_TYPE_tt__SetDateTimeType_ (1205)
+#define SOAP_TYPE_tt__SetDateTimeType_ (1260)
 /* Primitive tt:SetDateTimeType schema type: */
 class SOAP_CMAC tt__SetDateTimeType_ : public xsd__anyType
 {
@@ -3501,7 +3961,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1205;
+    return 1260;
   } /* = unique type id SOAP_TYPE_tt__SetDateTimeType_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3520,7 +3980,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__UserLevel_
-#define SOAP_TYPE_tt__UserLevel_ (1207)
+#define SOAP_TYPE_tt__UserLevel_ (1262)
 /* Primitive tt:UserLevel schema type: */
 class SOAP_CMAC tt__UserLevel_ : public xsd__anyType
 {
@@ -3530,7 +3990,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1207;
+    return 1262;
   } /* = unique type id SOAP_TYPE_tt__UserLevel_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3549,7 +4009,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RelayLogicalState_
-#define SOAP_TYPE_tt__RelayLogicalState_ (1209)
+#define SOAP_TYPE_tt__RelayLogicalState_ (1264)
 /* Primitive tt:RelayLogicalState schema type: */
 class SOAP_CMAC tt__RelayLogicalState_ : public xsd__anyType
 {
@@ -3559,7 +4019,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1209;
+    return 1264;
   } /* = unique type id SOAP_TYPE_tt__RelayLogicalState_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3578,7 +4038,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RelayIdleState_
-#define SOAP_TYPE_tt__RelayIdleState_ (1211)
+#define SOAP_TYPE_tt__RelayIdleState_ (1266)
 /* Primitive tt:RelayIdleState schema type: */
 class SOAP_CMAC tt__RelayIdleState_ : public xsd__anyType
 {
@@ -3588,7 +4048,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1211;
+    return 1266;
   } /* = unique type id SOAP_TYPE_tt__RelayIdleState_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3607,7 +4067,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RelayMode_
-#define SOAP_TYPE_tt__RelayMode_ (1213)
+#define SOAP_TYPE_tt__RelayMode_ (1268)
 /* Primitive tt:RelayMode schema type: */
 class SOAP_CMAC tt__RelayMode_ : public xsd__anyType
 {
@@ -3617,7 +4077,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1213;
+    return 1268;
   } /* = unique type id SOAP_TYPE_tt__RelayMode_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3635,8 +4095,37 @@ public:
 };
 #endif
 
+#ifndef SOAP_TYPE_tt__DigitalIdleState_
+#define SOAP_TYPE_tt__DigitalIdleState_ (1270)
+/* Primitive tt:DigitalIdleState schema type: */
+class SOAP_CMAC tt__DigitalIdleState_ : public xsd__anyType
+{
+public:
+  enum tt__DigitalIdleState __item;
+
+public:
+  virtual int soap_type() const
+  {
+    return 1270;
+  } /* = unique type id SOAP_TYPE_tt__DigitalIdleState_ */
+  virtual void soap_default(struct soap*);
+  virtual void soap_serialize(struct soap*) const;
+  virtual int soap_put(struct soap*, const char*, const char*) const;
+  virtual int soap_out(struct soap*, const char*, int, const char*) const;
+  virtual void* soap_get(struct soap*, const char*, const char*);
+  virtual void* soap_in(struct soap*, const char*, const char*);
+  tt__DigitalIdleState_()
+  {
+    tt__DigitalIdleState_::soap_default(NULL);
+  }
+  virtual ~tt__DigitalIdleState_()
+  {
+  }
+};
+#endif
+
 #ifndef SOAP_TYPE_tt__EFlipMode_
-#define SOAP_TYPE_tt__EFlipMode_ (1215)
+#define SOAP_TYPE_tt__EFlipMode_ (1272)
 /* Primitive tt:EFlipMode schema type: */
 class SOAP_CMAC tt__EFlipMode_ : public xsd__anyType
 {
@@ -3646,7 +4135,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1215;
+    return 1272;
   } /* = unique type id SOAP_TYPE_tt__EFlipMode_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3665,7 +4154,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ReverseMode_
-#define SOAP_TYPE_tt__ReverseMode_ (1217)
+#define SOAP_TYPE_tt__ReverseMode_ (1274)
 /* Primitive tt:ReverseMode schema type: */
 class SOAP_CMAC tt__ReverseMode_ : public xsd__anyType
 {
@@ -3675,7 +4164,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1217;
+    return 1274;
   } /* = unique type id SOAP_TYPE_tt__ReverseMode_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3694,7 +4183,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AuxiliaryData__
-#define SOAP_TYPE_tt__AuxiliaryData__ (1219)
+#define SOAP_TYPE_tt__AuxiliaryData__ (1276)
 /* Primitive tt:AuxiliaryData schema type: */
 class SOAP_CMAC tt__AuxiliaryData__ : public xsd__anyType
 {
@@ -3704,7 +4193,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1219;
+    return 1276;
   } /* = unique type id SOAP_TYPE_tt__AuxiliaryData__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3723,7 +4212,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MoveStatus_
-#define SOAP_TYPE_tt__MoveStatus_ (1221)
+#define SOAP_TYPE_tt__MoveStatus_ (1278)
 /* Primitive tt:MoveStatus schema type: */
 class SOAP_CMAC tt__MoveStatus_ : public xsd__anyType
 {
@@ -3733,7 +4222,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1221;
+    return 1278;
   } /* = unique type id SOAP_TYPE_tt__MoveStatus_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3752,7 +4241,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourState_
-#define SOAP_TYPE_tt__PTZPresetTourState_ (1223)
+#define SOAP_TYPE_tt__PTZPresetTourState_ (1280)
 /* Primitive tt:PTZPresetTourState schema type: */
 class SOAP_CMAC tt__PTZPresetTourState_ : public xsd__anyType
 {
@@ -3762,7 +4251,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1223;
+    return 1280;
   } /* = unique type id SOAP_TYPE_tt__PTZPresetTourState_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3781,7 +4270,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourDirection_
-#define SOAP_TYPE_tt__PTZPresetTourDirection_ (1225)
+#define SOAP_TYPE_tt__PTZPresetTourDirection_ (1282)
 /* Primitive tt:PTZPresetTourDirection schema type: */
 class SOAP_CMAC tt__PTZPresetTourDirection_ : public xsd__anyType
 {
@@ -3791,7 +4280,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1225;
+    return 1282;
   } /* = unique type id SOAP_TYPE_tt__PTZPresetTourDirection_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3810,7 +4299,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourOperation_
-#define SOAP_TYPE_tt__PTZPresetTourOperation_ (1227)
+#define SOAP_TYPE_tt__PTZPresetTourOperation_ (1284)
 /* Primitive tt:PTZPresetTourOperation schema type: */
 class SOAP_CMAC tt__PTZPresetTourOperation_ : public xsd__anyType
 {
@@ -3820,7 +4309,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1227;
+    return 1284;
   } /* = unique type id SOAP_TYPE_tt__PTZPresetTourOperation_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3839,7 +4328,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AutoFocusMode_
-#define SOAP_TYPE_tt__AutoFocusMode_ (1229)
+#define SOAP_TYPE_tt__AutoFocusMode_ (1286)
 /* Primitive tt:AutoFocusMode schema type: */
 class SOAP_CMAC tt__AutoFocusMode_ : public xsd__anyType
 {
@@ -3849,7 +4338,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1229;
+    return 1286;
   } /* = unique type id SOAP_TYPE_tt__AutoFocusMode_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3868,7 +4357,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__WideDynamicMode_
-#define SOAP_TYPE_tt__WideDynamicMode_ (1231)
+#define SOAP_TYPE_tt__WideDynamicMode_ (1288)
 /* Primitive tt:WideDynamicMode schema type: */
 class SOAP_CMAC tt__WideDynamicMode_ : public xsd__anyType
 {
@@ -3878,7 +4367,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1231;
+    return 1288;
   } /* = unique type id SOAP_TYPE_tt__WideDynamicMode_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3897,7 +4386,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__BacklightCompensationMode_
-#define SOAP_TYPE_tt__BacklightCompensationMode_ (1233)
+#define SOAP_TYPE_tt__BacklightCompensationMode_ (1290)
 /* Primitive tt:BacklightCompensationMode schema type: */
 class SOAP_CMAC tt__BacklightCompensationMode_ : public xsd__anyType
 {
@@ -3907,7 +4396,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1233;
+    return 1290;
   } /* = unique type id SOAP_TYPE_tt__BacklightCompensationMode_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3926,7 +4415,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ExposurePriority_
-#define SOAP_TYPE_tt__ExposurePriority_ (1235)
+#define SOAP_TYPE_tt__ExposurePriority_ (1292)
 /* Primitive tt:ExposurePriority schema type: */
 class SOAP_CMAC tt__ExposurePriority_ : public xsd__anyType
 {
@@ -3936,7 +4425,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1235;
+    return 1292;
   } /* = unique type id SOAP_TYPE_tt__ExposurePriority_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3955,7 +4444,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ExposureMode_
-#define SOAP_TYPE_tt__ExposureMode_ (1237)
+#define SOAP_TYPE_tt__ExposureMode_ (1294)
 /* Primitive tt:ExposureMode schema type: */
 class SOAP_CMAC tt__ExposureMode_ : public xsd__anyType
 {
@@ -3965,7 +4454,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1237;
+    return 1294;
   } /* = unique type id SOAP_TYPE_tt__ExposureMode_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -3984,7 +4473,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Enabled_
-#define SOAP_TYPE_tt__Enabled_ (1239)
+#define SOAP_TYPE_tt__Enabled_ (1296)
 /* Primitive tt:Enabled schema type: */
 class SOAP_CMAC tt__Enabled_ : public xsd__anyType
 {
@@ -3994,7 +4483,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1239;
+    return 1296;
   } /* = unique type id SOAP_TYPE_tt__Enabled_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4013,7 +4502,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__WhiteBalanceMode_
-#define SOAP_TYPE_tt__WhiteBalanceMode_ (1241)
+#define SOAP_TYPE_tt__WhiteBalanceMode_ (1298)
 /* Primitive tt:WhiteBalanceMode schema type: */
 class SOAP_CMAC tt__WhiteBalanceMode_ : public xsd__anyType
 {
@@ -4023,7 +4512,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1241;
+    return 1298;
   } /* = unique type id SOAP_TYPE_tt__WhiteBalanceMode_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4042,7 +4531,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IrCutFilterMode_
-#define SOAP_TYPE_tt__IrCutFilterMode_ (1243)
+#define SOAP_TYPE_tt__IrCutFilterMode_ (1300)
 /* Primitive tt:IrCutFilterMode schema type: */
 class SOAP_CMAC tt__IrCutFilterMode_ : public xsd__anyType
 {
@@ -4052,7 +4541,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1243;
+    return 1300;
   } /* = unique type id SOAP_TYPE_tt__IrCutFilterMode_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4071,7 +4560,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ImageStabilizationMode_
-#define SOAP_TYPE_tt__ImageStabilizationMode_ (1245)
+#define SOAP_TYPE_tt__ImageStabilizationMode_ (1302)
 /* Primitive tt:ImageStabilizationMode schema type: */
 class SOAP_CMAC tt__ImageStabilizationMode_ : public xsd__anyType
 {
@@ -4081,7 +4570,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1245;
+    return 1302;
   } /* = unique type id SOAP_TYPE_tt__ImageStabilizationMode_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4100,7 +4589,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IrCutFilterAutoBoundaryType_
-#define SOAP_TYPE_tt__IrCutFilterAutoBoundaryType_ (1247)
+#define SOAP_TYPE_tt__IrCutFilterAutoBoundaryType_ (1304)
 /* Primitive tt:IrCutFilterAutoBoundaryType schema type: */
 class SOAP_CMAC tt__IrCutFilterAutoBoundaryType_ : public xsd__anyType
 {
@@ -4110,7 +4599,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1247;
+    return 1304;
   } /* = unique type id SOAP_TYPE_tt__IrCutFilterAutoBoundaryType_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4129,7 +4618,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ToneCompensationMode_
-#define SOAP_TYPE_tt__ToneCompensationMode_ (1249)
+#define SOAP_TYPE_tt__ToneCompensationMode_ (1306)
 /* Primitive tt:ToneCompensationMode schema type: */
 class SOAP_CMAC tt__ToneCompensationMode_ : public xsd__anyType
 {
@@ -4139,7 +4628,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1249;
+    return 1306;
   } /* = unique type id SOAP_TYPE_tt__ToneCompensationMode_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4158,7 +4647,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__DefoggingMode_
-#define SOAP_TYPE_tt__DefoggingMode_ (1251)
+#define SOAP_TYPE_tt__DefoggingMode_ (1308)
 /* Primitive tt:DefoggingMode schema type: */
 class SOAP_CMAC tt__DefoggingMode_ : public xsd__anyType
 {
@@ -4168,7 +4657,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1251;
+    return 1308;
   } /* = unique type id SOAP_TYPE_tt__DefoggingMode_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4187,7 +4676,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__TopicNamespaceLocation__
-#define SOAP_TYPE_tt__TopicNamespaceLocation__ (1253)
+#define SOAP_TYPE_tt__TopicNamespaceLocation__ (1310)
 /* Primitive tt:TopicNamespaceLocation schema type: */
 class SOAP_CMAC tt__TopicNamespaceLocation__ : public xsd__anyType
 {
@@ -4197,7 +4686,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1253;
+    return 1310;
   } /* = unique type id SOAP_TYPE_tt__TopicNamespaceLocation__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4216,7 +4705,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PropertyOperation_
-#define SOAP_TYPE_tt__PropertyOperation_ (1255)
+#define SOAP_TYPE_tt__PropertyOperation_ (1312)
 /* Primitive tt:PropertyOperation schema type: */
 class SOAP_CMAC tt__PropertyOperation_ : public xsd__anyType
 {
@@ -4226,7 +4715,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1255;
+    return 1312;
   } /* = unique type id SOAP_TYPE_tt__PropertyOperation_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4245,7 +4734,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Direction_
-#define SOAP_TYPE_tt__Direction_ (1257)
+#define SOAP_TYPE_tt__Direction_ (1314)
 /* Primitive tt:Direction schema type: */
 class SOAP_CMAC tt__Direction_ : public xsd__anyType
 {
@@ -4255,7 +4744,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1257;
+    return 1314;
   } /* = unique type id SOAP_TYPE_tt__Direction_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4274,7 +4763,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ClassType_
-#define SOAP_TYPE_tt__ClassType_ (1259)
+#define SOAP_TYPE_tt__ClassType_ (1316)
 /* Primitive tt:ClassType schema type: */
 class SOAP_CMAC tt__ClassType_ : public xsd__anyType
 {
@@ -4284,7 +4773,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1259;
+    return 1316;
   } /* = unique type id SOAP_TYPE_tt__ClassType_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4303,7 +4792,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ReceiverMode_
-#define SOAP_TYPE_tt__ReceiverMode_ (1261)
+#define SOAP_TYPE_tt__ReceiverMode_ (1318)
 /* Primitive tt:ReceiverMode schema type: */
 class SOAP_CMAC tt__ReceiverMode_ : public xsd__anyType
 {
@@ -4313,7 +4802,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1261;
+    return 1318;
   } /* = unique type id SOAP_TYPE_tt__ReceiverMode_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4332,7 +4821,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ReceiverState_
-#define SOAP_TYPE_tt__ReceiverState_ (1263)
+#define SOAP_TYPE_tt__ReceiverState_ (1320)
 /* Primitive tt:ReceiverState schema type: */
 class SOAP_CMAC tt__ReceiverState_ : public xsd__anyType
 {
@@ -4342,7 +4831,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1263;
+    return 1320;
   } /* = unique type id SOAP_TYPE_tt__ReceiverState_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4361,7 +4850,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Description__
-#define SOAP_TYPE_tt__Description__ (1265)
+#define SOAP_TYPE_tt__Description__ (1322)
 /* Primitive tt:Description schema type: */
 class SOAP_CMAC tt__Description__ : public xsd__anyType
 {
@@ -4371,7 +4860,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1265;
+    return 1322;
   } /* = unique type id SOAP_TYPE_tt__Description__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4390,7 +4879,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__XPathExpression__
-#define SOAP_TYPE_tt__XPathExpression__ (1267)
+#define SOAP_TYPE_tt__XPathExpression__ (1324)
 /* Primitive tt:XPathExpression schema type: */
 class SOAP_CMAC tt__XPathExpression__ : public xsd__anyType
 {
@@ -4400,7 +4889,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1267;
+    return 1324;
   } /* = unique type id SOAP_TYPE_tt__XPathExpression__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4419,7 +4908,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SearchState_
-#define SOAP_TYPE_tt__SearchState_ (1269)
+#define SOAP_TYPE_tt__SearchState_ (1326)
 /* Primitive tt:SearchState schema type: */
 class SOAP_CMAC tt__SearchState_ : public xsd__anyType
 {
@@ -4429,7 +4918,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1269;
+    return 1326;
   } /* = unique type id SOAP_TYPE_tt__SearchState_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4448,7 +4937,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingStatus_
-#define SOAP_TYPE_tt__RecordingStatus_ (1271)
+#define SOAP_TYPE_tt__RecordingStatus_ (1328)
 /* Primitive tt:RecordingStatus schema type: */
 class SOAP_CMAC tt__RecordingStatus_ : public xsd__anyType
 {
@@ -4458,7 +4947,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1271;
+    return 1328;
   } /* = unique type id SOAP_TYPE_tt__RecordingStatus_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4477,7 +4966,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__TrackType_
-#define SOAP_TYPE_tt__TrackType_ (1273)
+#define SOAP_TYPE_tt__TrackType_ (1330)
 /* Primitive tt:TrackType schema type: */
 class SOAP_CMAC tt__TrackType_ : public xsd__anyType
 {
@@ -4487,7 +4976,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1273;
+    return 1330;
   } /* = unique type id SOAP_TYPE_tt__TrackType_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4506,7 +4995,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingJobMode__
-#define SOAP_TYPE_tt__RecordingJobMode__ (1275)
+#define SOAP_TYPE_tt__RecordingJobMode__ (1332)
 /* Primitive tt:RecordingJobMode schema type: */
 class SOAP_CMAC tt__RecordingJobMode__ : public xsd__anyType
 {
@@ -4516,7 +5005,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1275;
+    return 1332;
   } /* = unique type id SOAP_TYPE_tt__RecordingJobMode__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4535,7 +5024,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingJobState__
-#define SOAP_TYPE_tt__RecordingJobState__ (1277)
+#define SOAP_TYPE_tt__RecordingJobState__ (1334)
 /* Primitive tt:RecordingJobState schema type: */
 class SOAP_CMAC tt__RecordingJobState__ : public xsd__anyType
 {
@@ -4545,7 +5034,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1277;
+    return 1334;
   } /* = unique type id SOAP_TYPE_tt__RecordingJobState__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4564,7 +5053,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ModeOfOperation_
-#define SOAP_TYPE_tt__ModeOfOperation_ (1279)
+#define SOAP_TYPE_tt__ModeOfOperation_ (1336)
 /* Primitive tt:ModeOfOperation schema type: */
 class SOAP_CMAC tt__ModeOfOperation_ : public xsd__anyType
 {
@@ -4574,7 +5063,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1279;
+    return 1336;
   } /* = unique type id SOAP_TYPE_tt__ModeOfOperation_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4593,7 +5082,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AudioClassType__
-#define SOAP_TYPE_tt__AudioClassType__ (1281)
+#define SOAP_TYPE_tt__AudioClassType__ (1338)
 /* Primitive tt:AudioClassType schema type: */
 class SOAP_CMAC tt__AudioClassType__ : public xsd__anyType
 {
@@ -4603,7 +5092,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1281;
+    return 1338;
   } /* = unique type id SOAP_TYPE_tt__AudioClassType__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4622,7 +5111,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__OSDType_
-#define SOAP_TYPE_tt__OSDType_ (1283)
+#define SOAP_TYPE_tt__OSDType_ (1340)
 /* Primitive tt:OSDType schema type: */
 class SOAP_CMAC tt__OSDType_ : public xsd__anyType
 {
@@ -4632,7 +5121,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1283;
+    return 1340;
   } /* = unique type id SOAP_TYPE_tt__OSDType_ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4651,7 +5140,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wstop__FullTopicExpression__
-#define SOAP_TYPE_wstop__FullTopicExpression__ (1285)
+#define SOAP_TYPE_wstop__FullTopicExpression__ (1342)
 /* Primitive wstop:FullTopicExpression schema type: */
 class SOAP_CMAC wstop__FullTopicExpression__ : public xsd__anyType
 {
@@ -4661,7 +5150,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1285;
+    return 1342;
   } /* = unique type id SOAP_TYPE_wstop__FullTopicExpression__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4680,7 +5169,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wstop__ConcreteTopicExpression__
-#define SOAP_TYPE_wstop__ConcreteTopicExpression__ (1287)
+#define SOAP_TYPE_wstop__ConcreteTopicExpression__ (1344)
 /* Primitive wstop:ConcreteTopicExpression schema type: */
 class SOAP_CMAC wstop__ConcreteTopicExpression__ : public xsd__anyType
 {
@@ -4690,7 +5179,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1287;
+    return 1344;
   } /* = unique type id SOAP_TYPE_wstop__ConcreteTopicExpression__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4709,7 +5198,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wstop__SimpleTopicExpression__
-#define SOAP_TYPE_wstop__SimpleTopicExpression__ (1289)
+#define SOAP_TYPE_wstop__SimpleTopicExpression__ (1346)
 /* Primitive wstop:SimpleTopicExpression schema type: */
 class SOAP_CMAC wstop__SimpleTopicExpression__ : public xsd__anyType
 {
@@ -4719,7 +5208,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1289;
+    return 1346;
   } /* = unique type id SOAP_TYPE_wstop__SimpleTopicExpression__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4738,7 +5227,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ReceiverReference__
-#define SOAP_TYPE_tt__ReceiverReference__ (1291)
+#define SOAP_TYPE_tt__ReceiverReference__ (1348)
 /* Primitive tt:ReceiverReference schema type: */
 class SOAP_CMAC tt__ReceiverReference__ : public xsd__anyType
 {
@@ -4748,7 +5237,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1291;
+    return 1348;
   } /* = unique type id SOAP_TYPE_tt__ReceiverReference__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4767,7 +5256,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingReference__
-#define SOAP_TYPE_tt__RecordingReference__ (1293)
+#define SOAP_TYPE_tt__RecordingReference__ (1350)
 /* Primitive tt:RecordingReference schema type: */
 class SOAP_CMAC tt__RecordingReference__ : public xsd__anyType
 {
@@ -4777,7 +5266,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1293;
+    return 1350;
   } /* = unique type id SOAP_TYPE_tt__RecordingReference__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4796,7 +5285,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__TrackReference__
-#define SOAP_TYPE_tt__TrackReference__ (1295)
+#define SOAP_TYPE_tt__TrackReference__ (1352)
 /* Primitive tt:TrackReference schema type: */
 class SOAP_CMAC tt__TrackReference__ : public xsd__anyType
 {
@@ -4806,7 +5295,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1295;
+    return 1352;
   } /* = unique type id SOAP_TYPE_tt__TrackReference__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4825,7 +5314,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__JobToken__
-#define SOAP_TYPE_tt__JobToken__ (1297)
+#define SOAP_TYPE_tt__JobToken__ (1354)
 /* Primitive tt:JobToken schema type: */
 class SOAP_CMAC tt__JobToken__ : public xsd__anyType
 {
@@ -4835,7 +5324,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1297;
+    return 1354;
   } /* = unique type id SOAP_TYPE_tt__JobToken__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4854,7 +5343,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingJobReference__
-#define SOAP_TYPE_tt__RecordingJobReference__ (1299)
+#define SOAP_TYPE_tt__RecordingJobReference__ (1356)
 /* Primitive tt:RecordingJobReference schema type: */
 class SOAP_CMAC tt__RecordingJobReference__ : public xsd__anyType
 {
@@ -4864,7 +5353,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1299;
+    return 1356;
   } /* = unique type id SOAP_TYPE_tt__RecordingJobReference__ */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4883,7 +5372,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__Service_Capabilities
-#define SOAP_TYPE__tds__Service_Capabilities (1300)
+#define SOAP_TYPE__tds__Service_Capabilities (1357)
 /* tds:Service-Capabilities */
 class SOAP_CMAC _tds__Service_Capabilities
 {
@@ -4893,7 +5382,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1300;
+    return 1357;
   } /* = unique type id SOAP_TYPE__tds__Service_Capabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4912,7 +5401,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tds__Service
-#define SOAP_TYPE_tds__Service (185)
+#define SOAP_TYPE_tds__Service (225)
 /* tds:Service */
 class SOAP_CMAC tds__Service : public xsd__anyType
 {
@@ -4926,7 +5415,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 185;
+    return 225;
   } /* = unique type id SOAP_TYPE_tds__Service */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4945,7 +5434,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tds__DeviceServiceCapabilities
-#define SOAP_TYPE_tds__DeviceServiceCapabilities (186)
+#define SOAP_TYPE_tds__DeviceServiceCapabilities (226)
 /* tds:DeviceServiceCapabilities */
 class SOAP_CMAC tds__DeviceServiceCapabilities : public xsd__anyType
 {
@@ -4957,7 +5446,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 186;
+    return 226;
   } /* = unique type id SOAP_TYPE_tds__DeviceServiceCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -4976,7 +5465,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tds__NetworkCapabilities
-#define SOAP_TYPE_tds__NetworkCapabilities (187)
+#define SOAP_TYPE_tds__NetworkCapabilities (227)
 /* Primitive tds:NetworkCapabilities schema type: */
 class SOAP_CMAC tds__NetworkCapabilities : public xsd__anyType
 {
@@ -4994,7 +5483,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 187;
+    return 227;
   } /* = unique type id SOAP_TYPE_tds__NetworkCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5013,7 +5502,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tds__SecurityCapabilities
-#define SOAP_TYPE_tds__SecurityCapabilities (188)
+#define SOAP_TYPE_tds__SecurityCapabilities (228)
 /* Primitive tds:SecurityCapabilities schema type: */
 class SOAP_CMAC tds__SecurityCapabilities : public xsd__anyType
 {
@@ -5040,7 +5529,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 188;
+    return 228;
   } /* = unique type id SOAP_TYPE_tds__SecurityCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5059,7 +5548,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tds__SystemCapabilities
-#define SOAP_TYPE_tds__SystemCapabilities (189)
+#define SOAP_TYPE_tds__SystemCapabilities (229)
 /* Primitive tds:SystemCapabilities schema type: */
 class SOAP_CMAC tds__SystemCapabilities : public xsd__anyType
 {
@@ -5079,7 +5568,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 189;
+    return 229;
   } /* = unique type id SOAP_TYPE_tds__SystemCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5098,7 +5587,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tds__MiscCapabilities
-#define SOAP_TYPE_tds__MiscCapabilities (190)
+#define SOAP_TYPE_tds__MiscCapabilities (230)
 /* Primitive tds:MiscCapabilities schema type: */
 class SOAP_CMAC tds__MiscCapabilities : public xsd__anyType
 {
@@ -5108,7 +5597,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 190;
+    return 230;
   } /* = unique type id SOAP_TYPE_tds__MiscCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5127,7 +5616,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__UserCredential_Extension
-#define SOAP_TYPE__tds__UserCredential_Extension (1312)
+#define SOAP_TYPE__tds__UserCredential_Extension (1369)
 /* tds:UserCredential-Extension */
 class SOAP_CMAC _tds__UserCredential_Extension
 {
@@ -5137,7 +5626,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1312;
+    return 1369;
   } /* = unique type id SOAP_TYPE__tds__UserCredential_Extension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5156,7 +5645,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tds__UserCredential
-#define SOAP_TYPE_tds__UserCredential (191)
+#define SOAP_TYPE_tds__UserCredential (231)
 /* tds:UserCredential */
 class SOAP_CMAC tds__UserCredential : public xsd__anyType
 {
@@ -5167,7 +5656,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 191;
+    return 231;
   } /* = unique type id SOAP_TYPE_tds__UserCredential */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5186,7 +5675,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__StorageConfigurationData_Extension
-#define SOAP_TYPE__tds__StorageConfigurationData_Extension (1316)
+#define SOAP_TYPE__tds__StorageConfigurationData_Extension (1373)
 /* tds:StorageConfigurationData-Extension */
 class SOAP_CMAC _tds__StorageConfigurationData_Extension
 {
@@ -5196,7 +5685,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1316;
+    return 1373;
   } /* = unique type id SOAP_TYPE__tds__StorageConfigurationData_Extension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5215,7 +5704,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tds__StorageConfigurationData
-#define SOAP_TYPE_tds__StorageConfigurationData (192)
+#define SOAP_TYPE_tds__StorageConfigurationData (232)
 /* tds:StorageConfigurationData */
 class SOAP_CMAC tds__StorageConfigurationData : public xsd__anyType
 {
@@ -5230,7 +5719,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 192;
+    return 232;
   } /* = unique type id SOAP_TYPE_tds__StorageConfigurationData */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5249,7 +5738,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetServices
-#define SOAP_TYPE__tds__GetServices (194)
+#define SOAP_TYPE__tds__GetServices (234)
 /* tds:GetServices */
 class SOAP_CMAC _tds__GetServices
 {
@@ -5259,7 +5748,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 194;
+    return 234;
   } /* = unique type id SOAP_TYPE__tds__GetServices */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5278,7 +5767,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetServicesResponse
-#define SOAP_TYPE__tds__GetServicesResponse (195)
+#define SOAP_TYPE__tds__GetServicesResponse (235)
 /* tds:GetServicesResponse */
 class SOAP_CMAC _tds__GetServicesResponse
 {
@@ -5289,7 +5778,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 195;
+    return 235;
   } /* = unique type id SOAP_TYPE__tds__GetServicesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5308,7 +5797,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetServiceCapabilities
-#define SOAP_TYPE__tds__GetServiceCapabilities (196)
+#define SOAP_TYPE__tds__GetServiceCapabilities (236)
 /* tds:GetServiceCapabilities */
 class SOAP_CMAC _tds__GetServiceCapabilities
 {
@@ -5317,7 +5806,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 196;
+    return 236;
   } /* = unique type id SOAP_TYPE__tds__GetServiceCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5336,7 +5825,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetServiceCapabilitiesResponse
-#define SOAP_TYPE__tds__GetServiceCapabilitiesResponse (197)
+#define SOAP_TYPE__tds__GetServiceCapabilitiesResponse (237)
 /* tds:GetServiceCapabilitiesResponse */
 class SOAP_CMAC _tds__GetServiceCapabilitiesResponse
 {
@@ -5347,7 +5836,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 197;
+    return 237;
   } /* = unique type id SOAP_TYPE__tds__GetServiceCapabilitiesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5366,7 +5855,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetDeviceInformation
-#define SOAP_TYPE__tds__GetDeviceInformation (198)
+#define SOAP_TYPE__tds__GetDeviceInformation (238)
 /* tds:GetDeviceInformation */
 class SOAP_CMAC _tds__GetDeviceInformation
 {
@@ -5375,7 +5864,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 198;
+    return 238;
   } /* = unique type id SOAP_TYPE__tds__GetDeviceInformation */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5394,7 +5883,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetDeviceInformationResponse
-#define SOAP_TYPE__tds__GetDeviceInformationResponse (199)
+#define SOAP_TYPE__tds__GetDeviceInformationResponse (239)
 /* tds:GetDeviceInformationResponse */
 class SOAP_CMAC _tds__GetDeviceInformationResponse
 {
@@ -5409,7 +5898,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 199;
+    return 239;
   } /* = unique type id SOAP_TYPE__tds__GetDeviceInformationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5428,7 +5917,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetSystemDateAndTime
-#define SOAP_TYPE__tds__SetSystemDateAndTime (200)
+#define SOAP_TYPE__tds__SetSystemDateAndTime (240)
 /* tds:SetSystemDateAndTime */
 class SOAP_CMAC _tds__SetSystemDateAndTime
 {
@@ -5441,7 +5930,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 200;
+    return 240;
   } /* = unique type id SOAP_TYPE__tds__SetSystemDateAndTime */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5460,7 +5949,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetSystemDateAndTimeResponse
-#define SOAP_TYPE__tds__SetSystemDateAndTimeResponse (201)
+#define SOAP_TYPE__tds__SetSystemDateAndTimeResponse (241)
 /* tds:SetSystemDateAndTimeResponse */
 class SOAP_CMAC _tds__SetSystemDateAndTimeResponse
 {
@@ -5469,7 +5958,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 201;
+    return 241;
   } /* = unique type id SOAP_TYPE__tds__SetSystemDateAndTimeResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5488,7 +5977,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetSystemDateAndTime
-#define SOAP_TYPE__tds__GetSystemDateAndTime (202)
+#define SOAP_TYPE__tds__GetSystemDateAndTime (242)
 /* tds:GetSystemDateAndTime */
 class SOAP_CMAC _tds__GetSystemDateAndTime
 {
@@ -5497,7 +5986,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 202;
+    return 242;
   } /* = unique type id SOAP_TYPE__tds__GetSystemDateAndTime */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5516,7 +6005,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetSystemDateAndTimeResponse
-#define SOAP_TYPE__tds__GetSystemDateAndTimeResponse (203)
+#define SOAP_TYPE__tds__GetSystemDateAndTimeResponse (243)
 /* tds:GetSystemDateAndTimeResponse */
 class SOAP_CMAC _tds__GetSystemDateAndTimeResponse
 {
@@ -5527,7 +6016,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 203;
+    return 243;
   } /* = unique type id SOAP_TYPE__tds__GetSystemDateAndTimeResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5546,7 +6035,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetSystemFactoryDefault
-#define SOAP_TYPE__tds__SetSystemFactoryDefault (204)
+#define SOAP_TYPE__tds__SetSystemFactoryDefault (244)
 /* tds:SetSystemFactoryDefault */
 class SOAP_CMAC _tds__SetSystemFactoryDefault
 {
@@ -5556,7 +6045,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 204;
+    return 244;
   } /* = unique type id SOAP_TYPE__tds__SetSystemFactoryDefault */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5575,7 +6064,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetSystemFactoryDefaultResponse
-#define SOAP_TYPE__tds__SetSystemFactoryDefaultResponse (205)
+#define SOAP_TYPE__tds__SetSystemFactoryDefaultResponse (245)
 /* tds:SetSystemFactoryDefaultResponse */
 class SOAP_CMAC _tds__SetSystemFactoryDefaultResponse
 {
@@ -5584,7 +6073,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 205;
+    return 245;
   } /* = unique type id SOAP_TYPE__tds__SetSystemFactoryDefaultResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5603,7 +6092,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__UpgradeSystemFirmware
-#define SOAP_TYPE__tds__UpgradeSystemFirmware (206)
+#define SOAP_TYPE__tds__UpgradeSystemFirmware (246)
 /* tds:UpgradeSystemFirmware */
 class SOAP_CMAC _tds__UpgradeSystemFirmware
 {
@@ -5613,7 +6102,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 206;
+    return 246;
   } /* = unique type id SOAP_TYPE__tds__UpgradeSystemFirmware */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5632,7 +6121,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__UpgradeSystemFirmwareResponse
-#define SOAP_TYPE__tds__UpgradeSystemFirmwareResponse (207)
+#define SOAP_TYPE__tds__UpgradeSystemFirmwareResponse (247)
 /* tds:UpgradeSystemFirmwareResponse */
 class SOAP_CMAC _tds__UpgradeSystemFirmwareResponse
 {
@@ -5643,7 +6132,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 207;
+    return 247;
   } /* = unique type id SOAP_TYPE__tds__UpgradeSystemFirmwareResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5662,7 +6151,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SystemReboot
-#define SOAP_TYPE__tds__SystemReboot (208)
+#define SOAP_TYPE__tds__SystemReboot (248)
 /* tds:SystemReboot */
 class SOAP_CMAC _tds__SystemReboot
 {
@@ -5671,7 +6160,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 208;
+    return 248;
   } /* = unique type id SOAP_TYPE__tds__SystemReboot */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5690,7 +6179,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SystemRebootResponse
-#define SOAP_TYPE__tds__SystemRebootResponse (209)
+#define SOAP_TYPE__tds__SystemRebootResponse (249)
 /* tds:SystemRebootResponse */
 class SOAP_CMAC _tds__SystemRebootResponse
 {
@@ -5701,7 +6190,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 209;
+    return 249;
   } /* = unique type id SOAP_TYPE__tds__SystemRebootResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5720,7 +6209,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__RestoreSystem
-#define SOAP_TYPE__tds__RestoreSystem (210)
+#define SOAP_TYPE__tds__RestoreSystem (250)
 /* tds:RestoreSystem */
 class SOAP_CMAC _tds__RestoreSystem
 {
@@ -5730,7 +6219,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 210;
+    return 250;
   } /* = unique type id SOAP_TYPE__tds__RestoreSystem */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5749,7 +6238,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__RestoreSystemResponse
-#define SOAP_TYPE__tds__RestoreSystemResponse (211)
+#define SOAP_TYPE__tds__RestoreSystemResponse (251)
 /* tds:RestoreSystemResponse */
 class SOAP_CMAC _tds__RestoreSystemResponse
 {
@@ -5758,7 +6247,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 211;
+    return 251;
   } /* = unique type id SOAP_TYPE__tds__RestoreSystemResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5777,7 +6266,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetSystemBackup
-#define SOAP_TYPE__tds__GetSystemBackup (212)
+#define SOAP_TYPE__tds__GetSystemBackup (252)
 /* tds:GetSystemBackup */
 class SOAP_CMAC _tds__GetSystemBackup
 {
@@ -5786,7 +6275,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 212;
+    return 252;
   } /* = unique type id SOAP_TYPE__tds__GetSystemBackup */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5805,7 +6294,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetSystemBackupResponse
-#define SOAP_TYPE__tds__GetSystemBackupResponse (213)
+#define SOAP_TYPE__tds__GetSystemBackupResponse (253)
 /* tds:GetSystemBackupResponse */
 class SOAP_CMAC _tds__GetSystemBackupResponse
 {
@@ -5816,7 +6305,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 213;
+    return 253;
   } /* = unique type id SOAP_TYPE__tds__GetSystemBackupResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5835,7 +6324,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetSystemSupportInformation
-#define SOAP_TYPE__tds__GetSystemSupportInformation (214)
+#define SOAP_TYPE__tds__GetSystemSupportInformation (254)
 /* tds:GetSystemSupportInformation */
 class SOAP_CMAC _tds__GetSystemSupportInformation
 {
@@ -5844,7 +6333,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 214;
+    return 254;
   } /* = unique type id SOAP_TYPE__tds__GetSystemSupportInformation */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5863,7 +6352,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetSystemSupportInformationResponse
-#define SOAP_TYPE__tds__GetSystemSupportInformationResponse (215)
+#define SOAP_TYPE__tds__GetSystemSupportInformationResponse (255)
 /* tds:GetSystemSupportInformationResponse */
 class SOAP_CMAC _tds__GetSystemSupportInformationResponse
 {
@@ -5874,7 +6363,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 215;
+    return 255;
   } /* = unique type id SOAP_TYPE__tds__GetSystemSupportInformationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5893,7 +6382,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetSystemLog
-#define SOAP_TYPE__tds__GetSystemLog (216)
+#define SOAP_TYPE__tds__GetSystemLog (256)
 /* tds:GetSystemLog */
 class SOAP_CMAC _tds__GetSystemLog
 {
@@ -5903,7 +6392,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 216;
+    return 256;
   } /* = unique type id SOAP_TYPE__tds__GetSystemLog */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5922,7 +6411,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetSystemLogResponse
-#define SOAP_TYPE__tds__GetSystemLogResponse (217)
+#define SOAP_TYPE__tds__GetSystemLogResponse (257)
 /* tds:GetSystemLogResponse */
 class SOAP_CMAC _tds__GetSystemLogResponse
 {
@@ -5933,7 +6422,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 217;
+    return 257;
   } /* = unique type id SOAP_TYPE__tds__GetSystemLogResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5952,7 +6441,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetScopes
-#define SOAP_TYPE__tds__GetScopes (218)
+#define SOAP_TYPE__tds__GetScopes (258)
 /* tds:GetScopes */
 class SOAP_CMAC _tds__GetScopes
 {
@@ -5961,7 +6450,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 218;
+    return 258;
   } /* = unique type id SOAP_TYPE__tds__GetScopes */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -5980,7 +6469,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetScopesResponse
-#define SOAP_TYPE__tds__GetScopesResponse (219)
+#define SOAP_TYPE__tds__GetScopesResponse (259)
 /* tds:GetScopesResponse */
 class SOAP_CMAC _tds__GetScopesResponse
 {
@@ -5991,7 +6480,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 219;
+    return 259;
   } /* = unique type id SOAP_TYPE__tds__GetScopesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6010,7 +6499,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetScopes
-#define SOAP_TYPE__tds__SetScopes (220)
+#define SOAP_TYPE__tds__SetScopes (260)
 /* tds:SetScopes */
 class SOAP_CMAC _tds__SetScopes
 {
@@ -6020,7 +6509,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 220;
+    return 260;
   } /* = unique type id SOAP_TYPE__tds__SetScopes */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6039,7 +6528,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetScopesResponse
-#define SOAP_TYPE__tds__SetScopesResponse (221)
+#define SOAP_TYPE__tds__SetScopesResponse (261)
 /* tds:SetScopesResponse */
 class SOAP_CMAC _tds__SetScopesResponse
 {
@@ -6048,7 +6537,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 221;
+    return 261;
   } /* = unique type id SOAP_TYPE__tds__SetScopesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6067,7 +6556,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__AddScopes
-#define SOAP_TYPE__tds__AddScopes (222)
+#define SOAP_TYPE__tds__AddScopes (262)
 /* tds:AddScopes */
 class SOAP_CMAC _tds__AddScopes
 {
@@ -6077,7 +6566,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 222;
+    return 262;
   } /* = unique type id SOAP_TYPE__tds__AddScopes */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6096,7 +6585,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__AddScopesResponse
-#define SOAP_TYPE__tds__AddScopesResponse (223)
+#define SOAP_TYPE__tds__AddScopesResponse (263)
 /* tds:AddScopesResponse */
 class SOAP_CMAC _tds__AddScopesResponse
 {
@@ -6105,7 +6594,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 223;
+    return 263;
   } /* = unique type id SOAP_TYPE__tds__AddScopesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6124,7 +6613,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__RemoveScopes
-#define SOAP_TYPE__tds__RemoveScopes (224)
+#define SOAP_TYPE__tds__RemoveScopes (264)
 /* tds:RemoveScopes */
 class SOAP_CMAC _tds__RemoveScopes
 {
@@ -6134,7 +6623,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 224;
+    return 264;
   } /* = unique type id SOAP_TYPE__tds__RemoveScopes */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6153,7 +6642,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__RemoveScopesResponse
-#define SOAP_TYPE__tds__RemoveScopesResponse (225)
+#define SOAP_TYPE__tds__RemoveScopesResponse (265)
 /* tds:RemoveScopesResponse */
 class SOAP_CMAC _tds__RemoveScopesResponse
 {
@@ -6164,7 +6653,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 225;
+    return 265;
   } /* = unique type id SOAP_TYPE__tds__RemoveScopesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6183,7 +6672,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetDiscoveryMode
-#define SOAP_TYPE__tds__GetDiscoveryMode (226)
+#define SOAP_TYPE__tds__GetDiscoveryMode (266)
 /* tds:GetDiscoveryMode */
 class SOAP_CMAC _tds__GetDiscoveryMode
 {
@@ -6192,7 +6681,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 226;
+    return 266;
   } /* = unique type id SOAP_TYPE__tds__GetDiscoveryMode */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6211,7 +6700,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetDiscoveryModeResponse
-#define SOAP_TYPE__tds__GetDiscoveryModeResponse (227)
+#define SOAP_TYPE__tds__GetDiscoveryModeResponse (267)
 /* tds:GetDiscoveryModeResponse */
 class SOAP_CMAC _tds__GetDiscoveryModeResponse
 {
@@ -6222,7 +6711,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 227;
+    return 267;
   } /* = unique type id SOAP_TYPE__tds__GetDiscoveryModeResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6241,7 +6730,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetDiscoveryMode
-#define SOAP_TYPE__tds__SetDiscoveryMode (228)
+#define SOAP_TYPE__tds__SetDiscoveryMode (268)
 /* tds:SetDiscoveryMode */
 class SOAP_CMAC _tds__SetDiscoveryMode
 {
@@ -6251,7 +6740,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 228;
+    return 268;
   } /* = unique type id SOAP_TYPE__tds__SetDiscoveryMode */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6270,7 +6759,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetDiscoveryModeResponse
-#define SOAP_TYPE__tds__SetDiscoveryModeResponse (229)
+#define SOAP_TYPE__tds__SetDiscoveryModeResponse (269)
 /* tds:SetDiscoveryModeResponse */
 class SOAP_CMAC _tds__SetDiscoveryModeResponse
 {
@@ -6279,7 +6768,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 229;
+    return 269;
   } /* = unique type id SOAP_TYPE__tds__SetDiscoveryModeResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6298,7 +6787,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetRemoteDiscoveryMode
-#define SOAP_TYPE__tds__GetRemoteDiscoveryMode (230)
+#define SOAP_TYPE__tds__GetRemoteDiscoveryMode (270)
 /* tds:GetRemoteDiscoveryMode */
 class SOAP_CMAC _tds__GetRemoteDiscoveryMode
 {
@@ -6307,7 +6796,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 230;
+    return 270;
   } /* = unique type id SOAP_TYPE__tds__GetRemoteDiscoveryMode */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6326,7 +6815,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetRemoteDiscoveryModeResponse
-#define SOAP_TYPE__tds__GetRemoteDiscoveryModeResponse (231)
+#define SOAP_TYPE__tds__GetRemoteDiscoveryModeResponse (271)
 /* tds:GetRemoteDiscoveryModeResponse */
 class SOAP_CMAC _tds__GetRemoteDiscoveryModeResponse
 {
@@ -6337,7 +6826,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 231;
+    return 271;
   } /* = unique type id SOAP_TYPE__tds__GetRemoteDiscoveryModeResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6356,7 +6845,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetRemoteDiscoveryMode
-#define SOAP_TYPE__tds__SetRemoteDiscoveryMode (232)
+#define SOAP_TYPE__tds__SetRemoteDiscoveryMode (272)
 /* tds:SetRemoteDiscoveryMode */
 class SOAP_CMAC _tds__SetRemoteDiscoveryMode
 {
@@ -6366,7 +6855,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 232;
+    return 272;
   } /* = unique type id SOAP_TYPE__tds__SetRemoteDiscoveryMode */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6385,7 +6874,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetRemoteDiscoveryModeResponse
-#define SOAP_TYPE__tds__SetRemoteDiscoveryModeResponse (233)
+#define SOAP_TYPE__tds__SetRemoteDiscoveryModeResponse (273)
 /* tds:SetRemoteDiscoveryModeResponse */
 class SOAP_CMAC _tds__SetRemoteDiscoveryModeResponse
 {
@@ -6394,7 +6883,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 233;
+    return 273;
   } /* = unique type id SOAP_TYPE__tds__SetRemoteDiscoveryModeResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6413,7 +6902,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetDPAddresses
-#define SOAP_TYPE__tds__GetDPAddresses (234)
+#define SOAP_TYPE__tds__GetDPAddresses (274)
 /* tds:GetDPAddresses */
 class SOAP_CMAC _tds__GetDPAddresses
 {
@@ -6422,7 +6911,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 234;
+    return 274;
   } /* = unique type id SOAP_TYPE__tds__GetDPAddresses */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6441,7 +6930,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetDPAddressesResponse
-#define SOAP_TYPE__tds__GetDPAddressesResponse (235)
+#define SOAP_TYPE__tds__GetDPAddressesResponse (275)
 /* tds:GetDPAddressesResponse */
 class SOAP_CMAC _tds__GetDPAddressesResponse
 {
@@ -6452,7 +6941,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 235;
+    return 275;
   } /* = unique type id SOAP_TYPE__tds__GetDPAddressesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6471,7 +6960,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetDPAddresses
-#define SOAP_TYPE__tds__SetDPAddresses (236)
+#define SOAP_TYPE__tds__SetDPAddresses (276)
 /* tds:SetDPAddresses */
 class SOAP_CMAC _tds__SetDPAddresses
 {
@@ -6481,7 +6970,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 236;
+    return 276;
   } /* = unique type id SOAP_TYPE__tds__SetDPAddresses */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6500,7 +6989,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetDPAddressesResponse
-#define SOAP_TYPE__tds__SetDPAddressesResponse (237)
+#define SOAP_TYPE__tds__SetDPAddressesResponse (277)
 /* tds:SetDPAddressesResponse */
 class SOAP_CMAC _tds__SetDPAddressesResponse
 {
@@ -6509,7 +6998,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 237;
+    return 277;
   } /* = unique type id SOAP_TYPE__tds__SetDPAddressesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6528,7 +7017,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetEndpointReference
-#define SOAP_TYPE__tds__GetEndpointReference (238)
+#define SOAP_TYPE__tds__GetEndpointReference (278)
 /* tds:GetEndpointReference */
 class SOAP_CMAC _tds__GetEndpointReference
 {
@@ -6537,7 +7026,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 238;
+    return 278;
   } /* = unique type id SOAP_TYPE__tds__GetEndpointReference */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6556,7 +7045,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetEndpointReferenceResponse
-#define SOAP_TYPE__tds__GetEndpointReferenceResponse (239)
+#define SOAP_TYPE__tds__GetEndpointReferenceResponse (279)
 /* tds:GetEndpointReferenceResponse */
 class SOAP_CMAC _tds__GetEndpointReferenceResponse
 {
@@ -6568,7 +7057,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 239;
+    return 279;
   } /* = unique type id SOAP_TYPE__tds__GetEndpointReferenceResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6587,7 +7076,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetRemoteUser
-#define SOAP_TYPE__tds__GetRemoteUser (240)
+#define SOAP_TYPE__tds__GetRemoteUser (280)
 /* tds:GetRemoteUser */
 class SOAP_CMAC _tds__GetRemoteUser
 {
@@ -6596,7 +7085,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 240;
+    return 280;
   } /* = unique type id SOAP_TYPE__tds__GetRemoteUser */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6615,7 +7104,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetRemoteUserResponse
-#define SOAP_TYPE__tds__GetRemoteUserResponse (241)
+#define SOAP_TYPE__tds__GetRemoteUserResponse (281)
 /* tds:GetRemoteUserResponse */
 class SOAP_CMAC _tds__GetRemoteUserResponse
 {
@@ -6626,7 +7115,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 241;
+    return 281;
   } /* = unique type id SOAP_TYPE__tds__GetRemoteUserResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6645,7 +7134,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetRemoteUser
-#define SOAP_TYPE__tds__SetRemoteUser (242)
+#define SOAP_TYPE__tds__SetRemoteUser (282)
 /* tds:SetRemoteUser */
 class SOAP_CMAC _tds__SetRemoteUser
 {
@@ -6655,7 +7144,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 242;
+    return 282;
   } /* = unique type id SOAP_TYPE__tds__SetRemoteUser */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6674,7 +7163,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetRemoteUserResponse
-#define SOAP_TYPE__tds__SetRemoteUserResponse (243)
+#define SOAP_TYPE__tds__SetRemoteUserResponse (283)
 /* tds:SetRemoteUserResponse */
 class SOAP_CMAC _tds__SetRemoteUserResponse
 {
@@ -6683,7 +7172,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 243;
+    return 283;
   } /* = unique type id SOAP_TYPE__tds__SetRemoteUserResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6702,7 +7191,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetUsers
-#define SOAP_TYPE__tds__GetUsers (244)
+#define SOAP_TYPE__tds__GetUsers (284)
 /* tds:GetUsers */
 class SOAP_CMAC _tds__GetUsers
 {
@@ -6711,7 +7200,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 244;
+    return 284;
   } /* = unique type id SOAP_TYPE__tds__GetUsers */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6730,7 +7219,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetUsersResponse
-#define SOAP_TYPE__tds__GetUsersResponse (245)
+#define SOAP_TYPE__tds__GetUsersResponse (285)
 /* tds:GetUsersResponse */
 class SOAP_CMAC _tds__GetUsersResponse
 {
@@ -6741,7 +7230,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 245;
+    return 285;
   } /* = unique type id SOAP_TYPE__tds__GetUsersResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6760,7 +7249,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__CreateUsers
-#define SOAP_TYPE__tds__CreateUsers (246)
+#define SOAP_TYPE__tds__CreateUsers (286)
 /* tds:CreateUsers */
 class SOAP_CMAC _tds__CreateUsers
 {
@@ -6770,7 +7259,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 246;
+    return 286;
   } /* = unique type id SOAP_TYPE__tds__CreateUsers */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6789,7 +7278,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__CreateUsersResponse
-#define SOAP_TYPE__tds__CreateUsersResponse (247)
+#define SOAP_TYPE__tds__CreateUsersResponse (287)
 /* tds:CreateUsersResponse */
 class SOAP_CMAC _tds__CreateUsersResponse
 {
@@ -6798,7 +7287,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 247;
+    return 287;
   } /* = unique type id SOAP_TYPE__tds__CreateUsersResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6817,7 +7306,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__DeleteUsers
-#define SOAP_TYPE__tds__DeleteUsers (248)
+#define SOAP_TYPE__tds__DeleteUsers (288)
 /* tds:DeleteUsers */
 class SOAP_CMAC _tds__DeleteUsers
 {
@@ -6827,7 +7316,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 248;
+    return 288;
   } /* = unique type id SOAP_TYPE__tds__DeleteUsers */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6846,7 +7335,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__DeleteUsersResponse
-#define SOAP_TYPE__tds__DeleteUsersResponse (249)
+#define SOAP_TYPE__tds__DeleteUsersResponse (289)
 /* tds:DeleteUsersResponse */
 class SOAP_CMAC _tds__DeleteUsersResponse
 {
@@ -6855,7 +7344,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 249;
+    return 289;
   } /* = unique type id SOAP_TYPE__tds__DeleteUsersResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6874,7 +7363,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetUser
-#define SOAP_TYPE__tds__SetUser (250)
+#define SOAP_TYPE__tds__SetUser (290)
 /* tds:SetUser */
 class SOAP_CMAC _tds__SetUser
 {
@@ -6884,7 +7373,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 250;
+    return 290;
   } /* = unique type id SOAP_TYPE__tds__SetUser */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6903,7 +7392,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetUserResponse
-#define SOAP_TYPE__tds__SetUserResponse (251)
+#define SOAP_TYPE__tds__SetUserResponse (291)
 /* tds:SetUserResponse */
 class SOAP_CMAC _tds__SetUserResponse
 {
@@ -6912,7 +7401,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 251;
+    return 291;
   } /* = unique type id SOAP_TYPE__tds__SetUserResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6931,7 +7420,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetWsdlUrl
-#define SOAP_TYPE__tds__GetWsdlUrl (252)
+#define SOAP_TYPE__tds__GetWsdlUrl (292)
 /* tds:GetWsdlUrl */
 class SOAP_CMAC _tds__GetWsdlUrl
 {
@@ -6940,7 +7429,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 252;
+    return 292;
   } /* = unique type id SOAP_TYPE__tds__GetWsdlUrl */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6959,7 +7448,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetWsdlUrlResponse
-#define SOAP_TYPE__tds__GetWsdlUrlResponse (253)
+#define SOAP_TYPE__tds__GetWsdlUrlResponse (293)
 /* tds:GetWsdlUrlResponse */
 class SOAP_CMAC _tds__GetWsdlUrlResponse
 {
@@ -6970,7 +7459,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 253;
+    return 293;
   } /* = unique type id SOAP_TYPE__tds__GetWsdlUrlResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -6989,7 +7478,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetCapabilities
-#define SOAP_TYPE__tds__GetCapabilities (254)
+#define SOAP_TYPE__tds__GetCapabilities (294)
 /* tds:GetCapabilities */
 class SOAP_CMAC _tds__GetCapabilities
 {
@@ -6999,7 +7488,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 254;
+    return 294;
   } /* = unique type id SOAP_TYPE__tds__GetCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7018,7 +7507,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetCapabilitiesResponse
-#define SOAP_TYPE__tds__GetCapabilitiesResponse (255)
+#define SOAP_TYPE__tds__GetCapabilitiesResponse (295)
 /* tds:GetCapabilitiesResponse */
 class SOAP_CMAC _tds__GetCapabilitiesResponse
 {
@@ -7029,7 +7518,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 255;
+    return 295;
   } /* = unique type id SOAP_TYPE__tds__GetCapabilitiesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7048,7 +7537,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetHostname
-#define SOAP_TYPE__tds__GetHostname (256)
+#define SOAP_TYPE__tds__GetHostname (296)
 /* tds:GetHostname */
 class SOAP_CMAC _tds__GetHostname
 {
@@ -7057,7 +7546,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 256;
+    return 296;
   } /* = unique type id SOAP_TYPE__tds__GetHostname */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7076,7 +7565,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetHostnameResponse
-#define SOAP_TYPE__tds__GetHostnameResponse (257)
+#define SOAP_TYPE__tds__GetHostnameResponse (297)
 /* tds:GetHostnameResponse */
 class SOAP_CMAC _tds__GetHostnameResponse
 {
@@ -7087,7 +7576,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 257;
+    return 297;
   } /* = unique type id SOAP_TYPE__tds__GetHostnameResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7106,7 +7595,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetHostname
-#define SOAP_TYPE__tds__SetHostname (258)
+#define SOAP_TYPE__tds__SetHostname (298)
 /* tds:SetHostname */
 class SOAP_CMAC _tds__SetHostname
 {
@@ -7116,7 +7605,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 258;
+    return 298;
   } /* = unique type id SOAP_TYPE__tds__SetHostname */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7135,7 +7624,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetHostnameResponse
-#define SOAP_TYPE__tds__SetHostnameResponse (259)
+#define SOAP_TYPE__tds__SetHostnameResponse (299)
 /* tds:SetHostnameResponse */
 class SOAP_CMAC _tds__SetHostnameResponse
 {
@@ -7144,7 +7633,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 259;
+    return 299;
   } /* = unique type id SOAP_TYPE__tds__SetHostnameResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7163,7 +7652,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetHostnameFromDHCP
-#define SOAP_TYPE__tds__SetHostnameFromDHCP (260)
+#define SOAP_TYPE__tds__SetHostnameFromDHCP (300)
 /* tds:SetHostnameFromDHCP */
 class SOAP_CMAC _tds__SetHostnameFromDHCP
 {
@@ -7173,7 +7662,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 260;
+    return 300;
   } /* = unique type id SOAP_TYPE__tds__SetHostnameFromDHCP */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7192,7 +7681,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetHostnameFromDHCPResponse
-#define SOAP_TYPE__tds__SetHostnameFromDHCPResponse (261)
+#define SOAP_TYPE__tds__SetHostnameFromDHCPResponse (301)
 /* tds:SetHostnameFromDHCPResponse */
 class SOAP_CMAC _tds__SetHostnameFromDHCPResponse
 {
@@ -7203,7 +7692,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 261;
+    return 301;
   } /* = unique type id SOAP_TYPE__tds__SetHostnameFromDHCPResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7222,7 +7711,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetDNS
-#define SOAP_TYPE__tds__GetDNS (262)
+#define SOAP_TYPE__tds__GetDNS (302)
 /* tds:GetDNS */
 class SOAP_CMAC _tds__GetDNS
 {
@@ -7231,7 +7720,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 262;
+    return 302;
   } /* = unique type id SOAP_TYPE__tds__GetDNS */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7250,7 +7739,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetDNSResponse
-#define SOAP_TYPE__tds__GetDNSResponse (263)
+#define SOAP_TYPE__tds__GetDNSResponse (303)
 /* tds:GetDNSResponse */
 class SOAP_CMAC _tds__GetDNSResponse
 {
@@ -7261,7 +7750,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 263;
+    return 303;
   } /* = unique type id SOAP_TYPE__tds__GetDNSResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7280,7 +7769,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetDNS
-#define SOAP_TYPE__tds__SetDNS (264)
+#define SOAP_TYPE__tds__SetDNS (304)
 /* tds:SetDNS */
 class SOAP_CMAC _tds__SetDNS
 {
@@ -7292,7 +7781,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 264;
+    return 304;
   } /* = unique type id SOAP_TYPE__tds__SetDNS */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7311,7 +7800,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetDNSResponse
-#define SOAP_TYPE__tds__SetDNSResponse (265)
+#define SOAP_TYPE__tds__SetDNSResponse (305)
 /* tds:SetDNSResponse */
 class SOAP_CMAC _tds__SetDNSResponse
 {
@@ -7320,7 +7809,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 265;
+    return 305;
   } /* = unique type id SOAP_TYPE__tds__SetDNSResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7339,7 +7828,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetNTP
-#define SOAP_TYPE__tds__GetNTP (266)
+#define SOAP_TYPE__tds__GetNTP (306)
 /* tds:GetNTP */
 class SOAP_CMAC _tds__GetNTP
 {
@@ -7348,7 +7837,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 266;
+    return 306;
   } /* = unique type id SOAP_TYPE__tds__GetNTP */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7367,7 +7856,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetNTPResponse
-#define SOAP_TYPE__tds__GetNTPResponse (267)
+#define SOAP_TYPE__tds__GetNTPResponse (307)
 /* tds:GetNTPResponse */
 class SOAP_CMAC _tds__GetNTPResponse
 {
@@ -7378,7 +7867,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 267;
+    return 307;
   } /* = unique type id SOAP_TYPE__tds__GetNTPResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7397,7 +7886,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetNTP
-#define SOAP_TYPE__tds__SetNTP (268)
+#define SOAP_TYPE__tds__SetNTP (308)
 /* tds:SetNTP */
 class SOAP_CMAC _tds__SetNTP
 {
@@ -7408,7 +7897,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 268;
+    return 308;
   } /* = unique type id SOAP_TYPE__tds__SetNTP */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7427,7 +7916,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetNTPResponse
-#define SOAP_TYPE__tds__SetNTPResponse (269)
+#define SOAP_TYPE__tds__SetNTPResponse (309)
 /* tds:SetNTPResponse */
 class SOAP_CMAC _tds__SetNTPResponse
 {
@@ -7436,7 +7925,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 269;
+    return 309;
   } /* = unique type id SOAP_TYPE__tds__SetNTPResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7455,7 +7944,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetDynamicDNS
-#define SOAP_TYPE__tds__GetDynamicDNS (270)
+#define SOAP_TYPE__tds__GetDynamicDNS (310)
 /* tds:GetDynamicDNS */
 class SOAP_CMAC _tds__GetDynamicDNS
 {
@@ -7464,7 +7953,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 270;
+    return 310;
   } /* = unique type id SOAP_TYPE__tds__GetDynamicDNS */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7483,7 +7972,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetDynamicDNSResponse
-#define SOAP_TYPE__tds__GetDynamicDNSResponse (271)
+#define SOAP_TYPE__tds__GetDynamicDNSResponse (311)
 /* tds:GetDynamicDNSResponse */
 class SOAP_CMAC _tds__GetDynamicDNSResponse
 {
@@ -7494,7 +7983,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 271;
+    return 311;
   } /* = unique type id SOAP_TYPE__tds__GetDynamicDNSResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7513,7 +8002,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetDynamicDNS
-#define SOAP_TYPE__tds__SetDynamicDNS (272)
+#define SOAP_TYPE__tds__SetDynamicDNS (312)
 /* tds:SetDynamicDNS */
 class SOAP_CMAC _tds__SetDynamicDNS
 {
@@ -7525,7 +8014,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 272;
+    return 312;
   } /* = unique type id SOAP_TYPE__tds__SetDynamicDNS */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7544,7 +8033,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetDynamicDNSResponse
-#define SOAP_TYPE__tds__SetDynamicDNSResponse (273)
+#define SOAP_TYPE__tds__SetDynamicDNSResponse (313)
 /* tds:SetDynamicDNSResponse */
 class SOAP_CMAC _tds__SetDynamicDNSResponse
 {
@@ -7553,7 +8042,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 273;
+    return 313;
   } /* = unique type id SOAP_TYPE__tds__SetDynamicDNSResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7572,7 +8061,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetNetworkInterfaces
-#define SOAP_TYPE__tds__GetNetworkInterfaces (274)
+#define SOAP_TYPE__tds__GetNetworkInterfaces (314)
 /* tds:GetNetworkInterfaces */
 class SOAP_CMAC _tds__GetNetworkInterfaces
 {
@@ -7581,7 +8070,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 274;
+    return 314;
   } /* = unique type id SOAP_TYPE__tds__GetNetworkInterfaces */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7600,7 +8089,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetNetworkInterfacesResponse
-#define SOAP_TYPE__tds__GetNetworkInterfacesResponse (275)
+#define SOAP_TYPE__tds__GetNetworkInterfacesResponse (315)
 /* tds:GetNetworkInterfacesResponse */
 class SOAP_CMAC _tds__GetNetworkInterfacesResponse
 {
@@ -7611,7 +8100,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 275;
+    return 315;
   } /* = unique type id SOAP_TYPE__tds__GetNetworkInterfacesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7630,7 +8119,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetNetworkInterfaces
-#define SOAP_TYPE__tds__SetNetworkInterfaces (276)
+#define SOAP_TYPE__tds__SetNetworkInterfaces (316)
 /* tds:SetNetworkInterfaces */
 class SOAP_CMAC _tds__SetNetworkInterfaces
 {
@@ -7642,7 +8131,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 276;
+    return 316;
   } /* = unique type id SOAP_TYPE__tds__SetNetworkInterfaces */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7661,7 +8150,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetNetworkInterfacesResponse
-#define SOAP_TYPE__tds__SetNetworkInterfacesResponse (277)
+#define SOAP_TYPE__tds__SetNetworkInterfacesResponse (317)
 /* tds:SetNetworkInterfacesResponse */
 class SOAP_CMAC _tds__SetNetworkInterfacesResponse
 {
@@ -7672,7 +8161,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 277;
+    return 317;
   } /* = unique type id SOAP_TYPE__tds__SetNetworkInterfacesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7691,7 +8180,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetNetworkProtocols
-#define SOAP_TYPE__tds__GetNetworkProtocols (278)
+#define SOAP_TYPE__tds__GetNetworkProtocols (318)
 /* tds:GetNetworkProtocols */
 class SOAP_CMAC _tds__GetNetworkProtocols
 {
@@ -7700,7 +8189,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 278;
+    return 318;
   } /* = unique type id SOAP_TYPE__tds__GetNetworkProtocols */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7719,7 +8208,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetNetworkProtocolsResponse
-#define SOAP_TYPE__tds__GetNetworkProtocolsResponse (279)
+#define SOAP_TYPE__tds__GetNetworkProtocolsResponse (319)
 /* tds:GetNetworkProtocolsResponse */
 class SOAP_CMAC _tds__GetNetworkProtocolsResponse
 {
@@ -7730,7 +8219,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 279;
+    return 319;
   } /* = unique type id SOAP_TYPE__tds__GetNetworkProtocolsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7749,7 +8238,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetNetworkProtocols
-#define SOAP_TYPE__tds__SetNetworkProtocols (280)
+#define SOAP_TYPE__tds__SetNetworkProtocols (320)
 /* tds:SetNetworkProtocols */
 class SOAP_CMAC _tds__SetNetworkProtocols
 {
@@ -7759,7 +8248,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 280;
+    return 320;
   } /* = unique type id SOAP_TYPE__tds__SetNetworkProtocols */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7778,7 +8267,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetNetworkProtocolsResponse
-#define SOAP_TYPE__tds__SetNetworkProtocolsResponse (281)
+#define SOAP_TYPE__tds__SetNetworkProtocolsResponse (321)
 /* tds:SetNetworkProtocolsResponse */
 class SOAP_CMAC _tds__SetNetworkProtocolsResponse
 {
@@ -7787,7 +8276,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 281;
+    return 321;
   } /* = unique type id SOAP_TYPE__tds__SetNetworkProtocolsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7806,7 +8295,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetNetworkDefaultGateway
-#define SOAP_TYPE__tds__GetNetworkDefaultGateway (282)
+#define SOAP_TYPE__tds__GetNetworkDefaultGateway (322)
 /* tds:GetNetworkDefaultGateway */
 class SOAP_CMAC _tds__GetNetworkDefaultGateway
 {
@@ -7815,7 +8304,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 282;
+    return 322;
   } /* = unique type id SOAP_TYPE__tds__GetNetworkDefaultGateway */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7834,7 +8323,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetNetworkDefaultGatewayResponse
-#define SOAP_TYPE__tds__GetNetworkDefaultGatewayResponse (283)
+#define SOAP_TYPE__tds__GetNetworkDefaultGatewayResponse (323)
 /* tds:GetNetworkDefaultGatewayResponse */
 class SOAP_CMAC _tds__GetNetworkDefaultGatewayResponse
 {
@@ -7845,7 +8334,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 283;
+    return 323;
   } /* = unique type id SOAP_TYPE__tds__GetNetworkDefaultGatewayResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7864,7 +8353,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetNetworkDefaultGateway
-#define SOAP_TYPE__tds__SetNetworkDefaultGateway (284)
+#define SOAP_TYPE__tds__SetNetworkDefaultGateway (324)
 /* tds:SetNetworkDefaultGateway */
 class SOAP_CMAC _tds__SetNetworkDefaultGateway
 {
@@ -7875,7 +8364,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 284;
+    return 324;
   } /* = unique type id SOAP_TYPE__tds__SetNetworkDefaultGateway */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7894,7 +8383,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetNetworkDefaultGatewayResponse
-#define SOAP_TYPE__tds__SetNetworkDefaultGatewayResponse (285)
+#define SOAP_TYPE__tds__SetNetworkDefaultGatewayResponse (325)
 /* tds:SetNetworkDefaultGatewayResponse */
 class SOAP_CMAC _tds__SetNetworkDefaultGatewayResponse
 {
@@ -7903,7 +8392,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 285;
+    return 325;
   } /* = unique type id SOAP_TYPE__tds__SetNetworkDefaultGatewayResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7922,7 +8411,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetZeroConfiguration
-#define SOAP_TYPE__tds__GetZeroConfiguration (286)
+#define SOAP_TYPE__tds__GetZeroConfiguration (326)
 /* tds:GetZeroConfiguration */
 class SOAP_CMAC _tds__GetZeroConfiguration
 {
@@ -7931,7 +8420,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 286;
+    return 326;
   } /* = unique type id SOAP_TYPE__tds__GetZeroConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7950,7 +8439,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetZeroConfigurationResponse
-#define SOAP_TYPE__tds__GetZeroConfigurationResponse (287)
+#define SOAP_TYPE__tds__GetZeroConfigurationResponse (327)
 /* tds:GetZeroConfigurationResponse */
 class SOAP_CMAC _tds__GetZeroConfigurationResponse
 {
@@ -7961,7 +8450,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 287;
+    return 327;
   } /* = unique type id SOAP_TYPE__tds__GetZeroConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -7980,7 +8469,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetZeroConfiguration
-#define SOAP_TYPE__tds__SetZeroConfiguration (288)
+#define SOAP_TYPE__tds__SetZeroConfiguration (328)
 /* tds:SetZeroConfiguration */
 class SOAP_CMAC _tds__SetZeroConfiguration
 {
@@ -7991,7 +8480,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 288;
+    return 328;
   } /* = unique type id SOAP_TYPE__tds__SetZeroConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8010,7 +8499,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetZeroConfigurationResponse
-#define SOAP_TYPE__tds__SetZeroConfigurationResponse (289)
+#define SOAP_TYPE__tds__SetZeroConfigurationResponse (329)
 /* tds:SetZeroConfigurationResponse */
 class SOAP_CMAC _tds__SetZeroConfigurationResponse
 {
@@ -8019,7 +8508,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 289;
+    return 329;
   } /* = unique type id SOAP_TYPE__tds__SetZeroConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8038,7 +8527,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetIPAddressFilter
-#define SOAP_TYPE__tds__GetIPAddressFilter (290)
+#define SOAP_TYPE__tds__GetIPAddressFilter (330)
 /* tds:GetIPAddressFilter */
 class SOAP_CMAC _tds__GetIPAddressFilter
 {
@@ -8047,7 +8536,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 290;
+    return 330;
   } /* = unique type id SOAP_TYPE__tds__GetIPAddressFilter */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8066,7 +8555,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetIPAddressFilterResponse
-#define SOAP_TYPE__tds__GetIPAddressFilterResponse (291)
+#define SOAP_TYPE__tds__GetIPAddressFilterResponse (331)
 /* tds:GetIPAddressFilterResponse */
 class SOAP_CMAC _tds__GetIPAddressFilterResponse
 {
@@ -8077,7 +8566,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 291;
+    return 331;
   } /* = unique type id SOAP_TYPE__tds__GetIPAddressFilterResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8096,7 +8585,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetIPAddressFilter
-#define SOAP_TYPE__tds__SetIPAddressFilter (292)
+#define SOAP_TYPE__tds__SetIPAddressFilter (332)
 /* tds:SetIPAddressFilter */
 class SOAP_CMAC _tds__SetIPAddressFilter
 {
@@ -8106,7 +8595,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 292;
+    return 332;
   } /* = unique type id SOAP_TYPE__tds__SetIPAddressFilter */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8125,7 +8614,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetIPAddressFilterResponse
-#define SOAP_TYPE__tds__SetIPAddressFilterResponse (293)
+#define SOAP_TYPE__tds__SetIPAddressFilterResponse (333)
 /* tds:SetIPAddressFilterResponse */
 class SOAP_CMAC _tds__SetIPAddressFilterResponse
 {
@@ -8134,7 +8623,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 293;
+    return 333;
   } /* = unique type id SOAP_TYPE__tds__SetIPAddressFilterResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8153,7 +8642,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__AddIPAddressFilter
-#define SOAP_TYPE__tds__AddIPAddressFilter (294)
+#define SOAP_TYPE__tds__AddIPAddressFilter (334)
 /* tds:AddIPAddressFilter */
 class SOAP_CMAC _tds__AddIPAddressFilter
 {
@@ -8163,7 +8652,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 294;
+    return 334;
   } /* = unique type id SOAP_TYPE__tds__AddIPAddressFilter */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8182,7 +8671,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__AddIPAddressFilterResponse
-#define SOAP_TYPE__tds__AddIPAddressFilterResponse (295)
+#define SOAP_TYPE__tds__AddIPAddressFilterResponse (335)
 /* tds:AddIPAddressFilterResponse */
 class SOAP_CMAC _tds__AddIPAddressFilterResponse
 {
@@ -8191,7 +8680,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 295;
+    return 335;
   } /* = unique type id SOAP_TYPE__tds__AddIPAddressFilterResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8210,7 +8699,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__RemoveIPAddressFilter
-#define SOAP_TYPE__tds__RemoveIPAddressFilter (296)
+#define SOAP_TYPE__tds__RemoveIPAddressFilter (336)
 /* tds:RemoveIPAddressFilter */
 class SOAP_CMAC _tds__RemoveIPAddressFilter
 {
@@ -8220,7 +8709,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 296;
+    return 336;
   } /* = unique type id SOAP_TYPE__tds__RemoveIPAddressFilter */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8239,7 +8728,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__RemoveIPAddressFilterResponse
-#define SOAP_TYPE__tds__RemoveIPAddressFilterResponse (297)
+#define SOAP_TYPE__tds__RemoveIPAddressFilterResponse (337)
 /* tds:RemoveIPAddressFilterResponse */
 class SOAP_CMAC _tds__RemoveIPAddressFilterResponse
 {
@@ -8248,7 +8737,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 297;
+    return 337;
   } /* = unique type id SOAP_TYPE__tds__RemoveIPAddressFilterResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8267,7 +8756,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetAccessPolicy
-#define SOAP_TYPE__tds__GetAccessPolicy (298)
+#define SOAP_TYPE__tds__GetAccessPolicy (338)
 /* tds:GetAccessPolicy */
 class SOAP_CMAC _tds__GetAccessPolicy
 {
@@ -8276,7 +8765,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 298;
+    return 338;
   } /* = unique type id SOAP_TYPE__tds__GetAccessPolicy */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8295,7 +8784,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetAccessPolicyResponse
-#define SOAP_TYPE__tds__GetAccessPolicyResponse (299)
+#define SOAP_TYPE__tds__GetAccessPolicyResponse (339)
 /* tds:GetAccessPolicyResponse */
 class SOAP_CMAC _tds__GetAccessPolicyResponse
 {
@@ -8306,7 +8795,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 299;
+    return 339;
   } /* = unique type id SOAP_TYPE__tds__GetAccessPolicyResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8325,7 +8814,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetAccessPolicy
-#define SOAP_TYPE__tds__SetAccessPolicy (300)
+#define SOAP_TYPE__tds__SetAccessPolicy (340)
 /* tds:SetAccessPolicy */
 class SOAP_CMAC _tds__SetAccessPolicy
 {
@@ -8335,7 +8824,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 300;
+    return 340;
   } /* = unique type id SOAP_TYPE__tds__SetAccessPolicy */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8354,7 +8843,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetAccessPolicyResponse
-#define SOAP_TYPE__tds__SetAccessPolicyResponse (301)
+#define SOAP_TYPE__tds__SetAccessPolicyResponse (341)
 /* tds:SetAccessPolicyResponse */
 class SOAP_CMAC _tds__SetAccessPolicyResponse
 {
@@ -8363,7 +8852,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 301;
+    return 341;
   } /* = unique type id SOAP_TYPE__tds__SetAccessPolicyResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8382,7 +8871,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__CreateCertificate
-#define SOAP_TYPE__tds__CreateCertificate (302)
+#define SOAP_TYPE__tds__CreateCertificate (342)
 /* tds:CreateCertificate */
 class SOAP_CMAC _tds__CreateCertificate
 {
@@ -8395,7 +8884,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 302;
+    return 342;
   } /* = unique type id SOAP_TYPE__tds__CreateCertificate */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8414,7 +8903,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__CreateCertificateResponse
-#define SOAP_TYPE__tds__CreateCertificateResponse (303)
+#define SOAP_TYPE__tds__CreateCertificateResponse (343)
 /* tds:CreateCertificateResponse */
 class SOAP_CMAC _tds__CreateCertificateResponse
 {
@@ -8425,7 +8914,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 303;
+    return 343;
   } /* = unique type id SOAP_TYPE__tds__CreateCertificateResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8444,7 +8933,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetCertificates
-#define SOAP_TYPE__tds__GetCertificates (304)
+#define SOAP_TYPE__tds__GetCertificates (344)
 /* tds:GetCertificates */
 class SOAP_CMAC _tds__GetCertificates
 {
@@ -8453,7 +8942,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 304;
+    return 344;
   } /* = unique type id SOAP_TYPE__tds__GetCertificates */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8472,7 +8961,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetCertificatesResponse
-#define SOAP_TYPE__tds__GetCertificatesResponse (305)
+#define SOAP_TYPE__tds__GetCertificatesResponse (345)
 /* tds:GetCertificatesResponse */
 class SOAP_CMAC _tds__GetCertificatesResponse
 {
@@ -8483,7 +8972,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 305;
+    return 345;
   } /* = unique type id SOAP_TYPE__tds__GetCertificatesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8502,7 +8991,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetCertificatesStatus
-#define SOAP_TYPE__tds__GetCertificatesStatus (306)
+#define SOAP_TYPE__tds__GetCertificatesStatus (346)
 /* tds:GetCertificatesStatus */
 class SOAP_CMAC _tds__GetCertificatesStatus
 {
@@ -8511,7 +9000,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 306;
+    return 346;
   } /* = unique type id SOAP_TYPE__tds__GetCertificatesStatus */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8530,7 +9019,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetCertificatesStatusResponse
-#define SOAP_TYPE__tds__GetCertificatesStatusResponse (307)
+#define SOAP_TYPE__tds__GetCertificatesStatusResponse (347)
 /* tds:GetCertificatesStatusResponse */
 class SOAP_CMAC _tds__GetCertificatesStatusResponse
 {
@@ -8541,7 +9030,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 307;
+    return 347;
   } /* = unique type id SOAP_TYPE__tds__GetCertificatesStatusResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8560,7 +9049,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetCertificatesStatus
-#define SOAP_TYPE__tds__SetCertificatesStatus (308)
+#define SOAP_TYPE__tds__SetCertificatesStatus (348)
 /* tds:SetCertificatesStatus */
 class SOAP_CMAC _tds__SetCertificatesStatus
 {
@@ -8570,7 +9059,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 308;
+    return 348;
   } /* = unique type id SOAP_TYPE__tds__SetCertificatesStatus */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8589,7 +9078,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetCertificatesStatusResponse
-#define SOAP_TYPE__tds__SetCertificatesStatusResponse (309)
+#define SOAP_TYPE__tds__SetCertificatesStatusResponse (349)
 /* tds:SetCertificatesStatusResponse */
 class SOAP_CMAC _tds__SetCertificatesStatusResponse
 {
@@ -8598,7 +9087,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 309;
+    return 349;
   } /* = unique type id SOAP_TYPE__tds__SetCertificatesStatusResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8617,7 +9106,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__DeleteCertificates
-#define SOAP_TYPE__tds__DeleteCertificates (310)
+#define SOAP_TYPE__tds__DeleteCertificates (350)
 /* tds:DeleteCertificates */
 class SOAP_CMAC _tds__DeleteCertificates
 {
@@ -8627,7 +9116,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 310;
+    return 350;
   } /* = unique type id SOAP_TYPE__tds__DeleteCertificates */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8646,7 +9135,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__DeleteCertificatesResponse
-#define SOAP_TYPE__tds__DeleteCertificatesResponse (311)
+#define SOAP_TYPE__tds__DeleteCertificatesResponse (351)
 /* tds:DeleteCertificatesResponse */
 class SOAP_CMAC _tds__DeleteCertificatesResponse
 {
@@ -8655,7 +9144,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 311;
+    return 351;
   } /* = unique type id SOAP_TYPE__tds__DeleteCertificatesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8674,7 +9163,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetPkcs10Request
-#define SOAP_TYPE__tds__GetPkcs10Request (312)
+#define SOAP_TYPE__tds__GetPkcs10Request (352)
 /* tds:GetPkcs10Request */
 class SOAP_CMAC _tds__GetPkcs10Request
 {
@@ -8686,7 +9175,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 312;
+    return 352;
   } /* = unique type id SOAP_TYPE__tds__GetPkcs10Request */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8705,7 +9194,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetPkcs10RequestResponse
-#define SOAP_TYPE__tds__GetPkcs10RequestResponse (313)
+#define SOAP_TYPE__tds__GetPkcs10RequestResponse (353)
 /* tds:GetPkcs10RequestResponse */
 class SOAP_CMAC _tds__GetPkcs10RequestResponse
 {
@@ -8716,7 +9205,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 313;
+    return 353;
   } /* = unique type id SOAP_TYPE__tds__GetPkcs10RequestResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8735,7 +9224,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__LoadCertificates
-#define SOAP_TYPE__tds__LoadCertificates (314)
+#define SOAP_TYPE__tds__LoadCertificates (354)
 /* tds:LoadCertificates */
 class SOAP_CMAC _tds__LoadCertificates
 {
@@ -8745,7 +9234,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 314;
+    return 354;
   } /* = unique type id SOAP_TYPE__tds__LoadCertificates */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8764,7 +9253,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__LoadCertificatesResponse
-#define SOAP_TYPE__tds__LoadCertificatesResponse (315)
+#define SOAP_TYPE__tds__LoadCertificatesResponse (355)
 /* tds:LoadCertificatesResponse */
 class SOAP_CMAC _tds__LoadCertificatesResponse
 {
@@ -8773,7 +9262,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 315;
+    return 355;
   } /* = unique type id SOAP_TYPE__tds__LoadCertificatesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8792,7 +9281,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetClientCertificateMode
-#define SOAP_TYPE__tds__GetClientCertificateMode (316)
+#define SOAP_TYPE__tds__GetClientCertificateMode (356)
 /* tds:GetClientCertificateMode */
 class SOAP_CMAC _tds__GetClientCertificateMode
 {
@@ -8801,7 +9290,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 316;
+    return 356;
   } /* = unique type id SOAP_TYPE__tds__GetClientCertificateMode */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8820,7 +9309,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetClientCertificateModeResponse
-#define SOAP_TYPE__tds__GetClientCertificateModeResponse (317)
+#define SOAP_TYPE__tds__GetClientCertificateModeResponse (357)
 /* tds:GetClientCertificateModeResponse */
 class SOAP_CMAC _tds__GetClientCertificateModeResponse
 {
@@ -8830,7 +9319,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 317;
+    return 357;
   } /* = unique type id SOAP_TYPE__tds__GetClientCertificateModeResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8849,7 +9338,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetClientCertificateMode
-#define SOAP_TYPE__tds__SetClientCertificateMode (318)
+#define SOAP_TYPE__tds__SetClientCertificateMode (358)
 /* tds:SetClientCertificateMode */
 class SOAP_CMAC _tds__SetClientCertificateMode
 {
@@ -8859,7 +9348,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 318;
+    return 358;
   } /* = unique type id SOAP_TYPE__tds__SetClientCertificateMode */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8878,7 +9367,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetClientCertificateModeResponse
-#define SOAP_TYPE__tds__SetClientCertificateModeResponse (319)
+#define SOAP_TYPE__tds__SetClientCertificateModeResponse (359)
 /* tds:SetClientCertificateModeResponse */
 class SOAP_CMAC _tds__SetClientCertificateModeResponse
 {
@@ -8887,7 +9376,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 319;
+    return 359;
   } /* = unique type id SOAP_TYPE__tds__SetClientCertificateModeResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8906,7 +9395,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetCACertificates
-#define SOAP_TYPE__tds__GetCACertificates (320)
+#define SOAP_TYPE__tds__GetCACertificates (360)
 /* tds:GetCACertificates */
 class SOAP_CMAC _tds__GetCACertificates
 {
@@ -8915,7 +9404,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 320;
+    return 360;
   } /* = unique type id SOAP_TYPE__tds__GetCACertificates */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8934,7 +9423,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetCACertificatesResponse
-#define SOAP_TYPE__tds__GetCACertificatesResponse (321)
+#define SOAP_TYPE__tds__GetCACertificatesResponse (361)
 /* tds:GetCACertificatesResponse */
 class SOAP_CMAC _tds__GetCACertificatesResponse
 {
@@ -8945,7 +9434,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 321;
+    return 361;
   } /* = unique type id SOAP_TYPE__tds__GetCACertificatesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8964,7 +9453,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__LoadCertificateWithPrivateKey
-#define SOAP_TYPE__tds__LoadCertificateWithPrivateKey (322)
+#define SOAP_TYPE__tds__LoadCertificateWithPrivateKey (362)
 /* tds:LoadCertificateWithPrivateKey */
 class SOAP_CMAC _tds__LoadCertificateWithPrivateKey
 {
@@ -8975,7 +9464,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 322;
+    return 362;
   } /* = unique type id SOAP_TYPE__tds__LoadCertificateWithPrivateKey */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -8994,7 +9483,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__LoadCertificateWithPrivateKeyResponse
-#define SOAP_TYPE__tds__LoadCertificateWithPrivateKeyResponse (323)
+#define SOAP_TYPE__tds__LoadCertificateWithPrivateKeyResponse (363)
 /* tds:LoadCertificateWithPrivateKeyResponse */
 class SOAP_CMAC _tds__LoadCertificateWithPrivateKeyResponse
 {
@@ -9003,7 +9492,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 323;
+    return 363;
   } /* = unique type id SOAP_TYPE__tds__LoadCertificateWithPrivateKeyResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9022,7 +9511,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetCertificateInformation
-#define SOAP_TYPE__tds__GetCertificateInformation (324)
+#define SOAP_TYPE__tds__GetCertificateInformation (364)
 /* tds:GetCertificateInformation */
 class SOAP_CMAC _tds__GetCertificateInformation
 {
@@ -9032,7 +9521,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 324;
+    return 364;
   } /* = unique type id SOAP_TYPE__tds__GetCertificateInformation */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9051,7 +9540,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetCertificateInformationResponse
-#define SOAP_TYPE__tds__GetCertificateInformationResponse (325)
+#define SOAP_TYPE__tds__GetCertificateInformationResponse (365)
 /* tds:GetCertificateInformationResponse */
 class SOAP_CMAC _tds__GetCertificateInformationResponse
 {
@@ -9062,7 +9551,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 325;
+    return 365;
   } /* = unique type id SOAP_TYPE__tds__GetCertificateInformationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9081,7 +9570,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__LoadCACertificates
-#define SOAP_TYPE__tds__LoadCACertificates (326)
+#define SOAP_TYPE__tds__LoadCACertificates (366)
 /* tds:LoadCACertificates */
 class SOAP_CMAC _tds__LoadCACertificates
 {
@@ -9091,7 +9580,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 326;
+    return 366;
   } /* = unique type id SOAP_TYPE__tds__LoadCACertificates */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9110,7 +9599,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__LoadCACertificatesResponse
-#define SOAP_TYPE__tds__LoadCACertificatesResponse (327)
+#define SOAP_TYPE__tds__LoadCACertificatesResponse (367)
 /* tds:LoadCACertificatesResponse */
 class SOAP_CMAC _tds__LoadCACertificatesResponse
 {
@@ -9119,7 +9608,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 327;
+    return 367;
   } /* = unique type id SOAP_TYPE__tds__LoadCACertificatesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9138,7 +9627,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__CreateDot1XConfiguration
-#define SOAP_TYPE__tds__CreateDot1XConfiguration (328)
+#define SOAP_TYPE__tds__CreateDot1XConfiguration (368)
 /* tds:CreateDot1XConfiguration */
 class SOAP_CMAC _tds__CreateDot1XConfiguration
 {
@@ -9148,7 +9637,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 328;
+    return 368;
   } /* = unique type id SOAP_TYPE__tds__CreateDot1XConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9167,7 +9656,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__CreateDot1XConfigurationResponse
-#define SOAP_TYPE__tds__CreateDot1XConfigurationResponse (329)
+#define SOAP_TYPE__tds__CreateDot1XConfigurationResponse (369)
 /* tds:CreateDot1XConfigurationResponse */
 class SOAP_CMAC _tds__CreateDot1XConfigurationResponse
 {
@@ -9176,7 +9665,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 329;
+    return 369;
   } /* = unique type id SOAP_TYPE__tds__CreateDot1XConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9195,7 +9684,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetDot1XConfiguration
-#define SOAP_TYPE__tds__SetDot1XConfiguration (330)
+#define SOAP_TYPE__tds__SetDot1XConfiguration (370)
 /* tds:SetDot1XConfiguration */
 class SOAP_CMAC _tds__SetDot1XConfiguration
 {
@@ -9205,7 +9694,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 330;
+    return 370;
   } /* = unique type id SOAP_TYPE__tds__SetDot1XConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9224,7 +9713,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetDot1XConfigurationResponse
-#define SOAP_TYPE__tds__SetDot1XConfigurationResponse (331)
+#define SOAP_TYPE__tds__SetDot1XConfigurationResponse (371)
 /* tds:SetDot1XConfigurationResponse */
 class SOAP_CMAC _tds__SetDot1XConfigurationResponse
 {
@@ -9233,7 +9722,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 331;
+    return 371;
   } /* = unique type id SOAP_TYPE__tds__SetDot1XConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9252,7 +9741,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetDot1XConfiguration
-#define SOAP_TYPE__tds__GetDot1XConfiguration (332)
+#define SOAP_TYPE__tds__GetDot1XConfiguration (372)
 /* tds:GetDot1XConfiguration */
 class SOAP_CMAC _tds__GetDot1XConfiguration
 {
@@ -9262,7 +9751,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 332;
+    return 372;
   } /* = unique type id SOAP_TYPE__tds__GetDot1XConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9281,7 +9770,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetDot1XConfigurationResponse
-#define SOAP_TYPE__tds__GetDot1XConfigurationResponse (333)
+#define SOAP_TYPE__tds__GetDot1XConfigurationResponse (373)
 /* tds:GetDot1XConfigurationResponse */
 class SOAP_CMAC _tds__GetDot1XConfigurationResponse
 {
@@ -9292,7 +9781,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 333;
+    return 373;
   } /* = unique type id SOAP_TYPE__tds__GetDot1XConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9311,7 +9800,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetDot1XConfigurations
-#define SOAP_TYPE__tds__GetDot1XConfigurations (334)
+#define SOAP_TYPE__tds__GetDot1XConfigurations (374)
 /* tds:GetDot1XConfigurations */
 class SOAP_CMAC _tds__GetDot1XConfigurations
 {
@@ -9320,7 +9809,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 334;
+    return 374;
   } /* = unique type id SOAP_TYPE__tds__GetDot1XConfigurations */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9339,7 +9828,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetDot1XConfigurationsResponse
-#define SOAP_TYPE__tds__GetDot1XConfigurationsResponse (335)
+#define SOAP_TYPE__tds__GetDot1XConfigurationsResponse (375)
 /* tds:GetDot1XConfigurationsResponse */
 class SOAP_CMAC _tds__GetDot1XConfigurationsResponse
 {
@@ -9350,7 +9839,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 335;
+    return 375;
   } /* = unique type id SOAP_TYPE__tds__GetDot1XConfigurationsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9369,7 +9858,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__DeleteDot1XConfiguration
-#define SOAP_TYPE__tds__DeleteDot1XConfiguration (336)
+#define SOAP_TYPE__tds__DeleteDot1XConfiguration (376)
 /* tds:DeleteDot1XConfiguration */
 class SOAP_CMAC _tds__DeleteDot1XConfiguration
 {
@@ -9379,7 +9868,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 336;
+    return 376;
   } /* = unique type id SOAP_TYPE__tds__DeleteDot1XConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9398,7 +9887,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__DeleteDot1XConfigurationResponse
-#define SOAP_TYPE__tds__DeleteDot1XConfigurationResponse (337)
+#define SOAP_TYPE__tds__DeleteDot1XConfigurationResponse (377)
 /* tds:DeleteDot1XConfigurationResponse */
 class SOAP_CMAC _tds__DeleteDot1XConfigurationResponse
 {
@@ -9407,7 +9896,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 337;
+    return 377;
   } /* = unique type id SOAP_TYPE__tds__DeleteDot1XConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9426,7 +9915,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetRelayOutputs
-#define SOAP_TYPE__tds__GetRelayOutputs (338)
+#define SOAP_TYPE__tds__GetRelayOutputs (378)
 /* tds:GetRelayOutputs */
 class SOAP_CMAC _tds__GetRelayOutputs
 {
@@ -9435,7 +9924,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 338;
+    return 378;
   } /* = unique type id SOAP_TYPE__tds__GetRelayOutputs */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9454,7 +9943,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetRelayOutputsResponse
-#define SOAP_TYPE__tds__GetRelayOutputsResponse (339)
+#define SOAP_TYPE__tds__GetRelayOutputsResponse (379)
 /* tds:GetRelayOutputsResponse */
 class SOAP_CMAC _tds__GetRelayOutputsResponse
 {
@@ -9465,7 +9954,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 339;
+    return 379;
   } /* = unique type id SOAP_TYPE__tds__GetRelayOutputsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9484,7 +9973,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetRelayOutputSettings
-#define SOAP_TYPE__tds__SetRelayOutputSettings (340)
+#define SOAP_TYPE__tds__SetRelayOutputSettings (380)
 /* tds:SetRelayOutputSettings */
 class SOAP_CMAC _tds__SetRelayOutputSettings
 {
@@ -9495,7 +9984,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 340;
+    return 380;
   } /* = unique type id SOAP_TYPE__tds__SetRelayOutputSettings */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9514,7 +10003,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetRelayOutputSettingsResponse
-#define SOAP_TYPE__tds__SetRelayOutputSettingsResponse (341)
+#define SOAP_TYPE__tds__SetRelayOutputSettingsResponse (381)
 /* tds:SetRelayOutputSettingsResponse */
 class SOAP_CMAC _tds__SetRelayOutputSettingsResponse
 {
@@ -9523,7 +10012,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 341;
+    return 381;
   } /* = unique type id SOAP_TYPE__tds__SetRelayOutputSettingsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9542,7 +10031,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetRelayOutputState
-#define SOAP_TYPE__tds__SetRelayOutputState (342)
+#define SOAP_TYPE__tds__SetRelayOutputState (382)
 /* tds:SetRelayOutputState */
 class SOAP_CMAC _tds__SetRelayOutputState
 {
@@ -9553,7 +10042,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 342;
+    return 382;
   } /* = unique type id SOAP_TYPE__tds__SetRelayOutputState */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9572,7 +10061,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetRelayOutputStateResponse
-#define SOAP_TYPE__tds__SetRelayOutputStateResponse (343)
+#define SOAP_TYPE__tds__SetRelayOutputStateResponse (383)
 /* tds:SetRelayOutputStateResponse */
 class SOAP_CMAC _tds__SetRelayOutputStateResponse
 {
@@ -9581,7 +10070,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 343;
+    return 383;
   } /* = unique type id SOAP_TYPE__tds__SetRelayOutputStateResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9600,7 +10089,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SendAuxiliaryCommand
-#define SOAP_TYPE__tds__SendAuxiliaryCommand (344)
+#define SOAP_TYPE__tds__SendAuxiliaryCommand (384)
 /* tds:SendAuxiliaryCommand */
 class SOAP_CMAC _tds__SendAuxiliaryCommand
 {
@@ -9610,7 +10099,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 344;
+    return 384;
   } /* = unique type id SOAP_TYPE__tds__SendAuxiliaryCommand */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9629,7 +10118,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SendAuxiliaryCommandResponse
-#define SOAP_TYPE__tds__SendAuxiliaryCommandResponse (345)
+#define SOAP_TYPE__tds__SendAuxiliaryCommandResponse (385)
 /* tds:SendAuxiliaryCommandResponse */
 class SOAP_CMAC _tds__SendAuxiliaryCommandResponse
 {
@@ -9640,7 +10129,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 345;
+    return 385;
   } /* = unique type id SOAP_TYPE__tds__SendAuxiliaryCommandResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9659,7 +10148,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetDot11Capabilities
-#define SOAP_TYPE__tds__GetDot11Capabilities (346)
+#define SOAP_TYPE__tds__GetDot11Capabilities (386)
 /* tds:GetDot11Capabilities */
 class SOAP_CMAC _tds__GetDot11Capabilities
 {
@@ -9669,7 +10158,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 346;
+    return 386;
   } /* = unique type id SOAP_TYPE__tds__GetDot11Capabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9688,7 +10177,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetDot11CapabilitiesResponse
-#define SOAP_TYPE__tds__GetDot11CapabilitiesResponse (347)
+#define SOAP_TYPE__tds__GetDot11CapabilitiesResponse (387)
 /* tds:GetDot11CapabilitiesResponse */
 class SOAP_CMAC _tds__GetDot11CapabilitiesResponse
 {
@@ -9699,7 +10188,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 347;
+    return 387;
   } /* = unique type id SOAP_TYPE__tds__GetDot11CapabilitiesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9718,7 +10207,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetDot11Status
-#define SOAP_TYPE__tds__GetDot11Status (348)
+#define SOAP_TYPE__tds__GetDot11Status (388)
 /* tds:GetDot11Status */
 class SOAP_CMAC _tds__GetDot11Status
 {
@@ -9728,7 +10217,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 348;
+    return 388;
   } /* = unique type id SOAP_TYPE__tds__GetDot11Status */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9747,7 +10236,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetDot11StatusResponse
-#define SOAP_TYPE__tds__GetDot11StatusResponse (349)
+#define SOAP_TYPE__tds__GetDot11StatusResponse (389)
 /* tds:GetDot11StatusResponse */
 class SOAP_CMAC _tds__GetDot11StatusResponse
 {
@@ -9758,7 +10247,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 349;
+    return 389;
   } /* = unique type id SOAP_TYPE__tds__GetDot11StatusResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9777,7 +10266,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__ScanAvailableDot11Networks
-#define SOAP_TYPE__tds__ScanAvailableDot11Networks (350)
+#define SOAP_TYPE__tds__ScanAvailableDot11Networks (390)
 /* tds:ScanAvailableDot11Networks */
 class SOAP_CMAC _tds__ScanAvailableDot11Networks
 {
@@ -9787,7 +10276,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 350;
+    return 390;
   } /* = unique type id SOAP_TYPE__tds__ScanAvailableDot11Networks */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9806,7 +10295,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__ScanAvailableDot11NetworksResponse
-#define SOAP_TYPE__tds__ScanAvailableDot11NetworksResponse (351)
+#define SOAP_TYPE__tds__ScanAvailableDot11NetworksResponse (391)
 /* tds:ScanAvailableDot11NetworksResponse */
 class SOAP_CMAC _tds__ScanAvailableDot11NetworksResponse
 {
@@ -9817,7 +10306,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 351;
+    return 391;
   } /* = unique type id SOAP_TYPE__tds__ScanAvailableDot11NetworksResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9836,7 +10325,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetSystemUris
-#define SOAP_TYPE__tds__GetSystemUris (352)
+#define SOAP_TYPE__tds__GetSystemUris (392)
 /* tds:GetSystemUris */
 class SOAP_CMAC _tds__GetSystemUris
 {
@@ -9845,7 +10334,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 352;
+    return 392;
   } /* = unique type id SOAP_TYPE__tds__GetSystemUris */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9864,7 +10353,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetSystemUrisResponse_Extension
-#define SOAP_TYPE__tds__GetSystemUrisResponse_Extension (1381)
+#define SOAP_TYPE__tds__GetSystemUrisResponse_Extension (1438)
 /* tds:GetSystemUrisResponse-Extension */
 class SOAP_CMAC _tds__GetSystemUrisResponse_Extension
 {
@@ -9874,7 +10363,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1381;
+    return 1438;
   } /* = unique type id SOAP_TYPE__tds__GetSystemUrisResponse_Extension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9893,7 +10382,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetSystemUrisResponse
-#define SOAP_TYPE__tds__GetSystemUrisResponse (353)
+#define SOAP_TYPE__tds__GetSystemUrisResponse (393)
 /* tds:GetSystemUrisResponse */
 class SOAP_CMAC _tds__GetSystemUrisResponse
 {
@@ -9907,7 +10396,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 353;
+    return 393;
   } /* = unique type id SOAP_TYPE__tds__GetSystemUrisResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9926,7 +10415,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__StartFirmwareUpgrade
-#define SOAP_TYPE__tds__StartFirmwareUpgrade (354)
+#define SOAP_TYPE__tds__StartFirmwareUpgrade (394)
 /* tds:StartFirmwareUpgrade */
 class SOAP_CMAC _tds__StartFirmwareUpgrade
 {
@@ -9935,7 +10424,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 354;
+    return 394;
   } /* = unique type id SOAP_TYPE__tds__StartFirmwareUpgrade */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9954,7 +10443,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__StartFirmwareUpgradeResponse
-#define SOAP_TYPE__tds__StartFirmwareUpgradeResponse (355)
+#define SOAP_TYPE__tds__StartFirmwareUpgradeResponse (395)
 /* tds:StartFirmwareUpgradeResponse */
 class SOAP_CMAC _tds__StartFirmwareUpgradeResponse
 {
@@ -9967,7 +10456,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 355;
+    return 395;
   } /* = unique type id SOAP_TYPE__tds__StartFirmwareUpgradeResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -9986,7 +10475,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__StartSystemRestore
-#define SOAP_TYPE__tds__StartSystemRestore (356)
+#define SOAP_TYPE__tds__StartSystemRestore (396)
 /* tds:StartSystemRestore */
 class SOAP_CMAC _tds__StartSystemRestore
 {
@@ -9995,7 +10484,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 356;
+    return 396;
   } /* = unique type id SOAP_TYPE__tds__StartSystemRestore */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10014,7 +10503,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__StartSystemRestoreResponse
-#define SOAP_TYPE__tds__StartSystemRestoreResponse (357)
+#define SOAP_TYPE__tds__StartSystemRestoreResponse (397)
 /* tds:StartSystemRestoreResponse */
 class SOAP_CMAC _tds__StartSystemRestoreResponse
 {
@@ -10026,7 +10515,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 357;
+    return 397;
   } /* = unique type id SOAP_TYPE__tds__StartSystemRestoreResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10045,7 +10534,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetStorageConfigurations
-#define SOAP_TYPE__tds__GetStorageConfigurations (358)
+#define SOAP_TYPE__tds__GetStorageConfigurations (398)
 /* tds:GetStorageConfigurations */
 class SOAP_CMAC _tds__GetStorageConfigurations
 {
@@ -10054,7 +10543,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 358;
+    return 398;
   } /* = unique type id SOAP_TYPE__tds__GetStorageConfigurations */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10073,7 +10562,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetStorageConfigurationsResponse
-#define SOAP_TYPE__tds__GetStorageConfigurationsResponse (359)
+#define SOAP_TYPE__tds__GetStorageConfigurationsResponse (399)
 /* tds:GetStorageConfigurationsResponse */
 class SOAP_CMAC _tds__GetStorageConfigurationsResponse
 {
@@ -10084,7 +10573,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 359;
+    return 399;
   } /* = unique type id SOAP_TYPE__tds__GetStorageConfigurationsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10103,7 +10592,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__CreateStorageConfiguration
-#define SOAP_TYPE__tds__CreateStorageConfiguration (360)
+#define SOAP_TYPE__tds__CreateStorageConfiguration (400)
 /* tds:CreateStorageConfiguration */
 class SOAP_CMAC _tds__CreateStorageConfiguration
 {
@@ -10113,7 +10602,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 360;
+    return 400;
   } /* = unique type id SOAP_TYPE__tds__CreateStorageConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10132,7 +10621,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__CreateStorageConfigurationResponse
-#define SOAP_TYPE__tds__CreateStorageConfigurationResponse (361)
+#define SOAP_TYPE__tds__CreateStorageConfigurationResponse (401)
 /* tds:CreateStorageConfigurationResponse */
 class SOAP_CMAC _tds__CreateStorageConfigurationResponse
 {
@@ -10143,7 +10632,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 361;
+    return 401;
   } /* = unique type id SOAP_TYPE__tds__CreateStorageConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10162,7 +10651,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetStorageConfiguration
-#define SOAP_TYPE__tds__GetStorageConfiguration (362)
+#define SOAP_TYPE__tds__GetStorageConfiguration (402)
 /* tds:GetStorageConfiguration */
 class SOAP_CMAC _tds__GetStorageConfiguration
 {
@@ -10172,7 +10661,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 362;
+    return 402;
   } /* = unique type id SOAP_TYPE__tds__GetStorageConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10191,7 +10680,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__GetStorageConfigurationResponse
-#define SOAP_TYPE__tds__GetStorageConfigurationResponse (363)
+#define SOAP_TYPE__tds__GetStorageConfigurationResponse (403)
 /* tds:GetStorageConfigurationResponse */
 class SOAP_CMAC _tds__GetStorageConfigurationResponse
 {
@@ -10202,7 +10691,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 363;
+    return 403;
   } /* = unique type id SOAP_TYPE__tds__GetStorageConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10221,7 +10710,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetStorageConfiguration
-#define SOAP_TYPE__tds__SetStorageConfiguration (364)
+#define SOAP_TYPE__tds__SetStorageConfiguration (404)
 /* tds:SetStorageConfiguration */
 class SOAP_CMAC _tds__SetStorageConfiguration
 {
@@ -10231,7 +10720,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 364;
+    return 404;
   } /* = unique type id SOAP_TYPE__tds__SetStorageConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10250,7 +10739,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__SetStorageConfigurationResponse
-#define SOAP_TYPE__tds__SetStorageConfigurationResponse (365)
+#define SOAP_TYPE__tds__SetStorageConfigurationResponse (405)
 /* tds:SetStorageConfigurationResponse */
 class SOAP_CMAC _tds__SetStorageConfigurationResponse
 {
@@ -10259,7 +10748,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 365;
+    return 405;
   } /* = unique type id SOAP_TYPE__tds__SetStorageConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10278,7 +10767,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__DeleteStorageConfiguration
-#define SOAP_TYPE__tds__DeleteStorageConfiguration (366)
+#define SOAP_TYPE__tds__DeleteStorageConfiguration (406)
 /* tds:DeleteStorageConfiguration */
 class SOAP_CMAC _tds__DeleteStorageConfiguration
 {
@@ -10288,7 +10777,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 366;
+    return 406;
   } /* = unique type id SOAP_TYPE__tds__DeleteStorageConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10307,7 +10796,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tds__DeleteStorageConfigurationResponse
-#define SOAP_TYPE__tds__DeleteStorageConfigurationResponse (367)
+#define SOAP_TYPE__tds__DeleteStorageConfigurationResponse (407)
 /* tds:DeleteStorageConfigurationResponse */
 class SOAP_CMAC _tds__DeleteStorageConfigurationResponse
 {
@@ -10316,7 +10805,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 367;
+    return 407;
   } /* = unique type id SOAP_TYPE__tds__DeleteStorageConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10335,7 +10824,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__DeviceEntity
-#define SOAP_TYPE_tt__DeviceEntity (368)
+#define SOAP_TYPE_tt__DeviceEntity (408)
 /* Primitive tt:DeviceEntity schema type: */
 class SOAP_CMAC tt__DeviceEntity : public xsd__anyType
 {
@@ -10344,7 +10833,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 368;
+    return 408;
   } /* = unique type id SOAP_TYPE_tt__DeviceEntity */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10363,7 +10852,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IntRectangle
-#define SOAP_TYPE_tt__IntRectangle (369)
+#define SOAP_TYPE_tt__IntRectangle (409)
 /* Primitive tt:IntRectangle schema type: */
 class SOAP_CMAC tt__IntRectangle : public xsd__anyType
 {
@@ -10375,7 +10864,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 369;
+    return 409;
   } /* = unique type id SOAP_TYPE_tt__IntRectangle */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10394,7 +10883,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IntRectangleRange
-#define SOAP_TYPE_tt__IntRectangleRange (370)
+#define SOAP_TYPE_tt__IntRectangleRange (410)
 /* tt:IntRectangleRange */
 class SOAP_CMAC tt__IntRectangleRange : public xsd__anyType
 {
@@ -10406,7 +10895,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 370;
+    return 410;
   } /* = unique type id SOAP_TYPE_tt__IntRectangleRange */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10425,7 +10914,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IntRange
-#define SOAP_TYPE_tt__IntRange (371)
+#define SOAP_TYPE_tt__IntRange (411)
 /* tt:IntRange */
 class SOAP_CMAC tt__IntRange : public xsd__anyType
 {
@@ -10435,7 +10924,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 371;
+    return 411;
   } /* = unique type id SOAP_TYPE_tt__IntRange */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10454,7 +10943,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FloatRange
-#define SOAP_TYPE_tt__FloatRange (372)
+#define SOAP_TYPE_tt__FloatRange (412)
 /* tt:FloatRange */
 class SOAP_CMAC tt__FloatRange : public xsd__anyType
 {
@@ -10464,7 +10953,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 372;
+    return 412;
   } /* = unique type id SOAP_TYPE_tt__FloatRange */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10483,7 +10972,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__DurationRange
-#define SOAP_TYPE_tt__DurationRange (373)
+#define SOAP_TYPE_tt__DurationRange (413)
 /* tt:DurationRange */
 class SOAP_CMAC tt__DurationRange : public xsd__anyType
 {
@@ -10493,7 +10982,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 373;
+    return 413;
   } /* = unique type id SOAP_TYPE_tt__DurationRange */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10512,7 +11001,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IntList
-#define SOAP_TYPE_tt__IntList (374)
+#define SOAP_TYPE_tt__IntList (414)
 /* tt:IntList */
 class SOAP_CMAC tt__IntList : public xsd__anyType
 {
@@ -10521,7 +11010,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 374;
+    return 414;
   } /* = unique type id SOAP_TYPE_tt__IntList */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10540,7 +11029,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FloatList
-#define SOAP_TYPE_tt__FloatList (375)
+#define SOAP_TYPE_tt__FloatList (415)
 /* tt:FloatList */
 class SOAP_CMAC tt__FloatList : public xsd__anyType
 {
@@ -10549,7 +11038,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 375;
+    return 415;
   } /* = unique type id SOAP_TYPE_tt__FloatList */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10568,7 +11057,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AnyHolder
-#define SOAP_TYPE_tt__AnyHolder (376)
+#define SOAP_TYPE_tt__AnyHolder (416)
 /* tt:AnyHolder */
 class SOAP_CMAC tt__AnyHolder : public xsd__anyType
 {
@@ -10578,7 +11067,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 376;
+    return 416;
   } /* = unique type id SOAP_TYPE_tt__AnyHolder */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10597,7 +11086,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoSourceExtension
-#define SOAP_TYPE_tt__VideoSourceExtension (378)
+#define SOAP_TYPE_tt__VideoSourceExtension (418)
 /* tt:VideoSourceExtension */
 class SOAP_CMAC tt__VideoSourceExtension : public xsd__anyType
 {
@@ -10608,7 +11097,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 378;
+    return 418;
   } /* = unique type id SOAP_TYPE_tt__VideoSourceExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10627,7 +11116,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoSourceExtension2
-#define SOAP_TYPE_tt__VideoSourceExtension2 (379)
+#define SOAP_TYPE_tt__VideoSourceExtension2 (419)
 /* tt:VideoSourceExtension2 */
 class SOAP_CMAC tt__VideoSourceExtension2 : public xsd__anyType
 {
@@ -10637,7 +11126,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 379;
+    return 419;
   } /* = unique type id SOAP_TYPE_tt__VideoSourceExtension2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10656,7 +11145,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Profile
-#define SOAP_TYPE_tt__Profile (381)
+#define SOAP_TYPE_tt__Profile (421)
 /* tt:Profile */
 class SOAP_CMAC tt__Profile : public xsd__anyType
 {
@@ -10681,7 +11170,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 381;
+    return 421;
   } /* = unique type id SOAP_TYPE_tt__Profile */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10700,7 +11189,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ProfileExtension
-#define SOAP_TYPE_tt__ProfileExtension (382)
+#define SOAP_TYPE_tt__ProfileExtension (422)
 /* tt:ProfileExtension */
 class SOAP_CMAC tt__ProfileExtension : public xsd__anyType
 {
@@ -10715,7 +11204,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 382;
+    return 422;
   } /* = unique type id SOAP_TYPE_tt__ProfileExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10734,7 +11223,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ProfileExtension2
-#define SOAP_TYPE_tt__ProfileExtension2 (383)
+#define SOAP_TYPE_tt__ProfileExtension2 (423)
 /* tt:ProfileExtension2 */
 class SOAP_CMAC tt__ProfileExtension2 : public xsd__anyType
 {
@@ -10744,7 +11233,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 383;
+    return 423;
   } /* = unique type id SOAP_TYPE_tt__ProfileExtension2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10763,7 +11252,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ConfigurationEntity
-#define SOAP_TYPE_tt__ConfigurationEntity (384)
+#define SOAP_TYPE_tt__ConfigurationEntity (424)
 /* tt:ConfigurationEntity */
 class SOAP_CMAC tt__ConfigurationEntity : public xsd__anyType
 {
@@ -10774,7 +11263,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 384;
+    return 424;
   } /* = unique type id SOAP_TYPE_tt__ConfigurationEntity */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10793,7 +11282,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoSourceConfigurationExtension
-#define SOAP_TYPE_tt__VideoSourceConfigurationExtension (386)
+#define SOAP_TYPE_tt__VideoSourceConfigurationExtension (426)
 /* tt:VideoSourceConfigurationExtension */
 class SOAP_CMAC tt__VideoSourceConfigurationExtension : public xsd__anyType
 {
@@ -10804,7 +11293,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 386;
+    return 426;
   } /* = unique type id SOAP_TYPE_tt__VideoSourceConfigurationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10823,17 +11312,18 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoSourceConfigurationExtension2
-#define SOAP_TYPE_tt__VideoSourceConfigurationExtension2 (387)
+#define SOAP_TYPE_tt__VideoSourceConfigurationExtension2 (427)
 /* tt:VideoSourceConfigurationExtension2 */
 class SOAP_CMAC tt__VideoSourceConfigurationExtension2 : public xsd__anyType
 {
 public:
+  std::vector<class tt__LensDescription*> LensDescription; /* optional element of type tt:LensDescription */
   std::vector<char*> __any;
 
 public:
   virtual int soap_type() const
   {
-    return 387;
+    return 427;
   } /* = unique type id SOAP_TYPE_tt__VideoSourceConfigurationExtension2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10852,7 +11342,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Rotate
-#define SOAP_TYPE_tt__Rotate (388)
+#define SOAP_TYPE_tt__Rotate (428)
 /* tt:Rotate */
 class SOAP_CMAC tt__Rotate : public xsd__anyType
 {
@@ -10864,7 +11354,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 388;
+    return 428;
   } /* = unique type id SOAP_TYPE_tt__Rotate */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10883,7 +11373,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RotateExtension
-#define SOAP_TYPE_tt__RotateExtension (389)
+#define SOAP_TYPE_tt__RotateExtension (429)
 /* tt:RotateExtension */
 class SOAP_CMAC tt__RotateExtension : public xsd__anyType
 {
@@ -10893,7 +11383,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 389;
+    return 429;
   } /* = unique type id SOAP_TYPE_tt__RotateExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10911,8 +11401,103 @@ public:
 };
 #endif
 
+#ifndef SOAP_TYPE_tt__LensProjection
+#define SOAP_TYPE_tt__LensProjection (430)
+/* tt:LensProjection */
+class SOAP_CMAC tt__LensProjection : public xsd__anyType
+{
+public:
+  float Angle;          /* required element of type xsd:float */
+  float Radius;         /* required element of type xsd:float */
+  float* Transmittance; /* optional element of type xsd:float */
+  std::vector<char*> __any;
+  char* __anyAttribute; /* optional attribute */
+public:
+  virtual int soap_type() const
+  {
+    return 430;
+  } /* = unique type id SOAP_TYPE_tt__LensProjection */
+  virtual void soap_default(struct soap*);
+  virtual void soap_serialize(struct soap*) const;
+  virtual int soap_put(struct soap*, const char*, const char*) const;
+  virtual int soap_out(struct soap*, const char*, int, const char*) const;
+  virtual void* soap_get(struct soap*, const char*, const char*);
+  virtual void* soap_in(struct soap*, const char*, const char*);
+  tt__LensProjection()
+  {
+    tt__LensProjection::soap_default(NULL);
+  }
+  virtual ~tt__LensProjection()
+  {
+  }
+};
+#endif
+
+#ifndef SOAP_TYPE_tt__LensOffset
+#define SOAP_TYPE_tt__LensOffset (431)
+/* Primitive tt:LensOffset schema type: */
+class SOAP_CMAC tt__LensOffset : public xsd__anyType
+{
+public:
+  float* x;             /* optional attribute */
+  float* y;             /* optional attribute */
+  char* __anyAttribute; /* optional attribute */
+public:
+  virtual int soap_type() const
+  {
+    return 431;
+  } /* = unique type id SOAP_TYPE_tt__LensOffset */
+  virtual void soap_default(struct soap*);
+  virtual void soap_serialize(struct soap*) const;
+  virtual int soap_put(struct soap*, const char*, const char*) const;
+  virtual int soap_out(struct soap*, const char*, int, const char*) const;
+  virtual void* soap_get(struct soap*, const char*, const char*);
+  virtual void* soap_in(struct soap*, const char*, const char*);
+  tt__LensOffset()
+  {
+    tt__LensOffset::soap_default(NULL);
+  }
+  virtual ~tt__LensOffset()
+  {
+  }
+};
+#endif
+
+#ifndef SOAP_TYPE_tt__LensDescription
+#define SOAP_TYPE_tt__LensDescription (432)
+/* tt:LensDescription */
+class SOAP_CMAC tt__LensDescription : public xsd__anyType
+{
+public:
+  tt__LensOffset* Offset;                      /* required element of type tt:LensOffset */
+  std::vector<tt__LensProjection*> Projection; /* required element of type tt:LensProjection */
+  float XFactor;                               /* required element of type xsd:float */
+  std::vector<char*> __any;
+  float* FocalLength;   /* optional attribute */
+  char* __anyAttribute; /* optional attribute */
+public:
+  virtual int soap_type() const
+  {
+    return 432;
+  } /* = unique type id SOAP_TYPE_tt__LensDescription */
+  virtual void soap_default(struct soap*);
+  virtual void soap_serialize(struct soap*) const;
+  virtual int soap_put(struct soap*, const char*, const char*) const;
+  virtual int soap_out(struct soap*, const char*, int, const char*) const;
+  virtual void* soap_get(struct soap*, const char*, const char*);
+  virtual void* soap_in(struct soap*, const char*, const char*);
+  tt__LensDescription()
+  {
+    tt__LensDescription::soap_default(NULL);
+  }
+  virtual ~tt__LensDescription()
+  {
+  }
+};
+#endif
+
 #ifndef SOAP_TYPE_tt__VideoSourceConfigurationOptions
-#define SOAP_TYPE_tt__VideoSourceConfigurationOptions (390)
+#define SOAP_TYPE_tt__VideoSourceConfigurationOptions (433)
 /* tt:VideoSourceConfigurationOptions */
 class SOAP_CMAC tt__VideoSourceConfigurationOptions : public xsd__anyType
 {
@@ -10925,7 +11510,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 390;
+    return 433;
   } /* = unique type id SOAP_TYPE_tt__VideoSourceConfigurationOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10944,7 +11529,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoSourceConfigurationOptionsExtension
-#define SOAP_TYPE_tt__VideoSourceConfigurationOptionsExtension (391)
+#define SOAP_TYPE_tt__VideoSourceConfigurationOptionsExtension (434)
 /* tt:VideoSourceConfigurationOptionsExtension */
 class SOAP_CMAC tt__VideoSourceConfigurationOptionsExtension : public xsd__anyType
 {
@@ -10956,7 +11541,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 391;
+    return 434;
   } /* = unique type id SOAP_TYPE_tt__VideoSourceConfigurationOptionsExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -10975,7 +11560,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoSourceConfigurationOptionsExtension2
-#define SOAP_TYPE_tt__VideoSourceConfigurationOptionsExtension2 (392)
+#define SOAP_TYPE_tt__VideoSourceConfigurationOptionsExtension2 (435)
 /* tt:VideoSourceConfigurationOptionsExtension2 */
 class SOAP_CMAC tt__VideoSourceConfigurationOptionsExtension2 : public xsd__anyType
 {
@@ -10985,7 +11570,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 392;
+    return 435;
   } /* = unique type id SOAP_TYPE_tt__VideoSourceConfigurationOptionsExtension2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11004,7 +11589,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RotateOptions
-#define SOAP_TYPE_tt__RotateOptions (393)
+#define SOAP_TYPE_tt__RotateOptions (436)
 /* tt:RotateOptions */
 class SOAP_CMAC tt__RotateOptions : public xsd__anyType
 {
@@ -11016,7 +11601,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 393;
+    return 436;
   } /* = unique type id SOAP_TYPE_tt__RotateOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11035,7 +11620,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RotateOptionsExtension
-#define SOAP_TYPE_tt__RotateOptionsExtension (394)
+#define SOAP_TYPE_tt__RotateOptionsExtension (437)
 /* tt:RotateOptionsExtension */
 class SOAP_CMAC tt__RotateOptionsExtension : public xsd__anyType
 {
@@ -11045,7 +11630,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 394;
+    return 437;
   } /* = unique type id SOAP_TYPE_tt__RotateOptionsExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11064,7 +11649,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoResolution
-#define SOAP_TYPE_tt__VideoResolution (396)
+#define SOAP_TYPE_tt__VideoResolution (439)
 /* tt:VideoResolution */
 class SOAP_CMAC tt__VideoResolution : public xsd__anyType
 {
@@ -11074,7 +11659,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 396;
+    return 439;
   } /* = unique type id SOAP_TYPE_tt__VideoResolution */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11093,7 +11678,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoRateControl
-#define SOAP_TYPE_tt__VideoRateControl (397)
+#define SOAP_TYPE_tt__VideoRateControl (440)
 /* tt:VideoRateControl */
 class SOAP_CMAC tt__VideoRateControl : public xsd__anyType
 {
@@ -11104,7 +11689,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 397;
+    return 440;
   } /* = unique type id SOAP_TYPE_tt__VideoRateControl */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11123,7 +11708,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Mpeg4Configuration
-#define SOAP_TYPE_tt__Mpeg4Configuration (398)
+#define SOAP_TYPE_tt__Mpeg4Configuration (441)
 /* tt:Mpeg4Configuration */
 class SOAP_CMAC tt__Mpeg4Configuration : public xsd__anyType
 {
@@ -11133,7 +11718,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 398;
+    return 441;
   } /* = unique type id SOAP_TYPE_tt__Mpeg4Configuration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11152,7 +11737,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__H264Configuration
-#define SOAP_TYPE_tt__H264Configuration (399)
+#define SOAP_TYPE_tt__H264Configuration (442)
 /* tt:H264Configuration */
 class SOAP_CMAC tt__H264Configuration : public xsd__anyType
 {
@@ -11162,7 +11747,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 399;
+    return 442;
   } /* = unique type id SOAP_TYPE_tt__H264Configuration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11181,7 +11766,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoEncoderConfigurationOptions
-#define SOAP_TYPE_tt__VideoEncoderConfigurationOptions (400)
+#define SOAP_TYPE_tt__VideoEncoderConfigurationOptions (443)
 /* tt:VideoEncoderConfigurationOptions */
 class SOAP_CMAC tt__VideoEncoderConfigurationOptions : public xsd__anyType
 {
@@ -11195,7 +11780,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 400;
+    return 443;
   } /* = unique type id SOAP_TYPE_tt__VideoEncoderConfigurationOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11214,7 +11799,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoEncoderOptionsExtension
-#define SOAP_TYPE_tt__VideoEncoderOptionsExtension (401)
+#define SOAP_TYPE_tt__VideoEncoderOptionsExtension (444)
 /* tt:VideoEncoderOptionsExtension */
 class SOAP_CMAC tt__VideoEncoderOptionsExtension : public xsd__anyType
 {
@@ -11227,7 +11812,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 401;
+    return 444;
   } /* = unique type id SOAP_TYPE_tt__VideoEncoderOptionsExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11246,7 +11831,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoEncoderOptionsExtension2
-#define SOAP_TYPE_tt__VideoEncoderOptionsExtension2 (402)
+#define SOAP_TYPE_tt__VideoEncoderOptionsExtension2 (445)
 /* tt:VideoEncoderOptionsExtension2 */
 class SOAP_CMAC tt__VideoEncoderOptionsExtension2 : public xsd__anyType
 {
@@ -11256,7 +11841,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 402;
+    return 445;
   } /* = unique type id SOAP_TYPE_tt__VideoEncoderOptionsExtension2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11275,7 +11860,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__JpegOptions
-#define SOAP_TYPE_tt__JpegOptions (403)
+#define SOAP_TYPE_tt__JpegOptions (446)
 /* tt:JpegOptions */
 class SOAP_CMAC tt__JpegOptions : public xsd__anyType
 {
@@ -11286,7 +11871,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 403;
+    return 446;
   } /* = unique type id SOAP_TYPE_tt__JpegOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11305,7 +11890,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Mpeg4Options
-#define SOAP_TYPE_tt__Mpeg4Options (405)
+#define SOAP_TYPE_tt__Mpeg4Options (448)
 /* tt:Mpeg4Options */
 class SOAP_CMAC tt__Mpeg4Options : public xsd__anyType
 {
@@ -11318,7 +11903,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 405;
+    return 448;
   } /* = unique type id SOAP_TYPE_tt__Mpeg4Options */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11337,7 +11922,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__H264Options
-#define SOAP_TYPE_tt__H264Options (407)
+#define SOAP_TYPE_tt__H264Options (450)
 /* tt:H264Options */
 class SOAP_CMAC tt__H264Options : public xsd__anyType
 {
@@ -11350,7 +11935,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 407;
+    return 450;
   } /* = unique type id SOAP_TYPE_tt__H264Options */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11368,8 +11953,109 @@ public:
 };
 #endif
 
+#ifndef SOAP_TYPE_tt__VideoResolution2
+#define SOAP_TYPE_tt__VideoResolution2 (453)
+/* tt:VideoResolution2 */
+class SOAP_CMAC tt__VideoResolution2 : public xsd__anyType
+{
+public:
+  int Width;  /* required element of type xsd:int */
+  int Height; /* required element of type xsd:int */
+  std::vector<char*> __any;
+  char* __anyAttribute; /* optional attribute */
+public:
+  virtual int soap_type() const
+  {
+    return 453;
+  } /* = unique type id SOAP_TYPE_tt__VideoResolution2 */
+  virtual void soap_default(struct soap*);
+  virtual void soap_serialize(struct soap*) const;
+  virtual int soap_put(struct soap*, const char*, const char*) const;
+  virtual int soap_out(struct soap*, const char*, int, const char*) const;
+  virtual void* soap_get(struct soap*, const char*, const char*);
+  virtual void* soap_in(struct soap*, const char*, const char*);
+  tt__VideoResolution2()
+  {
+    tt__VideoResolution2::soap_default(NULL);
+  }
+  virtual ~tt__VideoResolution2()
+  {
+  }
+};
+#endif
+
+#ifndef SOAP_TYPE_tt__VideoRateControl2
+#define SOAP_TYPE_tt__VideoRateControl2 (454)
+/* tt:VideoRateControl2 */
+class SOAP_CMAC tt__VideoRateControl2 : public xsd__anyType
+{
+public:
+  float FrameRateLimit; /* required element of type xsd:float */
+  int BitrateLimit;     /* required element of type xsd:int */
+  std::vector<char*> __any;
+  bool* ConstantBitRate; /* optional attribute */
+  char* __anyAttribute;  /* optional attribute */
+public:
+  virtual int soap_type() const
+  {
+    return 454;
+  } /* = unique type id SOAP_TYPE_tt__VideoRateControl2 */
+  virtual void soap_default(struct soap*);
+  virtual void soap_serialize(struct soap*) const;
+  virtual int soap_put(struct soap*, const char*, const char*) const;
+  virtual int soap_out(struct soap*, const char*, int, const char*) const;
+  virtual void* soap_get(struct soap*, const char*, const char*);
+  virtual void* soap_in(struct soap*, const char*, const char*);
+  tt__VideoRateControl2()
+  {
+    tt__VideoRateControl2::soap_default(NULL);
+  }
+  virtual ~tt__VideoRateControl2()
+  {
+  }
+};
+#endif
+
+#ifndef SOAP_TYPE_tt__VideoEncoder2ConfigurationOptions
+#define SOAP_TYPE_tt__VideoEncoder2ConfigurationOptions (455)
+/* tt:VideoEncoder2ConfigurationOptions */
+class SOAP_CMAC tt__VideoEncoder2ConfigurationOptions : public xsd__anyType
+{
+public:
+  std::string Encoding;                                    /* required element of type xsd:string */
+  tt__IntRange* QualityRange;                              /* required element of type tt:IntRange */
+  std::vector<tt__VideoResolution2*> ResolutionsAvailable; /* required element of type tt:VideoResolution2 */
+  tt__IntRange* BitrateRange;                              /* required element of type tt:IntRange */
+  std::vector<char*> __any;
+  std::string* GovLengthRange;      /* optional attribute */
+  std::string* FrameRatesSupported; /* optional attribute */
+  std::string* ProfilesSupported;   /* optional attribute */
+  bool* ConstantBitRateSupported;   /* optional attribute */
+  int* GuaranteedInstances;         /* optional attribute */
+  char* __anyAttribute;             /* optional attribute */
+public:
+  virtual int soap_type() const
+  {
+    return 455;
+  } /* = unique type id SOAP_TYPE_tt__VideoEncoder2ConfigurationOptions */
+  virtual void soap_default(struct soap*);
+  virtual void soap_serialize(struct soap*) const;
+  virtual int soap_put(struct soap*, const char*, const char*) const;
+  virtual int soap_out(struct soap*, const char*, int, const char*) const;
+  virtual void* soap_get(struct soap*, const char*, const char*);
+  virtual void* soap_in(struct soap*, const char*, const char*);
+  tt__VideoEncoder2ConfigurationOptions()
+  {
+    tt__VideoEncoder2ConfigurationOptions::soap_default(NULL);
+  }
+  virtual ~tt__VideoEncoder2ConfigurationOptions()
+  {
+  }
+};
+#endif
+
 #ifndef SOAP_TYPE_tt__AudioSourceConfigurationOptions
-#define SOAP_TYPE_tt__AudioSourceConfigurationOptions (410)
+#define SOAP_TYPE_tt__AudioSourceConfigurationOptions (457)
 /* tt:AudioSourceConfigurationOptions */
 class SOAP_CMAC tt__AudioSourceConfigurationOptions : public xsd__anyType
 {
@@ -11380,7 +12066,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 410;
+    return 457;
   } /* = unique type id SOAP_TYPE_tt__AudioSourceConfigurationOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11399,7 +12085,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AudioSourceOptionsExtension
-#define SOAP_TYPE_tt__AudioSourceOptionsExtension (411)
+#define SOAP_TYPE_tt__AudioSourceOptionsExtension (458)
 /* tt:AudioSourceOptionsExtension */
 class SOAP_CMAC tt__AudioSourceOptionsExtension : public xsd__anyType
 {
@@ -11409,7 +12095,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 411;
+    return 458;
   } /* = unique type id SOAP_TYPE_tt__AudioSourceOptionsExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11428,7 +12114,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AudioEncoderConfigurationOptions
-#define SOAP_TYPE_tt__AudioEncoderConfigurationOptions (413)
+#define SOAP_TYPE_tt__AudioEncoderConfigurationOptions (460)
 /* tt:AudioEncoderConfigurationOptions */
 class SOAP_CMAC tt__AudioEncoderConfigurationOptions : public xsd__anyType
 {
@@ -11439,7 +12125,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 413;
+    return 460;
   } /* = unique type id SOAP_TYPE_tt__AudioEncoderConfigurationOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11458,7 +12144,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AudioEncoderConfigurationOption
-#define SOAP_TYPE_tt__AudioEncoderConfigurationOption (414)
+#define SOAP_TYPE_tt__AudioEncoderConfigurationOption (461)
 /* tt:AudioEncoderConfigurationOption */
 class SOAP_CMAC tt__AudioEncoderConfigurationOption : public xsd__anyType
 {
@@ -11471,7 +12157,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 414;
+    return 461;
   } /* = unique type id SOAP_TYPE_tt__AudioEncoderConfigurationOption */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11489,8 +12175,40 @@ public:
 };
 #endif
 
+#ifndef SOAP_TYPE_tt__AudioEncoder2ConfigurationOptions
+#define SOAP_TYPE_tt__AudioEncoder2ConfigurationOptions (463)
+/* tt:AudioEncoder2ConfigurationOptions */
+class SOAP_CMAC tt__AudioEncoder2ConfigurationOptions : public xsd__anyType
+{
+public:
+  std::string Encoding;        /* required element of type xsd:string */
+  tt__IntList* BitrateList;    /* required element of type tt:IntList */
+  tt__IntList* SampleRateList; /* required element of type tt:IntList */
+  std::vector<char*> __any;
+  char* __anyAttribute; /* optional attribute */
+public:
+  virtual int soap_type() const
+  {
+    return 463;
+  } /* = unique type id SOAP_TYPE_tt__AudioEncoder2ConfigurationOptions */
+  virtual void soap_default(struct soap*);
+  virtual void soap_serialize(struct soap*) const;
+  virtual int soap_put(struct soap*, const char*, const char*) const;
+  virtual int soap_out(struct soap*, const char*, int, const char*) const;
+  virtual void* soap_get(struct soap*, const char*, const char*);
+  virtual void* soap_in(struct soap*, const char*, const char*);
+  tt__AudioEncoder2ConfigurationOptions()
+  {
+    tt__AudioEncoder2ConfigurationOptions::soap_default(NULL);
+  }
+  virtual ~tt__AudioEncoder2ConfigurationOptions()
+  {
+  }
+};
+#endif
+
 #ifndef SOAP_TYPE_tt__MetadataConfigurationExtension
-#define SOAP_TYPE_tt__MetadataConfigurationExtension (417)
+#define SOAP_TYPE_tt__MetadataConfigurationExtension (466)
 /* tt:MetadataConfigurationExtension */
 class SOAP_CMAC tt__MetadataConfigurationExtension : public xsd__anyType
 {
@@ -11500,7 +12218,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 417;
+    return 466;
   } /* = unique type id SOAP_TYPE_tt__MetadataConfigurationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11519,7 +12237,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZFilter
-#define SOAP_TYPE_tt__PTZFilter (418)
+#define SOAP_TYPE_tt__PTZFilter (467)
 /* tt:PTZFilter */
 class SOAP_CMAC tt__PTZFilter : public xsd__anyType
 {
@@ -11530,7 +12248,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 418;
+    return 467;
   } /* = unique type id SOAP_TYPE_tt__PTZFilter */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11549,7 +12267,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tt__EventSubscription_SubscriptionPolicy
-#define SOAP_TYPE__tt__EventSubscription_SubscriptionPolicy (1428)
+#define SOAP_TYPE__tt__EventSubscription_SubscriptionPolicy (1495)
 /* tt:EventSubscription-SubscriptionPolicy */
 class SOAP_CMAC _tt__EventSubscription_SubscriptionPolicy
 {
@@ -11559,7 +12277,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1428;
+    return 1495;
   } /* = unique type id SOAP_TYPE__tt__EventSubscription_SubscriptionPolicy */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11578,7 +12296,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__EventSubscription
-#define SOAP_TYPE_tt__EventSubscription (419)
+#define SOAP_TYPE_tt__EventSubscription (468)
 /* tt:EventSubscription */
 class SOAP_CMAC tt__EventSubscription : public xsd__anyType
 {
@@ -11591,7 +12309,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 419;
+    return 468;
   } /* = unique type id SOAP_TYPE_tt__EventSubscription */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11610,7 +12328,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MetadataConfigurationOptions
-#define SOAP_TYPE_tt__MetadataConfigurationOptions (420)
+#define SOAP_TYPE_tt__MetadataConfigurationOptions (469)
 /* tt:MetadataConfigurationOptions */
 class SOAP_CMAC tt__MetadataConfigurationOptions : public xsd__anyType
 {
@@ -11623,7 +12341,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 420;
+    return 469;
   } /* = unique type id SOAP_TYPE_tt__MetadataConfigurationOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11642,7 +12360,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MetadataConfigurationOptionsExtension
-#define SOAP_TYPE_tt__MetadataConfigurationOptionsExtension (421)
+#define SOAP_TYPE_tt__MetadataConfigurationOptionsExtension (470)
 /* tt:MetadataConfigurationOptionsExtension */
 class SOAP_CMAC tt__MetadataConfigurationOptionsExtension : public xsd__anyType
 {
@@ -11653,7 +12371,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 421;
+    return 470;
   } /* = unique type id SOAP_TYPE_tt__MetadataConfigurationOptionsExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11672,7 +12390,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MetadataConfigurationOptionsExtension2
-#define SOAP_TYPE_tt__MetadataConfigurationOptionsExtension2 (422)
+#define SOAP_TYPE_tt__MetadataConfigurationOptionsExtension2 (471)
 /* tt:MetadataConfigurationOptionsExtension2 */
 class SOAP_CMAC tt__MetadataConfigurationOptionsExtension2 : public xsd__anyType
 {
@@ -11682,7 +12400,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 422;
+    return 471;
   } /* = unique type id SOAP_TYPE_tt__MetadataConfigurationOptionsExtension2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11701,7 +12419,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZStatusFilterOptions
-#define SOAP_TYPE_tt__PTZStatusFilterOptions (423)
+#define SOAP_TYPE_tt__PTZStatusFilterOptions (472)
 /* tt:PTZStatusFilterOptions */
 class SOAP_CMAC tt__PTZStatusFilterOptions : public xsd__anyType
 {
@@ -11716,7 +12434,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 423;
+    return 472;
   } /* = unique type id SOAP_TYPE_tt__PTZStatusFilterOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11735,7 +12453,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZStatusFilterOptionsExtension
-#define SOAP_TYPE_tt__PTZStatusFilterOptionsExtension (424)
+#define SOAP_TYPE_tt__PTZStatusFilterOptionsExtension (473)
 /* tt:PTZStatusFilterOptionsExtension */
 class SOAP_CMAC tt__PTZStatusFilterOptionsExtension : public xsd__anyType
 {
@@ -11745,7 +12463,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 424;
+    return 473;
   } /* = unique type id SOAP_TYPE_tt__PTZStatusFilterOptionsExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11764,7 +12482,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoOutputExtension
-#define SOAP_TYPE_tt__VideoOutputExtension (426)
+#define SOAP_TYPE_tt__VideoOutputExtension (475)
 /* tt:VideoOutputExtension */
 class SOAP_CMAC tt__VideoOutputExtension : public xsd__anyType
 {
@@ -11774,7 +12492,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 426;
+    return 475;
   } /* = unique type id SOAP_TYPE_tt__VideoOutputExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11793,7 +12511,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoOutputConfigurationOptions
-#define SOAP_TYPE_tt__VideoOutputConfigurationOptions (428)
+#define SOAP_TYPE_tt__VideoOutputConfigurationOptions (477)
 /* tt:VideoOutputConfigurationOptions */
 class SOAP_CMAC tt__VideoOutputConfigurationOptions : public xsd__anyType
 {
@@ -11803,7 +12521,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 428;
+    return 477;
   } /* = unique type id SOAP_TYPE_tt__VideoOutputConfigurationOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11822,7 +12540,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoDecoderConfigurationOptions
-#define SOAP_TYPE_tt__VideoDecoderConfigurationOptions (429)
+#define SOAP_TYPE_tt__VideoDecoderConfigurationOptions (478)
 /* tt:VideoDecoderConfigurationOptions */
 class SOAP_CMAC tt__VideoDecoderConfigurationOptions : public xsd__anyType
 {
@@ -11836,7 +12554,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 429;
+    return 478;
   } /* = unique type id SOAP_TYPE_tt__VideoDecoderConfigurationOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11855,7 +12573,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__H264DecOptions
-#define SOAP_TYPE_tt__H264DecOptions (430)
+#define SOAP_TYPE_tt__H264DecOptions (479)
 /* tt:H264DecOptions */
 class SOAP_CMAC tt__H264DecOptions : public xsd__anyType
 {
@@ -11869,7 +12587,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 430;
+    return 479;
   } /* = unique type id SOAP_TYPE_tt__H264DecOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11888,7 +12606,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__JpegDecOptions
-#define SOAP_TYPE_tt__JpegDecOptions (431)
+#define SOAP_TYPE_tt__JpegDecOptions (480)
 /* tt:JpegDecOptions */
 class SOAP_CMAC tt__JpegDecOptions : public xsd__anyType
 {
@@ -11901,7 +12619,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 431;
+    return 480;
   } /* = unique type id SOAP_TYPE_tt__JpegDecOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11920,7 +12638,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Mpeg4DecOptions
-#define SOAP_TYPE_tt__Mpeg4DecOptions (432)
+#define SOAP_TYPE_tt__Mpeg4DecOptions (481)
 /* tt:Mpeg4DecOptions */
 class SOAP_CMAC tt__Mpeg4DecOptions : public xsd__anyType
 {
@@ -11934,7 +12652,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 432;
+    return 481;
   } /* = unique type id SOAP_TYPE_tt__Mpeg4DecOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11953,7 +12671,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoDecoderConfigurationOptionsExtension
-#define SOAP_TYPE_tt__VideoDecoderConfigurationOptionsExtension (433)
+#define SOAP_TYPE_tt__VideoDecoderConfigurationOptionsExtension (482)
 /* tt:VideoDecoderConfigurationOptionsExtension */
 class SOAP_CMAC tt__VideoDecoderConfigurationOptionsExtension : public xsd__anyType
 {
@@ -11963,7 +12681,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 433;
+    return 482;
   } /* = unique type id SOAP_TYPE_tt__VideoDecoderConfigurationOptionsExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -11982,7 +12700,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AudioOutputConfigurationOptions
-#define SOAP_TYPE_tt__AudioOutputConfigurationOptions (436)
+#define SOAP_TYPE_tt__AudioOutputConfigurationOptions (485)
 /* tt:AudioOutputConfigurationOptions */
 class SOAP_CMAC tt__AudioOutputConfigurationOptions : public xsd__anyType
 {
@@ -11995,7 +12713,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 436;
+    return 485;
   } /* = unique type id SOAP_TYPE_tt__AudioOutputConfigurationOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12014,7 +12732,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AudioDecoderConfigurationOptions
-#define SOAP_TYPE_tt__AudioDecoderConfigurationOptions (438)
+#define SOAP_TYPE_tt__AudioDecoderConfigurationOptions (487)
 /* tt:AudioDecoderConfigurationOptions */
 class SOAP_CMAC tt__AudioDecoderConfigurationOptions : public xsd__anyType
 {
@@ -12028,7 +12746,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 438;
+    return 487;
   } /* = unique type id SOAP_TYPE_tt__AudioDecoderConfigurationOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12047,7 +12765,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__G711DecOptions
-#define SOAP_TYPE_tt__G711DecOptions (439)
+#define SOAP_TYPE_tt__G711DecOptions (488)
 /* tt:G711DecOptions */
 class SOAP_CMAC tt__G711DecOptions : public xsd__anyType
 {
@@ -12059,7 +12777,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 439;
+    return 488;
   } /* = unique type id SOAP_TYPE_tt__G711DecOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12078,7 +12796,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AACDecOptions
-#define SOAP_TYPE_tt__AACDecOptions (440)
+#define SOAP_TYPE_tt__AACDecOptions (489)
 /* tt:AACDecOptions */
 class SOAP_CMAC tt__AACDecOptions : public xsd__anyType
 {
@@ -12090,7 +12808,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 440;
+    return 489;
   } /* = unique type id SOAP_TYPE_tt__AACDecOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12109,7 +12827,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__G726DecOptions
-#define SOAP_TYPE_tt__G726DecOptions (441)
+#define SOAP_TYPE_tt__G726DecOptions (490)
 /* tt:G726DecOptions */
 class SOAP_CMAC tt__G726DecOptions : public xsd__anyType
 {
@@ -12121,7 +12839,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 441;
+    return 490;
   } /* = unique type id SOAP_TYPE_tt__G726DecOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12140,7 +12858,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AudioDecoderConfigurationOptionsExtension
-#define SOAP_TYPE_tt__AudioDecoderConfigurationOptionsExtension (442)
+#define SOAP_TYPE_tt__AudioDecoderConfigurationOptionsExtension (491)
 /* tt:AudioDecoderConfigurationOptionsExtension */
 class SOAP_CMAC tt__AudioDecoderConfigurationOptionsExtension : public xsd__anyType
 {
@@ -12150,7 +12868,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 442;
+    return 491;
   } /* = unique type id SOAP_TYPE_tt__AudioDecoderConfigurationOptionsExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12169,7 +12887,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MulticastConfiguration
-#define SOAP_TYPE_tt__MulticastConfiguration (443)
+#define SOAP_TYPE_tt__MulticastConfiguration (492)
 /* tt:MulticastConfiguration */
 class SOAP_CMAC tt__MulticastConfiguration : public xsd__anyType
 {
@@ -12183,7 +12901,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 443;
+    return 492;
   } /* = unique type id SOAP_TYPE_tt__MulticastConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12202,7 +12920,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__StreamSetup
-#define SOAP_TYPE_tt__StreamSetup (444)
+#define SOAP_TYPE_tt__StreamSetup (493)
 /* tt:StreamSetup */
 class SOAP_CMAC tt__StreamSetup : public xsd__anyType
 {
@@ -12214,7 +12932,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 444;
+    return 493;
   } /* = unique type id SOAP_TYPE_tt__StreamSetup */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12233,7 +12951,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Transport
-#define SOAP_TYPE_tt__Transport (445)
+#define SOAP_TYPE_tt__Transport (494)
 /* tt:Transport */
 class SOAP_CMAC tt__Transport : public xsd__anyType
 {
@@ -12243,7 +12961,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 445;
+    return 494;
   } /* = unique type id SOAP_TYPE_tt__Transport */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12262,7 +12980,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MediaUri
-#define SOAP_TYPE_tt__MediaUri (446)
+#define SOAP_TYPE_tt__MediaUri (495)
 /* tt:MediaUri */
 class SOAP_CMAC tt__MediaUri : public xsd__anyType
 {
@@ -12276,7 +12994,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 446;
+    return 495;
   } /* = unique type id SOAP_TYPE_tt__MediaUri */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12295,7 +13013,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Scope
-#define SOAP_TYPE_tt__Scope (447)
+#define SOAP_TYPE_tt__Scope (496)
 /* tt:Scope */
 class SOAP_CMAC tt__Scope : public xsd__anyType
 {
@@ -12305,7 +13023,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 447;
+    return 496;
   } /* = unique type id SOAP_TYPE_tt__Scope */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12324,7 +13042,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkInterfaceExtension
-#define SOAP_TYPE_tt__NetworkInterfaceExtension (449)
+#define SOAP_TYPE_tt__NetworkInterfaceExtension (498)
 /* tt:NetworkInterfaceExtension */
 class SOAP_CMAC tt__NetworkInterfaceExtension : public xsd__anyType
 {
@@ -12337,7 +13055,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 449;
+    return 498;
   } /* = unique type id SOAP_TYPE_tt__NetworkInterfaceExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12356,7 +13074,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot3Configuration
-#define SOAP_TYPE_tt__Dot3Configuration (450)
+#define SOAP_TYPE_tt__Dot3Configuration (499)
 /* tt:Dot3Configuration */
 class SOAP_CMAC tt__Dot3Configuration : public xsd__anyType
 {
@@ -12366,7 +13084,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 450;
+    return 499;
   } /* = unique type id SOAP_TYPE_tt__Dot3Configuration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12385,7 +13103,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkInterfaceExtension2
-#define SOAP_TYPE_tt__NetworkInterfaceExtension2 (451)
+#define SOAP_TYPE_tt__NetworkInterfaceExtension2 (500)
 /* tt:NetworkInterfaceExtension2 */
 class SOAP_CMAC tt__NetworkInterfaceExtension2 : public xsd__anyType
 {
@@ -12395,7 +13113,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 451;
+    return 500;
   } /* = unique type id SOAP_TYPE_tt__NetworkInterfaceExtension2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12414,7 +13132,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkInterfaceLink
-#define SOAP_TYPE_tt__NetworkInterfaceLink (452)
+#define SOAP_TYPE_tt__NetworkInterfaceLink (501)
 /* tt:NetworkInterfaceLink */
 class SOAP_CMAC tt__NetworkInterfaceLink : public xsd__anyType
 {
@@ -12427,7 +13145,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 452;
+    return 501;
   } /* = unique type id SOAP_TYPE_tt__NetworkInterfaceLink */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12446,7 +13164,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkInterfaceConnectionSetting
-#define SOAP_TYPE_tt__NetworkInterfaceConnectionSetting (453)
+#define SOAP_TYPE_tt__NetworkInterfaceConnectionSetting (502)
 /* tt:NetworkInterfaceConnectionSetting */
 class SOAP_CMAC tt__NetworkInterfaceConnectionSetting : public xsd__anyType
 {
@@ -12457,7 +13175,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 453;
+    return 502;
   } /* = unique type id SOAP_TYPE_tt__NetworkInterfaceConnectionSetting */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12476,7 +13194,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkInterfaceInfo
-#define SOAP_TYPE_tt__NetworkInterfaceInfo (454)
+#define SOAP_TYPE_tt__NetworkInterfaceInfo (503)
 /* tt:NetworkInterfaceInfo */
 class SOAP_CMAC tt__NetworkInterfaceInfo : public xsd__anyType
 {
@@ -12487,7 +13205,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 454;
+    return 503;
   } /* = unique type id SOAP_TYPE_tt__NetworkInterfaceInfo */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12506,7 +13224,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IPv6NetworkInterface
-#define SOAP_TYPE_tt__IPv6NetworkInterface (455)
+#define SOAP_TYPE_tt__IPv6NetworkInterface (504)
 /* tt:IPv6NetworkInterface */
 class SOAP_CMAC tt__IPv6NetworkInterface : public xsd__anyType
 {
@@ -12516,7 +13234,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 455;
+    return 504;
   } /* = unique type id SOAP_TYPE_tt__IPv6NetworkInterface */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12535,7 +13253,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IPv4NetworkInterface
-#define SOAP_TYPE_tt__IPv4NetworkInterface (456)
+#define SOAP_TYPE_tt__IPv4NetworkInterface (505)
 /* tt:IPv4NetworkInterface */
 class SOAP_CMAC tt__IPv4NetworkInterface : public xsd__anyType
 {
@@ -12545,7 +13263,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 456;
+    return 505;
   } /* = unique type id SOAP_TYPE_tt__IPv4NetworkInterface */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12564,7 +13282,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IPv4Configuration
-#define SOAP_TYPE_tt__IPv4Configuration (457)
+#define SOAP_TYPE_tt__IPv4Configuration (506)
 /* tt:IPv4Configuration */
 class SOAP_CMAC tt__IPv4Configuration : public xsd__anyType
 {
@@ -12578,7 +13296,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 457;
+    return 506;
   } /* = unique type id SOAP_TYPE_tt__IPv4Configuration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12597,7 +13315,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IPv6Configuration
-#define SOAP_TYPE_tt__IPv6Configuration (458)
+#define SOAP_TYPE_tt__IPv6Configuration (507)
 /* tt:IPv6Configuration */
 class SOAP_CMAC tt__IPv6Configuration : public xsd__anyType
 {
@@ -12613,7 +13331,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 458;
+    return 507;
   } /* = unique type id SOAP_TYPE_tt__IPv6Configuration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12632,7 +13350,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IPv6ConfigurationExtension
-#define SOAP_TYPE_tt__IPv6ConfigurationExtension (459)
+#define SOAP_TYPE_tt__IPv6ConfigurationExtension (508)
 /* tt:IPv6ConfigurationExtension */
 class SOAP_CMAC tt__IPv6ConfigurationExtension : public xsd__anyType
 {
@@ -12642,7 +13360,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 459;
+    return 508;
   } /* = unique type id SOAP_TYPE_tt__IPv6ConfigurationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12661,7 +13379,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkProtocol
-#define SOAP_TYPE_tt__NetworkProtocol (460)
+#define SOAP_TYPE_tt__NetworkProtocol (509)
 /* tt:NetworkProtocol */
 class SOAP_CMAC tt__NetworkProtocol : public xsd__anyType
 {
@@ -12674,7 +13392,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 460;
+    return 509;
   } /* = unique type id SOAP_TYPE_tt__NetworkProtocol */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12693,7 +13411,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkProtocolExtension
-#define SOAP_TYPE_tt__NetworkProtocolExtension (461)
+#define SOAP_TYPE_tt__NetworkProtocolExtension (510)
 /* tt:NetworkProtocolExtension */
 class SOAP_CMAC tt__NetworkProtocolExtension : public xsd__anyType
 {
@@ -12703,7 +13421,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 461;
+    return 510;
   } /* = unique type id SOAP_TYPE_tt__NetworkProtocolExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12722,7 +13440,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkHost
-#define SOAP_TYPE_tt__NetworkHost (462)
+#define SOAP_TYPE_tt__NetworkHost (511)
 /* tt:NetworkHost */
 class SOAP_CMAC tt__NetworkHost : public xsd__anyType
 {
@@ -12736,7 +13454,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 462;
+    return 511;
   } /* = unique type id SOAP_TYPE_tt__NetworkHost */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12755,7 +13473,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkHostExtension
-#define SOAP_TYPE_tt__NetworkHostExtension (463)
+#define SOAP_TYPE_tt__NetworkHostExtension (512)
 /* tt:NetworkHostExtension */
 class SOAP_CMAC tt__NetworkHostExtension : public xsd__anyType
 {
@@ -12765,7 +13483,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 463;
+    return 512;
   } /* = unique type id SOAP_TYPE_tt__NetworkHostExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12784,7 +13502,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IPAddress
-#define SOAP_TYPE_tt__IPAddress (464)
+#define SOAP_TYPE_tt__IPAddress (513)
 /* tt:IPAddress */
 class SOAP_CMAC tt__IPAddress : public xsd__anyType
 {
@@ -12795,7 +13513,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 464;
+    return 513;
   } /* = unique type id SOAP_TYPE_tt__IPAddress */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12814,7 +13532,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PrefixedIPv4Address
-#define SOAP_TYPE_tt__PrefixedIPv4Address (465)
+#define SOAP_TYPE_tt__PrefixedIPv4Address (514)
 /* tt:PrefixedIPv4Address */
 class SOAP_CMAC tt__PrefixedIPv4Address : public xsd__anyType
 {
@@ -12824,7 +13542,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 465;
+    return 514;
   } /* = unique type id SOAP_TYPE_tt__PrefixedIPv4Address */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12843,7 +13561,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PrefixedIPv6Address
-#define SOAP_TYPE_tt__PrefixedIPv6Address (466)
+#define SOAP_TYPE_tt__PrefixedIPv6Address (515)
 /* tt:PrefixedIPv6Address */
 class SOAP_CMAC tt__PrefixedIPv6Address : public xsd__anyType
 {
@@ -12853,7 +13571,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 466;
+    return 515;
   } /* = unique type id SOAP_TYPE_tt__PrefixedIPv6Address */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12872,7 +13590,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__HostnameInformation
-#define SOAP_TYPE_tt__HostnameInformation (467)
+#define SOAP_TYPE_tt__HostnameInformation (516)
 /* tt:HostnameInformation */
 class SOAP_CMAC tt__HostnameInformation : public xsd__anyType
 {
@@ -12884,7 +13602,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 467;
+    return 516;
   } /* = unique type id SOAP_TYPE_tt__HostnameInformation */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12903,7 +13621,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__HostnameInformationExtension
-#define SOAP_TYPE_tt__HostnameInformationExtension (468)
+#define SOAP_TYPE_tt__HostnameInformationExtension (517)
 /* tt:HostnameInformationExtension */
 class SOAP_CMAC tt__HostnameInformationExtension : public xsd__anyType
 {
@@ -12913,7 +13631,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 468;
+    return 517;
   } /* = unique type id SOAP_TYPE_tt__HostnameInformationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12932,7 +13650,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__DNSInformation
-#define SOAP_TYPE_tt__DNSInformation (469)
+#define SOAP_TYPE_tt__DNSInformation (518)
 /* tt:DNSInformation */
 class SOAP_CMAC tt__DNSInformation : public xsd__anyType
 {
@@ -12946,7 +13664,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 469;
+    return 518;
   } /* = unique type id SOAP_TYPE_tt__DNSInformation */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12965,7 +13683,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__DNSInformationExtension
-#define SOAP_TYPE_tt__DNSInformationExtension (470)
+#define SOAP_TYPE_tt__DNSInformationExtension (519)
 /* tt:DNSInformationExtension */
 class SOAP_CMAC tt__DNSInformationExtension : public xsd__anyType
 {
@@ -12975,7 +13693,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 470;
+    return 519;
   } /* = unique type id SOAP_TYPE_tt__DNSInformationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -12994,7 +13712,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NTPInformation
-#define SOAP_TYPE_tt__NTPInformation (471)
+#define SOAP_TYPE_tt__NTPInformation (520)
 /* tt:NTPInformation */
 class SOAP_CMAC tt__NTPInformation : public xsd__anyType
 {
@@ -13007,7 +13725,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 471;
+    return 520;
   } /* = unique type id SOAP_TYPE_tt__NTPInformation */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13026,7 +13744,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NTPInformationExtension
-#define SOAP_TYPE_tt__NTPInformationExtension (472)
+#define SOAP_TYPE_tt__NTPInformationExtension (521)
 /* tt:NTPInformationExtension */
 class SOAP_CMAC tt__NTPInformationExtension : public xsd__anyType
 {
@@ -13036,7 +13754,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 472;
+    return 521;
   } /* = unique type id SOAP_TYPE_tt__NTPInformationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13055,7 +13773,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__DynamicDNSInformation
-#define SOAP_TYPE_tt__DynamicDNSInformation (473)
+#define SOAP_TYPE_tt__DynamicDNSInformation (522)
 /* tt:DynamicDNSInformation */
 class SOAP_CMAC tt__DynamicDNSInformation : public xsd__anyType
 {
@@ -13068,7 +13786,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 473;
+    return 522;
   } /* = unique type id SOAP_TYPE_tt__DynamicDNSInformation */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13087,7 +13805,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__DynamicDNSInformationExtension
-#define SOAP_TYPE_tt__DynamicDNSInformationExtension (474)
+#define SOAP_TYPE_tt__DynamicDNSInformationExtension (523)
 /* tt:DynamicDNSInformationExtension */
 class SOAP_CMAC tt__DynamicDNSInformationExtension : public xsd__anyType
 {
@@ -13097,7 +13815,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 474;
+    return 523;
   } /* = unique type id SOAP_TYPE_tt__DynamicDNSInformationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13116,7 +13834,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkInterfaceSetConfiguration
-#define SOAP_TYPE_tt__NetworkInterfaceSetConfiguration (475)
+#define SOAP_TYPE_tt__NetworkInterfaceSetConfiguration (524)
 /* tt:NetworkInterfaceSetConfiguration */
 class SOAP_CMAC tt__NetworkInterfaceSetConfiguration : public xsd__anyType
 {
@@ -13134,7 +13852,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 475;
+    return 524;
   } /* = unique type id SOAP_TYPE_tt__NetworkInterfaceSetConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13153,7 +13871,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkInterfaceSetConfigurationExtension
-#define SOAP_TYPE_tt__NetworkInterfaceSetConfigurationExtension (476)
+#define SOAP_TYPE_tt__NetworkInterfaceSetConfigurationExtension (525)
 /* tt:NetworkInterfaceSetConfigurationExtension */
 class SOAP_CMAC tt__NetworkInterfaceSetConfigurationExtension : public xsd__anyType
 {
@@ -13166,7 +13884,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 476;
+    return 525;
   } /* = unique type id SOAP_TYPE_tt__NetworkInterfaceSetConfigurationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13185,7 +13903,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IPv6NetworkInterfaceSetConfiguration
-#define SOAP_TYPE_tt__IPv6NetworkInterfaceSetConfiguration (477)
+#define SOAP_TYPE_tt__IPv6NetworkInterfaceSetConfiguration (526)
 /* tt:IPv6NetworkInterfaceSetConfiguration */
 class SOAP_CMAC tt__IPv6NetworkInterfaceSetConfiguration : public xsd__anyType
 {
@@ -13197,7 +13915,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 477;
+    return 526;
   } /* = unique type id SOAP_TYPE_tt__IPv6NetworkInterfaceSetConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13216,7 +13934,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IPv4NetworkInterfaceSetConfiguration
-#define SOAP_TYPE_tt__IPv4NetworkInterfaceSetConfiguration (478)
+#define SOAP_TYPE_tt__IPv4NetworkInterfaceSetConfiguration (527)
 /* tt:IPv4NetworkInterfaceSetConfiguration */
 class SOAP_CMAC tt__IPv4NetworkInterfaceSetConfiguration : public xsd__anyType
 {
@@ -13227,7 +13945,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 478;
+    return 527;
   } /* = unique type id SOAP_TYPE_tt__IPv4NetworkInterfaceSetConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13246,7 +13964,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkGateway
-#define SOAP_TYPE_tt__NetworkGateway (479)
+#define SOAP_TYPE_tt__NetworkGateway (528)
 /* tt:NetworkGateway */
 class SOAP_CMAC tt__NetworkGateway : public xsd__anyType
 {
@@ -13256,7 +13974,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 479;
+    return 528;
   } /* = unique type id SOAP_TYPE_tt__NetworkGateway */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13275,7 +13993,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkZeroConfiguration
-#define SOAP_TYPE_tt__NetworkZeroConfiguration (480)
+#define SOAP_TYPE_tt__NetworkZeroConfiguration (529)
 /* tt:NetworkZeroConfiguration */
 class SOAP_CMAC tt__NetworkZeroConfiguration : public xsd__anyType
 {
@@ -13289,7 +14007,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 480;
+    return 529;
   } /* = unique type id SOAP_TYPE_tt__NetworkZeroConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13308,7 +14026,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkZeroConfigurationExtension
-#define SOAP_TYPE_tt__NetworkZeroConfigurationExtension (481)
+#define SOAP_TYPE_tt__NetworkZeroConfigurationExtension (530)
 /* tt:NetworkZeroConfigurationExtension */
 class SOAP_CMAC tt__NetworkZeroConfigurationExtension : public xsd__anyType
 {
@@ -13320,7 +14038,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 481;
+    return 530;
   } /* = unique type id SOAP_TYPE_tt__NetworkZeroConfigurationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13339,7 +14057,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkZeroConfigurationExtension2
-#define SOAP_TYPE_tt__NetworkZeroConfigurationExtension2 (482)
+#define SOAP_TYPE_tt__NetworkZeroConfigurationExtension2 (531)
 /* tt:NetworkZeroConfigurationExtension2 */
 class SOAP_CMAC tt__NetworkZeroConfigurationExtension2 : public xsd__anyType
 {
@@ -13349,7 +14067,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 482;
+    return 531;
   } /* = unique type id SOAP_TYPE_tt__NetworkZeroConfigurationExtension2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13368,7 +14086,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IPAddressFilter
-#define SOAP_TYPE_tt__IPAddressFilter (483)
+#define SOAP_TYPE_tt__IPAddressFilter (532)
 /* tt:IPAddressFilter */
 class SOAP_CMAC tt__IPAddressFilter : public xsd__anyType
 {
@@ -13381,7 +14099,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 483;
+    return 532;
   } /* = unique type id SOAP_TYPE_tt__IPAddressFilter */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13400,7 +14118,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IPAddressFilterExtension
-#define SOAP_TYPE_tt__IPAddressFilterExtension (484)
+#define SOAP_TYPE_tt__IPAddressFilterExtension (533)
 /* tt:IPAddressFilterExtension */
 class SOAP_CMAC tt__IPAddressFilterExtension : public xsd__anyType
 {
@@ -13410,7 +14128,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 484;
+    return 533;
   } /* = unique type id SOAP_TYPE_tt__IPAddressFilterExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13429,7 +14147,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11Configuration
-#define SOAP_TYPE_tt__Dot11Configuration (485)
+#define SOAP_TYPE_tt__Dot11Configuration (534)
 /* tt:Dot11Configuration */
 class SOAP_CMAC tt__Dot11Configuration : public xsd__anyType
 {
@@ -13444,7 +14162,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 485;
+    return 534;
   } /* = unique type id SOAP_TYPE_tt__Dot11Configuration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13463,7 +14181,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11SecurityConfiguration
-#define SOAP_TYPE_tt__Dot11SecurityConfiguration (486)
+#define SOAP_TYPE_tt__Dot11SecurityConfiguration (535)
 /* tt:Dot11SecurityConfiguration */
 class SOAP_CMAC tt__Dot11SecurityConfiguration : public xsd__anyType
 {
@@ -13478,7 +14196,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 486;
+    return 535;
   } /* = unique type id SOAP_TYPE_tt__Dot11SecurityConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13497,7 +14215,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11SecurityConfigurationExtension
-#define SOAP_TYPE_tt__Dot11SecurityConfigurationExtension (487)
+#define SOAP_TYPE_tt__Dot11SecurityConfigurationExtension (536)
 /* tt:Dot11SecurityConfigurationExtension */
 class SOAP_CMAC tt__Dot11SecurityConfigurationExtension : public xsd__anyType
 {
@@ -13507,7 +14225,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 487;
+    return 536;
   } /* = unique type id SOAP_TYPE_tt__Dot11SecurityConfigurationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13526,7 +14244,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11PSKSet
-#define SOAP_TYPE_tt__Dot11PSKSet (488)
+#define SOAP_TYPE_tt__Dot11PSKSet (537)
 /* tt:Dot11PSKSet */
 class SOAP_CMAC tt__Dot11PSKSet : public xsd__anyType
 {
@@ -13538,7 +14256,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 488;
+    return 537;
   } /* = unique type id SOAP_TYPE_tt__Dot11PSKSet */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13557,7 +14275,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11PSKSetExtension
-#define SOAP_TYPE_tt__Dot11PSKSetExtension (489)
+#define SOAP_TYPE_tt__Dot11PSKSetExtension (538)
 /* tt:Dot11PSKSetExtension */
 class SOAP_CMAC tt__Dot11PSKSetExtension : public xsd__anyType
 {
@@ -13567,7 +14285,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 489;
+    return 538;
   } /* = unique type id SOAP_TYPE_tt__Dot11PSKSetExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13586,7 +14304,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkInterfaceSetConfigurationExtension2
-#define SOAP_TYPE_tt__NetworkInterfaceSetConfigurationExtension2 (490)
+#define SOAP_TYPE_tt__NetworkInterfaceSetConfigurationExtension2 (539)
 /* tt:NetworkInterfaceSetConfigurationExtension2 */
 class SOAP_CMAC tt__NetworkInterfaceSetConfigurationExtension2 : public xsd__anyType
 {
@@ -13596,7 +14314,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 490;
+    return 539;
   } /* = unique type id SOAP_TYPE_tt__NetworkInterfaceSetConfigurationExtension2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13615,7 +14333,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11Capabilities
-#define SOAP_TYPE_tt__Dot11Capabilities (491)
+#define SOAP_TYPE_tt__Dot11Capabilities (540)
 /* tt:Dot11Capabilities */
 class SOAP_CMAC tt__Dot11Capabilities : public xsd__anyType
 {
@@ -13630,7 +14348,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 491;
+    return 540;
   } /* = unique type id SOAP_TYPE_tt__Dot11Capabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13649,7 +14367,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11Status
-#define SOAP_TYPE_tt__Dot11Status (492)
+#define SOAP_TYPE_tt__Dot11Status (541)
 /* tt:Dot11Status */
 class SOAP_CMAC tt__Dot11Status : public xsd__anyType
 {
@@ -13665,7 +14383,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 492;
+    return 541;
   } /* = unique type id SOAP_TYPE_tt__Dot11Status */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13684,7 +14402,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11AvailableNetworks
-#define SOAP_TYPE_tt__Dot11AvailableNetworks (493)
+#define SOAP_TYPE_tt__Dot11AvailableNetworks (542)
 /* tt:Dot11AvailableNetworks */
 class SOAP_CMAC tt__Dot11AvailableNetworks : public xsd__anyType
 {
@@ -13701,7 +14419,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 493;
+    return 542;
   } /* = unique type id SOAP_TYPE_tt__Dot11AvailableNetworks */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13720,7 +14438,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11AvailableNetworksExtension
-#define SOAP_TYPE_tt__Dot11AvailableNetworksExtension (494)
+#define SOAP_TYPE_tt__Dot11AvailableNetworksExtension (543)
 /* tt:Dot11AvailableNetworksExtension */
 class SOAP_CMAC tt__Dot11AvailableNetworksExtension : public xsd__anyType
 {
@@ -13730,7 +14448,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 494;
+    return 543;
   } /* = unique type id SOAP_TYPE_tt__Dot11AvailableNetworksExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13749,7 +14467,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Capabilities
-#define SOAP_TYPE_tt__Capabilities (495)
+#define SOAP_TYPE_tt__Capabilities (544)
 /* tt:Capabilities */
 class SOAP_CMAC tt__Capabilities : public xsd__anyType
 {
@@ -13765,7 +14483,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 495;
+    return 544;
   } /* = unique type id SOAP_TYPE_tt__Capabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13784,7 +14502,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__CapabilitiesExtension
-#define SOAP_TYPE_tt__CapabilitiesExtension (496)
+#define SOAP_TYPE_tt__CapabilitiesExtension (545)
 /* tt:CapabilitiesExtension */
 class SOAP_CMAC tt__CapabilitiesExtension : public xsd__anyType
 {
@@ -13801,7 +14519,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 496;
+    return 545;
   } /* = unique type id SOAP_TYPE_tt__CapabilitiesExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13820,7 +14538,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__CapabilitiesExtension2
-#define SOAP_TYPE_tt__CapabilitiesExtension2 (497)
+#define SOAP_TYPE_tt__CapabilitiesExtension2 (546)
 /* tt:CapabilitiesExtension2 */
 class SOAP_CMAC tt__CapabilitiesExtension2 : public xsd__anyType
 {
@@ -13830,7 +14548,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 497;
+    return 546;
   } /* = unique type id SOAP_TYPE_tt__CapabilitiesExtension2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13849,7 +14567,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AnalyticsCapabilities
-#define SOAP_TYPE_tt__AnalyticsCapabilities (498)
+#define SOAP_TYPE_tt__AnalyticsCapabilities (547)
 /* tt:AnalyticsCapabilities */
 class SOAP_CMAC tt__AnalyticsCapabilities : public xsd__anyType
 {
@@ -13862,7 +14580,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 498;
+    return 547;
   } /* = unique type id SOAP_TYPE_tt__AnalyticsCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13881,7 +14599,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__DeviceCapabilities
-#define SOAP_TYPE_tt__DeviceCapabilities (499)
+#define SOAP_TYPE_tt__DeviceCapabilities (548)
 /* tt:DeviceCapabilities */
 class SOAP_CMAC tt__DeviceCapabilities : public xsd__anyType
 {
@@ -13896,7 +14614,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 499;
+    return 548;
   } /* = unique type id SOAP_TYPE_tt__DeviceCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13915,7 +14633,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__DeviceCapabilitiesExtension
-#define SOAP_TYPE_tt__DeviceCapabilitiesExtension (500)
+#define SOAP_TYPE_tt__DeviceCapabilitiesExtension (549)
 /* tt:DeviceCapabilitiesExtension */
 class SOAP_CMAC tt__DeviceCapabilitiesExtension : public xsd__anyType
 {
@@ -13925,7 +14643,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 500;
+    return 549;
   } /* = unique type id SOAP_TYPE_tt__DeviceCapabilitiesExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13944,7 +14662,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__EventCapabilities
-#define SOAP_TYPE_tt__EventCapabilities (501)
+#define SOAP_TYPE_tt__EventCapabilities (550)
 /* tt:EventCapabilities */
 class SOAP_CMAC tt__EventCapabilities : public xsd__anyType
 {
@@ -13958,7 +14676,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 501;
+    return 550;
   } /* = unique type id SOAP_TYPE_tt__EventCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -13977,7 +14695,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IOCapabilities
-#define SOAP_TYPE_tt__IOCapabilities (502)
+#define SOAP_TYPE_tt__IOCapabilities (551)
 /* tt:IOCapabilities */
 class SOAP_CMAC tt__IOCapabilities : public xsd__anyType
 {
@@ -13989,7 +14707,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 502;
+    return 551;
   } /* = unique type id SOAP_TYPE_tt__IOCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14008,7 +14726,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IOCapabilitiesExtension
-#define SOAP_TYPE_tt__IOCapabilitiesExtension (503)
+#define SOAP_TYPE_tt__IOCapabilitiesExtension (552)
 /* tt:IOCapabilitiesExtension */
 class SOAP_CMAC tt__IOCapabilitiesExtension : public xsd__anyType
 {
@@ -14021,7 +14739,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 503;
+    return 552;
   } /* = unique type id SOAP_TYPE_tt__IOCapabilitiesExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14040,7 +14758,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IOCapabilitiesExtension2
-#define SOAP_TYPE_tt__IOCapabilitiesExtension2 (504)
+#define SOAP_TYPE_tt__IOCapabilitiesExtension2 (553)
 /* tt:IOCapabilitiesExtension2 */
 class SOAP_CMAC tt__IOCapabilitiesExtension2 : public xsd__anyType
 {
@@ -14050,7 +14768,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 504;
+    return 553;
   } /* = unique type id SOAP_TYPE_tt__IOCapabilitiesExtension2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14069,7 +14787,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MediaCapabilities
-#define SOAP_TYPE_tt__MediaCapabilities (505)
+#define SOAP_TYPE_tt__MediaCapabilities (554)
 /* tt:MediaCapabilities */
 class SOAP_CMAC tt__MediaCapabilities : public xsd__anyType
 {
@@ -14083,7 +14801,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 505;
+    return 554;
   } /* = unique type id SOAP_TYPE_tt__MediaCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14102,7 +14820,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MediaCapabilitiesExtension
-#define SOAP_TYPE_tt__MediaCapabilitiesExtension (506)
+#define SOAP_TYPE_tt__MediaCapabilitiesExtension (555)
 /* tt:MediaCapabilitiesExtension */
 class SOAP_CMAC tt__MediaCapabilitiesExtension : public xsd__anyType
 {
@@ -14113,7 +14831,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 506;
+    return 555;
   } /* = unique type id SOAP_TYPE_tt__MediaCapabilitiesExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14132,7 +14850,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RealTimeStreamingCapabilities
-#define SOAP_TYPE_tt__RealTimeStreamingCapabilities (507)
+#define SOAP_TYPE_tt__RealTimeStreamingCapabilities (556)
 /* tt:RealTimeStreamingCapabilities */
 class SOAP_CMAC tt__RealTimeStreamingCapabilities : public xsd__anyType
 {
@@ -14146,7 +14864,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 507;
+    return 556;
   } /* = unique type id SOAP_TYPE_tt__RealTimeStreamingCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14165,7 +14883,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RealTimeStreamingCapabilitiesExtension
-#define SOAP_TYPE_tt__RealTimeStreamingCapabilitiesExtension (508)
+#define SOAP_TYPE_tt__RealTimeStreamingCapabilitiesExtension (557)
 /* tt:RealTimeStreamingCapabilitiesExtension */
 class SOAP_CMAC tt__RealTimeStreamingCapabilitiesExtension : public xsd__anyType
 {
@@ -14175,7 +14893,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 508;
+    return 557;
   } /* = unique type id SOAP_TYPE_tt__RealTimeStreamingCapabilitiesExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14194,7 +14912,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ProfileCapabilities
-#define SOAP_TYPE_tt__ProfileCapabilities (509)
+#define SOAP_TYPE_tt__ProfileCapabilities (558)
 /* tt:ProfileCapabilities */
 class SOAP_CMAC tt__ProfileCapabilities : public xsd__anyType
 {
@@ -14205,7 +14923,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 509;
+    return 558;
   } /* = unique type id SOAP_TYPE_tt__ProfileCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14224,7 +14942,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkCapabilities
-#define SOAP_TYPE_tt__NetworkCapabilities (510)
+#define SOAP_TYPE_tt__NetworkCapabilities (559)
 /* tt:NetworkCapabilities */
 class SOAP_CMAC tt__NetworkCapabilities : public xsd__anyType
 {
@@ -14238,7 +14956,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 510;
+    return 559;
   } /* = unique type id SOAP_TYPE_tt__NetworkCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14257,7 +14975,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkCapabilitiesExtension
-#define SOAP_TYPE_tt__NetworkCapabilitiesExtension (511)
+#define SOAP_TYPE_tt__NetworkCapabilitiesExtension (560)
 /* tt:NetworkCapabilitiesExtension */
 class SOAP_CMAC tt__NetworkCapabilitiesExtension : public xsd__anyType
 {
@@ -14268,7 +14986,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 511;
+    return 560;
   } /* = unique type id SOAP_TYPE_tt__NetworkCapabilitiesExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14287,7 +15005,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkCapabilitiesExtension2
-#define SOAP_TYPE_tt__NetworkCapabilitiesExtension2 (512)
+#define SOAP_TYPE_tt__NetworkCapabilitiesExtension2 (561)
 /* tt:NetworkCapabilitiesExtension2 */
 class SOAP_CMAC tt__NetworkCapabilitiesExtension2 : public xsd__anyType
 {
@@ -14297,7 +15015,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 512;
+    return 561;
   } /* = unique type id SOAP_TYPE_tt__NetworkCapabilitiesExtension2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14316,7 +15034,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SecurityCapabilities
-#define SOAP_TYPE_tt__SecurityCapabilities (513)
+#define SOAP_TYPE_tt__SecurityCapabilities (562)
 /* tt:SecurityCapabilities */
 class SOAP_CMAC tt__SecurityCapabilities : public xsd__anyType
 {
@@ -14335,7 +15053,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 513;
+    return 562;
   } /* = unique type id SOAP_TYPE_tt__SecurityCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14354,7 +15072,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SecurityCapabilitiesExtension
-#define SOAP_TYPE_tt__SecurityCapabilitiesExtension (514)
+#define SOAP_TYPE_tt__SecurityCapabilitiesExtension (563)
 /* tt:SecurityCapabilitiesExtension */
 class SOAP_CMAC tt__SecurityCapabilitiesExtension : public xsd__anyType
 {
@@ -14364,7 +15082,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 514;
+    return 563;
   } /* = unique type id SOAP_TYPE_tt__SecurityCapabilitiesExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14383,7 +15101,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SecurityCapabilitiesExtension2
-#define SOAP_TYPE_tt__SecurityCapabilitiesExtension2 (515)
+#define SOAP_TYPE_tt__SecurityCapabilitiesExtension2 (564)
 /* tt:SecurityCapabilitiesExtension2 */
 class SOAP_CMAC tt__SecurityCapabilitiesExtension2 : public xsd__anyType
 {
@@ -14396,7 +15114,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 515;
+    return 564;
   } /* = unique type id SOAP_TYPE_tt__SecurityCapabilitiesExtension2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14415,7 +15133,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SystemCapabilities
-#define SOAP_TYPE_tt__SystemCapabilities (516)
+#define SOAP_TYPE_tt__SystemCapabilities (565)
 /* tt:SystemCapabilities */
 class SOAP_CMAC tt__SystemCapabilities : public xsd__anyType
 {
@@ -14432,7 +15150,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 516;
+    return 565;
   } /* = unique type id SOAP_TYPE_tt__SystemCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14451,7 +15169,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SystemCapabilitiesExtension
-#define SOAP_TYPE_tt__SystemCapabilitiesExtension (517)
+#define SOAP_TYPE_tt__SystemCapabilitiesExtension (566)
 /* tt:SystemCapabilitiesExtension */
 class SOAP_CMAC tt__SystemCapabilitiesExtension : public xsd__anyType
 {
@@ -14465,7 +15183,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 517;
+    return 566;
   } /* = unique type id SOAP_TYPE_tt__SystemCapabilitiesExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14484,7 +15202,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SystemCapabilitiesExtension2
-#define SOAP_TYPE_tt__SystemCapabilitiesExtension2 (518)
+#define SOAP_TYPE_tt__SystemCapabilitiesExtension2 (567)
 /* tt:SystemCapabilitiesExtension2 */
 class SOAP_CMAC tt__SystemCapabilitiesExtension2 : public xsd__anyType
 {
@@ -14494,7 +15212,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 518;
+    return 567;
   } /* = unique type id SOAP_TYPE_tt__SystemCapabilitiesExtension2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14513,7 +15231,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__OnvifVersion
-#define SOAP_TYPE_tt__OnvifVersion (519)
+#define SOAP_TYPE_tt__OnvifVersion (568)
 /* tt:OnvifVersion */
 class SOAP_CMAC tt__OnvifVersion : public xsd__anyType
 {
@@ -14523,7 +15241,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 519;
+    return 568;
   } /* = unique type id SOAP_TYPE_tt__OnvifVersion */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14542,7 +15260,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ImagingCapabilities
-#define SOAP_TYPE_tt__ImagingCapabilities (520)
+#define SOAP_TYPE_tt__ImagingCapabilities (569)
 /* tt:ImagingCapabilities */
 class SOAP_CMAC tt__ImagingCapabilities : public xsd__anyType
 {
@@ -14552,7 +15270,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 520;
+    return 569;
   } /* = unique type id SOAP_TYPE_tt__ImagingCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14571,7 +15289,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZCapabilities
-#define SOAP_TYPE_tt__PTZCapabilities (521)
+#define SOAP_TYPE_tt__PTZCapabilities (570)
 /* tt:PTZCapabilities */
 class SOAP_CMAC tt__PTZCapabilities : public xsd__anyType
 {
@@ -14582,7 +15300,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 521;
+    return 570;
   } /* = unique type id SOAP_TYPE_tt__PTZCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14601,7 +15319,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__DeviceIOCapabilities
-#define SOAP_TYPE_tt__DeviceIOCapabilities (522)
+#define SOAP_TYPE_tt__DeviceIOCapabilities (571)
 /* tt:DeviceIOCapabilities */
 class SOAP_CMAC tt__DeviceIOCapabilities : public xsd__anyType
 {
@@ -14617,7 +15335,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 522;
+    return 571;
   } /* = unique type id SOAP_TYPE_tt__DeviceIOCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14636,7 +15354,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__DisplayCapabilities
-#define SOAP_TYPE_tt__DisplayCapabilities (523)
+#define SOAP_TYPE_tt__DisplayCapabilities (572)
 /* tt:DisplayCapabilities */
 class SOAP_CMAC tt__DisplayCapabilities : public xsd__anyType
 {
@@ -14648,7 +15366,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 523;
+    return 572;
   } /* = unique type id SOAP_TYPE_tt__DisplayCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14667,7 +15385,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingCapabilities
-#define SOAP_TYPE_tt__RecordingCapabilities (524)
+#define SOAP_TYPE_tt__RecordingCapabilities (573)
 /* tt:RecordingCapabilities */
 class SOAP_CMAC tt__RecordingCapabilities : public xsd__anyType
 {
@@ -14683,7 +15401,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 524;
+    return 573;
   } /* = unique type id SOAP_TYPE_tt__RecordingCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14702,7 +15420,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SearchCapabilities
-#define SOAP_TYPE_tt__SearchCapabilities (525)
+#define SOAP_TYPE_tt__SearchCapabilities (574)
 /* tt:SearchCapabilities */
 class SOAP_CMAC tt__SearchCapabilities : public xsd__anyType
 {
@@ -14714,7 +15432,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 525;
+    return 574;
   } /* = unique type id SOAP_TYPE_tt__SearchCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14733,7 +15451,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ReplayCapabilities
-#define SOAP_TYPE_tt__ReplayCapabilities (526)
+#define SOAP_TYPE_tt__ReplayCapabilities (575)
 /* tt:ReplayCapabilities */
 class SOAP_CMAC tt__ReplayCapabilities : public xsd__anyType
 {
@@ -14744,7 +15462,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 526;
+    return 575;
   } /* = unique type id SOAP_TYPE_tt__ReplayCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14763,7 +15481,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ReceiverCapabilities
-#define SOAP_TYPE_tt__ReceiverCapabilities (527)
+#define SOAP_TYPE_tt__ReceiverCapabilities (576)
 /* tt:ReceiverCapabilities */
 class SOAP_CMAC tt__ReceiverCapabilities : public xsd__anyType
 {
@@ -14779,7 +15497,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 527;
+    return 576;
   } /* = unique type id SOAP_TYPE_tt__ReceiverCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14798,7 +15516,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AnalyticsDeviceCapabilities
-#define SOAP_TYPE_tt__AnalyticsDeviceCapabilities (528)
+#define SOAP_TYPE_tt__AnalyticsDeviceCapabilities (577)
 /* tt:AnalyticsDeviceCapabilities */
 class SOAP_CMAC tt__AnalyticsDeviceCapabilities : public xsd__anyType
 {
@@ -14810,7 +15528,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 528;
+    return 577;
   } /* = unique type id SOAP_TYPE_tt__AnalyticsDeviceCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14829,7 +15547,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AnalyticsDeviceExtension
-#define SOAP_TYPE_tt__AnalyticsDeviceExtension (529)
+#define SOAP_TYPE_tt__AnalyticsDeviceExtension (578)
 /* tt:AnalyticsDeviceExtension */
 class SOAP_CMAC tt__AnalyticsDeviceExtension : public xsd__anyType
 {
@@ -14839,7 +15557,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 529;
+    return 578;
   } /* = unique type id SOAP_TYPE_tt__AnalyticsDeviceExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14858,7 +15576,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SystemLog
-#define SOAP_TYPE_tt__SystemLog (530)
+#define SOAP_TYPE_tt__SystemLog (579)
 /* tt:SystemLog */
 class SOAP_CMAC tt__SystemLog : public xsd__anyType
 {
@@ -14868,7 +15586,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 530;
+    return 579;
   } /* = unique type id SOAP_TYPE_tt__SystemLog */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14887,7 +15605,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SupportInformation
-#define SOAP_TYPE_tt__SupportInformation (531)
+#define SOAP_TYPE_tt__SupportInformation (580)
 /* tt:SupportInformation */
 class SOAP_CMAC tt__SupportInformation : public xsd__anyType
 {
@@ -14897,7 +15615,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 531;
+    return 580;
   } /* = unique type id SOAP_TYPE_tt__SupportInformation */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14916,7 +15634,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__BinaryData
-#define SOAP_TYPE_tt__BinaryData (532)
+#define SOAP_TYPE_tt__BinaryData (581)
 /* tt:BinaryData */
 class SOAP_CMAC tt__BinaryData : public xsd__anyType
 {
@@ -14926,7 +15644,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 532;
+    return 581;
   } /* = unique type id SOAP_TYPE_tt__BinaryData */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14945,7 +15663,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AttachmentData
-#define SOAP_TYPE_tt__AttachmentData (533)
+#define SOAP_TYPE_tt__AttachmentData (582)
 /* tt:AttachmentData */
 class SOAP_CMAC tt__AttachmentData : public xsd__anyType
 {
@@ -14955,7 +15673,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 533;
+    return 582;
   } /* = unique type id SOAP_TYPE_tt__AttachmentData */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -14974,7 +15692,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__BackupFile
-#define SOAP_TYPE_tt__BackupFile (534)
+#define SOAP_TYPE_tt__BackupFile (583)
 /* tt:BackupFile */
 class SOAP_CMAC tt__BackupFile : public xsd__anyType
 {
@@ -14984,7 +15702,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 534;
+    return 583;
   } /* = unique type id SOAP_TYPE_tt__BackupFile */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15003,7 +15721,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SystemLogUriList
-#define SOAP_TYPE_tt__SystemLogUriList (535)
+#define SOAP_TYPE_tt__SystemLogUriList (584)
 /* tt:SystemLogUriList */
 class SOAP_CMAC tt__SystemLogUriList : public xsd__anyType
 {
@@ -15012,7 +15730,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 535;
+    return 584;
   } /* = unique type id SOAP_TYPE_tt__SystemLogUriList */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15031,7 +15749,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SystemLogUri
-#define SOAP_TYPE_tt__SystemLogUri (536)
+#define SOAP_TYPE_tt__SystemLogUri (585)
 /* tt:SystemLogUri */
 class SOAP_CMAC tt__SystemLogUri : public xsd__anyType
 {
@@ -15043,7 +15761,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 536;
+    return 585;
   } /* = unique type id SOAP_TYPE_tt__SystemLogUri */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15062,7 +15780,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SystemDateTime
-#define SOAP_TYPE_tt__SystemDateTime (537)
+#define SOAP_TYPE_tt__SystemDateTime (586)
 /* tt:SystemDateTime */
 class SOAP_CMAC tt__SystemDateTime : public xsd__anyType
 {
@@ -15077,7 +15795,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 537;
+    return 586;
   } /* = unique type id SOAP_TYPE_tt__SystemDateTime */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15096,7 +15814,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SystemDateTimeExtension
-#define SOAP_TYPE_tt__SystemDateTimeExtension (538)
+#define SOAP_TYPE_tt__SystemDateTimeExtension (587)
 /* tt:SystemDateTimeExtension */
 class SOAP_CMAC tt__SystemDateTimeExtension : public xsd__anyType
 {
@@ -15106,7 +15824,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 538;
+    return 587;
   } /* = unique type id SOAP_TYPE_tt__SystemDateTimeExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15125,7 +15843,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__DateTime
-#define SOAP_TYPE_tt__DateTime (539)
+#define SOAP_TYPE_tt__DateTime (588)
 /* tt:DateTime */
 class SOAP_CMAC tt__DateTime : public xsd__anyType
 {
@@ -15135,7 +15853,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 539;
+    return 588;
   } /* = unique type id SOAP_TYPE_tt__DateTime */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15154,7 +15872,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Date
-#define SOAP_TYPE_tt__Date (540)
+#define SOAP_TYPE_tt__Date (589)
 /* tt:Date */
 class SOAP_CMAC tt__Date : public xsd__anyType
 {
@@ -15165,7 +15883,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 540;
+    return 589;
   } /* = unique type id SOAP_TYPE_tt__Date */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15184,7 +15902,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Time
-#define SOAP_TYPE_tt__Time (541)
+#define SOAP_TYPE_tt__Time (590)
 /* tt:Time */
 class SOAP_CMAC tt__Time : public xsd__anyType
 {
@@ -15195,7 +15913,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 541;
+    return 590;
   } /* = unique type id SOAP_TYPE_tt__Time */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15214,7 +15932,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__TimeZone
-#define SOAP_TYPE_tt__TimeZone (542)
+#define SOAP_TYPE_tt__TimeZone (591)
 /* tt:TimeZone */
 class SOAP_CMAC tt__TimeZone : public xsd__anyType
 {
@@ -15223,7 +15941,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 542;
+    return 591;
   } /* = unique type id SOAP_TYPE_tt__TimeZone */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15242,7 +15960,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RemoteUser
-#define SOAP_TYPE_tt__RemoteUser (543)
+#define SOAP_TYPE_tt__RemoteUser (592)
 /* tt:RemoteUser */
 class SOAP_CMAC tt__RemoteUser : public xsd__anyType
 {
@@ -15255,7 +15973,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 543;
+    return 592;
   } /* = unique type id SOAP_TYPE_tt__RemoteUser */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15274,7 +15992,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__User
-#define SOAP_TYPE_tt__User (544)
+#define SOAP_TYPE_tt__User (593)
 /* tt:User */
 class SOAP_CMAC tt__User : public xsd__anyType
 {
@@ -15287,7 +16005,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 544;
+    return 593;
   } /* = unique type id SOAP_TYPE_tt__User */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15306,7 +16024,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__UserExtension
-#define SOAP_TYPE_tt__UserExtension (545)
+#define SOAP_TYPE_tt__UserExtension (594)
 /* tt:UserExtension */
 class SOAP_CMAC tt__UserExtension : public xsd__anyType
 {
@@ -15316,7 +16034,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 545;
+    return 594;
   } /* = unique type id SOAP_TYPE_tt__UserExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15335,7 +16053,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__CertificateGenerationParameters
-#define SOAP_TYPE_tt__CertificateGenerationParameters (546)
+#define SOAP_TYPE_tt__CertificateGenerationParameters (595)
 /* tt:CertificateGenerationParameters */
 class SOAP_CMAC tt__CertificateGenerationParameters : public xsd__anyType
 {
@@ -15350,7 +16068,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 546;
+    return 595;
   } /* = unique type id SOAP_TYPE_tt__CertificateGenerationParameters */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15369,7 +16087,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__CertificateGenerationParametersExtension
-#define SOAP_TYPE_tt__CertificateGenerationParametersExtension (547)
+#define SOAP_TYPE_tt__CertificateGenerationParametersExtension (596)
 /* tt:CertificateGenerationParametersExtension */
 class SOAP_CMAC tt__CertificateGenerationParametersExtension : public xsd__anyType
 {
@@ -15379,7 +16097,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 547;
+    return 596;
   } /* = unique type id SOAP_TYPE_tt__CertificateGenerationParametersExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15398,7 +16116,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Certificate
-#define SOAP_TYPE_tt__Certificate (548)
+#define SOAP_TYPE_tt__Certificate (597)
 /* tt:Certificate */
 class SOAP_CMAC tt__Certificate : public xsd__anyType
 {
@@ -15408,7 +16126,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 548;
+    return 597;
   } /* = unique type id SOAP_TYPE_tt__Certificate */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15427,7 +16145,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__CertificateStatus
-#define SOAP_TYPE_tt__CertificateStatus (549)
+#define SOAP_TYPE_tt__CertificateStatus (598)
 /* tt:CertificateStatus */
 class SOAP_CMAC tt__CertificateStatus : public xsd__anyType
 {
@@ -15439,7 +16157,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 549;
+    return 598;
   } /* = unique type id SOAP_TYPE_tt__CertificateStatus */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15458,7 +16176,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__CertificateWithPrivateKey
-#define SOAP_TYPE_tt__CertificateWithPrivateKey (550)
+#define SOAP_TYPE_tt__CertificateWithPrivateKey (599)
 /* tt:CertificateWithPrivateKey */
 class SOAP_CMAC tt__CertificateWithPrivateKey : public xsd__anyType
 {
@@ -15471,7 +16189,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 550;
+    return 599;
   } /* = unique type id SOAP_TYPE_tt__CertificateWithPrivateKey */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15490,7 +16208,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__CertificateInformation
-#define SOAP_TYPE_tt__CertificateInformation (551)
+#define SOAP_TYPE_tt__CertificateInformation (600)
 /* tt:CertificateInformation */
 class SOAP_CMAC tt__CertificateInformation : public xsd__anyType
 {
@@ -15510,7 +16228,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 551;
+    return 600;
   } /* = unique type id SOAP_TYPE_tt__CertificateInformation */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15529,7 +16247,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__CertificateInformationExtension
-#define SOAP_TYPE_tt__CertificateInformationExtension (553)
+#define SOAP_TYPE_tt__CertificateInformationExtension (602)
 /* tt:CertificateInformationExtension */
 class SOAP_CMAC tt__CertificateInformationExtension : public xsd__anyType
 {
@@ -15539,7 +16257,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 553;
+    return 602;
   } /* = unique type id SOAP_TYPE_tt__CertificateInformationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15558,7 +16276,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot1XConfiguration
-#define SOAP_TYPE_tt__Dot1XConfiguration (554)
+#define SOAP_TYPE_tt__Dot1XConfiguration (603)
 /* tt:Dot1XConfiguration */
 class SOAP_CMAC tt__Dot1XConfiguration : public xsd__anyType
 {
@@ -15574,7 +16292,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 554;
+    return 603;
   } /* = unique type id SOAP_TYPE_tt__Dot1XConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15593,7 +16311,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot1XConfigurationExtension
-#define SOAP_TYPE_tt__Dot1XConfigurationExtension (555)
+#define SOAP_TYPE_tt__Dot1XConfigurationExtension (604)
 /* tt:Dot1XConfigurationExtension */
 class SOAP_CMAC tt__Dot1XConfigurationExtension : public xsd__anyType
 {
@@ -15603,7 +16321,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 555;
+    return 604;
   } /* = unique type id SOAP_TYPE_tt__Dot1XConfigurationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15622,7 +16340,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__EAPMethodConfiguration
-#define SOAP_TYPE_tt__EAPMethodConfiguration (556)
+#define SOAP_TYPE_tt__EAPMethodConfiguration (605)
 /* tt:EAPMethodConfiguration */
 class SOAP_CMAC tt__EAPMethodConfiguration : public xsd__anyType
 {
@@ -15634,7 +16352,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 556;
+    return 605;
   } /* = unique type id SOAP_TYPE_tt__EAPMethodConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15653,7 +16371,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__EapMethodExtension
-#define SOAP_TYPE_tt__EapMethodExtension (557)
+#define SOAP_TYPE_tt__EapMethodExtension (606)
 /* tt:EapMethodExtension */
 class SOAP_CMAC tt__EapMethodExtension : public xsd__anyType
 {
@@ -15663,7 +16381,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 557;
+    return 606;
   } /* = unique type id SOAP_TYPE_tt__EapMethodExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15682,7 +16400,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__TLSConfiguration
-#define SOAP_TYPE_tt__TLSConfiguration (558)
+#define SOAP_TYPE_tt__TLSConfiguration (607)
 /* tt:TLSConfiguration */
 class SOAP_CMAC tt__TLSConfiguration : public xsd__anyType
 {
@@ -15693,7 +16411,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 558;
+    return 607;
   } /* = unique type id SOAP_TYPE_tt__TLSConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15712,7 +16430,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__GenericEapPwdConfigurationExtension
-#define SOAP_TYPE_tt__GenericEapPwdConfigurationExtension (559)
+#define SOAP_TYPE_tt__GenericEapPwdConfigurationExtension (608)
 /* tt:GenericEapPwdConfigurationExtension */
 class SOAP_CMAC tt__GenericEapPwdConfigurationExtension : public xsd__anyType
 {
@@ -15722,7 +16440,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 559;
+    return 608;
   } /* = unique type id SOAP_TYPE_tt__GenericEapPwdConfigurationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15741,7 +16459,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RelayOutputSettings
-#define SOAP_TYPE_tt__RelayOutputSettings (560)
+#define SOAP_TYPE_tt__RelayOutputSettings (609)
 /* tt:RelayOutputSettings */
 class SOAP_CMAC tt__RelayOutputSettings : public xsd__anyType
 {
@@ -15752,7 +16470,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 560;
+    return 609;
   } /* = unique type id SOAP_TYPE_tt__RelayOutputSettings */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15771,7 +16489,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZNodeExtension
-#define SOAP_TYPE_tt__PTZNodeExtension (564)
+#define SOAP_TYPE_tt__PTZNodeExtension (613)
 /* tt:PTZNodeExtension */
 class SOAP_CMAC tt__PTZNodeExtension : public xsd__anyType
 {
@@ -15782,7 +16500,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 564;
+    return 613;
   } /* = unique type id SOAP_TYPE_tt__PTZNodeExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15801,7 +16519,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZNodeExtension2
-#define SOAP_TYPE_tt__PTZNodeExtension2 (565)
+#define SOAP_TYPE_tt__PTZNodeExtension2 (614)
 /* tt:PTZNodeExtension2 */
 class SOAP_CMAC tt__PTZNodeExtension2 : public xsd__anyType
 {
@@ -15811,7 +16529,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 565;
+    return 614;
   } /* = unique type id SOAP_TYPE_tt__PTZNodeExtension2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15830,7 +16548,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourSupported
-#define SOAP_TYPE_tt__PTZPresetTourSupported (566)
+#define SOAP_TYPE_tt__PTZPresetTourSupported (615)
 /* tt:PTZPresetTourSupported */
 class SOAP_CMAC tt__PTZPresetTourSupported : public xsd__anyType
 {
@@ -15843,7 +16561,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 566;
+    return 615;
   } /* = unique type id SOAP_TYPE_tt__PTZPresetTourSupported */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15862,7 +16580,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourSupportedExtension
-#define SOAP_TYPE_tt__PTZPresetTourSupportedExtension (567)
+#define SOAP_TYPE_tt__PTZPresetTourSupportedExtension (616)
 /* tt:PTZPresetTourSupportedExtension */
 class SOAP_CMAC tt__PTZPresetTourSupportedExtension : public xsd__anyType
 {
@@ -15872,7 +16590,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 567;
+    return 616;
   } /* = unique type id SOAP_TYPE_tt__PTZPresetTourSupportedExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15891,7 +16609,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZConfigurationExtension
-#define SOAP_TYPE_tt__PTZConfigurationExtension (569)
+#define SOAP_TYPE_tt__PTZConfigurationExtension (618)
 /* tt:PTZConfigurationExtension */
 class SOAP_CMAC tt__PTZConfigurationExtension : public xsd__anyType
 {
@@ -15902,7 +16620,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 569;
+    return 618;
   } /* = unique type id SOAP_TYPE_tt__PTZConfigurationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15921,7 +16639,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZConfigurationExtension2
-#define SOAP_TYPE_tt__PTZConfigurationExtension2 (570)
+#define SOAP_TYPE_tt__PTZConfigurationExtension2 (619)
 /* tt:PTZConfigurationExtension2 */
 class SOAP_CMAC tt__PTZConfigurationExtension2 : public xsd__anyType
 {
@@ -15931,7 +16649,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 570;
+    return 619;
   } /* = unique type id SOAP_TYPE_tt__PTZConfigurationExtension2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15950,7 +16668,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTControlDirection
-#define SOAP_TYPE_tt__PTControlDirection (571)
+#define SOAP_TYPE_tt__PTControlDirection (620)
 /* tt:PTControlDirection */
 class SOAP_CMAC tt__PTControlDirection : public xsd__anyType
 {
@@ -15962,7 +16680,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 571;
+    return 620;
   } /* = unique type id SOAP_TYPE_tt__PTControlDirection */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -15981,7 +16699,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTControlDirectionExtension
-#define SOAP_TYPE_tt__PTControlDirectionExtension (572)
+#define SOAP_TYPE_tt__PTControlDirectionExtension (621)
 /* tt:PTControlDirectionExtension */
 class SOAP_CMAC tt__PTControlDirectionExtension : public xsd__anyType
 {
@@ -15991,7 +16709,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 572;
+    return 621;
   } /* = unique type id SOAP_TYPE_tt__PTControlDirectionExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16010,7 +16728,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__EFlip
-#define SOAP_TYPE_tt__EFlip (573)
+#define SOAP_TYPE_tt__EFlip (622)
 /* tt:EFlip */
 class SOAP_CMAC tt__EFlip : public xsd__anyType
 {
@@ -16021,7 +16739,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 573;
+    return 622;
   } /* = unique type id SOAP_TYPE_tt__EFlip */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16040,7 +16758,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Reverse
-#define SOAP_TYPE_tt__Reverse (574)
+#define SOAP_TYPE_tt__Reverse (623)
 /* tt:Reverse */
 class SOAP_CMAC tt__Reverse : public xsd__anyType
 {
@@ -16051,7 +16769,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 574;
+    return 623;
   } /* = unique type id SOAP_TYPE_tt__Reverse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16070,7 +16788,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZConfigurationOptions
-#define SOAP_TYPE_tt__PTZConfigurationOptions (575)
+#define SOAP_TYPE_tt__PTZConfigurationOptions (624)
 /* tt:PTZConfigurationOptions */
 class SOAP_CMAC tt__PTZConfigurationOptions : public xsd__anyType
 {
@@ -16085,7 +16803,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 575;
+    return 624;
   } /* = unique type id SOAP_TYPE_tt__PTZConfigurationOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16104,7 +16822,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZConfigurationOptions2
-#define SOAP_TYPE_tt__PTZConfigurationOptions2 (576)
+#define SOAP_TYPE_tt__PTZConfigurationOptions2 (625)
 /* tt:PTZConfigurationOptions2 */
 class SOAP_CMAC tt__PTZConfigurationOptions2 : public xsd__anyType
 {
@@ -16114,7 +16832,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 576;
+    return 625;
   } /* = unique type id SOAP_TYPE_tt__PTZConfigurationOptions2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16133,7 +16851,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTControlDirectionOptions
-#define SOAP_TYPE_tt__PTControlDirectionOptions (577)
+#define SOAP_TYPE_tt__PTControlDirectionOptions (626)
 /* tt:PTControlDirectionOptions */
 class SOAP_CMAC tt__PTControlDirectionOptions : public xsd__anyType
 {
@@ -16146,7 +16864,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 577;
+    return 626;
   } /* = unique type id SOAP_TYPE_tt__PTControlDirectionOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16165,7 +16883,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTControlDirectionOptionsExtension
-#define SOAP_TYPE_tt__PTControlDirectionOptionsExtension (578)
+#define SOAP_TYPE_tt__PTControlDirectionOptionsExtension (627)
 /* tt:PTControlDirectionOptionsExtension */
 class SOAP_CMAC tt__PTControlDirectionOptionsExtension : public xsd__anyType
 {
@@ -16175,7 +16893,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 578;
+    return 627;
   } /* = unique type id SOAP_TYPE_tt__PTControlDirectionOptionsExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16194,7 +16912,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__EFlipOptions
-#define SOAP_TYPE_tt__EFlipOptions (579)
+#define SOAP_TYPE_tt__EFlipOptions (628)
 /* tt:EFlipOptions */
 class SOAP_CMAC tt__EFlipOptions : public xsd__anyType
 {
@@ -16205,7 +16923,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 579;
+    return 628;
   } /* = unique type id SOAP_TYPE_tt__EFlipOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16224,7 +16942,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__EFlipOptionsExtension
-#define SOAP_TYPE_tt__EFlipOptionsExtension (580)
+#define SOAP_TYPE_tt__EFlipOptionsExtension (629)
 /* tt:EFlipOptionsExtension */
 class SOAP_CMAC tt__EFlipOptionsExtension : public xsd__anyType
 {
@@ -16234,7 +16952,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 580;
+    return 629;
   } /* = unique type id SOAP_TYPE_tt__EFlipOptionsExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16253,7 +16971,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ReverseOptions
-#define SOAP_TYPE_tt__ReverseOptions (581)
+#define SOAP_TYPE_tt__ReverseOptions (630)
 /* tt:ReverseOptions */
 class SOAP_CMAC tt__ReverseOptions : public xsd__anyType
 {
@@ -16264,7 +16982,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 581;
+    return 630;
   } /* = unique type id SOAP_TYPE_tt__ReverseOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16283,7 +17001,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ReverseOptionsExtension
-#define SOAP_TYPE_tt__ReverseOptionsExtension (582)
+#define SOAP_TYPE_tt__ReverseOptionsExtension (631)
 /* tt:ReverseOptionsExtension */
 class SOAP_CMAC tt__ReverseOptionsExtension : public xsd__anyType
 {
@@ -16293,7 +17011,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 582;
+    return 631;
   } /* = unique type id SOAP_TYPE_tt__ReverseOptionsExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16312,7 +17030,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PanTiltLimits
-#define SOAP_TYPE_tt__PanTiltLimits (583)
+#define SOAP_TYPE_tt__PanTiltLimits (632)
 /* tt:PanTiltLimits */
 class SOAP_CMAC tt__PanTiltLimits : public xsd__anyType
 {
@@ -16321,7 +17039,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 583;
+    return 632;
   } /* = unique type id SOAP_TYPE_tt__PanTiltLimits */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16340,7 +17058,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ZoomLimits
-#define SOAP_TYPE_tt__ZoomLimits (584)
+#define SOAP_TYPE_tt__ZoomLimits (633)
 /* tt:ZoomLimits */
 class SOAP_CMAC tt__ZoomLimits : public xsd__anyType
 {
@@ -16349,7 +17067,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 584;
+    return 633;
   } /* = unique type id SOAP_TYPE_tt__ZoomLimits */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16368,7 +17086,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZSpaces
-#define SOAP_TYPE_tt__PTZSpaces (585)
+#define SOAP_TYPE_tt__PTZSpaces (634)
 /* tt:PTZSpaces */
 class SOAP_CMAC tt__PTZSpaces : public xsd__anyType
 {
@@ -16388,7 +17106,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 585;
+    return 634;
   } /* = unique type id SOAP_TYPE_tt__PTZSpaces */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16407,7 +17125,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZSpacesExtension
-#define SOAP_TYPE_tt__PTZSpacesExtension (586)
+#define SOAP_TYPE_tt__PTZSpacesExtension (635)
 /* tt:PTZSpacesExtension */
 class SOAP_CMAC tt__PTZSpacesExtension : public xsd__anyType
 {
@@ -16417,7 +17135,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 586;
+    return 635;
   } /* = unique type id SOAP_TYPE_tt__PTZSpacesExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16436,7 +17154,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Space2DDescription
-#define SOAP_TYPE_tt__Space2DDescription (587)
+#define SOAP_TYPE_tt__Space2DDescription (636)
 /* tt:Space2DDescription */
 class SOAP_CMAC tt__Space2DDescription : public xsd__anyType
 {
@@ -16447,7 +17165,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 587;
+    return 636;
   } /* = unique type id SOAP_TYPE_tt__Space2DDescription */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16466,7 +17184,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Space1DDescription
-#define SOAP_TYPE_tt__Space1DDescription (588)
+#define SOAP_TYPE_tt__Space1DDescription (637)
 /* tt:Space1DDescription */
 class SOAP_CMAC tt__Space1DDescription : public xsd__anyType
 {
@@ -16476,7 +17194,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 588;
+    return 637;
   } /* = unique type id SOAP_TYPE_tt__Space1DDescription */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16495,7 +17213,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Vector2D
-#define SOAP_TYPE_tt__Vector2D (589)
+#define SOAP_TYPE_tt__Vector2D (638)
 /* Primitive tt:Vector2D schema type: */
 class SOAP_CMAC tt__Vector2D : public xsd__anyType
 {
@@ -16506,7 +17224,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 589;
+    return 638;
   } /* = unique type id SOAP_TYPE_tt__Vector2D */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16525,7 +17243,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Vector1D
-#define SOAP_TYPE_tt__Vector1D (590)
+#define SOAP_TYPE_tt__Vector1D (639)
 /* Primitive tt:Vector1D schema type: */
 class SOAP_CMAC tt__Vector1D : public xsd__anyType
 {
@@ -16535,7 +17253,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 590;
+    return 639;
   } /* = unique type id SOAP_TYPE_tt__Vector1D */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16554,7 +17272,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZVector
-#define SOAP_TYPE_tt__PTZVector (591)
+#define SOAP_TYPE_tt__PTZVector (640)
 /* tt:PTZVector */
 class SOAP_CMAC tt__PTZVector : public xsd__anyType
 {
@@ -16564,7 +17282,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 591;
+    return 640;
   } /* = unique type id SOAP_TYPE_tt__PTZVector */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16583,7 +17301,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZSpeed
-#define SOAP_TYPE_tt__PTZSpeed (592)
+#define SOAP_TYPE_tt__PTZSpeed (641)
 /* tt:PTZSpeed */
 class SOAP_CMAC tt__PTZSpeed : public xsd__anyType
 {
@@ -16593,7 +17311,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 592;
+    return 641;
   } /* = unique type id SOAP_TYPE_tt__PTZSpeed */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16612,7 +17330,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZStatus
-#define SOAP_TYPE_tt__PTZStatus (593)
+#define SOAP_TYPE_tt__PTZStatus (642)
 /* tt:PTZStatus */
 class SOAP_CMAC tt__PTZStatus : public xsd__anyType
 {
@@ -16626,7 +17344,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 593;
+    return 642;
   } /* = unique type id SOAP_TYPE_tt__PTZStatus */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16645,7 +17363,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPreset
-#define SOAP_TYPE_tt__PTZPreset (594)
+#define SOAP_TYPE_tt__PTZPreset (643)
 /* tt:PTZPreset */
 class SOAP_CMAC tt__PTZPreset : public xsd__anyType
 {
@@ -16657,7 +17375,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 594;
+    return 643;
   } /* = unique type id SOAP_TYPE_tt__PTZPreset */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16676,7 +17394,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZMoveStatus
-#define SOAP_TYPE_tt__PTZMoveStatus (595)
+#define SOAP_TYPE_tt__PTZMoveStatus (644)
 /* tt:PTZMoveStatus */
 class SOAP_CMAC tt__PTZMoveStatus : public xsd__anyType
 {
@@ -16686,7 +17404,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 595;
+    return 644;
   } /* = unique type id SOAP_TYPE_tt__PTZMoveStatus */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16705,7 +17423,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PresetTour
-#define SOAP_TYPE_tt__PresetTour (596)
+#define SOAP_TYPE_tt__PresetTour (645)
 /* tt:PresetTour */
 class SOAP_CMAC tt__PresetTour : public xsd__anyType
 {
@@ -16722,7 +17440,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 596;
+    return 645;
   } /* = unique type id SOAP_TYPE_tt__PresetTour */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16741,7 +17459,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourExtension
-#define SOAP_TYPE_tt__PTZPresetTourExtension (597)
+#define SOAP_TYPE_tt__PTZPresetTourExtension (646)
 /* tt:PTZPresetTourExtension */
 class SOAP_CMAC tt__PTZPresetTourExtension : public xsd__anyType
 {
@@ -16751,7 +17469,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 597;
+    return 646;
   } /* = unique type id SOAP_TYPE_tt__PTZPresetTourExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16770,7 +17488,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourSpot
-#define SOAP_TYPE_tt__PTZPresetTourSpot (598)
+#define SOAP_TYPE_tt__PTZPresetTourSpot (647)
 /* tt:PTZPresetTourSpot */
 class SOAP_CMAC tt__PTZPresetTourSpot : public xsd__anyType
 {
@@ -16783,7 +17501,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 598;
+    return 647;
   } /* = unique type id SOAP_TYPE_tt__PTZPresetTourSpot */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16802,7 +17520,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourSpotExtension
-#define SOAP_TYPE_tt__PTZPresetTourSpotExtension (599)
+#define SOAP_TYPE_tt__PTZPresetTourSpotExtension (648)
 /* tt:PTZPresetTourSpotExtension */
 class SOAP_CMAC tt__PTZPresetTourSpotExtension : public xsd__anyType
 {
@@ -16812,7 +17530,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 599;
+    return 648;
   } /* = unique type id SOAP_TYPE_tt__PTZPresetTourSpotExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16831,7 +17549,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tt__union_PTZPresetTourPresetDetail
-#define SOAP_TYPE__tt__union_PTZPresetTourPresetDetail (1576)
+#define SOAP_TYPE__tt__union_PTZPresetTourPresetDetail (1642)
 /* xsd:choice */
 union _tt__union_PTZPresetTourPresetDetail
 {
@@ -16847,7 +17565,7 @@ union _tt__union_PTZPresetTourPresetDetail
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourPresetDetail
-#define SOAP_TYPE_tt__PTZPresetTourPresetDetail (600)
+#define SOAP_TYPE_tt__PTZPresetTourPresetDetail (649)
 /* tt:PTZPresetTourPresetDetail */
 class SOAP_CMAC tt__PTZPresetTourPresetDetail : public xsd__anyType
 {
@@ -16859,7 +17577,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 600;
+    return 649;
   } /* = unique type id SOAP_TYPE_tt__PTZPresetTourPresetDetail */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16878,7 +17596,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourTypeExtension
-#define SOAP_TYPE_tt__PTZPresetTourTypeExtension (601)
+#define SOAP_TYPE_tt__PTZPresetTourTypeExtension (650)
 /* tt:PTZPresetTourTypeExtension */
 class SOAP_CMAC tt__PTZPresetTourTypeExtension : public xsd__anyType
 {
@@ -16888,7 +17606,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 601;
+    return 650;
   } /* = unique type id SOAP_TYPE_tt__PTZPresetTourTypeExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16907,7 +17625,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourStatus
-#define SOAP_TYPE_tt__PTZPresetTourStatus (602)
+#define SOAP_TYPE_tt__PTZPresetTourStatus (651)
 /* tt:PTZPresetTourStatus */
 class SOAP_CMAC tt__PTZPresetTourStatus : public xsd__anyType
 {
@@ -16919,7 +17637,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 602;
+    return 651;
   } /* = unique type id SOAP_TYPE_tt__PTZPresetTourStatus */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16938,7 +17656,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourStatusExtension
-#define SOAP_TYPE_tt__PTZPresetTourStatusExtension (603)
+#define SOAP_TYPE_tt__PTZPresetTourStatusExtension (652)
 /* tt:PTZPresetTourStatusExtension */
 class SOAP_CMAC tt__PTZPresetTourStatusExtension : public xsd__anyType
 {
@@ -16948,7 +17666,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 603;
+    return 652;
   } /* = unique type id SOAP_TYPE_tt__PTZPresetTourStatusExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -16967,7 +17685,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourStartingCondition
-#define SOAP_TYPE_tt__PTZPresetTourStartingCondition (604)
+#define SOAP_TYPE_tt__PTZPresetTourStartingCondition (653)
 /* tt:PTZPresetTourStartingCondition */
 class SOAP_CMAC tt__PTZPresetTourStartingCondition : public xsd__anyType
 {
@@ -16982,7 +17700,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 604;
+    return 653;
   } /* = unique type id SOAP_TYPE_tt__PTZPresetTourStartingCondition */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17001,7 +17719,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourStartingConditionExtension
-#define SOAP_TYPE_tt__PTZPresetTourStartingConditionExtension (605)
+#define SOAP_TYPE_tt__PTZPresetTourStartingConditionExtension (654)
 /* tt:PTZPresetTourStartingConditionExtension */
 class SOAP_CMAC tt__PTZPresetTourStartingConditionExtension : public xsd__anyType
 {
@@ -17011,7 +17729,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 605;
+    return 654;
   } /* = unique type id SOAP_TYPE_tt__PTZPresetTourStartingConditionExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17030,7 +17748,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourOptions
-#define SOAP_TYPE_tt__PTZPresetTourOptions (606)
+#define SOAP_TYPE_tt__PTZPresetTourOptions (655)
 /* tt:PTZPresetTourOptions */
 class SOAP_CMAC tt__PTZPresetTourOptions : public xsd__anyType
 {
@@ -17044,7 +17762,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 606;
+    return 655;
   } /* = unique type id SOAP_TYPE_tt__PTZPresetTourOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17063,7 +17781,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourSpotOptions
-#define SOAP_TYPE_tt__PTZPresetTourSpotOptions (607)
+#define SOAP_TYPE_tt__PTZPresetTourSpotOptions (656)
 /* tt:PTZPresetTourSpotOptions */
 class SOAP_CMAC tt__PTZPresetTourSpotOptions : public xsd__anyType
 {
@@ -17076,7 +17794,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 607;
+    return 656;
   } /* = unique type id SOAP_TYPE_tt__PTZPresetTourSpotOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17095,7 +17813,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourPresetDetailOptions
-#define SOAP_TYPE_tt__PTZPresetTourPresetDetailOptions (608)
+#define SOAP_TYPE_tt__PTZPresetTourPresetDetailOptions (657)
 /* tt:PTZPresetTourPresetDetailOptions */
 class SOAP_CMAC tt__PTZPresetTourPresetDetailOptions : public xsd__anyType
 {
@@ -17110,7 +17828,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 608;
+    return 657;
   } /* = unique type id SOAP_TYPE_tt__PTZPresetTourPresetDetailOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17129,7 +17847,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourPresetDetailOptionsExtension
-#define SOAP_TYPE_tt__PTZPresetTourPresetDetailOptionsExtension (609)
+#define SOAP_TYPE_tt__PTZPresetTourPresetDetailOptionsExtension (658)
 /* tt:PTZPresetTourPresetDetailOptionsExtension */
 class SOAP_CMAC tt__PTZPresetTourPresetDetailOptionsExtension : public xsd__anyType
 {
@@ -17139,7 +17857,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 609;
+    return 658;
   } /* = unique type id SOAP_TYPE_tt__PTZPresetTourPresetDetailOptionsExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17158,7 +17876,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourStartingConditionOptions
-#define SOAP_TYPE_tt__PTZPresetTourStartingConditionOptions (610)
+#define SOAP_TYPE_tt__PTZPresetTourStartingConditionOptions (659)
 /* tt:PTZPresetTourStartingConditionOptions */
 class SOAP_CMAC tt__PTZPresetTourStartingConditionOptions : public xsd__anyType
 {
@@ -17172,7 +17890,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 610;
+    return 659;
   } /* = unique type id SOAP_TYPE_tt__PTZPresetTourStartingConditionOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17191,7 +17909,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPresetTourStartingConditionOptionsExtension
-#define SOAP_TYPE_tt__PTZPresetTourStartingConditionOptionsExtension (611)
+#define SOAP_TYPE_tt__PTZPresetTourStartingConditionOptionsExtension (660)
 /* tt:PTZPresetTourStartingConditionOptionsExtension */
 class SOAP_CMAC tt__PTZPresetTourStartingConditionOptionsExtension : public xsd__anyType
 {
@@ -17201,7 +17919,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 611;
+    return 660;
   } /* = unique type id SOAP_TYPE_tt__PTZPresetTourStartingConditionOptionsExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17220,7 +17938,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ImagingStatus
-#define SOAP_TYPE_tt__ImagingStatus (612)
+#define SOAP_TYPE_tt__ImagingStatus (661)
 /* tt:ImagingStatus */
 class SOAP_CMAC tt__ImagingStatus : public xsd__anyType
 {
@@ -17231,7 +17949,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 612;
+    return 661;
   } /* = unique type id SOAP_TYPE_tt__ImagingStatus */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17250,7 +17968,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FocusStatus
-#define SOAP_TYPE_tt__FocusStatus (613)
+#define SOAP_TYPE_tt__FocusStatus (662)
 /* tt:FocusStatus */
 class SOAP_CMAC tt__FocusStatus : public xsd__anyType
 {
@@ -17263,7 +17981,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 613;
+    return 662;
   } /* = unique type id SOAP_TYPE_tt__FocusStatus */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17282,7 +18000,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FocusConfiguration
-#define SOAP_TYPE_tt__FocusConfiguration (614)
+#define SOAP_TYPE_tt__FocusConfiguration (663)
 /* tt:FocusConfiguration */
 class SOAP_CMAC tt__FocusConfiguration : public xsd__anyType
 {
@@ -17296,7 +18014,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 614;
+    return 663;
   } /* = unique type id SOAP_TYPE_tt__FocusConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17315,7 +18033,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ImagingSettings
-#define SOAP_TYPE_tt__ImagingSettings (615)
+#define SOAP_TYPE_tt__ImagingSettings (664)
 /* tt:ImagingSettings */
 class SOAP_CMAC tt__ImagingSettings : public xsd__anyType
 {
@@ -17335,7 +18053,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 615;
+    return 664;
   } /* = unique type id SOAP_TYPE_tt__ImagingSettings */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17354,7 +18072,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ImagingSettingsExtension
-#define SOAP_TYPE_tt__ImagingSettingsExtension (616)
+#define SOAP_TYPE_tt__ImagingSettingsExtension (665)
 /* tt:ImagingSettingsExtension */
 class SOAP_CMAC tt__ImagingSettingsExtension : public xsd__anyType
 {
@@ -17364,7 +18082,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 616;
+    return 665;
   } /* = unique type id SOAP_TYPE_tt__ImagingSettingsExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17383,7 +18101,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Exposure
-#define SOAP_TYPE_tt__Exposure (617)
+#define SOAP_TYPE_tt__Exposure (666)
 /* tt:Exposure */
 class SOAP_CMAC tt__Exposure : public xsd__anyType
 {
@@ -17403,7 +18121,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 617;
+    return 666;
   } /* = unique type id SOAP_TYPE_tt__Exposure */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17422,7 +18140,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__WideDynamicRange
-#define SOAP_TYPE_tt__WideDynamicRange (618)
+#define SOAP_TYPE_tt__WideDynamicRange (667)
 /* tt:WideDynamicRange */
 class SOAP_CMAC tt__WideDynamicRange : public xsd__anyType
 {
@@ -17432,7 +18150,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 618;
+    return 667;
   } /* = unique type id SOAP_TYPE_tt__WideDynamicRange */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17451,7 +18169,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__BacklightCompensation
-#define SOAP_TYPE_tt__BacklightCompensation (619)
+#define SOAP_TYPE_tt__BacklightCompensation (668)
 /* tt:BacklightCompensation */
 class SOAP_CMAC tt__BacklightCompensation : public xsd__anyType
 {
@@ -17461,7 +18179,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 619;
+    return 668;
   } /* = unique type id SOAP_TYPE_tt__BacklightCompensation */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17480,7 +18198,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ImagingOptions
-#define SOAP_TYPE_tt__ImagingOptions (620)
+#define SOAP_TYPE_tt__ImagingOptions (669)
 /* tt:ImagingOptions */
 class SOAP_CMAC tt__ImagingOptions : public xsd__anyType
 {
@@ -17501,7 +18219,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 620;
+    return 669;
   } /* = unique type id SOAP_TYPE_tt__ImagingOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17520,7 +18238,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__WideDynamicRangeOptions
-#define SOAP_TYPE_tt__WideDynamicRangeOptions (621)
+#define SOAP_TYPE_tt__WideDynamicRangeOptions (670)
 /* tt:WideDynamicRangeOptions */
 class SOAP_CMAC tt__WideDynamicRangeOptions : public xsd__anyType
 {
@@ -17530,7 +18248,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 621;
+    return 670;
   } /* = unique type id SOAP_TYPE_tt__WideDynamicRangeOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17549,7 +18267,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__BacklightCompensationOptions
-#define SOAP_TYPE_tt__BacklightCompensationOptions (622)
+#define SOAP_TYPE_tt__BacklightCompensationOptions (671)
 /* tt:BacklightCompensationOptions */
 class SOAP_CMAC tt__BacklightCompensationOptions : public xsd__anyType
 {
@@ -17559,7 +18277,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 622;
+    return 671;
   } /* = unique type id SOAP_TYPE_tt__BacklightCompensationOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17578,7 +18296,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FocusOptions
-#define SOAP_TYPE_tt__FocusOptions (623)
+#define SOAP_TYPE_tt__FocusOptions (672)
 /* tt:FocusOptions */
 class SOAP_CMAC tt__FocusOptions : public xsd__anyType
 {
@@ -17590,7 +18308,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 623;
+    return 672;
   } /* = unique type id SOAP_TYPE_tt__FocusOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17609,7 +18327,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ExposureOptions
-#define SOAP_TYPE_tt__ExposureOptions (624)
+#define SOAP_TYPE_tt__ExposureOptions (673)
 /* tt:ExposureOptions */
 class SOAP_CMAC tt__ExposureOptions : public xsd__anyType
 {
@@ -17628,7 +18346,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 624;
+    return 673;
   } /* = unique type id SOAP_TYPE_tt__ExposureOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17647,7 +18365,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__WhiteBalanceOptions
-#define SOAP_TYPE_tt__WhiteBalanceOptions (625)
+#define SOAP_TYPE_tt__WhiteBalanceOptions (674)
 /* tt:WhiteBalanceOptions */
 class SOAP_CMAC tt__WhiteBalanceOptions : public xsd__anyType
 {
@@ -17658,7 +18376,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 625;
+    return 674;
   } /* = unique type id SOAP_TYPE_tt__WhiteBalanceOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17677,7 +18395,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FocusMove
-#define SOAP_TYPE_tt__FocusMove (626)
+#define SOAP_TYPE_tt__FocusMove (675)
 /* tt:FocusMove */
 class SOAP_CMAC tt__FocusMove : public xsd__anyType
 {
@@ -17688,7 +18406,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 626;
+    return 675;
   } /* = unique type id SOAP_TYPE_tt__FocusMove */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17707,7 +18425,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AbsoluteFocus
-#define SOAP_TYPE_tt__AbsoluteFocus (627)
+#define SOAP_TYPE_tt__AbsoluteFocus (676)
 /* tt:AbsoluteFocus */
 class SOAP_CMAC tt__AbsoluteFocus : public xsd__anyType
 {
@@ -17717,7 +18435,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 627;
+    return 676;
   } /* = unique type id SOAP_TYPE_tt__AbsoluteFocus */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17736,7 +18454,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RelativeFocus
-#define SOAP_TYPE_tt__RelativeFocus (628)
+#define SOAP_TYPE_tt__RelativeFocus (677)
 /* tt:RelativeFocus */
 class SOAP_CMAC tt__RelativeFocus : public xsd__anyType
 {
@@ -17746,7 +18464,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 628;
+    return 677;
   } /* = unique type id SOAP_TYPE_tt__RelativeFocus */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17765,7 +18483,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ContinuousFocus
-#define SOAP_TYPE_tt__ContinuousFocus (629)
+#define SOAP_TYPE_tt__ContinuousFocus (678)
 /* tt:ContinuousFocus */
 class SOAP_CMAC tt__ContinuousFocus : public xsd__anyType
 {
@@ -17774,7 +18492,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 629;
+    return 678;
   } /* = unique type id SOAP_TYPE_tt__ContinuousFocus */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17793,7 +18511,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MoveOptions
-#define SOAP_TYPE_tt__MoveOptions (630)
+#define SOAP_TYPE_tt__MoveOptions (679)
 /* tt:MoveOptions */
 class SOAP_CMAC tt__MoveOptions : public xsd__anyType
 {
@@ -17804,7 +18522,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 630;
+    return 679;
   } /* = unique type id SOAP_TYPE_tt__MoveOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17823,7 +18541,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AbsoluteFocusOptions
-#define SOAP_TYPE_tt__AbsoluteFocusOptions (631)
+#define SOAP_TYPE_tt__AbsoluteFocusOptions (680)
 /* tt:AbsoluteFocusOptions */
 class SOAP_CMAC tt__AbsoluteFocusOptions : public xsd__anyType
 {
@@ -17833,7 +18551,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 631;
+    return 680;
   } /* = unique type id SOAP_TYPE_tt__AbsoluteFocusOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17852,7 +18570,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RelativeFocusOptions
-#define SOAP_TYPE_tt__RelativeFocusOptions (632)
+#define SOAP_TYPE_tt__RelativeFocusOptions (681)
 /* tt:RelativeFocusOptions */
 class SOAP_CMAC tt__RelativeFocusOptions : public xsd__anyType
 {
@@ -17862,7 +18580,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 632;
+    return 681;
   } /* = unique type id SOAP_TYPE_tt__RelativeFocusOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17881,7 +18599,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ContinuousFocusOptions
-#define SOAP_TYPE_tt__ContinuousFocusOptions (633)
+#define SOAP_TYPE_tt__ContinuousFocusOptions (682)
 /* tt:ContinuousFocusOptions */
 class SOAP_CMAC tt__ContinuousFocusOptions : public xsd__anyType
 {
@@ -17890,7 +18608,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 633;
+    return 682;
   } /* = unique type id SOAP_TYPE_tt__ContinuousFocusOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17909,7 +18627,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__WhiteBalance
-#define SOAP_TYPE_tt__WhiteBalance (634)
+#define SOAP_TYPE_tt__WhiteBalance (683)
 /* tt:WhiteBalance */
 class SOAP_CMAC tt__WhiteBalance : public xsd__anyType
 {
@@ -17922,7 +18640,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 634;
+    return 683;
   } /* = unique type id SOAP_TYPE_tt__WhiteBalance */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17941,7 +18659,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ImagingStatus20
-#define SOAP_TYPE_tt__ImagingStatus20 (635)
+#define SOAP_TYPE_tt__ImagingStatus20 (684)
 /* tt:ImagingStatus20 */
 class SOAP_CMAC tt__ImagingStatus20 : public xsd__anyType
 {
@@ -17952,7 +18670,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 635;
+    return 684;
   } /* = unique type id SOAP_TYPE_tt__ImagingStatus20 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -17971,7 +18689,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ImagingStatus20Extension
-#define SOAP_TYPE_tt__ImagingStatus20Extension (636)
+#define SOAP_TYPE_tt__ImagingStatus20Extension (685)
 /* tt:ImagingStatus20Extension */
 class SOAP_CMAC tt__ImagingStatus20Extension : public xsd__anyType
 {
@@ -17981,7 +18699,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 636;
+    return 685;
   } /* = unique type id SOAP_TYPE_tt__ImagingStatus20Extension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18000,7 +18718,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FocusStatus20
-#define SOAP_TYPE_tt__FocusStatus20 (637)
+#define SOAP_TYPE_tt__FocusStatus20 (686)
 /* tt:FocusStatus20 */
 class SOAP_CMAC tt__FocusStatus20 : public xsd__anyType
 {
@@ -18013,7 +18731,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 637;
+    return 686;
   } /* = unique type id SOAP_TYPE_tt__FocusStatus20 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18032,7 +18750,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FocusStatus20Extension
-#define SOAP_TYPE_tt__FocusStatus20Extension (638)
+#define SOAP_TYPE_tt__FocusStatus20Extension (687)
 /* tt:FocusStatus20Extension */
 class SOAP_CMAC tt__FocusStatus20Extension : public xsd__anyType
 {
@@ -18042,7 +18760,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 638;
+    return 687;
   } /* = unique type id SOAP_TYPE_tt__FocusStatus20Extension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18061,7 +18779,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ImagingSettings20
-#define SOAP_TYPE_tt__ImagingSettings20 (639)
+#define SOAP_TYPE_tt__ImagingSettings20 (688)
 /* tt:ImagingSettings20 */
 class SOAP_CMAC tt__ImagingSettings20 : public xsd__anyType
 {
@@ -18081,7 +18799,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 639;
+    return 688;
   } /* = unique type id SOAP_TYPE_tt__ImagingSettings20 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18100,7 +18818,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ImagingSettingsExtension20
-#define SOAP_TYPE_tt__ImagingSettingsExtension20 (640)
+#define SOAP_TYPE_tt__ImagingSettingsExtension20 (689)
 /* tt:ImagingSettingsExtension20 */
 class SOAP_CMAC tt__ImagingSettingsExtension20 : public xsd__anyType
 {
@@ -18111,7 +18829,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 640;
+    return 689;
   } /* = unique type id SOAP_TYPE_tt__ImagingSettingsExtension20 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18130,7 +18848,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ImagingSettingsExtension202
-#define SOAP_TYPE_tt__ImagingSettingsExtension202 (641)
+#define SOAP_TYPE_tt__ImagingSettingsExtension202 (690)
 /* tt:ImagingSettingsExtension202 */
 class SOAP_CMAC tt__ImagingSettingsExtension202 : public xsd__anyType
 {
@@ -18141,7 +18859,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 641;
+    return 690;
   } /* = unique type id SOAP_TYPE_tt__ImagingSettingsExtension202 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18160,7 +18878,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ImagingSettingsExtension203
-#define SOAP_TYPE_tt__ImagingSettingsExtension203 (642)
+#define SOAP_TYPE_tt__ImagingSettingsExtension203 (691)
 /* tt:ImagingSettingsExtension203 */
 class SOAP_CMAC tt__ImagingSettingsExtension203 : public xsd__anyType
 {
@@ -18172,7 +18890,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 642;
+    return 691;
   } /* = unique type id SOAP_TYPE_tt__ImagingSettingsExtension203 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18191,7 +18909,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ImagingSettingsExtension204
-#define SOAP_TYPE_tt__ImagingSettingsExtension204 (643)
+#define SOAP_TYPE_tt__ImagingSettingsExtension204 (692)
 /* tt:ImagingSettingsExtension204 */
 class SOAP_CMAC tt__ImagingSettingsExtension204 : public xsd__anyType
 {
@@ -18201,7 +18919,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 643;
+    return 692;
   } /* = unique type id SOAP_TYPE_tt__ImagingSettingsExtension204 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18220,7 +18938,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ImageStabilization
-#define SOAP_TYPE_tt__ImageStabilization (644)
+#define SOAP_TYPE_tt__ImageStabilization (693)
 /* tt:ImageStabilization */
 class SOAP_CMAC tt__ImageStabilization : public xsd__anyType
 {
@@ -18232,7 +18950,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 644;
+    return 693;
   } /* = unique type id SOAP_TYPE_tt__ImageStabilization */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18251,7 +18969,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ImageStabilizationExtension
-#define SOAP_TYPE_tt__ImageStabilizationExtension (645)
+#define SOAP_TYPE_tt__ImageStabilizationExtension (694)
 /* tt:ImageStabilizationExtension */
 class SOAP_CMAC tt__ImageStabilizationExtension : public xsd__anyType
 {
@@ -18261,7 +18979,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 645;
+    return 694;
   } /* = unique type id SOAP_TYPE_tt__ImageStabilizationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18280,7 +18998,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IrCutFilterAutoAdjustment
-#define SOAP_TYPE_tt__IrCutFilterAutoAdjustment (646)
+#define SOAP_TYPE_tt__IrCutFilterAutoAdjustment (695)
 /* tt:IrCutFilterAutoAdjustment */
 class SOAP_CMAC tt__IrCutFilterAutoAdjustment : public xsd__anyType
 {
@@ -18294,7 +19012,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 646;
+    return 695;
   } /* = unique type id SOAP_TYPE_tt__IrCutFilterAutoAdjustment */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18313,7 +19031,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IrCutFilterAutoAdjustmentExtension
-#define SOAP_TYPE_tt__IrCutFilterAutoAdjustmentExtension (647)
+#define SOAP_TYPE_tt__IrCutFilterAutoAdjustmentExtension (696)
 /* tt:IrCutFilterAutoAdjustmentExtension */
 class SOAP_CMAC tt__IrCutFilterAutoAdjustmentExtension : public xsd__anyType
 {
@@ -18323,7 +19041,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 647;
+    return 696;
   } /* = unique type id SOAP_TYPE_tt__IrCutFilterAutoAdjustmentExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18342,7 +19060,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__WideDynamicRange20
-#define SOAP_TYPE_tt__WideDynamicRange20 (648)
+#define SOAP_TYPE_tt__WideDynamicRange20 (697)
 /* tt:WideDynamicRange20 */
 class SOAP_CMAC tt__WideDynamicRange20 : public xsd__anyType
 {
@@ -18352,7 +19070,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 648;
+    return 697;
   } /* = unique type id SOAP_TYPE_tt__WideDynamicRange20 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18371,7 +19089,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__BacklightCompensation20
-#define SOAP_TYPE_tt__BacklightCompensation20 (649)
+#define SOAP_TYPE_tt__BacklightCompensation20 (698)
 /* tt:BacklightCompensation20 */
 class SOAP_CMAC tt__BacklightCompensation20 : public xsd__anyType
 {
@@ -18381,7 +19099,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 649;
+    return 698;
   } /* = unique type id SOAP_TYPE_tt__BacklightCompensation20 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18400,7 +19118,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Exposure20
-#define SOAP_TYPE_tt__Exposure20 (650)
+#define SOAP_TYPE_tt__Exposure20 (699)
 /* tt:Exposure20 */
 class SOAP_CMAC tt__Exposure20 : public xsd__anyType
 {
@@ -18420,7 +19138,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 650;
+    return 699;
   } /* = unique type id SOAP_TYPE_tt__Exposure20 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18439,7 +19157,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ToneCompensation
-#define SOAP_TYPE_tt__ToneCompensation (651)
+#define SOAP_TYPE_tt__ToneCompensation (700)
 /* tt:ToneCompensation */
 class SOAP_CMAC tt__ToneCompensation : public xsd__anyType
 {
@@ -18451,7 +19169,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 651;
+    return 700;
   } /* = unique type id SOAP_TYPE_tt__ToneCompensation */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18470,7 +19188,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ToneCompensationExtension
-#define SOAP_TYPE_tt__ToneCompensationExtension (652)
+#define SOAP_TYPE_tt__ToneCompensationExtension (701)
 /* tt:ToneCompensationExtension */
 class SOAP_CMAC tt__ToneCompensationExtension : public xsd__anyType
 {
@@ -18480,7 +19198,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 652;
+    return 701;
   } /* = unique type id SOAP_TYPE_tt__ToneCompensationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18499,7 +19217,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Defogging
-#define SOAP_TYPE_tt__Defogging (653)
+#define SOAP_TYPE_tt__Defogging (702)
 /* tt:Defogging */
 class SOAP_CMAC tt__Defogging : public xsd__anyType
 {
@@ -18511,7 +19229,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 653;
+    return 702;
   } /* = unique type id SOAP_TYPE_tt__Defogging */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18530,7 +19248,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__DefoggingExtension
-#define SOAP_TYPE_tt__DefoggingExtension (654)
+#define SOAP_TYPE_tt__DefoggingExtension (703)
 /* tt:DefoggingExtension */
 class SOAP_CMAC tt__DefoggingExtension : public xsd__anyType
 {
@@ -18540,7 +19258,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 654;
+    return 703;
   } /* = unique type id SOAP_TYPE_tt__DefoggingExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18559,7 +19277,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NoiseReduction
-#define SOAP_TYPE_tt__NoiseReduction (655)
+#define SOAP_TYPE_tt__NoiseReduction (704)
 /* tt:NoiseReduction */
 class SOAP_CMAC tt__NoiseReduction : public xsd__anyType
 {
@@ -18570,7 +19288,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 655;
+    return 704;
   } /* = unique type id SOAP_TYPE_tt__NoiseReduction */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18589,7 +19307,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ImagingOptions20
-#define SOAP_TYPE_tt__ImagingOptions20 (656)
+#define SOAP_TYPE_tt__ImagingOptions20 (705)
 /* tt:ImagingOptions20 */
 class SOAP_CMAC tt__ImagingOptions20 : public xsd__anyType
 {
@@ -18610,7 +19328,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 656;
+    return 705;
   } /* = unique type id SOAP_TYPE_tt__ImagingOptions20 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18629,7 +19347,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ImagingOptions20Extension
-#define SOAP_TYPE_tt__ImagingOptions20Extension (657)
+#define SOAP_TYPE_tt__ImagingOptions20Extension (706)
 /* tt:ImagingOptions20Extension */
 class SOAP_CMAC tt__ImagingOptions20Extension : public xsd__anyType
 {
@@ -18640,7 +19358,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 657;
+    return 706;
   } /* = unique type id SOAP_TYPE_tt__ImagingOptions20Extension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18659,7 +19377,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ImagingOptions20Extension2
-#define SOAP_TYPE_tt__ImagingOptions20Extension2 (658)
+#define SOAP_TYPE_tt__ImagingOptions20Extension2 (707)
 /* tt:ImagingOptions20Extension2 */
 class SOAP_CMAC tt__ImagingOptions20Extension2 : public xsd__anyType
 {
@@ -18670,7 +19388,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 658;
+    return 707;
   } /* = unique type id SOAP_TYPE_tt__ImagingOptions20Extension2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18689,7 +19407,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ImagingOptions20Extension3
-#define SOAP_TYPE_tt__ImagingOptions20Extension3 (659)
+#define SOAP_TYPE_tt__ImagingOptions20Extension3 (708)
 /* tt:ImagingOptions20Extension3 */
 class SOAP_CMAC tt__ImagingOptions20Extension3 : public xsd__anyType
 {
@@ -18701,7 +19419,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 659;
+    return 708;
   } /* = unique type id SOAP_TYPE_tt__ImagingOptions20Extension3 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18720,7 +19438,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ImagingOptions20Extension4
-#define SOAP_TYPE_tt__ImagingOptions20Extension4 (660)
+#define SOAP_TYPE_tt__ImagingOptions20Extension4 (709)
 /* tt:ImagingOptions20Extension4 */
 class SOAP_CMAC tt__ImagingOptions20Extension4 : public xsd__anyType
 {
@@ -18730,7 +19448,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 660;
+    return 709;
   } /* = unique type id SOAP_TYPE_tt__ImagingOptions20Extension4 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18749,7 +19467,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ImageStabilizationOptions
-#define SOAP_TYPE_tt__ImageStabilizationOptions (661)
+#define SOAP_TYPE_tt__ImageStabilizationOptions (710)
 /* tt:ImageStabilizationOptions */
 class SOAP_CMAC tt__ImageStabilizationOptions : public xsd__anyType
 {
@@ -18762,7 +19480,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 661;
+    return 710;
   } /* = unique type id SOAP_TYPE_tt__ImageStabilizationOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18781,7 +19499,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ImageStabilizationOptionsExtension
-#define SOAP_TYPE_tt__ImageStabilizationOptionsExtension (662)
+#define SOAP_TYPE_tt__ImageStabilizationOptionsExtension (711)
 /* tt:ImageStabilizationOptionsExtension */
 class SOAP_CMAC tt__ImageStabilizationOptionsExtension : public xsd__anyType
 {
@@ -18791,7 +19509,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 662;
+    return 711;
   } /* = unique type id SOAP_TYPE_tt__ImageStabilizationOptionsExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18810,7 +19528,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IrCutFilterAutoAdjustmentOptions
-#define SOAP_TYPE_tt__IrCutFilterAutoAdjustmentOptions (663)
+#define SOAP_TYPE_tt__IrCutFilterAutoAdjustmentOptions (712)
 /* tt:IrCutFilterAutoAdjustmentOptions */
 class SOAP_CMAC tt__IrCutFilterAutoAdjustmentOptions : public xsd__anyType
 {
@@ -18824,7 +19542,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 663;
+    return 712;
   } /* = unique type id SOAP_TYPE_tt__IrCutFilterAutoAdjustmentOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18843,7 +19561,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__IrCutFilterAutoAdjustmentOptionsExtension
-#define SOAP_TYPE_tt__IrCutFilterAutoAdjustmentOptionsExtension (664)
+#define SOAP_TYPE_tt__IrCutFilterAutoAdjustmentOptionsExtension (713)
 /* tt:IrCutFilterAutoAdjustmentOptionsExtension */
 class SOAP_CMAC tt__IrCutFilterAutoAdjustmentOptionsExtension : public xsd__anyType
 {
@@ -18853,7 +19571,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 664;
+    return 713;
   } /* = unique type id SOAP_TYPE_tt__IrCutFilterAutoAdjustmentOptionsExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18872,7 +19590,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__WideDynamicRangeOptions20
-#define SOAP_TYPE_tt__WideDynamicRangeOptions20 (665)
+#define SOAP_TYPE_tt__WideDynamicRangeOptions20 (714)
 /* tt:WideDynamicRangeOptions20 */
 class SOAP_CMAC tt__WideDynamicRangeOptions20 : public xsd__anyType
 {
@@ -18882,7 +19600,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 665;
+    return 714;
   } /* = unique type id SOAP_TYPE_tt__WideDynamicRangeOptions20 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18901,7 +19619,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__BacklightCompensationOptions20
-#define SOAP_TYPE_tt__BacklightCompensationOptions20 (666)
+#define SOAP_TYPE_tt__BacklightCompensationOptions20 (715)
 /* tt:BacklightCompensationOptions20 */
 class SOAP_CMAC tt__BacklightCompensationOptions20 : public xsd__anyType
 {
@@ -18911,7 +19629,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 666;
+    return 715;
   } /* = unique type id SOAP_TYPE_tt__BacklightCompensationOptions20 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18930,7 +19648,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ExposureOptions20
-#define SOAP_TYPE_tt__ExposureOptions20 (667)
+#define SOAP_TYPE_tt__ExposureOptions20 (716)
 /* tt:ExposureOptions20 */
 class SOAP_CMAC tt__ExposureOptions20 : public xsd__anyType
 {
@@ -18949,7 +19667,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 667;
+    return 716;
   } /* = unique type id SOAP_TYPE_tt__ExposureOptions20 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18968,7 +19686,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MoveOptions20
-#define SOAP_TYPE_tt__MoveOptions20 (668)
+#define SOAP_TYPE_tt__MoveOptions20 (717)
 /* tt:MoveOptions20 */
 class SOAP_CMAC tt__MoveOptions20 : public xsd__anyType
 {
@@ -18979,7 +19697,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 668;
+    return 717;
   } /* = unique type id SOAP_TYPE_tt__MoveOptions20 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -18998,7 +19716,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RelativeFocusOptions20
-#define SOAP_TYPE_tt__RelativeFocusOptions20 (669)
+#define SOAP_TYPE_tt__RelativeFocusOptions20 (718)
 /* tt:RelativeFocusOptions20 */
 class SOAP_CMAC tt__RelativeFocusOptions20 : public xsd__anyType
 {
@@ -19008,7 +19726,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 669;
+    return 718;
   } /* = unique type id SOAP_TYPE_tt__RelativeFocusOptions20 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19027,7 +19745,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__WhiteBalance20
-#define SOAP_TYPE_tt__WhiteBalance20 (670)
+#define SOAP_TYPE_tt__WhiteBalance20 (719)
 /* tt:WhiteBalance20 */
 class SOAP_CMAC tt__WhiteBalance20 : public xsd__anyType
 {
@@ -19040,7 +19758,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 670;
+    return 719;
   } /* = unique type id SOAP_TYPE_tt__WhiteBalance20 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19059,7 +19777,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__WhiteBalance20Extension
-#define SOAP_TYPE_tt__WhiteBalance20Extension (671)
+#define SOAP_TYPE_tt__WhiteBalance20Extension (720)
 /* tt:WhiteBalance20Extension */
 class SOAP_CMAC tt__WhiteBalance20Extension : public xsd__anyType
 {
@@ -19069,7 +19787,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 671;
+    return 720;
   } /* = unique type id SOAP_TYPE_tt__WhiteBalance20Extension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19088,7 +19806,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FocusConfiguration20
-#define SOAP_TYPE_tt__FocusConfiguration20 (672)
+#define SOAP_TYPE_tt__FocusConfiguration20 (721)
 /* tt:FocusConfiguration20 */
 class SOAP_CMAC tt__FocusConfiguration20 : public xsd__anyType
 {
@@ -19102,7 +19820,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 672;
+    return 721;
   } /* = unique type id SOAP_TYPE_tt__FocusConfiguration20 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19121,7 +19839,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FocusConfiguration20Extension
-#define SOAP_TYPE_tt__FocusConfiguration20Extension (673)
+#define SOAP_TYPE_tt__FocusConfiguration20Extension (722)
 /* tt:FocusConfiguration20Extension */
 class SOAP_CMAC tt__FocusConfiguration20Extension : public xsd__anyType
 {
@@ -19131,7 +19849,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 673;
+    return 722;
   } /* = unique type id SOAP_TYPE_tt__FocusConfiguration20Extension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19150,7 +19868,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__WhiteBalanceOptions20
-#define SOAP_TYPE_tt__WhiteBalanceOptions20 (674)
+#define SOAP_TYPE_tt__WhiteBalanceOptions20 (723)
 /* tt:WhiteBalanceOptions20 */
 class SOAP_CMAC tt__WhiteBalanceOptions20 : public xsd__anyType
 {
@@ -19162,7 +19880,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 674;
+    return 723;
   } /* = unique type id SOAP_TYPE_tt__WhiteBalanceOptions20 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19181,7 +19899,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__WhiteBalanceOptions20Extension
-#define SOAP_TYPE_tt__WhiteBalanceOptions20Extension (675)
+#define SOAP_TYPE_tt__WhiteBalanceOptions20Extension (724)
 /* tt:WhiteBalanceOptions20Extension */
 class SOAP_CMAC tt__WhiteBalanceOptions20Extension : public xsd__anyType
 {
@@ -19191,7 +19909,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 675;
+    return 724;
   } /* = unique type id SOAP_TYPE_tt__WhiteBalanceOptions20Extension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19210,7 +19928,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FocusOptions20
-#define SOAP_TYPE_tt__FocusOptions20 (676)
+#define SOAP_TYPE_tt__FocusOptions20 (725)
 /* tt:FocusOptions20 */
 class SOAP_CMAC tt__FocusOptions20 : public xsd__anyType
 {
@@ -19223,7 +19941,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 676;
+    return 725;
   } /* = unique type id SOAP_TYPE_tt__FocusOptions20 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19242,7 +19960,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FocusOptions20Extension
-#define SOAP_TYPE_tt__FocusOptions20Extension (677)
+#define SOAP_TYPE_tt__FocusOptions20Extension (726)
 /* tt:FocusOptions20Extension */
 class SOAP_CMAC tt__FocusOptions20Extension : public xsd__anyType
 {
@@ -19252,7 +19970,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 677;
+    return 726;
   } /* = unique type id SOAP_TYPE_tt__FocusOptions20Extension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19271,7 +19989,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ToneCompensationOptions
-#define SOAP_TYPE_tt__ToneCompensationOptions (678)
+#define SOAP_TYPE_tt__ToneCompensationOptions (727)
 /* tt:ToneCompensationOptions */
 class SOAP_CMAC tt__ToneCompensationOptions : public xsd__anyType
 {
@@ -19283,7 +20001,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 678;
+    return 727;
   } /* = unique type id SOAP_TYPE_tt__ToneCompensationOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19302,7 +20020,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__DefoggingOptions
-#define SOAP_TYPE_tt__DefoggingOptions (679)
+#define SOAP_TYPE_tt__DefoggingOptions (728)
 /* tt:DefoggingOptions */
 class SOAP_CMAC tt__DefoggingOptions : public xsd__anyType
 {
@@ -19314,7 +20032,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 679;
+    return 728;
   } /* = unique type id SOAP_TYPE_tt__DefoggingOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19333,7 +20051,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NoiseReductionOptions
-#define SOAP_TYPE_tt__NoiseReductionOptions (680)
+#define SOAP_TYPE_tt__NoiseReductionOptions (729)
 /* tt:NoiseReductionOptions */
 class SOAP_CMAC tt__NoiseReductionOptions : public xsd__anyType
 {
@@ -19344,7 +20062,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 680;
+    return 729;
   } /* = unique type id SOAP_TYPE_tt__NoiseReductionOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19363,7 +20081,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MessageExtension
-#define SOAP_TYPE_tt__MessageExtension (681)
+#define SOAP_TYPE_tt__MessageExtension (730)
 /* tt:MessageExtension */
 class SOAP_CMAC tt__MessageExtension : public xsd__anyType
 {
@@ -19373,7 +20091,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 681;
+    return 730;
   } /* = unique type id SOAP_TYPE_tt__MessageExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19392,7 +20110,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tt__ItemList_SimpleItem
-#define SOAP_TYPE__tt__ItemList_SimpleItem (1659)
+#define SOAP_TYPE__tt__ItemList_SimpleItem (1724)
 /* tt:ItemList-SimpleItem */
 class SOAP_CMAC _tt__ItemList_SimpleItem
 {
@@ -19402,7 +20120,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1659;
+    return 1724;
   } /* = unique type id SOAP_TYPE__tt__ItemList_SimpleItem */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19421,7 +20139,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tt__ItemList_ElementItem
-#define SOAP_TYPE__tt__ItemList_ElementItem (1662)
+#define SOAP_TYPE__tt__ItemList_ElementItem (1727)
 /* tt:ItemList-ElementItem */
 class SOAP_CMAC _tt__ItemList_ElementItem
 {
@@ -19431,7 +20149,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1662;
+    return 1727;
   } /* = unique type id SOAP_TYPE__tt__ItemList_ElementItem */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19450,7 +20168,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ItemList
-#define SOAP_TYPE_tt__ItemList (682)
+#define SOAP_TYPE_tt__ItemList (731)
 /* tt:ItemList */
 class SOAP_CMAC tt__ItemList : public xsd__anyType
 {
@@ -19462,7 +20180,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 682;
+    return 731;
   } /* = unique type id SOAP_TYPE_tt__ItemList */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19481,7 +20199,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ItemListExtension
-#define SOAP_TYPE_tt__ItemListExtension (683)
+#define SOAP_TYPE_tt__ItemListExtension (732)
 /* tt:ItemListExtension */
 class SOAP_CMAC tt__ItemListExtension : public xsd__anyType
 {
@@ -19491,7 +20209,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 683;
+    return 732;
   } /* = unique type id SOAP_TYPE_tt__ItemListExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19510,7 +20228,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MessageDescription
-#define SOAP_TYPE_tt__MessageDescription (684)
+#define SOAP_TYPE_tt__MessageDescription (733)
 /* tt:MessageDescription */
 class SOAP_CMAC tt__MessageDescription : public xsd__anyType
 {
@@ -19524,7 +20242,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 684;
+    return 733;
   } /* = unique type id SOAP_TYPE_tt__MessageDescription */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19543,7 +20261,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MessageDescriptionExtension
-#define SOAP_TYPE_tt__MessageDescriptionExtension (685)
+#define SOAP_TYPE_tt__MessageDescriptionExtension (734)
 /* tt:MessageDescriptionExtension */
 class SOAP_CMAC tt__MessageDescriptionExtension : public xsd__anyType
 {
@@ -19553,7 +20271,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 685;
+    return 734;
   } /* = unique type id SOAP_TYPE_tt__MessageDescriptionExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19572,7 +20290,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tt__ItemListDescription_SimpleItemDescription
-#define SOAP_TYPE__tt__ItemListDescription_SimpleItemDescription (1668)
+#define SOAP_TYPE__tt__ItemListDescription_SimpleItemDescription (1733)
 /* tt:ItemListDescription-SimpleItemDescription */
 class SOAP_CMAC _tt__ItemListDescription_SimpleItemDescription
 {
@@ -19582,7 +20300,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1668;
+    return 1733;
   } /* = unique type id SOAP_TYPE__tt__ItemListDescription_SimpleItemDescription */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19601,7 +20319,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tt__ItemListDescription_ElementItemDescription
-#define SOAP_TYPE__tt__ItemListDescription_ElementItemDescription (1671)
+#define SOAP_TYPE__tt__ItemListDescription_ElementItemDescription (1736)
 /* tt:ItemListDescription-ElementItemDescription */
 class SOAP_CMAC _tt__ItemListDescription_ElementItemDescription
 {
@@ -19611,7 +20329,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1671;
+    return 1736;
   } /* = unique type id SOAP_TYPE__tt__ItemListDescription_ElementItemDescription */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19630,7 +20348,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ItemListDescription
-#define SOAP_TYPE_tt__ItemListDescription (686)
+#define SOAP_TYPE_tt__ItemListDescription (735)
 /* tt:ItemListDescription */
 class SOAP_CMAC tt__ItemListDescription : public xsd__anyType
 {
@@ -19644,7 +20362,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 686;
+    return 735;
   } /* = unique type id SOAP_TYPE_tt__ItemListDescription */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19663,7 +20381,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ItemListDescriptionExtension
-#define SOAP_TYPE_tt__ItemListDescriptionExtension (687)
+#define SOAP_TYPE_tt__ItemListDescriptionExtension (736)
 /* tt:ItemListDescriptionExtension */
 class SOAP_CMAC tt__ItemListDescriptionExtension : public xsd__anyType
 {
@@ -19673,7 +20391,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 687;
+    return 736;
   } /* = unique type id SOAP_TYPE_tt__ItemListDescriptionExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19692,7 +20410,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Vector
-#define SOAP_TYPE_tt__Vector (688)
+#define SOAP_TYPE_tt__Vector (737)
 /* Primitive tt:Vector schema type: */
 class SOAP_CMAC tt__Vector : public xsd__anyType
 {
@@ -19702,7 +20420,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 688;
+    return 737;
   } /* = unique type id SOAP_TYPE_tt__Vector */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19721,7 +20439,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Rectangle
-#define SOAP_TYPE_tt__Rectangle (689)
+#define SOAP_TYPE_tt__Rectangle (738)
 /* Primitive tt:Rectangle schema type: */
 class SOAP_CMAC tt__Rectangle : public xsd__anyType
 {
@@ -19733,7 +20451,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 689;
+    return 738;
   } /* = unique type id SOAP_TYPE_tt__Rectangle */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19752,7 +20470,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Polygon
-#define SOAP_TYPE_tt__Polygon (690)
+#define SOAP_TYPE_tt__Polygon (739)
 /* tt:Polygon */
 class SOAP_CMAC tt__Polygon : public xsd__anyType
 {
@@ -19761,7 +20479,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 690;
+    return 739;
   } /* = unique type id SOAP_TYPE_tt__Polygon */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19780,7 +20498,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Polyline
-#define SOAP_TYPE_tt__Polyline (691)
+#define SOAP_TYPE_tt__Polyline (740)
 /* tt:Polyline */
 class SOAP_CMAC tt__Polyline : public xsd__anyType
 {
@@ -19789,7 +20507,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 691;
+    return 740;
   } /* = unique type id SOAP_TYPE_tt__Polyline */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19808,7 +20526,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Color
-#define SOAP_TYPE_tt__Color (692)
+#define SOAP_TYPE_tt__Color (741)
 /* Primitive tt:Color schema type: */
 class SOAP_CMAC tt__Color : public xsd__anyType
 {
@@ -19820,7 +20538,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 692;
+    return 741;
   } /* = unique type id SOAP_TYPE_tt__Color */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19839,7 +20557,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ColorCovariance
-#define SOAP_TYPE_tt__ColorCovariance (693)
+#define SOAP_TYPE_tt__ColorCovariance (742)
 /* Primitive tt:ColorCovariance schema type: */
 class SOAP_CMAC tt__ColorCovariance : public xsd__anyType
 {
@@ -19854,7 +20572,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 693;
+    return 742;
   } /* = unique type id SOAP_TYPE_tt__ColorCovariance */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19873,7 +20591,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Appearance
-#define SOAP_TYPE_tt__Appearance (694)
+#define SOAP_TYPE_tt__Appearance (743)
 /* tt:Appearance */
 class SOAP_CMAC tt__Appearance : public xsd__anyType
 {
@@ -19887,7 +20605,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 694;
+    return 743;
   } /* = unique type id SOAP_TYPE_tt__Appearance */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19906,7 +20624,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AppearanceExtension
-#define SOAP_TYPE_tt__AppearanceExtension (695)
+#define SOAP_TYPE_tt__AppearanceExtension (744)
 /* tt:AppearanceExtension */
 class SOAP_CMAC tt__AppearanceExtension : public xsd__anyType
 {
@@ -19916,7 +20634,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 695;
+    return 744;
   } /* = unique type id SOAP_TYPE_tt__AppearanceExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19935,7 +20653,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ShapeDescriptor
-#define SOAP_TYPE_tt__ShapeDescriptor (696)
+#define SOAP_TYPE_tt__ShapeDescriptor (745)
 /* tt:ShapeDescriptor */
 class SOAP_CMAC tt__ShapeDescriptor : public xsd__anyType
 {
@@ -19948,7 +20666,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 696;
+    return 745;
   } /* = unique type id SOAP_TYPE_tt__ShapeDescriptor */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19967,7 +20685,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ShapeDescriptorExtension
-#define SOAP_TYPE_tt__ShapeDescriptorExtension (697)
+#define SOAP_TYPE_tt__ShapeDescriptorExtension (746)
 /* tt:ShapeDescriptorExtension */
 class SOAP_CMAC tt__ShapeDescriptorExtension : public xsd__anyType
 {
@@ -19977,7 +20695,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 697;
+    return 746;
   } /* = unique type id SOAP_TYPE_tt__ShapeDescriptorExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -19996,7 +20714,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tt__ColorDescriptor_ColorCluster
-#define SOAP_TYPE__tt__ColorDescriptor_ColorCluster (1685)
+#define SOAP_TYPE__tt__ColorDescriptor_ColorCluster (1750)
 /* tt:ColorDescriptor-ColorCluster */
 class SOAP_CMAC _tt__ColorDescriptor_ColorCluster
 {
@@ -20007,7 +20725,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1685;
+    return 1750;
   } /* = unique type id SOAP_TYPE__tt__ColorDescriptor_ColorCluster */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20026,7 +20744,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ColorDescriptor
-#define SOAP_TYPE_tt__ColorDescriptor (698)
+#define SOAP_TYPE_tt__ColorDescriptor (747)
 /* tt:ColorDescriptor */
 class SOAP_CMAC tt__ColorDescriptor : public xsd__anyType
 {
@@ -20038,7 +20756,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 698;
+    return 747;
   } /* = unique type id SOAP_TYPE_tt__ColorDescriptor */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20057,7 +20775,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ColorDescriptorExtension
-#define SOAP_TYPE_tt__ColorDescriptorExtension (699)
+#define SOAP_TYPE_tt__ColorDescriptorExtension (748)
 /* tt:ColorDescriptorExtension */
 class SOAP_CMAC tt__ColorDescriptorExtension : public xsd__anyType
 {
@@ -20067,7 +20785,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 699;
+    return 748;
   } /* = unique type id SOAP_TYPE_tt__ColorDescriptorExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20086,7 +20804,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tt__ClassDescriptor_ClassCandidate
-#define SOAP_TYPE__tt__ClassDescriptor_ClassCandidate (1691)
+#define SOAP_TYPE__tt__ClassDescriptor_ClassCandidate (1756)
 /* tt:ClassDescriptor-ClassCandidate */
 class SOAP_CMAC _tt__ClassDescriptor_ClassCandidate
 {
@@ -20096,7 +20814,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1691;
+    return 1756;
   } /* = unique type id SOAP_TYPE__tt__ClassDescriptor_ClassCandidate */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20115,7 +20833,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ClassDescriptor
-#define SOAP_TYPE_tt__ClassDescriptor (700)
+#define SOAP_TYPE_tt__ClassDescriptor (749)
 /* tt:ClassDescriptor */
 class SOAP_CMAC tt__ClassDescriptor : public xsd__anyType
 {
@@ -20126,7 +20844,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 700;
+    return 749;
   } /* = unique type id SOAP_TYPE_tt__ClassDescriptor */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20145,7 +20863,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ClassDescriptorExtension
-#define SOAP_TYPE_tt__ClassDescriptorExtension (701)
+#define SOAP_TYPE_tt__ClassDescriptorExtension (750)
 /* tt:ClassDescriptorExtension */
 class SOAP_CMAC tt__ClassDescriptorExtension : public xsd__anyType
 {
@@ -20156,7 +20874,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 701;
+    return 750;
   } /* = unique type id SOAP_TYPE_tt__ClassDescriptorExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20175,7 +20893,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ClassDescriptorExtension2
-#define SOAP_TYPE_tt__ClassDescriptorExtension2 (702)
+#define SOAP_TYPE_tt__ClassDescriptorExtension2 (751)
 /* tt:ClassDescriptorExtension2 */
 class SOAP_CMAC tt__ClassDescriptorExtension2 : public xsd__anyType
 {
@@ -20185,7 +20903,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 702;
+    return 751;
   } /* = unique type id SOAP_TYPE_tt__ClassDescriptorExtension2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20204,7 +20922,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__OtherType
-#define SOAP_TYPE_tt__OtherType (703)
+#define SOAP_TYPE_tt__OtherType (752)
 /* tt:OtherType */
 class SOAP_CMAC tt__OtherType : public xsd__anyType
 {
@@ -20216,7 +20934,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 703;
+    return 752;
   } /* = unique type id SOAP_TYPE_tt__OtherType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20235,7 +20953,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ObjectExtension
-#define SOAP_TYPE_tt__ObjectExtension (705)
+#define SOAP_TYPE_tt__ObjectExtension (754)
 /* tt:ObjectExtension */
 class SOAP_CMAC tt__ObjectExtension : public xsd__anyType
 {
@@ -20245,7 +20963,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 705;
+    return 754;
   } /* = unique type id SOAP_TYPE_tt__ObjectExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20264,7 +20982,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Transformation
-#define SOAP_TYPE_tt__Transformation (706)
+#define SOAP_TYPE_tt__Transformation (755)
 /* tt:Transformation */
 class SOAP_CMAC tt__Transformation : public xsd__anyType
 {
@@ -20276,7 +20994,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 706;
+    return 755;
   } /* = unique type id SOAP_TYPE_tt__Transformation */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20295,7 +21013,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__TransformationExtension
-#define SOAP_TYPE_tt__TransformationExtension (707)
+#define SOAP_TYPE_tt__TransformationExtension (756)
 /* tt:TransformationExtension */
 class SOAP_CMAC tt__TransformationExtension : public xsd__anyType
 {
@@ -20305,7 +21023,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 707;
+    return 756;
   } /* = unique type id SOAP_TYPE_tt__TransformationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20324,7 +21042,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Frame
-#define SOAP_TYPE_tt__Frame (708)
+#define SOAP_TYPE_tt__Frame (757)
 /* tt:Frame */
 class SOAP_CMAC tt__Frame : public xsd__anyType
 {
@@ -20339,7 +21057,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 708;
+    return 757;
   } /* = unique type id SOAP_TYPE_tt__Frame */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20358,7 +21076,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FrameExtension
-#define SOAP_TYPE_tt__FrameExtension (709)
+#define SOAP_TYPE_tt__FrameExtension (758)
 /* tt:FrameExtension */
 class SOAP_CMAC tt__FrameExtension : public xsd__anyType
 {
@@ -20369,7 +21087,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 709;
+    return 758;
   } /* = unique type id SOAP_TYPE_tt__FrameExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20388,7 +21106,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FrameExtension2
-#define SOAP_TYPE_tt__FrameExtension2 (710)
+#define SOAP_TYPE_tt__FrameExtension2 (759)
 /* tt:FrameExtension2 */
 class SOAP_CMAC tt__FrameExtension2 : public xsd__anyType
 {
@@ -20398,7 +21116,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 710;
+    return 759;
   } /* = unique type id SOAP_TYPE_tt__FrameExtension2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20417,7 +21135,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Merge
-#define SOAP_TYPE_tt__Merge (711)
+#define SOAP_TYPE_tt__Merge (760)
 /* tt:Merge */
 class SOAP_CMAC tt__Merge : public xsd__anyType
 {
@@ -20427,7 +21145,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 711;
+    return 760;
   } /* = unique type id SOAP_TYPE_tt__Merge */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20446,7 +21164,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Split
-#define SOAP_TYPE_tt__Split (712)
+#define SOAP_TYPE_tt__Split (761)
 /* tt:Split */
 class SOAP_CMAC tt__Split : public xsd__anyType
 {
@@ -20456,7 +21174,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 712;
+    return 761;
   } /* = unique type id SOAP_TYPE_tt__Split */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20475,7 +21193,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Rename
-#define SOAP_TYPE_tt__Rename (713)
+#define SOAP_TYPE_tt__Rename (762)
 /* tt:Rename */
 class SOAP_CMAC tt__Rename : public xsd__anyType
 {
@@ -20485,7 +21203,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 713;
+    return 762;
   } /* = unique type id SOAP_TYPE_tt__Rename */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20504,7 +21222,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ObjectId
-#define SOAP_TYPE_tt__ObjectId (714)
+#define SOAP_TYPE_tt__ObjectId (763)
 /* Primitive tt:ObjectId schema type: */
 class SOAP_CMAC tt__ObjectId : public xsd__anyType
 {
@@ -20513,7 +21231,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 714;
+    return 763;
   } /* = unique type id SOAP_TYPE_tt__ObjectId */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20532,7 +21250,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tt__Behaviour_Removed
-#define SOAP_TYPE__tt__Behaviour_Removed (1709)
+#define SOAP_TYPE__tt__Behaviour_Removed (1774)
 /* tt:Behaviour-Removed */
 class SOAP_CMAC _tt__Behaviour_Removed
 {
@@ -20542,7 +21260,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1709;
+    return 1774;
   } /* = unique type id SOAP_TYPE__tt__Behaviour_Removed */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20561,7 +21279,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tt__Behaviour_Idle
-#define SOAP_TYPE__tt__Behaviour_Idle (1711)
+#define SOAP_TYPE__tt__Behaviour_Idle (1776)
 /* tt:Behaviour-Idle */
 class SOAP_CMAC _tt__Behaviour_Idle
 {
@@ -20571,7 +21289,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1711;
+    return 1776;
   } /* = unique type id SOAP_TYPE__tt__Behaviour_Idle */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20590,7 +21308,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Behaviour
-#define SOAP_TYPE_tt__Behaviour (715)
+#define SOAP_TYPE_tt__Behaviour (764)
 /* tt:Behaviour */
 class SOAP_CMAC tt__Behaviour : public xsd__anyType
 {
@@ -20602,7 +21320,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 715;
+    return 764;
   } /* = unique type id SOAP_TYPE_tt__Behaviour */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20621,7 +21339,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__BehaviourExtension
-#define SOAP_TYPE_tt__BehaviourExtension (716)
+#define SOAP_TYPE_tt__BehaviourExtension (765)
 /* tt:BehaviourExtension */
 class SOAP_CMAC tt__BehaviourExtension : public xsd__anyType
 {
@@ -20631,7 +21349,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 716;
+    return 765;
   } /* = unique type id SOAP_TYPE_tt__BehaviourExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20650,7 +21368,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ObjectTree
-#define SOAP_TYPE_tt__ObjectTree (717)
+#define SOAP_TYPE_tt__ObjectTree (766)
 /* tt:ObjectTree */
 class SOAP_CMAC tt__ObjectTree : public xsd__anyType
 {
@@ -20664,7 +21382,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 717;
+    return 766;
   } /* = unique type id SOAP_TYPE_tt__ObjectTree */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20683,7 +21401,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ObjectTreeExtension
-#define SOAP_TYPE_tt__ObjectTreeExtension (718)
+#define SOAP_TYPE_tt__ObjectTreeExtension (767)
 /* tt:ObjectTreeExtension */
 class SOAP_CMAC tt__ObjectTreeExtension : public xsd__anyType
 {
@@ -20693,7 +21411,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 718;
+    return 767;
   } /* = unique type id SOAP_TYPE_tt__ObjectTreeExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20712,7 +21430,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MotionInCells
-#define SOAP_TYPE_tt__MotionInCells (719)
+#define SOAP_TYPE_tt__MotionInCells (768)
 /* tt:MotionInCells */
 class SOAP_CMAC tt__MotionInCells : public xsd__anyType
 {
@@ -20725,7 +21443,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 719;
+    return 768;
   } /* = unique type id SOAP_TYPE_tt__MotionInCells */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20744,7 +21462,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AnalyticsEngineConfiguration
-#define SOAP_TYPE_tt__AnalyticsEngineConfiguration (720)
+#define SOAP_TYPE_tt__AnalyticsEngineConfiguration (769)
 /* tt:AnalyticsEngineConfiguration */
 class SOAP_CMAC tt__AnalyticsEngineConfiguration : public xsd__anyType
 {
@@ -20756,7 +21474,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 720;
+    return 769;
   } /* = unique type id SOAP_TYPE_tt__AnalyticsEngineConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20775,7 +21493,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AnalyticsEngineConfigurationExtension
-#define SOAP_TYPE_tt__AnalyticsEngineConfigurationExtension (721)
+#define SOAP_TYPE_tt__AnalyticsEngineConfigurationExtension (770)
 /* tt:AnalyticsEngineConfigurationExtension */
 class SOAP_CMAC tt__AnalyticsEngineConfigurationExtension : public xsd__anyType
 {
@@ -20785,7 +21503,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 721;
+    return 770;
   } /* = unique type id SOAP_TYPE_tt__AnalyticsEngineConfigurationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20804,7 +21522,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RuleEngineConfiguration
-#define SOAP_TYPE_tt__RuleEngineConfiguration (722)
+#define SOAP_TYPE_tt__RuleEngineConfiguration (771)
 /* tt:RuleEngineConfiguration */
 class SOAP_CMAC tt__RuleEngineConfiguration : public xsd__anyType
 {
@@ -20816,7 +21534,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 722;
+    return 771;
   } /* = unique type id SOAP_TYPE_tt__RuleEngineConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20835,7 +21553,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RuleEngineConfigurationExtension
-#define SOAP_TYPE_tt__RuleEngineConfigurationExtension (723)
+#define SOAP_TYPE_tt__RuleEngineConfigurationExtension (772)
 /* tt:RuleEngineConfigurationExtension */
 class SOAP_CMAC tt__RuleEngineConfigurationExtension : public xsd__anyType
 {
@@ -20845,7 +21563,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 723;
+    return 772;
   } /* = unique type id SOAP_TYPE_tt__RuleEngineConfigurationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20864,7 +21582,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Config
-#define SOAP_TYPE_tt__Config (724)
+#define SOAP_TYPE_tt__Config (773)
 /* tt:Config */
 class SOAP_CMAC tt__Config : public xsd__anyType
 {
@@ -20875,7 +21593,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 724;
+    return 773;
   } /* = unique type id SOAP_TYPE_tt__Config */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20894,7 +21612,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tt__ConfigDescription_Messages
-#define SOAP_TYPE__tt__ConfigDescription_Messages (1726)
+#define SOAP_TYPE__tt__ConfigDescription_Messages (1791)
 /* tt:ConfigDescription-Messages */
 class SOAP_CMAC _tt__ConfigDescription_Messages
 {
@@ -20909,7 +21627,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1726;
+    return 1791;
   } /* = unique type id SOAP_TYPE__tt__ConfigDescription_Messages */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20928,7 +21646,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ConfigDescription
-#define SOAP_TYPE_tt__ConfigDescription (725)
+#define SOAP_TYPE_tt__ConfigDescription (774)
 /* tt:ConfigDescription */
 class SOAP_CMAC tt__ConfigDescription : public xsd__anyType
 {
@@ -20941,7 +21659,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 725;
+    return 774;
   } /* = unique type id SOAP_TYPE_tt__ConfigDescription */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20960,7 +21678,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ConfigDescriptionExtension
-#define SOAP_TYPE_tt__ConfigDescriptionExtension (726)
+#define SOAP_TYPE_tt__ConfigDescriptionExtension (775)
 /* tt:ConfigDescriptionExtension */
 class SOAP_CMAC tt__ConfigDescriptionExtension : public xsd__anyType
 {
@@ -20970,7 +21688,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 726;
+    return 775;
   } /* = unique type id SOAP_TYPE_tt__ConfigDescriptionExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -20989,7 +21707,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SupportedRules
-#define SOAP_TYPE_tt__SupportedRules (727)
+#define SOAP_TYPE_tt__SupportedRules (776)
 /* tt:SupportedRules */
 class SOAP_CMAC tt__SupportedRules : public xsd__anyType
 {
@@ -21001,7 +21719,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 727;
+    return 776;
   } /* = unique type id SOAP_TYPE_tt__SupportedRules */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21020,7 +21738,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SupportedRulesExtension
-#define SOAP_TYPE_tt__SupportedRulesExtension (728)
+#define SOAP_TYPE_tt__SupportedRulesExtension (777)
 /* tt:SupportedRulesExtension */
 class SOAP_CMAC tt__SupportedRulesExtension : public xsd__anyType
 {
@@ -21030,7 +21748,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 728;
+    return 777;
   } /* = unique type id SOAP_TYPE_tt__SupportedRulesExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21049,7 +21767,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SupportedAnalyticsModules
-#define SOAP_TYPE_tt__SupportedAnalyticsModules (729)
+#define SOAP_TYPE_tt__SupportedAnalyticsModules (778)
 /* tt:SupportedAnalyticsModules */
 class SOAP_CMAC tt__SupportedAnalyticsModules : public xsd__anyType
 {
@@ -21062,7 +21780,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 729;
+    return 778;
   } /* = unique type id SOAP_TYPE_tt__SupportedAnalyticsModules */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21081,7 +21799,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SupportedAnalyticsModulesExtension
-#define SOAP_TYPE_tt__SupportedAnalyticsModulesExtension (730)
+#define SOAP_TYPE_tt__SupportedAnalyticsModulesExtension (779)
 /* tt:SupportedAnalyticsModulesExtension */
 class SOAP_CMAC tt__SupportedAnalyticsModulesExtension : public xsd__anyType
 {
@@ -21091,7 +21809,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 730;
+    return 779;
   } /* = unique type id SOAP_TYPE_tt__SupportedAnalyticsModulesExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21110,7 +21828,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PolygonConfiguration
-#define SOAP_TYPE_tt__PolygonConfiguration (731)
+#define SOAP_TYPE_tt__PolygonConfiguration (780)
 /* tt:PolygonConfiguration */
 class SOAP_CMAC tt__PolygonConfiguration : public xsd__anyType
 {
@@ -21121,7 +21839,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 731;
+    return 780;
   } /* = unique type id SOAP_TYPE_tt__PolygonConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21140,7 +21858,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PolylineArray
-#define SOAP_TYPE_tt__PolylineArray (732)
+#define SOAP_TYPE_tt__PolylineArray (781)
 /* tt:PolylineArray */
 class SOAP_CMAC tt__PolylineArray : public xsd__anyType
 {
@@ -21151,7 +21869,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 732;
+    return 781;
   } /* = unique type id SOAP_TYPE_tt__PolylineArray */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21170,7 +21888,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PolylineArrayExtension
-#define SOAP_TYPE_tt__PolylineArrayExtension (733)
+#define SOAP_TYPE_tt__PolylineArrayExtension (782)
 /* tt:PolylineArrayExtension */
 class SOAP_CMAC tt__PolylineArrayExtension : public xsd__anyType
 {
@@ -21180,7 +21898,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 733;
+    return 782;
   } /* = unique type id SOAP_TYPE_tt__PolylineArrayExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21199,7 +21917,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PolylineArrayConfiguration
-#define SOAP_TYPE_tt__PolylineArrayConfiguration (734)
+#define SOAP_TYPE_tt__PolylineArrayConfiguration (783)
 /* tt:PolylineArrayConfiguration */
 class SOAP_CMAC tt__PolylineArrayConfiguration : public xsd__anyType
 {
@@ -21210,7 +21928,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 734;
+    return 783;
   } /* = unique type id SOAP_TYPE_tt__PolylineArrayConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21229,7 +21947,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MotionExpression
-#define SOAP_TYPE_tt__MotionExpression (735)
+#define SOAP_TYPE_tt__MotionExpression (784)
 /* tt:MotionExpression */
 class SOAP_CMAC tt__MotionExpression : public xsd__anyType
 {
@@ -21241,7 +21959,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 735;
+    return 784;
   } /* = unique type id SOAP_TYPE_tt__MotionExpression */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21260,7 +21978,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MotionExpressionConfiguration
-#define SOAP_TYPE_tt__MotionExpressionConfiguration (736)
+#define SOAP_TYPE_tt__MotionExpressionConfiguration (785)
 /* tt:MotionExpressionConfiguration */
 class SOAP_CMAC tt__MotionExpressionConfiguration : public xsd__anyType
 {
@@ -21271,7 +21989,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 736;
+    return 785;
   } /* = unique type id SOAP_TYPE_tt__MotionExpressionConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21290,7 +22008,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__CellLayout
-#define SOAP_TYPE_tt__CellLayout (737)
+#define SOAP_TYPE_tt__CellLayout (786)
 /* tt:CellLayout */
 class SOAP_CMAC tt__CellLayout : public xsd__anyType
 {
@@ -21303,7 +22021,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 737;
+    return 786;
   } /* = unique type id SOAP_TYPE_tt__CellLayout */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21322,7 +22040,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tt__union_MetadataStream
-#define SOAP_TYPE__tt__union_MetadataStream (1744)
+#define SOAP_TYPE__tt__union_MetadataStream (1809)
 /* xsd:choice */
 union _tt__union_MetadataStream
 {
@@ -21338,7 +22056,7 @@ union _tt__union_MetadataStream
 #endif
 
 #ifndef SOAP_TYPE___tt__union_MetadataStream
-#define SOAP_TYPE___tt__union_MetadataStream (1739)
+#define SOAP_TYPE___tt__union_MetadataStream (1804)
 /* Operation wrapper: */
 class SOAP_CMAC __tt__union_MetadataStream
 {
@@ -21348,7 +22066,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1739;
+    return 1804;
   } /* = unique type id SOAP_TYPE___tt__union_MetadataStream */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21367,7 +22085,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MetadataStream
-#define SOAP_TYPE_tt__MetadataStream (738)
+#define SOAP_TYPE_tt__MetadataStream (787)
 /* tt:MetadataStream */
 class SOAP_CMAC tt__MetadataStream : public xsd__anyType
 {
@@ -21378,7 +22096,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 738;
+    return 787;
   } /* = unique type id SOAP_TYPE_tt__MetadataStream */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21397,7 +22115,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MetadataStreamExtension
-#define SOAP_TYPE_tt__MetadataStreamExtension (739)
+#define SOAP_TYPE_tt__MetadataStreamExtension (788)
 /* tt:MetadataStreamExtension */
 class SOAP_CMAC tt__MetadataStreamExtension : public xsd__anyType
 {
@@ -21408,7 +22126,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 739;
+    return 788;
   } /* = unique type id SOAP_TYPE_tt__MetadataStreamExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21427,7 +22145,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MetadataStreamExtension2
-#define SOAP_TYPE_tt__MetadataStreamExtension2 (740)
+#define SOAP_TYPE_tt__MetadataStreamExtension2 (789)
 /* tt:MetadataStreamExtension2 */
 class SOAP_CMAC tt__MetadataStreamExtension2 : public xsd__anyType
 {
@@ -21437,7 +22155,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 740;
+    return 789;
   } /* = unique type id SOAP_TYPE_tt__MetadataStreamExtension2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21456,7 +22174,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AudioAnalyticsStream
-#define SOAP_TYPE_tt__AudioAnalyticsStream (741)
+#define SOAP_TYPE_tt__AudioAnalyticsStream (790)
 /* tt:AudioAnalyticsStream */
 class SOAP_CMAC tt__AudioAnalyticsStream : public xsd__anyType
 {
@@ -21467,7 +22185,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 741;
+    return 790;
   } /* = unique type id SOAP_TYPE_tt__AudioAnalyticsStream */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21486,7 +22204,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AudioDescriptor
-#define SOAP_TYPE_tt__AudioDescriptor (742)
+#define SOAP_TYPE_tt__AudioDescriptor (791)
 /* tt:AudioDescriptor */
 class SOAP_CMAC tt__AudioDescriptor : public xsd__anyType
 {
@@ -21497,7 +22215,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 742;
+    return 791;
   } /* = unique type id SOAP_TYPE_tt__AudioDescriptor */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21516,7 +22234,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AudioAnalyticsStreamExtension
-#define SOAP_TYPE_tt__AudioAnalyticsStreamExtension (743)
+#define SOAP_TYPE_tt__AudioAnalyticsStreamExtension (792)
 /* tt:AudioAnalyticsStreamExtension */
 class SOAP_CMAC tt__AudioAnalyticsStreamExtension : public xsd__anyType
 {
@@ -21526,7 +22244,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 743;
+    return 792;
   } /* = unique type id SOAP_TYPE_tt__AudioAnalyticsStreamExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21545,7 +22263,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tt__union_VideoAnalyticsStream
-#define SOAP_TYPE__tt__union_VideoAnalyticsStream (1754)
+#define SOAP_TYPE__tt__union_VideoAnalyticsStream (1819)
 /* xsd:choice */
 union _tt__union_VideoAnalyticsStream
 {
@@ -21557,7 +22275,7 @@ union _tt__union_VideoAnalyticsStream
 #endif
 
 #ifndef SOAP_TYPE___tt__union_VideoAnalyticsStream
-#define SOAP_TYPE___tt__union_VideoAnalyticsStream (1751)
+#define SOAP_TYPE___tt__union_VideoAnalyticsStream (1816)
 /* Operation wrapper: */
 class SOAP_CMAC __tt__union_VideoAnalyticsStream
 {
@@ -21567,7 +22285,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1751;
+    return 1816;
   } /* = unique type id SOAP_TYPE___tt__union_VideoAnalyticsStream */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21586,7 +22304,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoAnalyticsStream
-#define SOAP_TYPE_tt__VideoAnalyticsStream (744)
+#define SOAP_TYPE_tt__VideoAnalyticsStream (793)
 /* tt:VideoAnalyticsStream */
 class SOAP_CMAC tt__VideoAnalyticsStream : public xsd__anyType
 {
@@ -21597,7 +22315,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 744;
+    return 793;
   } /* = unique type id SOAP_TYPE_tt__VideoAnalyticsStream */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21616,7 +22334,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoAnalyticsStreamExtension
-#define SOAP_TYPE_tt__VideoAnalyticsStreamExtension (745)
+#define SOAP_TYPE_tt__VideoAnalyticsStreamExtension (794)
 /* tt:VideoAnalyticsStreamExtension */
 class SOAP_CMAC tt__VideoAnalyticsStreamExtension : public xsd__anyType
 {
@@ -21626,7 +22344,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 745;
+    return 794;
   } /* = unique type id SOAP_TYPE_tt__VideoAnalyticsStreamExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21645,7 +22363,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tt__union_PTZStream
-#define SOAP_TYPE__tt__union_PTZStream (1758)
+#define SOAP_TYPE__tt__union_PTZStream (1823)
 /* xsd:choice */
 union _tt__union_PTZStream
 {
@@ -21657,7 +22375,7 @@ union _tt__union_PTZStream
 #endif
 
 #ifndef SOAP_TYPE___tt__union_PTZStream
-#define SOAP_TYPE___tt__union_PTZStream (1756)
+#define SOAP_TYPE___tt__union_PTZStream (1821)
 /* Operation wrapper: */
 class SOAP_CMAC __tt__union_PTZStream
 {
@@ -21667,7 +22385,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1756;
+    return 1821;
   } /* = unique type id SOAP_TYPE___tt__union_PTZStream */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21686,7 +22404,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZStream
-#define SOAP_TYPE_tt__PTZStream (746)
+#define SOAP_TYPE_tt__PTZStream (795)
 /* tt:PTZStream */
 class SOAP_CMAC tt__PTZStream : public xsd__anyType
 {
@@ -21697,7 +22415,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 746;
+    return 795;
   } /* = unique type id SOAP_TYPE_tt__PTZStream */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21716,7 +22434,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZStreamExtension
-#define SOAP_TYPE_tt__PTZStreamExtension (747)
+#define SOAP_TYPE_tt__PTZStreamExtension (796)
 /* tt:PTZStreamExtension */
 class SOAP_CMAC tt__PTZStreamExtension : public xsd__anyType
 {
@@ -21726,7 +22444,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 747;
+    return 796;
   } /* = unique type id SOAP_TYPE_tt__PTZStreamExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21745,7 +22463,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tt__union_EventStream
-#define SOAP_TYPE__tt__union_EventStream (1763)
+#define SOAP_TYPE__tt__union_EventStream (1828)
 /* xsd:choice */
 union _tt__union_EventStream
 {
@@ -21757,7 +22475,7 @@ union _tt__union_EventStream
 #endif
 
 #ifndef SOAP_TYPE___tt__union_EventStream
-#define SOAP_TYPE___tt__union_EventStream (1760)
+#define SOAP_TYPE___tt__union_EventStream (1825)
 /* Operation wrapper: */
 class SOAP_CMAC __tt__union_EventStream
 {
@@ -21767,7 +22485,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1760;
+    return 1825;
   } /* = unique type id SOAP_TYPE___tt__union_EventStream */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21786,7 +22504,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__EventStream
-#define SOAP_TYPE_tt__EventStream (748)
+#define SOAP_TYPE_tt__EventStream (797)
 /* tt:EventStream */
 class SOAP_CMAC tt__EventStream : public xsd__anyType
 {
@@ -21797,7 +22515,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 748;
+    return 797;
   } /* = unique type id SOAP_TYPE_tt__EventStream */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21816,7 +22534,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__EventStreamExtension
-#define SOAP_TYPE_tt__EventStreamExtension (749)
+#define SOAP_TYPE_tt__EventStreamExtension (798)
 /* tt:EventStreamExtension */
 class SOAP_CMAC tt__EventStreamExtension : public xsd__anyType
 {
@@ -21826,7 +22544,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 749;
+    return 798;
   } /* = unique type id SOAP_TYPE_tt__EventStreamExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21845,7 +22563,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PaneConfiguration
-#define SOAP_TYPE_tt__PaneConfiguration (750)
+#define SOAP_TYPE_tt__PaneConfiguration (799)
 /* tt:PaneConfiguration */
 class SOAP_CMAC tt__PaneConfiguration : public xsd__anyType
 {
@@ -21861,7 +22579,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 750;
+    return 799;
   } /* = unique type id SOAP_TYPE_tt__PaneConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21880,7 +22598,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PaneLayout
-#define SOAP_TYPE_tt__PaneLayout (751)
+#define SOAP_TYPE_tt__PaneLayout (800)
 /* tt:PaneLayout */
 class SOAP_CMAC tt__PaneLayout : public xsd__anyType
 {
@@ -21892,7 +22610,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 751;
+    return 800;
   } /* = unique type id SOAP_TYPE_tt__PaneLayout */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21911,7 +22629,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Layout
-#define SOAP_TYPE_tt__Layout (752)
+#define SOAP_TYPE_tt__Layout (801)
 /* tt:Layout */
 class SOAP_CMAC tt__Layout : public xsd__anyType
 {
@@ -21922,7 +22640,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 752;
+    return 801;
   } /* = unique type id SOAP_TYPE_tt__Layout */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21941,7 +22659,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__LayoutExtension
-#define SOAP_TYPE_tt__LayoutExtension (753)
+#define SOAP_TYPE_tt__LayoutExtension (802)
 /* tt:LayoutExtension */
 class SOAP_CMAC tt__LayoutExtension : public xsd__anyType
 {
@@ -21951,7 +22669,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 753;
+    return 802;
   } /* = unique type id SOAP_TYPE_tt__LayoutExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -21970,7 +22688,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__CodingCapabilities
-#define SOAP_TYPE_tt__CodingCapabilities (754)
+#define SOAP_TYPE_tt__CodingCapabilities (803)
 /* tt:CodingCapabilities */
 class SOAP_CMAC tt__CodingCapabilities : public xsd__anyType
 {
@@ -21986,7 +22704,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 754;
+    return 803;
   } /* = unique type id SOAP_TYPE_tt__CodingCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22005,7 +22723,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__LayoutOptions
-#define SOAP_TYPE_tt__LayoutOptions (755)
+#define SOAP_TYPE_tt__LayoutOptions (804)
 /* tt:LayoutOptions */
 class SOAP_CMAC tt__LayoutOptions : public xsd__anyType
 {
@@ -22016,7 +22734,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 755;
+    return 804;
   } /* = unique type id SOAP_TYPE_tt__LayoutOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22035,7 +22753,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__LayoutOptionsExtension
-#define SOAP_TYPE_tt__LayoutOptionsExtension (756)
+#define SOAP_TYPE_tt__LayoutOptionsExtension (805)
 /* tt:LayoutOptionsExtension */
 class SOAP_CMAC tt__LayoutOptionsExtension : public xsd__anyType
 {
@@ -22045,7 +22763,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 756;
+    return 805;
   } /* = unique type id SOAP_TYPE_tt__LayoutOptionsExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22064,7 +22782,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PaneLayoutOptions
-#define SOAP_TYPE_tt__PaneLayoutOptions (757)
+#define SOAP_TYPE_tt__PaneLayoutOptions (806)
 /* tt:PaneLayoutOptions */
 class SOAP_CMAC tt__PaneLayoutOptions : public xsd__anyType
 {
@@ -22075,7 +22793,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 757;
+    return 806;
   } /* = unique type id SOAP_TYPE_tt__PaneLayoutOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22094,7 +22812,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PaneOptionExtension
-#define SOAP_TYPE_tt__PaneOptionExtension (758)
+#define SOAP_TYPE_tt__PaneOptionExtension (807)
 /* tt:PaneOptionExtension */
 class SOAP_CMAC tt__PaneOptionExtension : public xsd__anyType
 {
@@ -22104,7 +22822,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 758;
+    return 807;
   } /* = unique type id SOAP_TYPE_tt__PaneOptionExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22123,7 +22841,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Receiver
-#define SOAP_TYPE_tt__Receiver (759)
+#define SOAP_TYPE_tt__Receiver (808)
 /* tt:Receiver */
 class SOAP_CMAC tt__Receiver : public xsd__anyType
 {
@@ -22135,7 +22853,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 759;
+    return 808;
   } /* = unique type id SOAP_TYPE_tt__Receiver */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22154,7 +22872,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ReceiverConfiguration
-#define SOAP_TYPE_tt__ReceiverConfiguration (760)
+#define SOAP_TYPE_tt__ReceiverConfiguration (809)
 /* tt:ReceiverConfiguration */
 class SOAP_CMAC tt__ReceiverConfiguration : public xsd__anyType
 {
@@ -22167,7 +22885,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 760;
+    return 809;
   } /* = unique type id SOAP_TYPE_tt__ReceiverConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22186,7 +22904,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ReceiverStateInformation
-#define SOAP_TYPE_tt__ReceiverStateInformation (761)
+#define SOAP_TYPE_tt__ReceiverStateInformation (810)
 /* tt:ReceiverStateInformation */
 class SOAP_CMAC tt__ReceiverStateInformation : public xsd__anyType
 {
@@ -22198,7 +22916,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 761;
+    return 810;
   } /* = unique type id SOAP_TYPE_tt__ReceiverStateInformation */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22217,7 +22935,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SourceReference
-#define SOAP_TYPE_tt__SourceReference (762)
+#define SOAP_TYPE_tt__SourceReference (811)
 /* tt:SourceReference */
 class SOAP_CMAC tt__SourceReference : public xsd__anyType
 {
@@ -22229,7 +22947,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 762;
+    return 811;
   } /* = unique type id SOAP_TYPE_tt__SourceReference */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22248,7 +22966,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__DateTimeRange
-#define SOAP_TYPE_tt__DateTimeRange (763)
+#define SOAP_TYPE_tt__DateTimeRange (812)
 /* tt:DateTimeRange */
 class SOAP_CMAC tt__DateTimeRange : public xsd__anyType
 {
@@ -22260,7 +22978,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 763;
+    return 812;
   } /* = unique type id SOAP_TYPE_tt__DateTimeRange */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22279,7 +22997,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingSummary
-#define SOAP_TYPE_tt__RecordingSummary (764)
+#define SOAP_TYPE_tt__RecordingSummary (813)
 /* tt:RecordingSummary */
 class SOAP_CMAC tt__RecordingSummary : public xsd__anyType
 {
@@ -22292,7 +23010,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 764;
+    return 813;
   } /* = unique type id SOAP_TYPE_tt__RecordingSummary */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22311,7 +23029,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SearchScope
-#define SOAP_TYPE_tt__SearchScope (765)
+#define SOAP_TYPE_tt__SearchScope (814)
 /* tt:SearchScope */
 class SOAP_CMAC tt__SearchScope : public xsd__anyType
 {
@@ -22324,7 +23042,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 765;
+    return 814;
   } /* = unique type id SOAP_TYPE_tt__SearchScope */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22343,7 +23061,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SearchScopeExtension
-#define SOAP_TYPE_tt__SearchScopeExtension (766)
+#define SOAP_TYPE_tt__SearchScopeExtension (815)
 /* tt:SearchScopeExtension */
 class SOAP_CMAC tt__SearchScopeExtension : public xsd__anyType
 {
@@ -22353,7 +23071,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 766;
+    return 815;
   } /* = unique type id SOAP_TYPE_tt__SearchScopeExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22372,7 +23090,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZPositionFilter
-#define SOAP_TYPE_tt__PTZPositionFilter (768)
+#define SOAP_TYPE_tt__PTZPositionFilter (817)
 /* tt:PTZPositionFilter */
 class SOAP_CMAC tt__PTZPositionFilter : public xsd__anyType
 {
@@ -22385,7 +23103,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 768;
+    return 817;
   } /* = unique type id SOAP_TYPE_tt__PTZPositionFilter */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22404,7 +23122,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MetadataFilter
-#define SOAP_TYPE_tt__MetadataFilter (769)
+#define SOAP_TYPE_tt__MetadataFilter (818)
 /* tt:MetadataFilter */
 class SOAP_CMAC tt__MetadataFilter : public xsd__anyType
 {
@@ -22415,7 +23133,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 769;
+    return 818;
   } /* = unique type id SOAP_TYPE_tt__MetadataFilter */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22434,7 +23152,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FindRecordingResultList
-#define SOAP_TYPE_tt__FindRecordingResultList (770)
+#define SOAP_TYPE_tt__FindRecordingResultList (819)
 /* tt:FindRecordingResultList */
 class SOAP_CMAC tt__FindRecordingResultList : public xsd__anyType
 {
@@ -22445,7 +23163,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 770;
+    return 819;
   } /* = unique type id SOAP_TYPE_tt__FindRecordingResultList */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22464,7 +23182,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FindEventResultList
-#define SOAP_TYPE_tt__FindEventResultList (771)
+#define SOAP_TYPE_tt__FindEventResultList (820)
 /* tt:FindEventResultList */
 class SOAP_CMAC tt__FindEventResultList : public xsd__anyType
 {
@@ -22474,7 +23192,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 771;
+    return 820;
   } /* = unique type id SOAP_TYPE_tt__FindEventResultList */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22493,7 +23211,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FindEventResult
-#define SOAP_TYPE_tt__FindEventResult (772)
+#define SOAP_TYPE_tt__FindEventResult (821)
 /* tt:FindEventResult */
 class SOAP_CMAC tt__FindEventResult : public xsd__anyType
 {
@@ -22508,7 +23226,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 772;
+    return 821;
   } /* = unique type id SOAP_TYPE_tt__FindEventResult */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22527,7 +23245,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FindPTZPositionResultList
-#define SOAP_TYPE_tt__FindPTZPositionResultList (773)
+#define SOAP_TYPE_tt__FindPTZPositionResultList (822)
 /* tt:FindPTZPositionResultList */
 class SOAP_CMAC tt__FindPTZPositionResultList : public xsd__anyType
 {
@@ -22537,7 +23255,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 773;
+    return 822;
   } /* = unique type id SOAP_TYPE_tt__FindPTZPositionResultList */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22556,7 +23274,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FindPTZPositionResult
-#define SOAP_TYPE_tt__FindPTZPositionResult (774)
+#define SOAP_TYPE_tt__FindPTZPositionResult (823)
 /* tt:FindPTZPositionResult */
 class SOAP_CMAC tt__FindPTZPositionResult : public xsd__anyType
 {
@@ -22570,7 +23288,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 774;
+    return 823;
   } /* = unique type id SOAP_TYPE_tt__FindPTZPositionResult */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22589,7 +23307,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FindMetadataResultList
-#define SOAP_TYPE_tt__FindMetadataResultList (775)
+#define SOAP_TYPE_tt__FindMetadataResultList (824)
 /* tt:FindMetadataResultList */
 class SOAP_CMAC tt__FindMetadataResultList : public xsd__anyType
 {
@@ -22599,7 +23317,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 775;
+    return 824;
   } /* = unique type id SOAP_TYPE_tt__FindMetadataResultList */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22618,7 +23336,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FindMetadataResult
-#define SOAP_TYPE_tt__FindMetadataResult (776)
+#define SOAP_TYPE_tt__FindMetadataResult (825)
 /* tt:FindMetadataResult */
 class SOAP_CMAC tt__FindMetadataResult : public xsd__anyType
 {
@@ -22631,7 +23349,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 776;
+    return 825;
   } /* = unique type id SOAP_TYPE_tt__FindMetadataResult */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22650,7 +23368,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingInformation
-#define SOAP_TYPE_tt__RecordingInformation (777)
+#define SOAP_TYPE_tt__RecordingInformation (826)
 /* tt:RecordingInformation */
 class SOAP_CMAC tt__RecordingInformation : public xsd__anyType
 {
@@ -22667,7 +23385,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 777;
+    return 826;
   } /* = unique type id SOAP_TYPE_tt__RecordingInformation */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22686,7 +23404,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingSourceInformation
-#define SOAP_TYPE_tt__RecordingSourceInformation (778)
+#define SOAP_TYPE_tt__RecordingSourceInformation (827)
 /* tt:RecordingSourceInformation */
 class SOAP_CMAC tt__RecordingSourceInformation : public xsd__anyType
 {
@@ -22701,7 +23419,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 778;
+    return 827;
   } /* = unique type id SOAP_TYPE_tt__RecordingSourceInformation */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22720,7 +23438,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__TrackInformation
-#define SOAP_TYPE_tt__TrackInformation (779)
+#define SOAP_TYPE_tt__TrackInformation (828)
 /* tt:TrackInformation */
 class SOAP_CMAC tt__TrackInformation : public xsd__anyType
 {
@@ -22735,7 +23453,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 779;
+    return 828;
   } /* = unique type id SOAP_TYPE_tt__TrackInformation */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22754,7 +23472,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MediaAttributes
-#define SOAP_TYPE_tt__MediaAttributes (780)
+#define SOAP_TYPE_tt__MediaAttributes (829)
 /* tt:MediaAttributes */
 class SOAP_CMAC tt__MediaAttributes : public xsd__anyType
 {
@@ -22768,7 +23486,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 780;
+    return 829;
   } /* = unique type id SOAP_TYPE_tt__MediaAttributes */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22787,7 +23505,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__TrackAttributes
-#define SOAP_TYPE_tt__TrackAttributes (781)
+#define SOAP_TYPE_tt__TrackAttributes (830)
 /* tt:TrackAttributes */
 class SOAP_CMAC tt__TrackAttributes : public xsd__anyType
 {
@@ -22801,7 +23519,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 781;
+    return 830;
   } /* = unique type id SOAP_TYPE_tt__TrackAttributes */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22820,7 +23538,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__TrackAttributesExtension
-#define SOAP_TYPE_tt__TrackAttributesExtension (782)
+#define SOAP_TYPE_tt__TrackAttributesExtension (831)
 /* tt:TrackAttributesExtension */
 class SOAP_CMAC tt__TrackAttributesExtension : public xsd__anyType
 {
@@ -22830,7 +23548,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 782;
+    return 831;
   } /* = unique type id SOAP_TYPE_tt__TrackAttributesExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22849,7 +23567,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoAttributes
-#define SOAP_TYPE_tt__VideoAttributes (783)
+#define SOAP_TYPE_tt__VideoAttributes (832)
 /* tt:VideoAttributes */
 class SOAP_CMAC tt__VideoAttributes : public xsd__anyType
 {
@@ -22864,7 +23582,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 783;
+    return 832;
   } /* = unique type id SOAP_TYPE_tt__VideoAttributes */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22883,7 +23601,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AudioAttributes
-#define SOAP_TYPE_tt__AudioAttributes (784)
+#define SOAP_TYPE_tt__AudioAttributes (833)
 /* tt:AudioAttributes */
 class SOAP_CMAC tt__AudioAttributes : public xsd__anyType
 {
@@ -22896,7 +23614,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 784;
+    return 833;
   } /* = unique type id SOAP_TYPE_tt__AudioAttributes */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22915,7 +23633,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MetadataAttributes
-#define SOAP_TYPE_tt__MetadataAttributes (785)
+#define SOAP_TYPE_tt__MetadataAttributes (834)
 /* tt:MetadataAttributes */
 class SOAP_CMAC tt__MetadataAttributes : public xsd__anyType
 {
@@ -22929,7 +23647,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 785;
+    return 834;
   } /* = unique type id SOAP_TYPE_tt__MetadataAttributes */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22948,7 +23666,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingConfiguration
-#define SOAP_TYPE_tt__RecordingConfiguration (786)
+#define SOAP_TYPE_tt__RecordingConfiguration (835)
 /* tt:RecordingConfiguration */
 class SOAP_CMAC tt__RecordingConfiguration : public xsd__anyType
 {
@@ -22961,7 +23679,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 786;
+    return 835;
   } /* = unique type id SOAP_TYPE_tt__RecordingConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -22980,7 +23698,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__TrackConfiguration
-#define SOAP_TYPE_tt__TrackConfiguration (787)
+#define SOAP_TYPE_tt__TrackConfiguration (836)
 /* tt:TrackConfiguration */
 class SOAP_CMAC tt__TrackConfiguration : public xsd__anyType
 {
@@ -22992,7 +23710,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 787;
+    return 836;
   } /* = unique type id SOAP_TYPE_tt__TrackConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23011,7 +23729,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__GetRecordingsResponseItem
-#define SOAP_TYPE_tt__GetRecordingsResponseItem (788)
+#define SOAP_TYPE_tt__GetRecordingsResponseItem (837)
 /* tt:GetRecordingsResponseItem */
 class SOAP_CMAC tt__GetRecordingsResponseItem : public xsd__anyType
 {
@@ -23024,7 +23742,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 788;
+    return 837;
   } /* = unique type id SOAP_TYPE_tt__GetRecordingsResponseItem */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23043,7 +23761,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__GetTracksResponseList
-#define SOAP_TYPE_tt__GetTracksResponseList (789)
+#define SOAP_TYPE_tt__GetTracksResponseList (838)
 /* tt:GetTracksResponseList */
 class SOAP_CMAC tt__GetTracksResponseList : public xsd__anyType
 {
@@ -23053,7 +23771,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 789;
+    return 838;
   } /* = unique type id SOAP_TYPE_tt__GetTracksResponseList */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23072,7 +23790,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__GetTracksResponseItem
-#define SOAP_TYPE_tt__GetTracksResponseItem (790)
+#define SOAP_TYPE_tt__GetTracksResponseItem (839)
 /* tt:GetTracksResponseItem */
 class SOAP_CMAC tt__GetTracksResponseItem : public xsd__anyType
 {
@@ -23084,7 +23802,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 790;
+    return 839;
   } /* = unique type id SOAP_TYPE_tt__GetTracksResponseItem */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23103,7 +23821,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingJobConfiguration
-#define SOAP_TYPE_tt__RecordingJobConfiguration (791)
+#define SOAP_TYPE_tt__RecordingJobConfiguration (840)
 /* tt:RecordingJobConfiguration */
 class SOAP_CMAC tt__RecordingJobConfiguration : public xsd__anyType
 {
@@ -23118,7 +23836,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 791;
+    return 840;
   } /* = unique type id SOAP_TYPE_tt__RecordingJobConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23137,7 +23855,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingJobConfigurationExtension
-#define SOAP_TYPE_tt__RecordingJobConfigurationExtension (792)
+#define SOAP_TYPE_tt__RecordingJobConfigurationExtension (841)
 /* tt:RecordingJobConfigurationExtension */
 class SOAP_CMAC tt__RecordingJobConfigurationExtension : public xsd__anyType
 {
@@ -23147,7 +23865,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 792;
+    return 841;
   } /* = unique type id SOAP_TYPE_tt__RecordingJobConfigurationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23166,7 +23884,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingJobSource
-#define SOAP_TYPE_tt__RecordingJobSource (793)
+#define SOAP_TYPE_tt__RecordingJobSource (842)
 /* tt:RecordingJobSource */
 class SOAP_CMAC tt__RecordingJobSource : public xsd__anyType
 {
@@ -23179,7 +23897,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 793;
+    return 842;
   } /* = unique type id SOAP_TYPE_tt__RecordingJobSource */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23198,7 +23916,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingJobSourceExtension
-#define SOAP_TYPE_tt__RecordingJobSourceExtension (794)
+#define SOAP_TYPE_tt__RecordingJobSourceExtension (843)
 /* tt:RecordingJobSourceExtension */
 class SOAP_CMAC tt__RecordingJobSourceExtension : public xsd__anyType
 {
@@ -23208,7 +23926,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 794;
+    return 843;
   } /* = unique type id SOAP_TYPE_tt__RecordingJobSourceExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23227,7 +23945,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingJobTrack
-#define SOAP_TYPE_tt__RecordingJobTrack (795)
+#define SOAP_TYPE_tt__RecordingJobTrack (844)
 /* tt:RecordingJobTrack */
 class SOAP_CMAC tt__RecordingJobTrack : public xsd__anyType
 {
@@ -23239,7 +23957,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 795;
+    return 844;
   } /* = unique type id SOAP_TYPE_tt__RecordingJobTrack */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23258,7 +23976,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingJobStateInformation
-#define SOAP_TYPE_tt__RecordingJobStateInformation (796)
+#define SOAP_TYPE_tt__RecordingJobStateInformation (845)
 /* tt:RecordingJobStateInformation */
 class SOAP_CMAC tt__RecordingJobStateInformation : public xsd__anyType
 {
@@ -23272,7 +23990,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 796;
+    return 845;
   } /* = unique type id SOAP_TYPE_tt__RecordingJobStateInformation */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23291,7 +24009,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingJobStateInformationExtension
-#define SOAP_TYPE_tt__RecordingJobStateInformationExtension (797)
+#define SOAP_TYPE_tt__RecordingJobStateInformationExtension (846)
 /* tt:RecordingJobStateInformationExtension */
 class SOAP_CMAC tt__RecordingJobStateInformationExtension : public xsd__anyType
 {
@@ -23301,7 +24019,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 797;
+    return 846;
   } /* = unique type id SOAP_TYPE_tt__RecordingJobStateInformationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23320,7 +24038,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingJobStateSource
-#define SOAP_TYPE_tt__RecordingJobStateSource (798)
+#define SOAP_TYPE_tt__RecordingJobStateSource (847)
 /* tt:RecordingJobStateSource */
 class SOAP_CMAC tt__RecordingJobStateSource : public xsd__anyType
 {
@@ -23333,7 +24051,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 798;
+    return 847;
   } /* = unique type id SOAP_TYPE_tt__RecordingJobStateSource */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23352,7 +24070,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingJobStateTracks
-#define SOAP_TYPE_tt__RecordingJobStateTracks (799)
+#define SOAP_TYPE_tt__RecordingJobStateTracks (848)
 /* tt:RecordingJobStateTracks */
 class SOAP_CMAC tt__RecordingJobStateTracks : public xsd__anyType
 {
@@ -23362,7 +24080,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 799;
+    return 848;
   } /* = unique type id SOAP_TYPE_tt__RecordingJobStateTracks */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23381,7 +24099,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingJobStateTrack
-#define SOAP_TYPE_tt__RecordingJobStateTrack (800)
+#define SOAP_TYPE_tt__RecordingJobStateTrack (849)
 /* tt:RecordingJobStateTrack */
 class SOAP_CMAC tt__RecordingJobStateTrack : public xsd__anyType
 {
@@ -23395,7 +24113,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 800;
+    return 849;
   } /* = unique type id SOAP_TYPE_tt__RecordingJobStateTrack */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23414,7 +24132,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__GetRecordingJobsResponseItem
-#define SOAP_TYPE_tt__GetRecordingJobsResponseItem (801)
+#define SOAP_TYPE_tt__GetRecordingJobsResponseItem (850)
 /* tt:GetRecordingJobsResponseItem */
 class SOAP_CMAC tt__GetRecordingJobsResponseItem : public xsd__anyType
 {
@@ -23426,7 +24144,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 801;
+    return 850;
   } /* = unique type id SOAP_TYPE_tt__GetRecordingJobsResponseItem */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23445,7 +24163,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ReplayConfiguration
-#define SOAP_TYPE_tt__ReplayConfiguration (802)
+#define SOAP_TYPE_tt__ReplayConfiguration (851)
 /* tt:ReplayConfiguration */
 class SOAP_CMAC tt__ReplayConfiguration : public xsd__anyType
 {
@@ -23456,7 +24174,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 802;
+    return 851;
   } /* = unique type id SOAP_TYPE_tt__ReplayConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23475,7 +24193,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AnalyticsDeviceEngineConfiguration
-#define SOAP_TYPE_tt__AnalyticsDeviceEngineConfiguration (804)
+#define SOAP_TYPE_tt__AnalyticsDeviceEngineConfiguration (853)
 /* tt:AnalyticsDeviceEngineConfiguration */
 class SOAP_CMAC tt__AnalyticsDeviceEngineConfiguration : public xsd__anyType
 {
@@ -23487,7 +24205,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 804;
+    return 853;
   } /* = unique type id SOAP_TYPE_tt__AnalyticsDeviceEngineConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23506,7 +24224,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AnalyticsDeviceEngineConfigurationExtension
-#define SOAP_TYPE_tt__AnalyticsDeviceEngineConfigurationExtension (805)
+#define SOAP_TYPE_tt__AnalyticsDeviceEngineConfigurationExtension (854)
 /* tt:AnalyticsDeviceEngineConfigurationExtension */
 class SOAP_CMAC tt__AnalyticsDeviceEngineConfigurationExtension : public xsd__anyType
 {
@@ -23516,7 +24234,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 805;
+    return 854;
   } /* = unique type id SOAP_TYPE_tt__AnalyticsDeviceEngineConfigurationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23535,7 +24253,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__EngineConfiguration
-#define SOAP_TYPE_tt__EngineConfiguration (806)
+#define SOAP_TYPE_tt__EngineConfiguration (855)
 /* tt:EngineConfiguration */
 class SOAP_CMAC tt__EngineConfiguration : public xsd__anyType
 {
@@ -23549,7 +24267,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 806;
+    return 855;
   } /* = unique type id SOAP_TYPE_tt__EngineConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23568,7 +24286,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AnalyticsEngineInputInfo
-#define SOAP_TYPE_tt__AnalyticsEngineInputInfo (807)
+#define SOAP_TYPE_tt__AnalyticsEngineInputInfo (856)
 /* tt:AnalyticsEngineInputInfo */
 class SOAP_CMAC tt__AnalyticsEngineInputInfo : public xsd__anyType
 {
@@ -23580,7 +24298,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 807;
+    return 856;
   } /* = unique type id SOAP_TYPE_tt__AnalyticsEngineInputInfo */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23599,7 +24317,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AnalyticsEngineInputInfoExtension
-#define SOAP_TYPE_tt__AnalyticsEngineInputInfoExtension (808)
+#define SOAP_TYPE_tt__AnalyticsEngineInputInfoExtension (857)
 /* tt:AnalyticsEngineInputInfoExtension */
 class SOAP_CMAC tt__AnalyticsEngineInputInfoExtension : public xsd__anyType
 {
@@ -23609,7 +24327,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 808;
+    return 857;
   } /* = unique type id SOAP_TYPE_tt__AnalyticsEngineInputInfoExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23628,7 +24346,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SourceIdentification
-#define SOAP_TYPE_tt__SourceIdentification (810)
+#define SOAP_TYPE_tt__SourceIdentification (859)
 /* tt:SourceIdentification */
 class SOAP_CMAC tt__SourceIdentification : public xsd__anyType
 {
@@ -23640,7 +24358,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 810;
+    return 859;
   } /* = unique type id SOAP_TYPE_tt__SourceIdentification */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23659,7 +24377,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__SourceIdentificationExtension
-#define SOAP_TYPE_tt__SourceIdentificationExtension (811)
+#define SOAP_TYPE_tt__SourceIdentificationExtension (860)
 /* tt:SourceIdentificationExtension */
 class SOAP_CMAC tt__SourceIdentificationExtension : public xsd__anyType
 {
@@ -23669,7 +24387,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 811;
+    return 860;
   } /* = unique type id SOAP_TYPE_tt__SourceIdentificationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23688,7 +24406,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MetadataInput
-#define SOAP_TYPE_tt__MetadataInput (812)
+#define SOAP_TYPE_tt__MetadataInput (861)
 /* tt:MetadataInput */
 class SOAP_CMAC tt__MetadataInput : public xsd__anyType
 {
@@ -23699,7 +24417,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 812;
+    return 861;
   } /* = unique type id SOAP_TYPE_tt__MetadataInput */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23718,7 +24436,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MetadataInputExtension
-#define SOAP_TYPE_tt__MetadataInputExtension (813)
+#define SOAP_TYPE_tt__MetadataInputExtension (862)
 /* tt:MetadataInputExtension */
 class SOAP_CMAC tt__MetadataInputExtension : public xsd__anyType
 {
@@ -23728,7 +24446,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 813;
+    return 862;
   } /* = unique type id SOAP_TYPE_tt__MetadataInputExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23747,7 +24465,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AnalyticsStateInformation
-#define SOAP_TYPE_tt__AnalyticsStateInformation (815)
+#define SOAP_TYPE_tt__AnalyticsStateInformation (864)
 /* tt:AnalyticsStateInformation */
 class SOAP_CMAC tt__AnalyticsStateInformation : public xsd__anyType
 {
@@ -23759,7 +24477,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 815;
+    return 864;
   } /* = unique type id SOAP_TYPE_tt__AnalyticsStateInformation */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23778,7 +24496,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AnalyticsState
-#define SOAP_TYPE_tt__AnalyticsState (816)
+#define SOAP_TYPE_tt__AnalyticsState (865)
 /* tt:AnalyticsState */
 class SOAP_CMAC tt__AnalyticsState : public xsd__anyType
 {
@@ -23790,7 +24508,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 816;
+    return 865;
   } /* = unique type id SOAP_TYPE_tt__AnalyticsState */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23808,35 +24526,8 @@ public:
 };
 #endif
 
-#ifndef WITH_NOGLOBAL
-
-#ifndef SOAP_TYPE_SOAP_ENV__Fault
-#define SOAP_TYPE_SOAP_ENV__Fault (1827)
-/* SOAP Fault: */
-struct SOAP_ENV__Fault
-{
-public:
-  char* faultcode;                           /* optional element of type xsd:QName */
-  char* faultstring;                         /* optional element of type xsd:string */
-  char* faultactor;                          /* optional element of type xsd:string */
-  struct SOAP_ENV__Detail* detail;           /* optional element of type SOAP-ENV:Detail */
-  struct SOAP_ENV__Code* SOAP_ENV__Code;     /* optional element of type SOAP-ENV:Code */
-  struct SOAP_ENV__Reason* SOAP_ENV__Reason; /* optional element of type SOAP-ENV:Reason */
-  char* SOAP_ENV__Node;                      /* optional element of type xsd:string */
-  char* SOAP_ENV__Role;                      /* optional element of type xsd:string */
-  struct SOAP_ENV__Detail* SOAP_ENV__Detail; /* optional element of type SOAP-ENV:Detail */
-public:
-  int soap_type() const
-  {
-    return 1827;
-  } /* = unique type id SOAP_TYPE_SOAP_ENV__Fault */
-};
-#endif
-
-#endif
-
 #ifndef SOAP_TYPE_tt__ActionEngineEventPayload
-#define SOAP_TYPE_tt__ActionEngineEventPayload (817)
+#define SOAP_TYPE_tt__ActionEngineEventPayload (866)
 /* tt:ActionEngineEventPayload */
 class SOAP_CMAC tt__ActionEngineEventPayload : public xsd__anyType
 {
@@ -23850,7 +24541,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 817;
+    return 866;
   } /* = unique type id SOAP_TYPE_tt__ActionEngineEventPayload */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23869,7 +24560,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ActionEngineEventPayloadExtension
-#define SOAP_TYPE_tt__ActionEngineEventPayloadExtension (818)
+#define SOAP_TYPE_tt__ActionEngineEventPayloadExtension (867)
 /* tt:ActionEngineEventPayloadExtension */
 class SOAP_CMAC tt__ActionEngineEventPayloadExtension : public xsd__anyType
 {
@@ -23879,7 +24570,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 818;
+    return 867;
   } /* = unique type id SOAP_TYPE_tt__ActionEngineEventPayloadExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23898,7 +24589,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AudioClassCandidate
-#define SOAP_TYPE_tt__AudioClassCandidate (819)
+#define SOAP_TYPE_tt__AudioClassCandidate (868)
 /* tt:AudioClassCandidate */
 class SOAP_CMAC tt__AudioClassCandidate : public xsd__anyType
 {
@@ -23910,7 +24601,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 819;
+    return 868;
   } /* = unique type id SOAP_TYPE_tt__AudioClassCandidate */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23929,7 +24620,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AudioClassDescriptor
-#define SOAP_TYPE_tt__AudioClassDescriptor (820)
+#define SOAP_TYPE_tt__AudioClassDescriptor (869)
 /* tt:AudioClassDescriptor */
 class SOAP_CMAC tt__AudioClassDescriptor : public xsd__anyType
 {
@@ -23940,7 +24631,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 820;
+    return 869;
   } /* = unique type id SOAP_TYPE_tt__AudioClassDescriptor */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23959,7 +24650,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AudioClassDescriptorExtension
-#define SOAP_TYPE_tt__AudioClassDescriptorExtension (821)
+#define SOAP_TYPE_tt__AudioClassDescriptorExtension (870)
 /* tt:AudioClassDescriptorExtension */
 class SOAP_CMAC tt__AudioClassDescriptorExtension : public xsd__anyType
 {
@@ -23969,7 +24660,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 821;
+    return 870;
   } /* = unique type id SOAP_TYPE_tt__AudioClassDescriptorExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -23988,7 +24679,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__OSDPosConfiguration
-#define SOAP_TYPE_tt__OSDPosConfiguration (823)
+#define SOAP_TYPE_tt__OSDPosConfiguration (872)
 /* tt:OSDPosConfiguration */
 class SOAP_CMAC tt__OSDPosConfiguration : public xsd__anyType
 {
@@ -24000,7 +24691,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 823;
+    return 872;
   } /* = unique type id SOAP_TYPE_tt__OSDPosConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24019,7 +24710,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__OSDPosConfigurationExtension
-#define SOAP_TYPE_tt__OSDPosConfigurationExtension (824)
+#define SOAP_TYPE_tt__OSDPosConfigurationExtension (873)
 /* tt:OSDPosConfigurationExtension */
 class SOAP_CMAC tt__OSDPosConfigurationExtension : public xsd__anyType
 {
@@ -24029,7 +24720,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 824;
+    return 873;
   } /* = unique type id SOAP_TYPE_tt__OSDPosConfigurationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24048,7 +24739,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__OSDColor
-#define SOAP_TYPE_tt__OSDColor (825)
+#define SOAP_TYPE_tt__OSDColor (874)
 /* tt:OSDColor */
 class SOAP_CMAC tt__OSDColor : public xsd__anyType
 {
@@ -24059,7 +24750,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 825;
+    return 874;
   } /* = unique type id SOAP_TYPE_tt__OSDColor */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24078,7 +24769,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__OSDTextConfiguration
-#define SOAP_TYPE_tt__OSDTextConfiguration (826)
+#define SOAP_TYPE_tt__OSDTextConfiguration (875)
 /* tt:OSDTextConfiguration */
 class SOAP_CMAC tt__OSDTextConfiguration : public xsd__anyType
 {
@@ -24095,7 +24786,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 826;
+    return 875;
   } /* = unique type id SOAP_TYPE_tt__OSDTextConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24114,7 +24805,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__OSDTextConfigurationExtension
-#define SOAP_TYPE_tt__OSDTextConfigurationExtension (827)
+#define SOAP_TYPE_tt__OSDTextConfigurationExtension (876)
 /* tt:OSDTextConfigurationExtension */
 class SOAP_CMAC tt__OSDTextConfigurationExtension : public xsd__anyType
 {
@@ -24124,7 +24815,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 827;
+    return 876;
   } /* = unique type id SOAP_TYPE_tt__OSDTextConfigurationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24143,7 +24834,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__OSDImgConfiguration
-#define SOAP_TYPE_tt__OSDImgConfiguration (828)
+#define SOAP_TYPE_tt__OSDImgConfiguration (877)
 /* tt:OSDImgConfiguration */
 class SOAP_CMAC tt__OSDImgConfiguration : public xsd__anyType
 {
@@ -24154,7 +24845,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 828;
+    return 877;
   } /* = unique type id SOAP_TYPE_tt__OSDImgConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24173,7 +24864,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__OSDImgConfigurationExtension
-#define SOAP_TYPE_tt__OSDImgConfigurationExtension (829)
+#define SOAP_TYPE_tt__OSDImgConfigurationExtension (878)
 /* tt:OSDImgConfigurationExtension */
 class SOAP_CMAC tt__OSDImgConfigurationExtension : public xsd__anyType
 {
@@ -24183,7 +24874,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 829;
+    return 878;
   } /* = unique type id SOAP_TYPE_tt__OSDImgConfigurationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24202,7 +24893,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ColorspaceRange
-#define SOAP_TYPE_tt__ColorspaceRange (830)
+#define SOAP_TYPE_tt__ColorspaceRange (879)
 /* tt:ColorspaceRange */
 class SOAP_CMAC tt__ColorspaceRange : public xsd__anyType
 {
@@ -24215,7 +24906,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 830;
+    return 879;
   } /* = unique type id SOAP_TYPE_tt__ColorspaceRange */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24234,7 +24925,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tt__union_ColorOptions
-#define SOAP_TYPE__tt__union_ColorOptions (1842)
+#define SOAP_TYPE__tt__union_ColorOptions (1906)
 /* xsd:choice */
 union _tt__union_ColorOptions
 {
@@ -24246,7 +24937,7 @@ union _tt__union_ColorOptions
 #endif
 
 #ifndef SOAP_TYPE_tt__ColorOptions
-#define SOAP_TYPE_tt__ColorOptions (831)
+#define SOAP_TYPE_tt__ColorOptions (880)
 /* tt:ColorOptions */
 class SOAP_CMAC tt__ColorOptions : public xsd__anyType
 {
@@ -24257,7 +24948,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 831;
+    return 880;
   } /* = unique type id SOAP_TYPE_tt__ColorOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24276,7 +24967,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__OSDColorOptions
-#define SOAP_TYPE_tt__OSDColorOptions (832)
+#define SOAP_TYPE_tt__OSDColorOptions (881)
 /* tt:OSDColorOptions */
 class SOAP_CMAC tt__OSDColorOptions : public xsd__anyType
 {
@@ -24288,7 +24979,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 832;
+    return 881;
   } /* = unique type id SOAP_TYPE_tt__OSDColorOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24307,7 +24998,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__OSDColorOptionsExtension
-#define SOAP_TYPE_tt__OSDColorOptionsExtension (833)
+#define SOAP_TYPE_tt__OSDColorOptionsExtension (882)
 /* tt:OSDColorOptionsExtension */
 class SOAP_CMAC tt__OSDColorOptionsExtension : public xsd__anyType
 {
@@ -24317,7 +25008,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 833;
+    return 882;
   } /* = unique type id SOAP_TYPE_tt__OSDColorOptionsExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24336,7 +25027,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__OSDTextOptions
-#define SOAP_TYPE_tt__OSDTextOptions (834)
+#define SOAP_TYPE_tt__OSDTextOptions (883)
 /* tt:OSDTextOptions */
 class SOAP_CMAC tt__OSDTextOptions : public xsd__anyType
 {
@@ -24352,7 +25043,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 834;
+    return 883;
   } /* = unique type id SOAP_TYPE_tt__OSDTextOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24371,7 +25062,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__OSDTextOptionsExtension
-#define SOAP_TYPE_tt__OSDTextOptionsExtension (835)
+#define SOAP_TYPE_tt__OSDTextOptionsExtension (884)
 /* tt:OSDTextOptionsExtension */
 class SOAP_CMAC tt__OSDTextOptionsExtension : public xsd__anyType
 {
@@ -24381,7 +25072,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 835;
+    return 884;
   } /* = unique type id SOAP_TYPE_tt__OSDTextOptionsExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24400,7 +25091,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__OSDImgOptions
-#define SOAP_TYPE_tt__OSDImgOptions (836)
+#define SOAP_TYPE_tt__OSDImgOptions (885)
 /* tt:OSDImgOptions */
 class SOAP_CMAC tt__OSDImgOptions : public xsd__anyType
 {
@@ -24411,7 +25102,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 836;
+    return 885;
   } /* = unique type id SOAP_TYPE_tt__OSDImgOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24430,7 +25121,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__OSDImgOptionsExtension
-#define SOAP_TYPE_tt__OSDImgOptionsExtension (837)
+#define SOAP_TYPE_tt__OSDImgOptionsExtension (886)
 /* tt:OSDImgOptionsExtension */
 class SOAP_CMAC tt__OSDImgOptionsExtension : public xsd__anyType
 {
@@ -24440,7 +25131,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 837;
+    return 886;
   } /* = unique type id SOAP_TYPE_tt__OSDImgOptionsExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24459,7 +25150,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__OSDConfigurationExtension
-#define SOAP_TYPE_tt__OSDConfigurationExtension (839)
+#define SOAP_TYPE_tt__OSDConfigurationExtension (888)
 /* tt:OSDConfigurationExtension */
 class SOAP_CMAC tt__OSDConfigurationExtension : public xsd__anyType
 {
@@ -24469,7 +25160,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 839;
+    return 888;
   } /* = unique type id SOAP_TYPE_tt__OSDConfigurationExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24488,7 +25179,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MaximumNumberOfOSDs
-#define SOAP_TYPE_tt__MaximumNumberOfOSDs (840)
+#define SOAP_TYPE_tt__MaximumNumberOfOSDs (889)
 /* Primitive tt:MaximumNumberOfOSDs schema type: */
 class SOAP_CMAC tt__MaximumNumberOfOSDs : public xsd__anyType
 {
@@ -24503,7 +25194,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 840;
+    return 889;
   } /* = unique type id SOAP_TYPE_tt__MaximumNumberOfOSDs */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24522,7 +25213,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__OSDConfigurationOptions
-#define SOAP_TYPE_tt__OSDConfigurationOptions (841)
+#define SOAP_TYPE_tt__OSDConfigurationOptions (890)
 /* tt:OSDConfigurationOptions */
 class SOAP_CMAC tt__OSDConfigurationOptions : public xsd__anyType
 {
@@ -24538,7 +25229,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 841;
+    return 890;
   } /* = unique type id SOAP_TYPE_tt__OSDConfigurationOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24557,7 +25248,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__OSDConfigurationOptionsExtension
-#define SOAP_TYPE_tt__OSDConfigurationOptionsExtension (842)
+#define SOAP_TYPE_tt__OSDConfigurationOptionsExtension (891)
 /* tt:OSDConfigurationOptionsExtension */
 class SOAP_CMAC tt__OSDConfigurationOptionsExtension : public xsd__anyType
 {
@@ -24567,7 +25258,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 842;
+    return 891;
   } /* = unique type id SOAP_TYPE_tt__OSDConfigurationOptionsExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24586,7 +25277,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__FileProgress
-#define SOAP_TYPE_tt__FileProgress (843)
+#define SOAP_TYPE_tt__FileProgress (892)
 /* tt:FileProgress */
 class SOAP_CMAC tt__FileProgress : public xsd__anyType
 {
@@ -24598,7 +25289,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 843;
+    return 892;
   } /* = unique type id SOAP_TYPE_tt__FileProgress */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24617,7 +25308,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ArrayOfFileProgress
-#define SOAP_TYPE_tt__ArrayOfFileProgress (844)
+#define SOAP_TYPE_tt__ArrayOfFileProgress (893)
 /* tt:ArrayOfFileProgress */
 class SOAP_CMAC tt__ArrayOfFileProgress : public xsd__anyType
 {
@@ -24628,7 +25319,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 844;
+    return 893;
   } /* = unique type id SOAP_TYPE_tt__ArrayOfFileProgress */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24647,7 +25338,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__ArrayOfFileProgressExtension
-#define SOAP_TYPE_tt__ArrayOfFileProgressExtension (845)
+#define SOAP_TYPE_tt__ArrayOfFileProgressExtension (894)
 /* tt:ArrayOfFileProgressExtension */
 class SOAP_CMAC tt__ArrayOfFileProgressExtension : public xsd__anyType
 {
@@ -24657,7 +25348,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 845;
+    return 894;
   } /* = unique type id SOAP_TYPE_tt__ArrayOfFileProgressExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24676,7 +25367,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__StorageReferencePath
-#define SOAP_TYPE_tt__StorageReferencePath (846)
+#define SOAP_TYPE_tt__StorageReferencePath (895)
 /* tt:StorageReferencePath */
 class SOAP_CMAC tt__StorageReferencePath : public xsd__anyType
 {
@@ -24688,7 +25379,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 846;
+    return 895;
   } /* = unique type id SOAP_TYPE_tt__StorageReferencePath */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24707,7 +25398,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__StorageReferencePathExtension
-#define SOAP_TYPE_tt__StorageReferencePathExtension (847)
+#define SOAP_TYPE_tt__StorageReferencePathExtension (896)
 /* tt:StorageReferencePathExtension */
 class SOAP_CMAC tt__StorageReferencePathExtension : public xsd__anyType
 {
@@ -24717,7 +25408,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 847;
+    return 896;
   } /* = unique type id SOAP_TYPE_tt__StorageReferencePathExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24736,7 +25427,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tt__Message
-#define SOAP_TYPE__tt__Message (848)
+#define SOAP_TYPE__tt__Message (897)
 /* tt:Message */
 class SOAP_CMAC _tt__Message
 {
@@ -24752,7 +25443,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 848;
+    return 897;
   } /* = unique type id SOAP_TYPE__tt__Message */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24771,7 +25462,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__QueryExpressionType
-#define SOAP_TYPE_wsnt__QueryExpressionType (849)
+#define SOAP_TYPE_wsnt__QueryExpressionType (898)
 /* wsnt:QueryExpressionType */
 class SOAP_CMAC wsnt__QueryExpressionType : public xsd__anyType
 {
@@ -24783,7 +25474,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 849;
+    return 898;
   } /* = unique type id SOAP_TYPE_wsnt__QueryExpressionType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24802,7 +25493,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__TopicExpressionType
-#define SOAP_TYPE_wsnt__TopicExpressionType (850)
+#define SOAP_TYPE_wsnt__TopicExpressionType (899)
 /* wsnt:TopicExpressionType */
 class SOAP_CMAC wsnt__TopicExpressionType : public xsd__anyType
 {
@@ -24815,7 +25506,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 850;
+    return 899;
   } /* = unique type id SOAP_TYPE_wsnt__TopicExpressionType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24834,7 +25525,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__FilterType
-#define SOAP_TYPE_wsnt__FilterType (851)
+#define SOAP_TYPE_wsnt__FilterType (900)
 /* wsnt:FilterType */
 class SOAP_CMAC wsnt__FilterType : public xsd__anyType
 {
@@ -24844,7 +25535,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 851;
+    return 900;
   } /* = unique type id SOAP_TYPE_wsnt__FilterType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24863,7 +25554,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__SubscriptionPolicyType
-#define SOAP_TYPE_wsnt__SubscriptionPolicyType (852)
+#define SOAP_TYPE_wsnt__SubscriptionPolicyType (901)
 /* wsnt:SubscriptionPolicyType */
 class SOAP_CMAC wsnt__SubscriptionPolicyType : public xsd__anyType
 {
@@ -24873,7 +25564,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 852;
+    return 901;
   } /* = unique type id SOAP_TYPE_wsnt__SubscriptionPolicyType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24892,7 +25583,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__NotificationMessageHolderType_Message
-#define SOAP_TYPE__wsnt__NotificationMessageHolderType_Message (1861)
+#define SOAP_TYPE__wsnt__NotificationMessageHolderType_Message (1925)
 /* wsnt:NotificationMessageHolderType-Message */
 class SOAP_CMAC _wsnt__NotificationMessageHolderType_Message
 {
@@ -24902,7 +25593,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1861;
+    return 1925;
   } /* = unique type id SOAP_TYPE__wsnt__NotificationMessageHolderType_Message */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24921,7 +25612,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__NotificationMessageHolderType
-#define SOAP_TYPE_wsnt__NotificationMessageHolderType (853)
+#define SOAP_TYPE_wsnt__NotificationMessageHolderType (902)
 /* wsnt:NotificationMessageHolderType */
 class SOAP_CMAC wsnt__NotificationMessageHolderType : public xsd__anyType
 {
@@ -24934,7 +25625,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 853;
+    return 902;
   } /* = unique type id SOAP_TYPE_wsnt__NotificationMessageHolderType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24953,7 +25644,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__NotificationProducerRP
-#define SOAP_TYPE__wsnt__NotificationProducerRP (874)
+#define SOAP_TYPE__wsnt__NotificationProducerRP (923)
 /* wsnt:NotificationProducerRP */
 class SOAP_CMAC _wsnt__NotificationProducerRP
 {
@@ -24966,7 +25657,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 874;
+    return 923;
   } /* = unique type id SOAP_TYPE__wsnt__NotificationProducerRP */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -24985,7 +25676,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__SubscriptionManagerRP
-#define SOAP_TYPE__wsnt__SubscriptionManagerRP (875)
+#define SOAP_TYPE__wsnt__SubscriptionManagerRP (924)
 /* wsnt:SubscriptionManagerRP */
 class SOAP_CMAC _wsnt__SubscriptionManagerRP
 {
@@ -24998,7 +25689,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 875;
+    return 924;
   } /* = unique type id SOAP_TYPE__wsnt__SubscriptionManagerRP */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25017,7 +25708,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__Notify
-#define SOAP_TYPE__wsnt__Notify (876)
+#define SOAP_TYPE__wsnt__Notify (925)
 /* wsnt:Notify */
 class SOAP_CMAC _wsnt__Notify
 {
@@ -25029,7 +25720,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 876;
+    return 925;
   } /* = unique type id SOAP_TYPE__wsnt__Notify */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25048,7 +25739,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__UseRaw
-#define SOAP_TYPE__wsnt__UseRaw (877)
+#define SOAP_TYPE__wsnt__UseRaw (926)
 /* wsnt:UseRaw */
 class SOAP_CMAC _wsnt__UseRaw
 {
@@ -25057,7 +25748,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 877;
+    return 926;
   } /* = unique type id SOAP_TYPE__wsnt__UseRaw */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25076,7 +25767,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__Subscribe_SubscriptionPolicy
-#define SOAP_TYPE__wsnt__Subscribe_SubscriptionPolicy (1867)
+#define SOAP_TYPE__wsnt__Subscribe_SubscriptionPolicy (1931)
 /* wsnt:Subscribe-SubscriptionPolicy */
 class SOAP_CMAC _wsnt__Subscribe_SubscriptionPolicy
 {
@@ -25086,7 +25777,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1867;
+    return 1931;
   } /* = unique type id SOAP_TYPE__wsnt__Subscribe_SubscriptionPolicy */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25105,7 +25796,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__Subscribe
-#define SOAP_TYPE__wsnt__Subscribe (878)
+#define SOAP_TYPE__wsnt__Subscribe (927)
 /* wsnt:Subscribe */
 class SOAP_CMAC _wsnt__Subscribe
 {
@@ -25120,7 +25811,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 878;
+    return 927;
   } /* = unique type id SOAP_TYPE__wsnt__Subscribe */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25139,7 +25830,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__SubscribeResponse
-#define SOAP_TYPE__wsnt__SubscribeResponse (879)
+#define SOAP_TYPE__wsnt__SubscribeResponse (928)
 /* wsnt:SubscribeResponse */
 class SOAP_CMAC _wsnt__SubscribeResponse
 {
@@ -25152,7 +25843,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 879;
+    return 928;
   } /* = unique type id SOAP_TYPE__wsnt__SubscribeResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25171,7 +25862,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__GetCurrentMessage
-#define SOAP_TYPE__wsnt__GetCurrentMessage (880)
+#define SOAP_TYPE__wsnt__GetCurrentMessage (929)
 /* wsnt:GetCurrentMessage */
 class SOAP_CMAC _wsnt__GetCurrentMessage
 {
@@ -25182,7 +25873,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 880;
+    return 929;
   } /* = unique type id SOAP_TYPE__wsnt__GetCurrentMessage */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25201,7 +25892,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__GetCurrentMessageResponse
-#define SOAP_TYPE__wsnt__GetCurrentMessageResponse (881)
+#define SOAP_TYPE__wsnt__GetCurrentMessageResponse (930)
 /* wsnt:GetCurrentMessageResponse */
 class SOAP_CMAC _wsnt__GetCurrentMessageResponse
 {
@@ -25211,7 +25902,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 881;
+    return 930;
   } /* = unique type id SOAP_TYPE__wsnt__GetCurrentMessageResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25230,7 +25921,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__GetMessages
-#define SOAP_TYPE__wsnt__GetMessages (882)
+#define SOAP_TYPE__wsnt__GetMessages (931)
 /* wsnt:GetMessages */
 class SOAP_CMAC _wsnt__GetMessages
 {
@@ -25242,7 +25933,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 882;
+    return 931;
   } /* = unique type id SOAP_TYPE__wsnt__GetMessages */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25261,7 +25952,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__GetMessagesResponse
-#define SOAP_TYPE__wsnt__GetMessagesResponse (883)
+#define SOAP_TYPE__wsnt__GetMessagesResponse (932)
 /* wsnt:GetMessagesResponse */
 class SOAP_CMAC _wsnt__GetMessagesResponse
 {
@@ -25274,7 +25965,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 883;
+    return 932;
   } /* = unique type id SOAP_TYPE__wsnt__GetMessagesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25293,7 +25984,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__DestroyPullPoint
-#define SOAP_TYPE__wsnt__DestroyPullPoint (884)
+#define SOAP_TYPE__wsnt__DestroyPullPoint (933)
 /* wsnt:DestroyPullPoint */
 class SOAP_CMAC _wsnt__DestroyPullPoint
 {
@@ -25304,7 +25995,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 884;
+    return 933;
   } /* = unique type id SOAP_TYPE__wsnt__DestroyPullPoint */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25323,7 +26014,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__DestroyPullPointResponse
-#define SOAP_TYPE__wsnt__DestroyPullPointResponse (885)
+#define SOAP_TYPE__wsnt__DestroyPullPointResponse (934)
 /* wsnt:DestroyPullPointResponse */
 class SOAP_CMAC _wsnt__DestroyPullPointResponse
 {
@@ -25334,7 +26025,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 885;
+    return 934;
   } /* = unique type id SOAP_TYPE__wsnt__DestroyPullPointResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25353,7 +26044,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__CreatePullPoint
-#define SOAP_TYPE__wsnt__CreatePullPoint (886)
+#define SOAP_TYPE__wsnt__CreatePullPoint (935)
 /* wsnt:CreatePullPoint */
 class SOAP_CMAC _wsnt__CreatePullPoint
 {
@@ -25364,7 +26055,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 886;
+    return 935;
   } /* = unique type id SOAP_TYPE__wsnt__CreatePullPoint */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25383,7 +26074,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__CreatePullPointResponse
-#define SOAP_TYPE__wsnt__CreatePullPointResponse (887)
+#define SOAP_TYPE__wsnt__CreatePullPointResponse (936)
 /* wsnt:CreatePullPointResponse */
 class SOAP_CMAC _wsnt__CreatePullPointResponse
 {
@@ -25395,7 +26086,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 887;
+    return 936;
   } /* = unique type id SOAP_TYPE__wsnt__CreatePullPointResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25414,7 +26105,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__Renew
-#define SOAP_TYPE__wsnt__Renew (888)
+#define SOAP_TYPE__wsnt__Renew (937)
 /* wsnt:Renew */
 class SOAP_CMAC _wsnt__Renew
 {
@@ -25425,7 +26116,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 888;
+    return 937;
   } /* = unique type id SOAP_TYPE__wsnt__Renew */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25444,7 +26135,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__RenewResponse
-#define SOAP_TYPE__wsnt__RenewResponse (889)
+#define SOAP_TYPE__wsnt__RenewResponse (938)
 /* wsnt:RenewResponse */
 class SOAP_CMAC _wsnt__RenewResponse
 {
@@ -25456,7 +26147,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 889;
+    return 938;
   } /* = unique type id SOAP_TYPE__wsnt__RenewResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25475,7 +26166,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__Unsubscribe
-#define SOAP_TYPE__wsnt__Unsubscribe (890)
+#define SOAP_TYPE__wsnt__Unsubscribe (939)
 /* wsnt:Unsubscribe */
 class SOAP_CMAC _wsnt__Unsubscribe
 {
@@ -25485,7 +26176,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 890;
+    return 939;
   } /* = unique type id SOAP_TYPE__wsnt__Unsubscribe */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25504,7 +26195,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__UnsubscribeResponse
-#define SOAP_TYPE__wsnt__UnsubscribeResponse (891)
+#define SOAP_TYPE__wsnt__UnsubscribeResponse (940)
 /* wsnt:UnsubscribeResponse */
 class SOAP_CMAC _wsnt__UnsubscribeResponse
 {
@@ -25514,7 +26205,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 891;
+    return 940;
   } /* = unique type id SOAP_TYPE__wsnt__UnsubscribeResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25533,7 +26224,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__PauseSubscription
-#define SOAP_TYPE__wsnt__PauseSubscription (892)
+#define SOAP_TYPE__wsnt__PauseSubscription (941)
 /* wsnt:PauseSubscription */
 class SOAP_CMAC _wsnt__PauseSubscription
 {
@@ -25543,7 +26234,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 892;
+    return 941;
   } /* = unique type id SOAP_TYPE__wsnt__PauseSubscription */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25562,7 +26253,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__PauseSubscriptionResponse
-#define SOAP_TYPE__wsnt__PauseSubscriptionResponse (893)
+#define SOAP_TYPE__wsnt__PauseSubscriptionResponse (942)
 /* wsnt:PauseSubscriptionResponse */
 class SOAP_CMAC _wsnt__PauseSubscriptionResponse
 {
@@ -25572,7 +26263,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 893;
+    return 942;
   } /* = unique type id SOAP_TYPE__wsnt__PauseSubscriptionResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25591,7 +26282,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__ResumeSubscription
-#define SOAP_TYPE__wsnt__ResumeSubscription (894)
+#define SOAP_TYPE__wsnt__ResumeSubscription (943)
 /* wsnt:ResumeSubscription */
 class SOAP_CMAC _wsnt__ResumeSubscription
 {
@@ -25601,7 +26292,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 894;
+    return 943;
   } /* = unique type id SOAP_TYPE__wsnt__ResumeSubscription */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25620,7 +26311,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsnt__ResumeSubscriptionResponse
-#define SOAP_TYPE__wsnt__ResumeSubscriptionResponse (895)
+#define SOAP_TYPE__wsnt__ResumeSubscriptionResponse (944)
 /* wsnt:ResumeSubscriptionResponse */
 class SOAP_CMAC _wsnt__ResumeSubscriptionResponse
 {
@@ -25630,7 +26321,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 895;
+    return 944;
   } /* = unique type id SOAP_TYPE__wsnt__ResumeSubscriptionResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25649,7 +26340,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsrfbf__BaseFaultType_ErrorCode
-#define SOAP_TYPE__wsrfbf__BaseFaultType_ErrorCode (1870)
+#define SOAP_TYPE__wsrfbf__BaseFaultType_ErrorCode (1934)
 /* wsrfbf:BaseFaultType-ErrorCode */
 class SOAP_CMAC _wsrfbf__BaseFaultType_ErrorCode
 {
@@ -25658,7 +26349,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1870;
+    return 1934;
   } /* = unique type id SOAP_TYPE__wsrfbf__BaseFaultType_ErrorCode */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25677,7 +26368,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsrfbf__BaseFaultType_Description
-#define SOAP_TYPE__wsrfbf__BaseFaultType_Description (1872)
+#define SOAP_TYPE__wsrfbf__BaseFaultType_Description (1936)
 /* Primitive wsrfbf:BaseFaultType-Description schema type: */
 class SOAP_CMAC _wsrfbf__BaseFaultType_Description
 {
@@ -25687,7 +26378,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1872;
+    return 1936;
   } /* = unique type id SOAP_TYPE__wsrfbf__BaseFaultType_Description */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25706,7 +26397,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wsrfbf__BaseFaultType_FaultCause
-#define SOAP_TYPE__wsrfbf__BaseFaultType_FaultCause (1876)
+#define SOAP_TYPE__wsrfbf__BaseFaultType_FaultCause (1940)
 /* wsrfbf:BaseFaultType-FaultCause */
 class SOAP_CMAC _wsrfbf__BaseFaultType_FaultCause
 {
@@ -25716,7 +26407,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1876;
+    return 1940;
   } /* = unique type id SOAP_TYPE__wsrfbf__BaseFaultType_FaultCause */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25735,7 +26426,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsrfbf__BaseFaultType
-#define SOAP_TYPE_wsrfbf__BaseFaultType (896)
+#define SOAP_TYPE_wsrfbf__BaseFaultType (945)
 /* wsrfbf:BaseFaultType */
 class SOAP_CMAC wsrfbf__BaseFaultType : public xsd__anyType
 {
@@ -25751,7 +26442,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 896;
+    return 945;
   } /* = unique type id SOAP_TYPE_wsrfbf__BaseFaultType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25770,7 +26461,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wstop__Documentation
-#define SOAP_TYPE_wstop__Documentation (897)
+#define SOAP_TYPE_wstop__Documentation (946)
 /* wstop:Documentation */
 class SOAP_CMAC wstop__Documentation : public xsd__anyType
 {
@@ -25781,7 +26472,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 897;
+    return 946;
   } /* = unique type id SOAP_TYPE_wstop__Documentation */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25800,7 +26491,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wstop__ExtensibleDocumented
-#define SOAP_TYPE_wstop__ExtensibleDocumented (898)
+#define SOAP_TYPE_wstop__ExtensibleDocumented (947)
 /* wstop:ExtensibleDocumented */
 class SOAP_CMAC wstop__ExtensibleDocumented : public xsd__anyType
 {
@@ -25810,7 +26501,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 898;
+    return 947;
   } /* = unique type id SOAP_TYPE_wstop__ExtensibleDocumented */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25829,7 +26520,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wstop__QueryExpressionType
-#define SOAP_TYPE_wstop__QueryExpressionType (899)
+#define SOAP_TYPE_wstop__QueryExpressionType (948)
 /* wstop:QueryExpressionType */
 class SOAP_CMAC wstop__QueryExpressionType : public xsd__anyType
 {
@@ -25841,7 +26532,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 899;
+    return 948;
   } /* = unique type id SOAP_TYPE_wstop__QueryExpressionType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25860,7 +26551,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tptz__Capabilities
-#define SOAP_TYPE_tptz__Capabilities (903)
+#define SOAP_TYPE_tptz__Capabilities (952)
 /* tptz:Capabilities */
 class SOAP_CMAC tptz__Capabilities : public xsd__anyType
 {
@@ -25875,7 +26566,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 903;
+    return 952;
   } /* = unique type id SOAP_TYPE_tptz__Capabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25894,7 +26585,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetServiceCapabilities
-#define SOAP_TYPE__tptz__GetServiceCapabilities (904)
+#define SOAP_TYPE__tptz__GetServiceCapabilities (953)
 /* tptz:GetServiceCapabilities */
 class SOAP_CMAC _tptz__GetServiceCapabilities
 {
@@ -25903,7 +26594,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 904;
+    return 953;
   } /* = unique type id SOAP_TYPE__tptz__GetServiceCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25922,7 +26613,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetServiceCapabilitiesResponse
-#define SOAP_TYPE__tptz__GetServiceCapabilitiesResponse (905)
+#define SOAP_TYPE__tptz__GetServiceCapabilitiesResponse (954)
 /* tptz:GetServiceCapabilitiesResponse */
 class SOAP_CMAC _tptz__GetServiceCapabilitiesResponse
 {
@@ -25933,7 +26624,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 905;
+    return 954;
   } /* = unique type id SOAP_TYPE__tptz__GetServiceCapabilitiesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25952,7 +26643,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetNodes
-#define SOAP_TYPE__tptz__GetNodes (906)
+#define SOAP_TYPE__tptz__GetNodes (955)
 /* tptz:GetNodes */
 class SOAP_CMAC _tptz__GetNodes
 {
@@ -25961,7 +26652,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 906;
+    return 955;
   } /* = unique type id SOAP_TYPE__tptz__GetNodes */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -25980,7 +26671,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetNodesResponse
-#define SOAP_TYPE__tptz__GetNodesResponse (907)
+#define SOAP_TYPE__tptz__GetNodesResponse (956)
 /* tptz:GetNodesResponse */
 class SOAP_CMAC _tptz__GetNodesResponse
 {
@@ -25991,7 +26682,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 907;
+    return 956;
   } /* = unique type id SOAP_TYPE__tptz__GetNodesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26010,7 +26701,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetNode
-#define SOAP_TYPE__tptz__GetNode (908)
+#define SOAP_TYPE__tptz__GetNode (957)
 /* tptz:GetNode */
 class SOAP_CMAC _tptz__GetNode
 {
@@ -26020,7 +26711,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 908;
+    return 957;
   } /* = unique type id SOAP_TYPE__tptz__GetNode */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26039,7 +26730,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetNodeResponse
-#define SOAP_TYPE__tptz__GetNodeResponse (909)
+#define SOAP_TYPE__tptz__GetNodeResponse (958)
 /* tptz:GetNodeResponse */
 class SOAP_CMAC _tptz__GetNodeResponse
 {
@@ -26050,7 +26741,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 909;
+    return 958;
   } /* = unique type id SOAP_TYPE__tptz__GetNodeResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26069,7 +26760,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetConfigurations
-#define SOAP_TYPE__tptz__GetConfigurations (910)
+#define SOAP_TYPE__tptz__GetConfigurations (959)
 /* tptz:GetConfigurations */
 class SOAP_CMAC _tptz__GetConfigurations
 {
@@ -26078,7 +26769,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 910;
+    return 959;
   } /* = unique type id SOAP_TYPE__tptz__GetConfigurations */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26097,7 +26788,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetConfigurationsResponse
-#define SOAP_TYPE__tptz__GetConfigurationsResponse (911)
+#define SOAP_TYPE__tptz__GetConfigurationsResponse (960)
 /* tptz:GetConfigurationsResponse */
 class SOAP_CMAC _tptz__GetConfigurationsResponse
 {
@@ -26108,7 +26799,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 911;
+    return 960;
   } /* = unique type id SOAP_TYPE__tptz__GetConfigurationsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26127,7 +26818,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetConfiguration
-#define SOAP_TYPE__tptz__GetConfiguration (912)
+#define SOAP_TYPE__tptz__GetConfiguration (961)
 /* tptz:GetConfiguration */
 class SOAP_CMAC _tptz__GetConfiguration
 {
@@ -26137,7 +26828,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 912;
+    return 961;
   } /* = unique type id SOAP_TYPE__tptz__GetConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26156,7 +26847,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetConfigurationResponse
-#define SOAP_TYPE__tptz__GetConfigurationResponse (913)
+#define SOAP_TYPE__tptz__GetConfigurationResponse (962)
 /* tptz:GetConfigurationResponse */
 class SOAP_CMAC _tptz__GetConfigurationResponse
 {
@@ -26167,7 +26858,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 913;
+    return 962;
   } /* = unique type id SOAP_TYPE__tptz__GetConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26186,7 +26877,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__SetConfiguration
-#define SOAP_TYPE__tptz__SetConfiguration (914)
+#define SOAP_TYPE__tptz__SetConfiguration (963)
 /* tptz:SetConfiguration */
 class SOAP_CMAC _tptz__SetConfiguration
 {
@@ -26197,7 +26888,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 914;
+    return 963;
   } /* = unique type id SOAP_TYPE__tptz__SetConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26216,14 +26907,14 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___tptz__SetConfigurationResponse_sequence
-#define SOAP_TYPE___tptz__SetConfigurationResponse_sequence (1883)
+#define SOAP_TYPE___tptz__SetConfigurationResponse_sequence (1947)
 /* Operation wrapper: */
 class SOAP_CMAC __tptz__SetConfigurationResponse_sequence
 {
 public:
   virtual int soap_type() const
   {
-    return 1883;
+    return 1947;
   } /* = unique type id SOAP_TYPE___tptz__SetConfigurationResponse_sequence */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26242,7 +26933,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__SetConfigurationResponse
-#define SOAP_TYPE__tptz__SetConfigurationResponse (915)
+#define SOAP_TYPE__tptz__SetConfigurationResponse (964)
 /* tptz:SetConfigurationResponse */
 class SOAP_CMAC _tptz__SetConfigurationResponse
 {
@@ -26253,7 +26944,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 915;
+    return 964;
   } /* = unique type id SOAP_TYPE__tptz__SetConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26272,7 +26963,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetConfigurationOptions
-#define SOAP_TYPE__tptz__GetConfigurationOptions (916)
+#define SOAP_TYPE__tptz__GetConfigurationOptions (965)
 /* tptz:GetConfigurationOptions */
 class SOAP_CMAC _tptz__GetConfigurationOptions
 {
@@ -26282,7 +26973,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 916;
+    return 965;
   } /* = unique type id SOAP_TYPE__tptz__GetConfigurationOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26301,7 +26992,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetConfigurationOptionsResponse
-#define SOAP_TYPE__tptz__GetConfigurationOptionsResponse (917)
+#define SOAP_TYPE__tptz__GetConfigurationOptionsResponse (966)
 /* tptz:GetConfigurationOptionsResponse */
 class SOAP_CMAC _tptz__GetConfigurationOptionsResponse
 {
@@ -26312,7 +27003,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 917;
+    return 966;
   } /* = unique type id SOAP_TYPE__tptz__GetConfigurationOptionsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26331,7 +27022,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__SendAuxiliaryCommand
-#define SOAP_TYPE__tptz__SendAuxiliaryCommand (918)
+#define SOAP_TYPE__tptz__SendAuxiliaryCommand (967)
 /* tptz:SendAuxiliaryCommand */
 class SOAP_CMAC _tptz__SendAuxiliaryCommand
 {
@@ -26342,7 +27033,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 918;
+    return 967;
   } /* = unique type id SOAP_TYPE__tptz__SendAuxiliaryCommand */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26361,7 +27052,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__SendAuxiliaryCommandResponse
-#define SOAP_TYPE__tptz__SendAuxiliaryCommandResponse (919)
+#define SOAP_TYPE__tptz__SendAuxiliaryCommandResponse (968)
 /* tptz:SendAuxiliaryCommandResponse */
 class SOAP_CMAC _tptz__SendAuxiliaryCommandResponse
 {
@@ -26372,7 +27063,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 919;
+    return 968;
   } /* = unique type id SOAP_TYPE__tptz__SendAuxiliaryCommandResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26391,7 +27082,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetPresets
-#define SOAP_TYPE__tptz__GetPresets (920)
+#define SOAP_TYPE__tptz__GetPresets (969)
 /* tptz:GetPresets */
 class SOAP_CMAC _tptz__GetPresets
 {
@@ -26401,7 +27092,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 920;
+    return 969;
   } /* = unique type id SOAP_TYPE__tptz__GetPresets */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26420,7 +27111,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetPresetsResponse
-#define SOAP_TYPE__tptz__GetPresetsResponse (921)
+#define SOAP_TYPE__tptz__GetPresetsResponse (970)
 /* tptz:GetPresetsResponse */
 class SOAP_CMAC _tptz__GetPresetsResponse
 {
@@ -26431,7 +27122,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 921;
+    return 970;
   } /* = unique type id SOAP_TYPE__tptz__GetPresetsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26450,7 +27141,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__SetPreset
-#define SOAP_TYPE__tptz__SetPreset (922)
+#define SOAP_TYPE__tptz__SetPreset (971)
 /* tptz:SetPreset */
 class SOAP_CMAC _tptz__SetPreset
 {
@@ -26462,7 +27153,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 922;
+    return 971;
   } /* = unique type id SOAP_TYPE__tptz__SetPreset */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26481,7 +27172,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__SetPresetResponse
-#define SOAP_TYPE__tptz__SetPresetResponse (923)
+#define SOAP_TYPE__tptz__SetPresetResponse (972)
 /* tptz:SetPresetResponse */
 class SOAP_CMAC _tptz__SetPresetResponse
 {
@@ -26492,7 +27183,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 923;
+    return 972;
   } /* = unique type id SOAP_TYPE__tptz__SetPresetResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26511,7 +27202,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__RemovePreset
-#define SOAP_TYPE__tptz__RemovePreset (924)
+#define SOAP_TYPE__tptz__RemovePreset (973)
 /* tptz:RemovePreset */
 class SOAP_CMAC _tptz__RemovePreset
 {
@@ -26522,7 +27213,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 924;
+    return 973;
   } /* = unique type id SOAP_TYPE__tptz__RemovePreset */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26541,7 +27232,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__RemovePresetResponse
-#define SOAP_TYPE__tptz__RemovePresetResponse (925)
+#define SOAP_TYPE__tptz__RemovePresetResponse (974)
 /* tptz:RemovePresetResponse */
 class SOAP_CMAC _tptz__RemovePresetResponse
 {
@@ -26550,7 +27241,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 925;
+    return 974;
   } /* = unique type id SOAP_TYPE__tptz__RemovePresetResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26569,7 +27260,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GotoPreset
-#define SOAP_TYPE__tptz__GotoPreset (926)
+#define SOAP_TYPE__tptz__GotoPreset (975)
 /* tptz:GotoPreset */
 class SOAP_CMAC _tptz__GotoPreset
 {
@@ -26581,7 +27272,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 926;
+    return 975;
   } /* = unique type id SOAP_TYPE__tptz__GotoPreset */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26600,7 +27291,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GotoPresetResponse
-#define SOAP_TYPE__tptz__GotoPresetResponse (927)
+#define SOAP_TYPE__tptz__GotoPresetResponse (976)
 /* tptz:GotoPresetResponse */
 class SOAP_CMAC _tptz__GotoPresetResponse
 {
@@ -26609,7 +27300,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 927;
+    return 976;
   } /* = unique type id SOAP_TYPE__tptz__GotoPresetResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26628,7 +27319,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetStatus
-#define SOAP_TYPE__tptz__GetStatus (928)
+#define SOAP_TYPE__tptz__GetStatus (977)
 /* tptz:GetStatus */
 class SOAP_CMAC _tptz__GetStatus
 {
@@ -26638,7 +27329,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 928;
+    return 977;
   } /* = unique type id SOAP_TYPE__tptz__GetStatus */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26657,7 +27348,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetStatusResponse
-#define SOAP_TYPE__tptz__GetStatusResponse (929)
+#define SOAP_TYPE__tptz__GetStatusResponse (978)
 /* tptz:GetStatusResponse */
 class SOAP_CMAC _tptz__GetStatusResponse
 {
@@ -26668,7 +27359,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 929;
+    return 978;
   } /* = unique type id SOAP_TYPE__tptz__GetStatusResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26687,7 +27378,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GotoHomePosition
-#define SOAP_TYPE__tptz__GotoHomePosition (930)
+#define SOAP_TYPE__tptz__GotoHomePosition (979)
 /* tptz:GotoHomePosition */
 class SOAP_CMAC _tptz__GotoHomePosition
 {
@@ -26698,7 +27389,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 930;
+    return 979;
   } /* = unique type id SOAP_TYPE__tptz__GotoHomePosition */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26717,7 +27408,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GotoHomePositionResponse
-#define SOAP_TYPE__tptz__GotoHomePositionResponse (931)
+#define SOAP_TYPE__tptz__GotoHomePositionResponse (980)
 /* tptz:GotoHomePositionResponse */
 class SOAP_CMAC _tptz__GotoHomePositionResponse
 {
@@ -26726,7 +27417,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 931;
+    return 980;
   } /* = unique type id SOAP_TYPE__tptz__GotoHomePositionResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26745,7 +27436,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__SetHomePosition
-#define SOAP_TYPE__tptz__SetHomePosition (932)
+#define SOAP_TYPE__tptz__SetHomePosition (981)
 /* tptz:SetHomePosition */
 class SOAP_CMAC _tptz__SetHomePosition
 {
@@ -26755,7 +27446,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 932;
+    return 981;
   } /* = unique type id SOAP_TYPE__tptz__SetHomePosition */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26774,7 +27465,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__SetHomePositionResponse
-#define SOAP_TYPE__tptz__SetHomePositionResponse (933)
+#define SOAP_TYPE__tptz__SetHomePositionResponse (982)
 /* tptz:SetHomePositionResponse */
 class SOAP_CMAC _tptz__SetHomePositionResponse
 {
@@ -26783,7 +27474,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 933;
+    return 982;
   } /* = unique type id SOAP_TYPE__tptz__SetHomePositionResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26802,7 +27493,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__ContinuousMove
-#define SOAP_TYPE__tptz__ContinuousMove (934)
+#define SOAP_TYPE__tptz__ContinuousMove (983)
 /* tptz:ContinuousMove */
 class SOAP_CMAC _tptz__ContinuousMove
 {
@@ -26814,7 +27505,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 934;
+    return 983;
   } /* = unique type id SOAP_TYPE__tptz__ContinuousMove */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26833,7 +27524,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__ContinuousMoveResponse
-#define SOAP_TYPE__tptz__ContinuousMoveResponse (935)
+#define SOAP_TYPE__tptz__ContinuousMoveResponse (984)
 /* tptz:ContinuousMoveResponse */
 class SOAP_CMAC _tptz__ContinuousMoveResponse
 {
@@ -26842,7 +27533,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 935;
+    return 984;
   } /* = unique type id SOAP_TYPE__tptz__ContinuousMoveResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26861,7 +27552,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__RelativeMove
-#define SOAP_TYPE__tptz__RelativeMove (936)
+#define SOAP_TYPE__tptz__RelativeMove (985)
 /* tptz:RelativeMove */
 class SOAP_CMAC _tptz__RelativeMove
 {
@@ -26873,7 +27564,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 936;
+    return 985;
   } /* = unique type id SOAP_TYPE__tptz__RelativeMove */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26892,7 +27583,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__RelativeMoveResponse
-#define SOAP_TYPE__tptz__RelativeMoveResponse (937)
+#define SOAP_TYPE__tptz__RelativeMoveResponse (986)
 /* tptz:RelativeMoveResponse */
 class SOAP_CMAC _tptz__RelativeMoveResponse
 {
@@ -26901,7 +27592,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 937;
+    return 986;
   } /* = unique type id SOAP_TYPE__tptz__RelativeMoveResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26920,7 +27611,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__AbsoluteMove
-#define SOAP_TYPE__tptz__AbsoluteMove (938)
+#define SOAP_TYPE__tptz__AbsoluteMove (987)
 /* tptz:AbsoluteMove */
 class SOAP_CMAC _tptz__AbsoluteMove
 {
@@ -26932,7 +27623,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 938;
+    return 987;
   } /* = unique type id SOAP_TYPE__tptz__AbsoluteMove */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26951,7 +27642,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__AbsoluteMoveResponse
-#define SOAP_TYPE__tptz__AbsoluteMoveResponse (939)
+#define SOAP_TYPE__tptz__AbsoluteMoveResponse (988)
 /* tptz:AbsoluteMoveResponse */
 class SOAP_CMAC _tptz__AbsoluteMoveResponse
 {
@@ -26960,7 +27651,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 939;
+    return 988;
   } /* = unique type id SOAP_TYPE__tptz__AbsoluteMoveResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -26979,7 +27670,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__Stop
-#define SOAP_TYPE__tptz__Stop (940)
+#define SOAP_TYPE__tptz__Stop (989)
 /* tptz:Stop */
 class SOAP_CMAC _tptz__Stop
 {
@@ -26991,7 +27682,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 940;
+    return 989;
   } /* = unique type id SOAP_TYPE__tptz__Stop */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27010,7 +27701,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__StopResponse
-#define SOAP_TYPE__tptz__StopResponse (941)
+#define SOAP_TYPE__tptz__StopResponse (990)
 /* tptz:StopResponse */
 class SOAP_CMAC _tptz__StopResponse
 {
@@ -27019,7 +27710,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 941;
+    return 990;
   } /* = unique type id SOAP_TYPE__tptz__StopResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27038,7 +27729,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetPresetTours
-#define SOAP_TYPE__tptz__GetPresetTours (942)
+#define SOAP_TYPE__tptz__GetPresetTours (991)
 /* tptz:GetPresetTours */
 class SOAP_CMAC _tptz__GetPresetTours
 {
@@ -27048,7 +27739,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 942;
+    return 991;
   } /* = unique type id SOAP_TYPE__tptz__GetPresetTours */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27067,7 +27758,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetPresetToursResponse
-#define SOAP_TYPE__tptz__GetPresetToursResponse (943)
+#define SOAP_TYPE__tptz__GetPresetToursResponse (992)
 /* tptz:GetPresetToursResponse */
 class SOAP_CMAC _tptz__GetPresetToursResponse
 {
@@ -27078,7 +27769,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 943;
+    return 992;
   } /* = unique type id SOAP_TYPE__tptz__GetPresetToursResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27097,7 +27788,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetPresetTour
-#define SOAP_TYPE__tptz__GetPresetTour (944)
+#define SOAP_TYPE__tptz__GetPresetTour (993)
 /* tptz:GetPresetTour */
 class SOAP_CMAC _tptz__GetPresetTour
 {
@@ -27108,7 +27799,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 944;
+    return 993;
   } /* = unique type id SOAP_TYPE__tptz__GetPresetTour */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27127,7 +27818,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetPresetTourResponse
-#define SOAP_TYPE__tptz__GetPresetTourResponse (945)
+#define SOAP_TYPE__tptz__GetPresetTourResponse (994)
 /* tptz:GetPresetTourResponse */
 class SOAP_CMAC _tptz__GetPresetTourResponse
 {
@@ -27138,7 +27829,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 945;
+    return 994;
   } /* = unique type id SOAP_TYPE__tptz__GetPresetTourResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27157,7 +27848,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetPresetTourOptions
-#define SOAP_TYPE__tptz__GetPresetTourOptions (946)
+#define SOAP_TYPE__tptz__GetPresetTourOptions (995)
 /* tptz:GetPresetTourOptions */
 class SOAP_CMAC _tptz__GetPresetTourOptions
 {
@@ -27168,7 +27859,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 946;
+    return 995;
   } /* = unique type id SOAP_TYPE__tptz__GetPresetTourOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27187,7 +27878,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetPresetTourOptionsResponse
-#define SOAP_TYPE__tptz__GetPresetTourOptionsResponse (947)
+#define SOAP_TYPE__tptz__GetPresetTourOptionsResponse (996)
 /* tptz:GetPresetTourOptionsResponse */
 class SOAP_CMAC _tptz__GetPresetTourOptionsResponse
 {
@@ -27198,7 +27889,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 947;
+    return 996;
   } /* = unique type id SOAP_TYPE__tptz__GetPresetTourOptionsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27217,7 +27908,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__CreatePresetTour
-#define SOAP_TYPE__tptz__CreatePresetTour (948)
+#define SOAP_TYPE__tptz__CreatePresetTour (997)
 /* tptz:CreatePresetTour */
 class SOAP_CMAC _tptz__CreatePresetTour
 {
@@ -27227,7 +27918,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 948;
+    return 997;
   } /* = unique type id SOAP_TYPE__tptz__CreatePresetTour */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27246,7 +27937,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__CreatePresetTourResponse
-#define SOAP_TYPE__tptz__CreatePresetTourResponse (949)
+#define SOAP_TYPE__tptz__CreatePresetTourResponse (998)
 /* tptz:CreatePresetTourResponse */
 class SOAP_CMAC _tptz__CreatePresetTourResponse
 {
@@ -27257,7 +27948,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 949;
+    return 998;
   } /* = unique type id SOAP_TYPE__tptz__CreatePresetTourResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27276,7 +27967,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__ModifyPresetTour
-#define SOAP_TYPE__tptz__ModifyPresetTour (950)
+#define SOAP_TYPE__tptz__ModifyPresetTour (999)
 /* tptz:ModifyPresetTour */
 class SOAP_CMAC _tptz__ModifyPresetTour
 {
@@ -27287,7 +27978,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 950;
+    return 999;
   } /* = unique type id SOAP_TYPE__tptz__ModifyPresetTour */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27306,7 +27997,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__ModifyPresetTourResponse
-#define SOAP_TYPE__tptz__ModifyPresetTourResponse (951)
+#define SOAP_TYPE__tptz__ModifyPresetTourResponse (1000)
 /* tptz:ModifyPresetTourResponse */
 class SOAP_CMAC _tptz__ModifyPresetTourResponse
 {
@@ -27315,7 +28006,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 951;
+    return 1000;
   } /* = unique type id SOAP_TYPE__tptz__ModifyPresetTourResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27334,7 +28025,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__OperatePresetTour
-#define SOAP_TYPE__tptz__OperatePresetTour (952)
+#define SOAP_TYPE__tptz__OperatePresetTour (1001)
 /* tptz:OperatePresetTour */
 class SOAP_CMAC _tptz__OperatePresetTour
 {
@@ -27346,7 +28037,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 952;
+    return 1001;
   } /* = unique type id SOAP_TYPE__tptz__OperatePresetTour */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27365,7 +28056,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__OperatePresetTourResponse
-#define SOAP_TYPE__tptz__OperatePresetTourResponse (953)
+#define SOAP_TYPE__tptz__OperatePresetTourResponse (1002)
 /* tptz:OperatePresetTourResponse */
 class SOAP_CMAC _tptz__OperatePresetTourResponse
 {
@@ -27374,7 +28065,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 953;
+    return 1002;
   } /* = unique type id SOAP_TYPE__tptz__OperatePresetTourResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27393,7 +28084,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__RemovePresetTour
-#define SOAP_TYPE__tptz__RemovePresetTour (954)
+#define SOAP_TYPE__tptz__RemovePresetTour (1003)
 /* tptz:RemovePresetTour */
 class SOAP_CMAC _tptz__RemovePresetTour
 {
@@ -27404,7 +28095,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 954;
+    return 1003;
   } /* = unique type id SOAP_TYPE__tptz__RemovePresetTour */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27423,7 +28114,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__RemovePresetTourResponse
-#define SOAP_TYPE__tptz__RemovePresetTourResponse (955)
+#define SOAP_TYPE__tptz__RemovePresetTourResponse (1004)
 /* tptz:RemovePresetTourResponse */
 class SOAP_CMAC _tptz__RemovePresetTourResponse
 {
@@ -27432,7 +28123,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 955;
+    return 1004;
   } /* = unique type id SOAP_TYPE__tptz__RemovePresetTourResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27451,7 +28142,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetCompatibleConfigurations
-#define SOAP_TYPE__tptz__GetCompatibleConfigurations (956)
+#define SOAP_TYPE__tptz__GetCompatibleConfigurations (1005)
 /* tptz:GetCompatibleConfigurations */
 class SOAP_CMAC _tptz__GetCompatibleConfigurations
 {
@@ -27461,7 +28152,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 956;
+    return 1005;
   } /* = unique type id SOAP_TYPE__tptz__GetCompatibleConfigurations */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27480,7 +28171,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__tptz__GetCompatibleConfigurationsResponse
-#define SOAP_TYPE__tptz__GetCompatibleConfigurationsResponse (957)
+#define SOAP_TYPE__tptz__GetCompatibleConfigurationsResponse (1006)
 /* tptz:GetCompatibleConfigurationsResponse */
 class SOAP_CMAC _tptz__GetCompatibleConfigurationsResponse
 {
@@ -27491,7 +28182,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 957;
+    return 1006;
   } /* = unique type id SOAP_TYPE__tptz__GetCompatibleConfigurationsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27510,7 +28201,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_trt__Capabilities
-#define SOAP_TYPE_trt__Capabilities (958)
+#define SOAP_TYPE_trt__Capabilities (1007)
 /* trt:Capabilities */
 class SOAP_CMAC trt__Capabilities : public xsd__anyType
 {
@@ -27527,7 +28218,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 958;
+    return 1007;
   } /* = unique type id SOAP_TYPE_trt__Capabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27546,7 +28237,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_trt__ProfileCapabilities
-#define SOAP_TYPE_trt__ProfileCapabilities (959)
+#define SOAP_TYPE_trt__ProfileCapabilities (1008)
 /* trt:ProfileCapabilities */
 class SOAP_CMAC trt__ProfileCapabilities : public xsd__anyType
 {
@@ -27557,7 +28248,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 959;
+    return 1008;
   } /* = unique type id SOAP_TYPE_trt__ProfileCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27576,7 +28267,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_trt__StreamingCapabilities
-#define SOAP_TYPE_trt__StreamingCapabilities (960)
+#define SOAP_TYPE_trt__StreamingCapabilities (1009)
 /* trt:StreamingCapabilities */
 class SOAP_CMAC trt__StreamingCapabilities : public xsd__anyType
 {
@@ -27591,7 +28282,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 960;
+    return 1009;
   } /* = unique type id SOAP_TYPE_trt__StreamingCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27610,7 +28301,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_trt__VideoSourceMode
-#define SOAP_TYPE_trt__VideoSourceMode (961)
+#define SOAP_TYPE_trt__VideoSourceMode (1010)
 /* trt:VideoSourceMode */
 class SOAP_CMAC trt__VideoSourceMode : public xsd__anyType
 {
@@ -27627,7 +28318,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 961;
+    return 1010;
   } /* = unique type id SOAP_TYPE_trt__VideoSourceMode */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27646,7 +28337,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_trt__VideoSourceModeExtension
-#define SOAP_TYPE_trt__VideoSourceModeExtension (962)
+#define SOAP_TYPE_trt__VideoSourceModeExtension (1011)
 /* trt:VideoSourceModeExtension */
 class SOAP_CMAC trt__VideoSourceModeExtension : public xsd__anyType
 {
@@ -27656,7 +28347,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 962;
+    return 1011;
   } /* = unique type id SOAP_TYPE_trt__VideoSourceModeExtension */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27675,7 +28366,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetServiceCapabilities
-#define SOAP_TYPE__trt__GetServiceCapabilities (963)
+#define SOAP_TYPE__trt__GetServiceCapabilities (1012)
 /* trt:GetServiceCapabilities */
 class SOAP_CMAC _trt__GetServiceCapabilities
 {
@@ -27684,7 +28375,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 963;
+    return 1012;
   } /* = unique type id SOAP_TYPE__trt__GetServiceCapabilities */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27703,7 +28394,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetServiceCapabilitiesResponse
-#define SOAP_TYPE__trt__GetServiceCapabilitiesResponse (964)
+#define SOAP_TYPE__trt__GetServiceCapabilitiesResponse (1013)
 /* trt:GetServiceCapabilitiesResponse */
 class SOAP_CMAC _trt__GetServiceCapabilitiesResponse
 {
@@ -27714,7 +28405,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 964;
+    return 1013;
   } /* = unique type id SOAP_TYPE__trt__GetServiceCapabilitiesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27733,7 +28424,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetVideoSources
-#define SOAP_TYPE__trt__GetVideoSources (965)
+#define SOAP_TYPE__trt__GetVideoSources (1014)
 /* trt:GetVideoSources */
 class SOAP_CMAC _trt__GetVideoSources
 {
@@ -27742,7 +28433,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 965;
+    return 1014;
   } /* = unique type id SOAP_TYPE__trt__GetVideoSources */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27761,7 +28452,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetVideoSourcesResponse
-#define SOAP_TYPE__trt__GetVideoSourcesResponse (966)
+#define SOAP_TYPE__trt__GetVideoSourcesResponse (1015)
 /* trt:GetVideoSourcesResponse */
 class SOAP_CMAC _trt__GetVideoSourcesResponse
 {
@@ -27772,7 +28463,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 966;
+    return 1015;
   } /* = unique type id SOAP_TYPE__trt__GetVideoSourcesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27791,7 +28482,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioSources
-#define SOAP_TYPE__trt__GetAudioSources (967)
+#define SOAP_TYPE__trt__GetAudioSources (1016)
 /* trt:GetAudioSources */
 class SOAP_CMAC _trt__GetAudioSources
 {
@@ -27800,7 +28491,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 967;
+    return 1016;
   } /* = unique type id SOAP_TYPE__trt__GetAudioSources */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27819,7 +28510,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioSourcesResponse
-#define SOAP_TYPE__trt__GetAudioSourcesResponse (968)
+#define SOAP_TYPE__trt__GetAudioSourcesResponse (1017)
 /* trt:GetAudioSourcesResponse */
 class SOAP_CMAC _trt__GetAudioSourcesResponse
 {
@@ -27830,7 +28521,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 968;
+    return 1017;
   } /* = unique type id SOAP_TYPE__trt__GetAudioSourcesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27849,7 +28540,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioOutputs
-#define SOAP_TYPE__trt__GetAudioOutputs (969)
+#define SOAP_TYPE__trt__GetAudioOutputs (1018)
 /* trt:GetAudioOutputs */
 class SOAP_CMAC _trt__GetAudioOutputs
 {
@@ -27858,7 +28549,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 969;
+    return 1018;
   } /* = unique type id SOAP_TYPE__trt__GetAudioOutputs */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27877,7 +28568,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioOutputsResponse
-#define SOAP_TYPE__trt__GetAudioOutputsResponse (970)
+#define SOAP_TYPE__trt__GetAudioOutputsResponse (1019)
 /* trt:GetAudioOutputsResponse */
 class SOAP_CMAC _trt__GetAudioOutputsResponse
 {
@@ -27888,7 +28579,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 970;
+    return 1019;
   } /* = unique type id SOAP_TYPE__trt__GetAudioOutputsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27907,7 +28598,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__CreateProfile
-#define SOAP_TYPE__trt__CreateProfile (971)
+#define SOAP_TYPE__trt__CreateProfile (1020)
 /* trt:CreateProfile */
 class SOAP_CMAC _trt__CreateProfile
 {
@@ -27918,7 +28609,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 971;
+    return 1020;
   } /* = unique type id SOAP_TYPE__trt__CreateProfile */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27937,7 +28628,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__CreateProfileResponse
-#define SOAP_TYPE__trt__CreateProfileResponse (972)
+#define SOAP_TYPE__trt__CreateProfileResponse (1021)
 /* trt:CreateProfileResponse */
 class SOAP_CMAC _trt__CreateProfileResponse
 {
@@ -27948,7 +28639,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 972;
+    return 1021;
   } /* = unique type id SOAP_TYPE__trt__CreateProfileResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27967,7 +28658,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetProfile
-#define SOAP_TYPE__trt__GetProfile (973)
+#define SOAP_TYPE__trt__GetProfile (1022)
 /* trt:GetProfile */
 class SOAP_CMAC _trt__GetProfile
 {
@@ -27977,7 +28668,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 973;
+    return 1022;
   } /* = unique type id SOAP_TYPE__trt__GetProfile */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -27996,7 +28687,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetProfileResponse
-#define SOAP_TYPE__trt__GetProfileResponse (974)
+#define SOAP_TYPE__trt__GetProfileResponse (1023)
 /* trt:GetProfileResponse */
 class SOAP_CMAC _trt__GetProfileResponse
 {
@@ -28007,7 +28698,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 974;
+    return 1023;
   } /* = unique type id SOAP_TYPE__trt__GetProfileResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28026,7 +28717,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetProfiles
-#define SOAP_TYPE__trt__GetProfiles (975)
+#define SOAP_TYPE__trt__GetProfiles (1024)
 /* trt:GetProfiles */
 class SOAP_CMAC _trt__GetProfiles
 {
@@ -28035,7 +28726,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 975;
+    return 1024;
   } /* = unique type id SOAP_TYPE__trt__GetProfiles */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28054,7 +28745,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetProfilesResponse
-#define SOAP_TYPE__trt__GetProfilesResponse (976)
+#define SOAP_TYPE__trt__GetProfilesResponse (1025)
 /* trt:GetProfilesResponse */
 class SOAP_CMAC _trt__GetProfilesResponse
 {
@@ -28065,7 +28756,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 976;
+    return 1025;
   } /* = unique type id SOAP_TYPE__trt__GetProfilesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28084,7 +28775,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__AddVideoEncoderConfiguration
-#define SOAP_TYPE__trt__AddVideoEncoderConfiguration (977)
+#define SOAP_TYPE__trt__AddVideoEncoderConfiguration (1026)
 /* trt:AddVideoEncoderConfiguration */
 class SOAP_CMAC _trt__AddVideoEncoderConfiguration
 {
@@ -28095,7 +28786,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 977;
+    return 1026;
   } /* = unique type id SOAP_TYPE__trt__AddVideoEncoderConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28114,7 +28805,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__AddVideoEncoderConfigurationResponse
-#define SOAP_TYPE__trt__AddVideoEncoderConfigurationResponse (978)
+#define SOAP_TYPE__trt__AddVideoEncoderConfigurationResponse (1027)
 /* trt:AddVideoEncoderConfigurationResponse */
 class SOAP_CMAC _trt__AddVideoEncoderConfigurationResponse
 {
@@ -28123,7 +28814,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 978;
+    return 1027;
   } /* = unique type id SOAP_TYPE__trt__AddVideoEncoderConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28142,7 +28833,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__RemoveVideoEncoderConfiguration
-#define SOAP_TYPE__trt__RemoveVideoEncoderConfiguration (979)
+#define SOAP_TYPE__trt__RemoveVideoEncoderConfiguration (1028)
 /* trt:RemoveVideoEncoderConfiguration */
 class SOAP_CMAC _trt__RemoveVideoEncoderConfiguration
 {
@@ -28152,7 +28843,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 979;
+    return 1028;
   } /* = unique type id SOAP_TYPE__trt__RemoveVideoEncoderConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28171,7 +28862,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__RemoveVideoEncoderConfigurationResponse
-#define SOAP_TYPE__trt__RemoveVideoEncoderConfigurationResponse (980)
+#define SOAP_TYPE__trt__RemoveVideoEncoderConfigurationResponse (1029)
 /* trt:RemoveVideoEncoderConfigurationResponse */
 class SOAP_CMAC _trt__RemoveVideoEncoderConfigurationResponse
 {
@@ -28180,7 +28871,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 980;
+    return 1029;
   } /* = unique type id SOAP_TYPE__trt__RemoveVideoEncoderConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28199,7 +28890,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__AddVideoSourceConfiguration
-#define SOAP_TYPE__trt__AddVideoSourceConfiguration (981)
+#define SOAP_TYPE__trt__AddVideoSourceConfiguration (1030)
 /* trt:AddVideoSourceConfiguration */
 class SOAP_CMAC _trt__AddVideoSourceConfiguration
 {
@@ -28210,7 +28901,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 981;
+    return 1030;
   } /* = unique type id SOAP_TYPE__trt__AddVideoSourceConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28229,7 +28920,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__AddVideoSourceConfigurationResponse
-#define SOAP_TYPE__trt__AddVideoSourceConfigurationResponse (982)
+#define SOAP_TYPE__trt__AddVideoSourceConfigurationResponse (1031)
 /* trt:AddVideoSourceConfigurationResponse */
 class SOAP_CMAC _trt__AddVideoSourceConfigurationResponse
 {
@@ -28238,7 +28929,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 982;
+    return 1031;
   } /* = unique type id SOAP_TYPE__trt__AddVideoSourceConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28257,7 +28948,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__RemoveVideoSourceConfiguration
-#define SOAP_TYPE__trt__RemoveVideoSourceConfiguration (983)
+#define SOAP_TYPE__trt__RemoveVideoSourceConfiguration (1032)
 /* trt:RemoveVideoSourceConfiguration */
 class SOAP_CMAC _trt__RemoveVideoSourceConfiguration
 {
@@ -28267,7 +28958,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 983;
+    return 1032;
   } /* = unique type id SOAP_TYPE__trt__RemoveVideoSourceConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28286,7 +28977,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__RemoveVideoSourceConfigurationResponse
-#define SOAP_TYPE__trt__RemoveVideoSourceConfigurationResponse (984)
+#define SOAP_TYPE__trt__RemoveVideoSourceConfigurationResponse (1033)
 /* trt:RemoveVideoSourceConfigurationResponse */
 class SOAP_CMAC _trt__RemoveVideoSourceConfigurationResponse
 {
@@ -28295,7 +28986,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 984;
+    return 1033;
   } /* = unique type id SOAP_TYPE__trt__RemoveVideoSourceConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28314,7 +29005,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__AddAudioEncoderConfiguration
-#define SOAP_TYPE__trt__AddAudioEncoderConfiguration (985)
+#define SOAP_TYPE__trt__AddAudioEncoderConfiguration (1034)
 /* trt:AddAudioEncoderConfiguration */
 class SOAP_CMAC _trt__AddAudioEncoderConfiguration
 {
@@ -28325,7 +29016,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 985;
+    return 1034;
   } /* = unique type id SOAP_TYPE__trt__AddAudioEncoderConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28344,7 +29035,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__AddAudioEncoderConfigurationResponse
-#define SOAP_TYPE__trt__AddAudioEncoderConfigurationResponse (986)
+#define SOAP_TYPE__trt__AddAudioEncoderConfigurationResponse (1035)
 /* trt:AddAudioEncoderConfigurationResponse */
 class SOAP_CMAC _trt__AddAudioEncoderConfigurationResponse
 {
@@ -28353,7 +29044,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 986;
+    return 1035;
   } /* = unique type id SOAP_TYPE__trt__AddAudioEncoderConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28372,7 +29063,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__RemoveAudioEncoderConfiguration
-#define SOAP_TYPE__trt__RemoveAudioEncoderConfiguration (987)
+#define SOAP_TYPE__trt__RemoveAudioEncoderConfiguration (1036)
 /* trt:RemoveAudioEncoderConfiguration */
 class SOAP_CMAC _trt__RemoveAudioEncoderConfiguration
 {
@@ -28382,7 +29073,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 987;
+    return 1036;
   } /* = unique type id SOAP_TYPE__trt__RemoveAudioEncoderConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28401,7 +29092,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__RemoveAudioEncoderConfigurationResponse
-#define SOAP_TYPE__trt__RemoveAudioEncoderConfigurationResponse (988)
+#define SOAP_TYPE__trt__RemoveAudioEncoderConfigurationResponse (1037)
 /* trt:RemoveAudioEncoderConfigurationResponse */
 class SOAP_CMAC _trt__RemoveAudioEncoderConfigurationResponse
 {
@@ -28410,7 +29101,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 988;
+    return 1037;
   } /* = unique type id SOAP_TYPE__trt__RemoveAudioEncoderConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28429,7 +29120,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__AddAudioSourceConfiguration
-#define SOAP_TYPE__trt__AddAudioSourceConfiguration (989)
+#define SOAP_TYPE__trt__AddAudioSourceConfiguration (1038)
 /* trt:AddAudioSourceConfiguration */
 class SOAP_CMAC _trt__AddAudioSourceConfiguration
 {
@@ -28440,7 +29131,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 989;
+    return 1038;
   } /* = unique type id SOAP_TYPE__trt__AddAudioSourceConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28459,7 +29150,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__AddAudioSourceConfigurationResponse
-#define SOAP_TYPE__trt__AddAudioSourceConfigurationResponse (990)
+#define SOAP_TYPE__trt__AddAudioSourceConfigurationResponse (1039)
 /* trt:AddAudioSourceConfigurationResponse */
 class SOAP_CMAC _trt__AddAudioSourceConfigurationResponse
 {
@@ -28468,7 +29159,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 990;
+    return 1039;
   } /* = unique type id SOAP_TYPE__trt__AddAudioSourceConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28487,7 +29178,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__RemoveAudioSourceConfiguration
-#define SOAP_TYPE__trt__RemoveAudioSourceConfiguration (991)
+#define SOAP_TYPE__trt__RemoveAudioSourceConfiguration (1040)
 /* trt:RemoveAudioSourceConfiguration */
 class SOAP_CMAC _trt__RemoveAudioSourceConfiguration
 {
@@ -28497,7 +29188,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 991;
+    return 1040;
   } /* = unique type id SOAP_TYPE__trt__RemoveAudioSourceConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28516,7 +29207,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__RemoveAudioSourceConfigurationResponse
-#define SOAP_TYPE__trt__RemoveAudioSourceConfigurationResponse (992)
+#define SOAP_TYPE__trt__RemoveAudioSourceConfigurationResponse (1041)
 /* trt:RemoveAudioSourceConfigurationResponse */
 class SOAP_CMAC _trt__RemoveAudioSourceConfigurationResponse
 {
@@ -28525,7 +29216,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 992;
+    return 1041;
   } /* = unique type id SOAP_TYPE__trt__RemoveAudioSourceConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28544,7 +29235,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__AddPTZConfiguration
-#define SOAP_TYPE__trt__AddPTZConfiguration (993)
+#define SOAP_TYPE__trt__AddPTZConfiguration (1042)
 /* trt:AddPTZConfiguration */
 class SOAP_CMAC _trt__AddPTZConfiguration
 {
@@ -28555,7 +29246,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 993;
+    return 1042;
   } /* = unique type id SOAP_TYPE__trt__AddPTZConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28574,7 +29265,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__AddPTZConfigurationResponse
-#define SOAP_TYPE__trt__AddPTZConfigurationResponse (994)
+#define SOAP_TYPE__trt__AddPTZConfigurationResponse (1043)
 /* trt:AddPTZConfigurationResponse */
 class SOAP_CMAC _trt__AddPTZConfigurationResponse
 {
@@ -28583,7 +29274,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 994;
+    return 1043;
   } /* = unique type id SOAP_TYPE__trt__AddPTZConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28602,7 +29293,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__RemovePTZConfiguration
-#define SOAP_TYPE__trt__RemovePTZConfiguration (995)
+#define SOAP_TYPE__trt__RemovePTZConfiguration (1044)
 /* trt:RemovePTZConfiguration */
 class SOAP_CMAC _trt__RemovePTZConfiguration
 {
@@ -28612,7 +29303,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 995;
+    return 1044;
   } /* = unique type id SOAP_TYPE__trt__RemovePTZConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28631,7 +29322,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__RemovePTZConfigurationResponse
-#define SOAP_TYPE__trt__RemovePTZConfigurationResponse (996)
+#define SOAP_TYPE__trt__RemovePTZConfigurationResponse (1045)
 /* trt:RemovePTZConfigurationResponse */
 class SOAP_CMAC _trt__RemovePTZConfigurationResponse
 {
@@ -28640,7 +29331,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 996;
+    return 1045;
   } /* = unique type id SOAP_TYPE__trt__RemovePTZConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28659,7 +29350,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__AddVideoAnalyticsConfiguration
-#define SOAP_TYPE__trt__AddVideoAnalyticsConfiguration (997)
+#define SOAP_TYPE__trt__AddVideoAnalyticsConfiguration (1046)
 /* trt:AddVideoAnalyticsConfiguration */
 class SOAP_CMAC _trt__AddVideoAnalyticsConfiguration
 {
@@ -28670,7 +29361,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 997;
+    return 1046;
   } /* = unique type id SOAP_TYPE__trt__AddVideoAnalyticsConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28689,7 +29380,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__AddVideoAnalyticsConfigurationResponse
-#define SOAP_TYPE__trt__AddVideoAnalyticsConfigurationResponse (998)
+#define SOAP_TYPE__trt__AddVideoAnalyticsConfigurationResponse (1047)
 /* trt:AddVideoAnalyticsConfigurationResponse */
 class SOAP_CMAC _trt__AddVideoAnalyticsConfigurationResponse
 {
@@ -28698,7 +29389,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 998;
+    return 1047;
   } /* = unique type id SOAP_TYPE__trt__AddVideoAnalyticsConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28717,7 +29408,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__RemoveVideoAnalyticsConfiguration
-#define SOAP_TYPE__trt__RemoveVideoAnalyticsConfiguration (999)
+#define SOAP_TYPE__trt__RemoveVideoAnalyticsConfiguration (1048)
 /* trt:RemoveVideoAnalyticsConfiguration */
 class SOAP_CMAC _trt__RemoveVideoAnalyticsConfiguration
 {
@@ -28727,7 +29418,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 999;
+    return 1048;
   } /* = unique type id SOAP_TYPE__trt__RemoveVideoAnalyticsConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28746,7 +29437,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__RemoveVideoAnalyticsConfigurationResponse
-#define SOAP_TYPE__trt__RemoveVideoAnalyticsConfigurationResponse (1000)
+#define SOAP_TYPE__trt__RemoveVideoAnalyticsConfigurationResponse (1049)
 /* trt:RemoveVideoAnalyticsConfigurationResponse */
 class SOAP_CMAC _trt__RemoveVideoAnalyticsConfigurationResponse
 {
@@ -28755,7 +29446,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1000;
+    return 1049;
   } /* = unique type id SOAP_TYPE__trt__RemoveVideoAnalyticsConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28774,7 +29465,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__AddMetadataConfiguration
-#define SOAP_TYPE__trt__AddMetadataConfiguration (1001)
+#define SOAP_TYPE__trt__AddMetadataConfiguration (1050)
 /* trt:AddMetadataConfiguration */
 class SOAP_CMAC _trt__AddMetadataConfiguration
 {
@@ -28785,7 +29476,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1001;
+    return 1050;
   } /* = unique type id SOAP_TYPE__trt__AddMetadataConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28804,7 +29495,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__AddMetadataConfigurationResponse
-#define SOAP_TYPE__trt__AddMetadataConfigurationResponse (1002)
+#define SOAP_TYPE__trt__AddMetadataConfigurationResponse (1051)
 /* trt:AddMetadataConfigurationResponse */
 class SOAP_CMAC _trt__AddMetadataConfigurationResponse
 {
@@ -28813,7 +29504,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1002;
+    return 1051;
   } /* = unique type id SOAP_TYPE__trt__AddMetadataConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28832,7 +29523,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__RemoveMetadataConfiguration
-#define SOAP_TYPE__trt__RemoveMetadataConfiguration (1003)
+#define SOAP_TYPE__trt__RemoveMetadataConfiguration (1052)
 /* trt:RemoveMetadataConfiguration */
 class SOAP_CMAC _trt__RemoveMetadataConfiguration
 {
@@ -28842,7 +29533,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1003;
+    return 1052;
   } /* = unique type id SOAP_TYPE__trt__RemoveMetadataConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28861,7 +29552,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__RemoveMetadataConfigurationResponse
-#define SOAP_TYPE__trt__RemoveMetadataConfigurationResponse (1004)
+#define SOAP_TYPE__trt__RemoveMetadataConfigurationResponse (1053)
 /* trt:RemoveMetadataConfigurationResponse */
 class SOAP_CMAC _trt__RemoveMetadataConfigurationResponse
 {
@@ -28870,7 +29561,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1004;
+    return 1053;
   } /* = unique type id SOAP_TYPE__trt__RemoveMetadataConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28889,7 +29580,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__AddAudioOutputConfiguration
-#define SOAP_TYPE__trt__AddAudioOutputConfiguration (1005)
+#define SOAP_TYPE__trt__AddAudioOutputConfiguration (1054)
 /* trt:AddAudioOutputConfiguration */
 class SOAP_CMAC _trt__AddAudioOutputConfiguration
 {
@@ -28900,7 +29591,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1005;
+    return 1054;
   } /* = unique type id SOAP_TYPE__trt__AddAudioOutputConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28919,7 +29610,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__AddAudioOutputConfigurationResponse
-#define SOAP_TYPE__trt__AddAudioOutputConfigurationResponse (1006)
+#define SOAP_TYPE__trt__AddAudioOutputConfigurationResponse (1055)
 /* trt:AddAudioOutputConfigurationResponse */
 class SOAP_CMAC _trt__AddAudioOutputConfigurationResponse
 {
@@ -28928,7 +29619,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1006;
+    return 1055;
   } /* = unique type id SOAP_TYPE__trt__AddAudioOutputConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28947,7 +29638,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__RemoveAudioOutputConfiguration
-#define SOAP_TYPE__trt__RemoveAudioOutputConfiguration (1007)
+#define SOAP_TYPE__trt__RemoveAudioOutputConfiguration (1056)
 /* trt:RemoveAudioOutputConfiguration */
 class SOAP_CMAC _trt__RemoveAudioOutputConfiguration
 {
@@ -28957,7 +29648,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1007;
+    return 1056;
   } /* = unique type id SOAP_TYPE__trt__RemoveAudioOutputConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -28976,7 +29667,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__RemoveAudioOutputConfigurationResponse
-#define SOAP_TYPE__trt__RemoveAudioOutputConfigurationResponse (1008)
+#define SOAP_TYPE__trt__RemoveAudioOutputConfigurationResponse (1057)
 /* trt:RemoveAudioOutputConfigurationResponse */
 class SOAP_CMAC _trt__RemoveAudioOutputConfigurationResponse
 {
@@ -28985,7 +29676,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1008;
+    return 1057;
   } /* = unique type id SOAP_TYPE__trt__RemoveAudioOutputConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29004,7 +29695,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__AddAudioDecoderConfiguration
-#define SOAP_TYPE__trt__AddAudioDecoderConfiguration (1009)
+#define SOAP_TYPE__trt__AddAudioDecoderConfiguration (1058)
 /* trt:AddAudioDecoderConfiguration */
 class SOAP_CMAC _trt__AddAudioDecoderConfiguration
 {
@@ -29015,7 +29706,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1009;
+    return 1058;
   } /* = unique type id SOAP_TYPE__trt__AddAudioDecoderConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29034,7 +29725,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__AddAudioDecoderConfigurationResponse
-#define SOAP_TYPE__trt__AddAudioDecoderConfigurationResponse (1010)
+#define SOAP_TYPE__trt__AddAudioDecoderConfigurationResponse (1059)
 /* trt:AddAudioDecoderConfigurationResponse */
 class SOAP_CMAC _trt__AddAudioDecoderConfigurationResponse
 {
@@ -29043,7 +29734,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1010;
+    return 1059;
   } /* = unique type id SOAP_TYPE__trt__AddAudioDecoderConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29062,7 +29753,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__RemoveAudioDecoderConfiguration
-#define SOAP_TYPE__trt__RemoveAudioDecoderConfiguration (1011)
+#define SOAP_TYPE__trt__RemoveAudioDecoderConfiguration (1060)
 /* trt:RemoveAudioDecoderConfiguration */
 class SOAP_CMAC _trt__RemoveAudioDecoderConfiguration
 {
@@ -29072,7 +29763,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1011;
+    return 1060;
   } /* = unique type id SOAP_TYPE__trt__RemoveAudioDecoderConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29091,7 +29782,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__RemoveAudioDecoderConfigurationResponse
-#define SOAP_TYPE__trt__RemoveAudioDecoderConfigurationResponse (1012)
+#define SOAP_TYPE__trt__RemoveAudioDecoderConfigurationResponse (1061)
 /* trt:RemoveAudioDecoderConfigurationResponse */
 class SOAP_CMAC _trt__RemoveAudioDecoderConfigurationResponse
 {
@@ -29100,7 +29791,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1012;
+    return 1061;
   } /* = unique type id SOAP_TYPE__trt__RemoveAudioDecoderConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29119,7 +29810,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__DeleteProfile
-#define SOAP_TYPE__trt__DeleteProfile (1013)
+#define SOAP_TYPE__trt__DeleteProfile (1062)
 /* trt:DeleteProfile */
 class SOAP_CMAC _trt__DeleteProfile
 {
@@ -29129,7 +29820,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1013;
+    return 1062;
   } /* = unique type id SOAP_TYPE__trt__DeleteProfile */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29148,7 +29839,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__DeleteProfileResponse
-#define SOAP_TYPE__trt__DeleteProfileResponse (1014)
+#define SOAP_TYPE__trt__DeleteProfileResponse (1063)
 /* trt:DeleteProfileResponse */
 class SOAP_CMAC _trt__DeleteProfileResponse
 {
@@ -29157,7 +29848,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1014;
+    return 1063;
   } /* = unique type id SOAP_TYPE__trt__DeleteProfileResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29176,7 +29867,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetVideoEncoderConfigurations
-#define SOAP_TYPE__trt__GetVideoEncoderConfigurations (1015)
+#define SOAP_TYPE__trt__GetVideoEncoderConfigurations (1064)
 /* trt:GetVideoEncoderConfigurations */
 class SOAP_CMAC _trt__GetVideoEncoderConfigurations
 {
@@ -29185,7 +29876,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1015;
+    return 1064;
   } /* = unique type id SOAP_TYPE__trt__GetVideoEncoderConfigurations */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29204,7 +29895,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetVideoEncoderConfigurationsResponse
-#define SOAP_TYPE__trt__GetVideoEncoderConfigurationsResponse (1016)
+#define SOAP_TYPE__trt__GetVideoEncoderConfigurationsResponse (1065)
 /* trt:GetVideoEncoderConfigurationsResponse */
 class SOAP_CMAC _trt__GetVideoEncoderConfigurationsResponse
 {
@@ -29215,7 +29906,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1016;
+    return 1065;
   } /* = unique type id SOAP_TYPE__trt__GetVideoEncoderConfigurationsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29234,7 +29925,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetVideoSourceConfigurations
-#define SOAP_TYPE__trt__GetVideoSourceConfigurations (1017)
+#define SOAP_TYPE__trt__GetVideoSourceConfigurations (1066)
 /* trt:GetVideoSourceConfigurations */
 class SOAP_CMAC _trt__GetVideoSourceConfigurations
 {
@@ -29243,7 +29934,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1017;
+    return 1066;
   } /* = unique type id SOAP_TYPE__trt__GetVideoSourceConfigurations */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29262,7 +29953,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetVideoSourceConfigurationsResponse
-#define SOAP_TYPE__trt__GetVideoSourceConfigurationsResponse (1018)
+#define SOAP_TYPE__trt__GetVideoSourceConfigurationsResponse (1067)
 /* trt:GetVideoSourceConfigurationsResponse */
 class SOAP_CMAC _trt__GetVideoSourceConfigurationsResponse
 {
@@ -29273,7 +29964,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1018;
+    return 1067;
   } /* = unique type id SOAP_TYPE__trt__GetVideoSourceConfigurationsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29292,7 +29983,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioEncoderConfigurations
-#define SOAP_TYPE__trt__GetAudioEncoderConfigurations (1019)
+#define SOAP_TYPE__trt__GetAudioEncoderConfigurations (1068)
 /* trt:GetAudioEncoderConfigurations */
 class SOAP_CMAC _trt__GetAudioEncoderConfigurations
 {
@@ -29301,7 +29992,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1019;
+    return 1068;
   } /* = unique type id SOAP_TYPE__trt__GetAudioEncoderConfigurations */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29320,7 +30011,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioEncoderConfigurationsResponse
-#define SOAP_TYPE__trt__GetAudioEncoderConfigurationsResponse (1020)
+#define SOAP_TYPE__trt__GetAudioEncoderConfigurationsResponse (1069)
 /* trt:GetAudioEncoderConfigurationsResponse */
 class SOAP_CMAC _trt__GetAudioEncoderConfigurationsResponse
 {
@@ -29331,7 +30022,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1020;
+    return 1069;
   } /* = unique type id SOAP_TYPE__trt__GetAudioEncoderConfigurationsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29350,7 +30041,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioSourceConfigurations
-#define SOAP_TYPE__trt__GetAudioSourceConfigurations (1021)
+#define SOAP_TYPE__trt__GetAudioSourceConfigurations (1070)
 /* trt:GetAudioSourceConfigurations */
 class SOAP_CMAC _trt__GetAudioSourceConfigurations
 {
@@ -29359,7 +30050,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1021;
+    return 1070;
   } /* = unique type id SOAP_TYPE__trt__GetAudioSourceConfigurations */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29378,7 +30069,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioSourceConfigurationsResponse
-#define SOAP_TYPE__trt__GetAudioSourceConfigurationsResponse (1022)
+#define SOAP_TYPE__trt__GetAudioSourceConfigurationsResponse (1071)
 /* trt:GetAudioSourceConfigurationsResponse */
 class SOAP_CMAC _trt__GetAudioSourceConfigurationsResponse
 {
@@ -29389,7 +30080,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1022;
+    return 1071;
   } /* = unique type id SOAP_TYPE__trt__GetAudioSourceConfigurationsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29408,7 +30099,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetVideoAnalyticsConfigurations
-#define SOAP_TYPE__trt__GetVideoAnalyticsConfigurations (1023)
+#define SOAP_TYPE__trt__GetVideoAnalyticsConfigurations (1072)
 /* trt:GetVideoAnalyticsConfigurations */
 class SOAP_CMAC _trt__GetVideoAnalyticsConfigurations
 {
@@ -29417,7 +30108,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1023;
+    return 1072;
   } /* = unique type id SOAP_TYPE__trt__GetVideoAnalyticsConfigurations */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29436,19 +30127,19 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetVideoAnalyticsConfigurationsResponse
-#define SOAP_TYPE__trt__GetVideoAnalyticsConfigurationsResponse (1024)
+#define SOAP_TYPE__trt__GetVideoAnalyticsConfigurationsResponse (1073)
 /* trt:GetVideoAnalyticsConfigurationsResponse */
 class SOAP_CMAC _trt__GetVideoAnalyticsConfigurationsResponse
 {
 public:
   std::vector<tt__VideoAnalyticsConfiguration*> Configurations;
-      /* SOAP 1.2 RPC return element (when namespace qualified) */ /* optional element of type
-                                                                      tt:VideoAnalyticsConfiguration */
-  struct soap* soap;                                               /* transient */
+  /* SOAP 1.2 RPC return element (when namespace qualified) */ /* optional element of type
+                                                                  tt:VideoAnalyticsConfiguration */
+  struct soap* soap;                                           /* transient */
 public:
   virtual int soap_type() const
   {
-    return 1024;
+    return 1073;
   } /* = unique type id SOAP_TYPE__trt__GetVideoAnalyticsConfigurationsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29467,7 +30158,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetMetadataConfigurations
-#define SOAP_TYPE__trt__GetMetadataConfigurations (1025)
+#define SOAP_TYPE__trt__GetMetadataConfigurations (1074)
 /* trt:GetMetadataConfigurations */
 class SOAP_CMAC _trt__GetMetadataConfigurations
 {
@@ -29476,7 +30167,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1025;
+    return 1074;
   } /* = unique type id SOAP_TYPE__trt__GetMetadataConfigurations */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29495,7 +30186,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetMetadataConfigurationsResponse
-#define SOAP_TYPE__trt__GetMetadataConfigurationsResponse (1026)
+#define SOAP_TYPE__trt__GetMetadataConfigurationsResponse (1075)
 /* trt:GetMetadataConfigurationsResponse */
 class SOAP_CMAC _trt__GetMetadataConfigurationsResponse
 {
@@ -29506,7 +30197,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1026;
+    return 1075;
   } /* = unique type id SOAP_TYPE__trt__GetMetadataConfigurationsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29525,7 +30216,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioOutputConfigurations
-#define SOAP_TYPE__trt__GetAudioOutputConfigurations (1027)
+#define SOAP_TYPE__trt__GetAudioOutputConfigurations (1076)
 /* trt:GetAudioOutputConfigurations */
 class SOAP_CMAC _trt__GetAudioOutputConfigurations
 {
@@ -29534,7 +30225,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1027;
+    return 1076;
   } /* = unique type id SOAP_TYPE__trt__GetAudioOutputConfigurations */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29553,7 +30244,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioOutputConfigurationsResponse
-#define SOAP_TYPE__trt__GetAudioOutputConfigurationsResponse (1028)
+#define SOAP_TYPE__trt__GetAudioOutputConfigurationsResponse (1077)
 /* trt:GetAudioOutputConfigurationsResponse */
 class SOAP_CMAC _trt__GetAudioOutputConfigurationsResponse
 {
@@ -29564,7 +30255,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1028;
+    return 1077;
   } /* = unique type id SOAP_TYPE__trt__GetAudioOutputConfigurationsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29583,7 +30274,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioDecoderConfigurations
-#define SOAP_TYPE__trt__GetAudioDecoderConfigurations (1029)
+#define SOAP_TYPE__trt__GetAudioDecoderConfigurations (1078)
 /* trt:GetAudioDecoderConfigurations */
 class SOAP_CMAC _trt__GetAudioDecoderConfigurations
 {
@@ -29592,7 +30283,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1029;
+    return 1078;
   } /* = unique type id SOAP_TYPE__trt__GetAudioDecoderConfigurations */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29611,7 +30302,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioDecoderConfigurationsResponse
-#define SOAP_TYPE__trt__GetAudioDecoderConfigurationsResponse (1030)
+#define SOAP_TYPE__trt__GetAudioDecoderConfigurationsResponse (1079)
 /* trt:GetAudioDecoderConfigurationsResponse */
 class SOAP_CMAC _trt__GetAudioDecoderConfigurationsResponse
 {
@@ -29622,7 +30313,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1030;
+    return 1079;
   } /* = unique type id SOAP_TYPE__trt__GetAudioDecoderConfigurationsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29641,7 +30332,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetVideoSourceConfiguration
-#define SOAP_TYPE__trt__GetVideoSourceConfiguration (1031)
+#define SOAP_TYPE__trt__GetVideoSourceConfiguration (1080)
 /* trt:GetVideoSourceConfiguration */
 class SOAP_CMAC _trt__GetVideoSourceConfiguration
 {
@@ -29651,7 +30342,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1031;
+    return 1080;
   } /* = unique type id SOAP_TYPE__trt__GetVideoSourceConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29670,7 +30361,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetVideoSourceConfigurationResponse
-#define SOAP_TYPE__trt__GetVideoSourceConfigurationResponse (1032)
+#define SOAP_TYPE__trt__GetVideoSourceConfigurationResponse (1081)
 /* trt:GetVideoSourceConfigurationResponse */
 class SOAP_CMAC _trt__GetVideoSourceConfigurationResponse
 {
@@ -29681,7 +30372,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1032;
+    return 1081;
   } /* = unique type id SOAP_TYPE__trt__GetVideoSourceConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29700,7 +30391,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetVideoEncoderConfiguration
-#define SOAP_TYPE__trt__GetVideoEncoderConfiguration (1033)
+#define SOAP_TYPE__trt__GetVideoEncoderConfiguration (1082)
 /* trt:GetVideoEncoderConfiguration */
 class SOAP_CMAC _trt__GetVideoEncoderConfiguration
 {
@@ -29710,7 +30401,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1033;
+    return 1082;
   } /* = unique type id SOAP_TYPE__trt__GetVideoEncoderConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29729,7 +30420,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetVideoEncoderConfigurationResponse
-#define SOAP_TYPE__trt__GetVideoEncoderConfigurationResponse (1034)
+#define SOAP_TYPE__trt__GetVideoEncoderConfigurationResponse (1083)
 /* trt:GetVideoEncoderConfigurationResponse */
 class SOAP_CMAC _trt__GetVideoEncoderConfigurationResponse
 {
@@ -29740,7 +30431,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1034;
+    return 1083;
   } /* = unique type id SOAP_TYPE__trt__GetVideoEncoderConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29759,7 +30450,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioSourceConfiguration
-#define SOAP_TYPE__trt__GetAudioSourceConfiguration (1035)
+#define SOAP_TYPE__trt__GetAudioSourceConfiguration (1084)
 /* trt:GetAudioSourceConfiguration */
 class SOAP_CMAC _trt__GetAudioSourceConfiguration
 {
@@ -29769,7 +30460,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1035;
+    return 1084;
   } /* = unique type id SOAP_TYPE__trt__GetAudioSourceConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29788,7 +30479,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioSourceConfigurationResponse
-#define SOAP_TYPE__trt__GetAudioSourceConfigurationResponse (1036)
+#define SOAP_TYPE__trt__GetAudioSourceConfigurationResponse (1085)
 /* trt:GetAudioSourceConfigurationResponse */
 class SOAP_CMAC _trt__GetAudioSourceConfigurationResponse
 {
@@ -29799,7 +30490,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1036;
+    return 1085;
   } /* = unique type id SOAP_TYPE__trt__GetAudioSourceConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29818,7 +30509,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioEncoderConfiguration
-#define SOAP_TYPE__trt__GetAudioEncoderConfiguration (1037)
+#define SOAP_TYPE__trt__GetAudioEncoderConfiguration (1086)
 /* trt:GetAudioEncoderConfiguration */
 class SOAP_CMAC _trt__GetAudioEncoderConfiguration
 {
@@ -29828,7 +30519,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1037;
+    return 1086;
   } /* = unique type id SOAP_TYPE__trt__GetAudioEncoderConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29847,7 +30538,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioEncoderConfigurationResponse
-#define SOAP_TYPE__trt__GetAudioEncoderConfigurationResponse (1038)
+#define SOAP_TYPE__trt__GetAudioEncoderConfigurationResponse (1087)
 /* trt:GetAudioEncoderConfigurationResponse */
 class SOAP_CMAC _trt__GetAudioEncoderConfigurationResponse
 {
@@ -29858,7 +30549,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1038;
+    return 1087;
   } /* = unique type id SOAP_TYPE__trt__GetAudioEncoderConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29877,7 +30568,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetVideoAnalyticsConfiguration
-#define SOAP_TYPE__trt__GetVideoAnalyticsConfiguration (1039)
+#define SOAP_TYPE__trt__GetVideoAnalyticsConfiguration (1088)
 /* trt:GetVideoAnalyticsConfiguration */
 class SOAP_CMAC _trt__GetVideoAnalyticsConfiguration
 {
@@ -29887,7 +30578,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1039;
+    return 1088;
   } /* = unique type id SOAP_TYPE__trt__GetVideoAnalyticsConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29906,7 +30597,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetVideoAnalyticsConfigurationResponse
-#define SOAP_TYPE__trt__GetVideoAnalyticsConfigurationResponse (1040)
+#define SOAP_TYPE__trt__GetVideoAnalyticsConfigurationResponse (1089)
 /* trt:GetVideoAnalyticsConfigurationResponse */
 class SOAP_CMAC _trt__GetVideoAnalyticsConfigurationResponse
 {
@@ -29917,7 +30608,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1040;
+    return 1089;
   } /* = unique type id SOAP_TYPE__trt__GetVideoAnalyticsConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29936,7 +30627,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetMetadataConfiguration
-#define SOAP_TYPE__trt__GetMetadataConfiguration (1041)
+#define SOAP_TYPE__trt__GetMetadataConfiguration (1090)
 /* trt:GetMetadataConfiguration */
 class SOAP_CMAC _trt__GetMetadataConfiguration
 {
@@ -29946,7 +30637,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1041;
+    return 1090;
   } /* = unique type id SOAP_TYPE__trt__GetMetadataConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29965,7 +30656,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetMetadataConfigurationResponse
-#define SOAP_TYPE__trt__GetMetadataConfigurationResponse (1042)
+#define SOAP_TYPE__trt__GetMetadataConfigurationResponse (1091)
 /* trt:GetMetadataConfigurationResponse */
 class SOAP_CMAC _trt__GetMetadataConfigurationResponse
 {
@@ -29976,7 +30667,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1042;
+    return 1091;
   } /* = unique type id SOAP_TYPE__trt__GetMetadataConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -29995,7 +30686,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioOutputConfiguration
-#define SOAP_TYPE__trt__GetAudioOutputConfiguration (1043)
+#define SOAP_TYPE__trt__GetAudioOutputConfiguration (1092)
 /* trt:GetAudioOutputConfiguration */
 class SOAP_CMAC _trt__GetAudioOutputConfiguration
 {
@@ -30005,7 +30696,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1043;
+    return 1092;
   } /* = unique type id SOAP_TYPE__trt__GetAudioOutputConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30024,7 +30715,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioOutputConfigurationResponse
-#define SOAP_TYPE__trt__GetAudioOutputConfigurationResponse (1044)
+#define SOAP_TYPE__trt__GetAudioOutputConfigurationResponse (1093)
 /* trt:GetAudioOutputConfigurationResponse */
 class SOAP_CMAC _trt__GetAudioOutputConfigurationResponse
 {
@@ -30035,7 +30726,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1044;
+    return 1093;
   } /* = unique type id SOAP_TYPE__trt__GetAudioOutputConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30054,7 +30745,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioDecoderConfiguration
-#define SOAP_TYPE__trt__GetAudioDecoderConfiguration (1045)
+#define SOAP_TYPE__trt__GetAudioDecoderConfiguration (1094)
 /* trt:GetAudioDecoderConfiguration */
 class SOAP_CMAC _trt__GetAudioDecoderConfiguration
 {
@@ -30064,7 +30755,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1045;
+    return 1094;
   } /* = unique type id SOAP_TYPE__trt__GetAudioDecoderConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30083,7 +30774,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioDecoderConfigurationResponse
-#define SOAP_TYPE__trt__GetAudioDecoderConfigurationResponse (1046)
+#define SOAP_TYPE__trt__GetAudioDecoderConfigurationResponse (1095)
 /* trt:GetAudioDecoderConfigurationResponse */
 class SOAP_CMAC _trt__GetAudioDecoderConfigurationResponse
 {
@@ -30094,7 +30785,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1046;
+    return 1095;
   } /* = unique type id SOAP_TYPE__trt__GetAudioDecoderConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30113,7 +30804,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetCompatibleVideoEncoderConfigurations
-#define SOAP_TYPE__trt__GetCompatibleVideoEncoderConfigurations (1047)
+#define SOAP_TYPE__trt__GetCompatibleVideoEncoderConfigurations (1096)
 /* trt:GetCompatibleVideoEncoderConfigurations */
 class SOAP_CMAC _trt__GetCompatibleVideoEncoderConfigurations
 {
@@ -30123,7 +30814,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1047;
+    return 1096;
   } /* = unique type id SOAP_TYPE__trt__GetCompatibleVideoEncoderConfigurations */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30142,7 +30833,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetCompatibleVideoEncoderConfigurationsResponse
-#define SOAP_TYPE__trt__GetCompatibleVideoEncoderConfigurationsResponse (1048)
+#define SOAP_TYPE__trt__GetCompatibleVideoEncoderConfigurationsResponse (1097)
 /* trt:GetCompatibleVideoEncoderConfigurationsResponse */
 class SOAP_CMAC _trt__GetCompatibleVideoEncoderConfigurationsResponse
 {
@@ -30153,7 +30844,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1048;
+    return 1097;
   } /* = unique type id SOAP_TYPE__trt__GetCompatibleVideoEncoderConfigurationsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30172,7 +30863,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetCompatibleVideoSourceConfigurations
-#define SOAP_TYPE__trt__GetCompatibleVideoSourceConfigurations (1049)
+#define SOAP_TYPE__trt__GetCompatibleVideoSourceConfigurations (1098)
 /* trt:GetCompatibleVideoSourceConfigurations */
 class SOAP_CMAC _trt__GetCompatibleVideoSourceConfigurations
 {
@@ -30182,7 +30873,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1049;
+    return 1098;
   } /* = unique type id SOAP_TYPE__trt__GetCompatibleVideoSourceConfigurations */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30201,7 +30892,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetCompatibleVideoSourceConfigurationsResponse
-#define SOAP_TYPE__trt__GetCompatibleVideoSourceConfigurationsResponse (1050)
+#define SOAP_TYPE__trt__GetCompatibleVideoSourceConfigurationsResponse (1099)
 /* trt:GetCompatibleVideoSourceConfigurationsResponse */
 class SOAP_CMAC _trt__GetCompatibleVideoSourceConfigurationsResponse
 {
@@ -30212,7 +30903,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1050;
+    return 1099;
   } /* = unique type id SOAP_TYPE__trt__GetCompatibleVideoSourceConfigurationsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30231,7 +30922,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetCompatibleAudioEncoderConfigurations
-#define SOAP_TYPE__trt__GetCompatibleAudioEncoderConfigurations (1051)
+#define SOAP_TYPE__trt__GetCompatibleAudioEncoderConfigurations (1100)
 /* trt:GetCompatibleAudioEncoderConfigurations */
 class SOAP_CMAC _trt__GetCompatibleAudioEncoderConfigurations
 {
@@ -30241,7 +30932,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1051;
+    return 1100;
   } /* = unique type id SOAP_TYPE__trt__GetCompatibleAudioEncoderConfigurations */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30260,7 +30951,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetCompatibleAudioEncoderConfigurationsResponse
-#define SOAP_TYPE__trt__GetCompatibleAudioEncoderConfigurationsResponse (1052)
+#define SOAP_TYPE__trt__GetCompatibleAudioEncoderConfigurationsResponse (1101)
 /* trt:GetCompatibleAudioEncoderConfigurationsResponse */
 class SOAP_CMAC _trt__GetCompatibleAudioEncoderConfigurationsResponse
 {
@@ -30271,7 +30962,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1052;
+    return 1101;
   } /* = unique type id SOAP_TYPE__trt__GetCompatibleAudioEncoderConfigurationsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30290,7 +30981,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetCompatibleAudioSourceConfigurations
-#define SOAP_TYPE__trt__GetCompatibleAudioSourceConfigurations (1053)
+#define SOAP_TYPE__trt__GetCompatibleAudioSourceConfigurations (1102)
 /* trt:GetCompatibleAudioSourceConfigurations */
 class SOAP_CMAC _trt__GetCompatibleAudioSourceConfigurations
 {
@@ -30300,7 +30991,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1053;
+    return 1102;
   } /* = unique type id SOAP_TYPE__trt__GetCompatibleAudioSourceConfigurations */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30319,7 +31010,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetCompatibleAudioSourceConfigurationsResponse
-#define SOAP_TYPE__trt__GetCompatibleAudioSourceConfigurationsResponse (1054)
+#define SOAP_TYPE__trt__GetCompatibleAudioSourceConfigurationsResponse (1103)
 /* trt:GetCompatibleAudioSourceConfigurationsResponse */
 class SOAP_CMAC _trt__GetCompatibleAudioSourceConfigurationsResponse
 {
@@ -30330,7 +31021,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1054;
+    return 1103;
   } /* = unique type id SOAP_TYPE__trt__GetCompatibleAudioSourceConfigurationsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30349,7 +31040,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetCompatibleVideoAnalyticsConfigurations
-#define SOAP_TYPE__trt__GetCompatibleVideoAnalyticsConfigurations (1055)
+#define SOAP_TYPE__trt__GetCompatibleVideoAnalyticsConfigurations (1104)
 /* trt:GetCompatibleVideoAnalyticsConfigurations */
 class SOAP_CMAC _trt__GetCompatibleVideoAnalyticsConfigurations
 {
@@ -30359,7 +31050,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1055;
+    return 1104;
   } /* = unique type id SOAP_TYPE__trt__GetCompatibleVideoAnalyticsConfigurations */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30378,19 +31069,19 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetCompatibleVideoAnalyticsConfigurationsResponse
-#define SOAP_TYPE__trt__GetCompatibleVideoAnalyticsConfigurationsResponse (1056)
+#define SOAP_TYPE__trt__GetCompatibleVideoAnalyticsConfigurationsResponse (1105)
 /* trt:GetCompatibleVideoAnalyticsConfigurationsResponse */
 class SOAP_CMAC _trt__GetCompatibleVideoAnalyticsConfigurationsResponse
 {
 public:
   std::vector<tt__VideoAnalyticsConfiguration*> Configurations;
-      /* SOAP 1.2 RPC return element (when namespace qualified) */ /* optional element of type
-                                                                      tt:VideoAnalyticsConfiguration */
-  struct soap* soap;                                               /* transient */
+  /* SOAP 1.2 RPC return element (when namespace qualified) */ /* optional element of type
+                                                                  tt:VideoAnalyticsConfiguration */
+  struct soap* soap;                                           /* transient */
 public:
   virtual int soap_type() const
   {
-    return 1056;
+    return 1105;
   } /* = unique type id SOAP_TYPE__trt__GetCompatibleVideoAnalyticsConfigurationsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30409,7 +31100,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetCompatibleMetadataConfigurations
-#define SOAP_TYPE__trt__GetCompatibleMetadataConfigurations (1057)
+#define SOAP_TYPE__trt__GetCompatibleMetadataConfigurations (1106)
 /* trt:GetCompatibleMetadataConfigurations */
 class SOAP_CMAC _trt__GetCompatibleMetadataConfigurations
 {
@@ -30419,7 +31110,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1057;
+    return 1106;
   } /* = unique type id SOAP_TYPE__trt__GetCompatibleMetadataConfigurations */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30438,7 +31129,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetCompatibleMetadataConfigurationsResponse
-#define SOAP_TYPE__trt__GetCompatibleMetadataConfigurationsResponse (1058)
+#define SOAP_TYPE__trt__GetCompatibleMetadataConfigurationsResponse (1107)
 /* trt:GetCompatibleMetadataConfigurationsResponse */
 class SOAP_CMAC _trt__GetCompatibleMetadataConfigurationsResponse
 {
@@ -30449,7 +31140,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1058;
+    return 1107;
   } /* = unique type id SOAP_TYPE__trt__GetCompatibleMetadataConfigurationsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30468,7 +31159,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetCompatibleAudioOutputConfigurations
-#define SOAP_TYPE__trt__GetCompatibleAudioOutputConfigurations (1059)
+#define SOAP_TYPE__trt__GetCompatibleAudioOutputConfigurations (1108)
 /* trt:GetCompatibleAudioOutputConfigurations */
 class SOAP_CMAC _trt__GetCompatibleAudioOutputConfigurations
 {
@@ -30478,7 +31169,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1059;
+    return 1108;
   } /* = unique type id SOAP_TYPE__trt__GetCompatibleAudioOutputConfigurations */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30497,7 +31188,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetCompatibleAudioOutputConfigurationsResponse
-#define SOAP_TYPE__trt__GetCompatibleAudioOutputConfigurationsResponse (1060)
+#define SOAP_TYPE__trt__GetCompatibleAudioOutputConfigurationsResponse (1109)
 /* trt:GetCompatibleAudioOutputConfigurationsResponse */
 class SOAP_CMAC _trt__GetCompatibleAudioOutputConfigurationsResponse
 {
@@ -30508,7 +31199,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1060;
+    return 1109;
   } /* = unique type id SOAP_TYPE__trt__GetCompatibleAudioOutputConfigurationsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30527,7 +31218,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetCompatibleAudioDecoderConfigurations
-#define SOAP_TYPE__trt__GetCompatibleAudioDecoderConfigurations (1061)
+#define SOAP_TYPE__trt__GetCompatibleAudioDecoderConfigurations (1110)
 /* trt:GetCompatibleAudioDecoderConfigurations */
 class SOAP_CMAC _trt__GetCompatibleAudioDecoderConfigurations
 {
@@ -30537,7 +31228,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1061;
+    return 1110;
   } /* = unique type id SOAP_TYPE__trt__GetCompatibleAudioDecoderConfigurations */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30556,7 +31247,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetCompatibleAudioDecoderConfigurationsResponse
-#define SOAP_TYPE__trt__GetCompatibleAudioDecoderConfigurationsResponse (1062)
+#define SOAP_TYPE__trt__GetCompatibleAudioDecoderConfigurationsResponse (1111)
 /* trt:GetCompatibleAudioDecoderConfigurationsResponse */
 class SOAP_CMAC _trt__GetCompatibleAudioDecoderConfigurationsResponse
 {
@@ -30567,7 +31258,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1062;
+    return 1111;
   } /* = unique type id SOAP_TYPE__trt__GetCompatibleAudioDecoderConfigurationsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30586,7 +31277,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__SetVideoEncoderConfiguration
-#define SOAP_TYPE__trt__SetVideoEncoderConfiguration (1063)
+#define SOAP_TYPE__trt__SetVideoEncoderConfiguration (1112)
 /* trt:SetVideoEncoderConfiguration */
 class SOAP_CMAC _trt__SetVideoEncoderConfiguration
 {
@@ -30597,7 +31288,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1063;
+    return 1112;
   } /* = unique type id SOAP_TYPE__trt__SetVideoEncoderConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30616,7 +31307,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__SetVideoEncoderConfigurationResponse
-#define SOAP_TYPE__trt__SetVideoEncoderConfigurationResponse (1064)
+#define SOAP_TYPE__trt__SetVideoEncoderConfigurationResponse (1113)
 /* trt:SetVideoEncoderConfigurationResponse */
 class SOAP_CMAC _trt__SetVideoEncoderConfigurationResponse
 {
@@ -30625,7 +31316,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1064;
+    return 1113;
   } /* = unique type id SOAP_TYPE__trt__SetVideoEncoderConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30644,7 +31335,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__SetVideoSourceConfiguration
-#define SOAP_TYPE__trt__SetVideoSourceConfiguration (1065)
+#define SOAP_TYPE__trt__SetVideoSourceConfiguration (1114)
 /* trt:SetVideoSourceConfiguration */
 class SOAP_CMAC _trt__SetVideoSourceConfiguration
 {
@@ -30655,7 +31346,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1065;
+    return 1114;
   } /* = unique type id SOAP_TYPE__trt__SetVideoSourceConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30674,7 +31365,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__SetVideoSourceConfigurationResponse
-#define SOAP_TYPE__trt__SetVideoSourceConfigurationResponse (1066)
+#define SOAP_TYPE__trt__SetVideoSourceConfigurationResponse (1115)
 /* trt:SetVideoSourceConfigurationResponse */
 class SOAP_CMAC _trt__SetVideoSourceConfigurationResponse
 {
@@ -30683,7 +31374,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1066;
+    return 1115;
   } /* = unique type id SOAP_TYPE__trt__SetVideoSourceConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30702,7 +31393,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__SetAudioEncoderConfiguration
-#define SOAP_TYPE__trt__SetAudioEncoderConfiguration (1067)
+#define SOAP_TYPE__trt__SetAudioEncoderConfiguration (1116)
 /* trt:SetAudioEncoderConfiguration */
 class SOAP_CMAC _trt__SetAudioEncoderConfiguration
 {
@@ -30713,7 +31404,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1067;
+    return 1116;
   } /* = unique type id SOAP_TYPE__trt__SetAudioEncoderConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30732,7 +31423,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__SetAudioEncoderConfigurationResponse
-#define SOAP_TYPE__trt__SetAudioEncoderConfigurationResponse (1068)
+#define SOAP_TYPE__trt__SetAudioEncoderConfigurationResponse (1117)
 /* trt:SetAudioEncoderConfigurationResponse */
 class SOAP_CMAC _trt__SetAudioEncoderConfigurationResponse
 {
@@ -30741,7 +31432,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1068;
+    return 1117;
   } /* = unique type id SOAP_TYPE__trt__SetAudioEncoderConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30760,7 +31451,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__SetAudioSourceConfiguration
-#define SOAP_TYPE__trt__SetAudioSourceConfiguration (1069)
+#define SOAP_TYPE__trt__SetAudioSourceConfiguration (1118)
 /* trt:SetAudioSourceConfiguration */
 class SOAP_CMAC _trt__SetAudioSourceConfiguration
 {
@@ -30771,7 +31462,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1069;
+    return 1118;
   } /* = unique type id SOAP_TYPE__trt__SetAudioSourceConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30790,7 +31481,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__SetAudioSourceConfigurationResponse
-#define SOAP_TYPE__trt__SetAudioSourceConfigurationResponse (1070)
+#define SOAP_TYPE__trt__SetAudioSourceConfigurationResponse (1119)
 /* trt:SetAudioSourceConfigurationResponse */
 class SOAP_CMAC _trt__SetAudioSourceConfigurationResponse
 {
@@ -30799,7 +31490,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1070;
+    return 1119;
   } /* = unique type id SOAP_TYPE__trt__SetAudioSourceConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30818,7 +31509,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__SetVideoAnalyticsConfiguration
-#define SOAP_TYPE__trt__SetVideoAnalyticsConfiguration (1071)
+#define SOAP_TYPE__trt__SetVideoAnalyticsConfiguration (1120)
 /* trt:SetVideoAnalyticsConfiguration */
 class SOAP_CMAC _trt__SetVideoAnalyticsConfiguration
 {
@@ -30829,7 +31520,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1071;
+    return 1120;
   } /* = unique type id SOAP_TYPE__trt__SetVideoAnalyticsConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30848,7 +31539,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__SetVideoAnalyticsConfigurationResponse
-#define SOAP_TYPE__trt__SetVideoAnalyticsConfigurationResponse (1072)
+#define SOAP_TYPE__trt__SetVideoAnalyticsConfigurationResponse (1121)
 /* trt:SetVideoAnalyticsConfigurationResponse */
 class SOAP_CMAC _trt__SetVideoAnalyticsConfigurationResponse
 {
@@ -30857,7 +31548,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1072;
+    return 1121;
   } /* = unique type id SOAP_TYPE__trt__SetVideoAnalyticsConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30876,7 +31567,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__SetMetadataConfiguration
-#define SOAP_TYPE__trt__SetMetadataConfiguration (1073)
+#define SOAP_TYPE__trt__SetMetadataConfiguration (1122)
 /* trt:SetMetadataConfiguration */
 class SOAP_CMAC _trt__SetMetadataConfiguration
 {
@@ -30887,7 +31578,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1073;
+    return 1122;
   } /* = unique type id SOAP_TYPE__trt__SetMetadataConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30906,7 +31597,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__SetMetadataConfigurationResponse
-#define SOAP_TYPE__trt__SetMetadataConfigurationResponse (1074)
+#define SOAP_TYPE__trt__SetMetadataConfigurationResponse (1123)
 /* trt:SetMetadataConfigurationResponse */
 class SOAP_CMAC _trt__SetMetadataConfigurationResponse
 {
@@ -30915,7 +31606,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1074;
+    return 1123;
   } /* = unique type id SOAP_TYPE__trt__SetMetadataConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30934,7 +31625,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__SetAudioOutputConfiguration
-#define SOAP_TYPE__trt__SetAudioOutputConfiguration (1075)
+#define SOAP_TYPE__trt__SetAudioOutputConfiguration (1124)
 /* trt:SetAudioOutputConfiguration */
 class SOAP_CMAC _trt__SetAudioOutputConfiguration
 {
@@ -30945,7 +31636,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1075;
+    return 1124;
   } /* = unique type id SOAP_TYPE__trt__SetAudioOutputConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30964,7 +31655,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__SetAudioOutputConfigurationResponse
-#define SOAP_TYPE__trt__SetAudioOutputConfigurationResponse (1076)
+#define SOAP_TYPE__trt__SetAudioOutputConfigurationResponse (1125)
 /* trt:SetAudioOutputConfigurationResponse */
 class SOAP_CMAC _trt__SetAudioOutputConfigurationResponse
 {
@@ -30973,7 +31664,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1076;
+    return 1125;
   } /* = unique type id SOAP_TYPE__trt__SetAudioOutputConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -30992,7 +31683,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__SetAudioDecoderConfiguration
-#define SOAP_TYPE__trt__SetAudioDecoderConfiguration (1077)
+#define SOAP_TYPE__trt__SetAudioDecoderConfiguration (1126)
 /* trt:SetAudioDecoderConfiguration */
 class SOAP_CMAC _trt__SetAudioDecoderConfiguration
 {
@@ -31003,7 +31694,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1077;
+    return 1126;
   } /* = unique type id SOAP_TYPE__trt__SetAudioDecoderConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31022,7 +31713,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__SetAudioDecoderConfigurationResponse
-#define SOAP_TYPE__trt__SetAudioDecoderConfigurationResponse (1078)
+#define SOAP_TYPE__trt__SetAudioDecoderConfigurationResponse (1127)
 /* trt:SetAudioDecoderConfigurationResponse */
 class SOAP_CMAC _trt__SetAudioDecoderConfigurationResponse
 {
@@ -31031,7 +31722,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1078;
+    return 1127;
   } /* = unique type id SOAP_TYPE__trt__SetAudioDecoderConfigurationResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31050,7 +31741,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetVideoSourceConfigurationOptions
-#define SOAP_TYPE__trt__GetVideoSourceConfigurationOptions (1079)
+#define SOAP_TYPE__trt__GetVideoSourceConfigurationOptions (1128)
 /* trt:GetVideoSourceConfigurationOptions */
 class SOAP_CMAC _trt__GetVideoSourceConfigurationOptions
 {
@@ -31061,7 +31752,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1079;
+    return 1128;
   } /* = unique type id SOAP_TYPE__trt__GetVideoSourceConfigurationOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31080,7 +31771,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetVideoSourceConfigurationOptionsResponse
-#define SOAP_TYPE__trt__GetVideoSourceConfigurationOptionsResponse (1080)
+#define SOAP_TYPE__trt__GetVideoSourceConfigurationOptionsResponse (1129)
 /* trt:GetVideoSourceConfigurationOptionsResponse */
 class SOAP_CMAC _trt__GetVideoSourceConfigurationOptionsResponse
 {
@@ -31092,7 +31783,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1080;
+    return 1129;
   } /* = unique type id SOAP_TYPE__trt__GetVideoSourceConfigurationOptionsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31111,7 +31802,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetVideoEncoderConfigurationOptions
-#define SOAP_TYPE__trt__GetVideoEncoderConfigurationOptions (1081)
+#define SOAP_TYPE__trt__GetVideoEncoderConfigurationOptions (1130)
 /* trt:GetVideoEncoderConfigurationOptions */
 class SOAP_CMAC _trt__GetVideoEncoderConfigurationOptions
 {
@@ -31122,7 +31813,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1081;
+    return 1130;
   } /* = unique type id SOAP_TYPE__trt__GetVideoEncoderConfigurationOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31141,7 +31832,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetVideoEncoderConfigurationOptionsResponse
-#define SOAP_TYPE__trt__GetVideoEncoderConfigurationOptionsResponse (1082)
+#define SOAP_TYPE__trt__GetVideoEncoderConfigurationOptionsResponse (1131)
 /* trt:GetVideoEncoderConfigurationOptionsResponse */
 class SOAP_CMAC _trt__GetVideoEncoderConfigurationOptionsResponse
 {
@@ -31153,7 +31844,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1082;
+    return 1131;
   } /* = unique type id SOAP_TYPE__trt__GetVideoEncoderConfigurationOptionsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31172,7 +31863,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioSourceConfigurationOptions
-#define SOAP_TYPE__trt__GetAudioSourceConfigurationOptions (1083)
+#define SOAP_TYPE__trt__GetAudioSourceConfigurationOptions (1132)
 /* trt:GetAudioSourceConfigurationOptions */
 class SOAP_CMAC _trt__GetAudioSourceConfigurationOptions
 {
@@ -31183,7 +31874,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1083;
+    return 1132;
   } /* = unique type id SOAP_TYPE__trt__GetAudioSourceConfigurationOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31202,7 +31893,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioSourceConfigurationOptionsResponse
-#define SOAP_TYPE__trt__GetAudioSourceConfigurationOptionsResponse (1084)
+#define SOAP_TYPE__trt__GetAudioSourceConfigurationOptionsResponse (1133)
 /* trt:GetAudioSourceConfigurationOptionsResponse */
 class SOAP_CMAC _trt__GetAudioSourceConfigurationOptionsResponse
 {
@@ -31214,7 +31905,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1084;
+    return 1133;
   } /* = unique type id SOAP_TYPE__trt__GetAudioSourceConfigurationOptionsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31233,7 +31924,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioEncoderConfigurationOptions
-#define SOAP_TYPE__trt__GetAudioEncoderConfigurationOptions (1085)
+#define SOAP_TYPE__trt__GetAudioEncoderConfigurationOptions (1134)
 /* trt:GetAudioEncoderConfigurationOptions */
 class SOAP_CMAC _trt__GetAudioEncoderConfigurationOptions
 {
@@ -31244,7 +31935,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1085;
+    return 1134;
   } /* = unique type id SOAP_TYPE__trt__GetAudioEncoderConfigurationOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31263,7 +31954,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioEncoderConfigurationOptionsResponse
-#define SOAP_TYPE__trt__GetAudioEncoderConfigurationOptionsResponse (1086)
+#define SOAP_TYPE__trt__GetAudioEncoderConfigurationOptionsResponse (1135)
 /* trt:GetAudioEncoderConfigurationOptionsResponse */
 class SOAP_CMAC _trt__GetAudioEncoderConfigurationOptionsResponse
 {
@@ -31275,7 +31966,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1086;
+    return 1135;
   } /* = unique type id SOAP_TYPE__trt__GetAudioEncoderConfigurationOptionsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31294,7 +31985,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetMetadataConfigurationOptions
-#define SOAP_TYPE__trt__GetMetadataConfigurationOptions (1087)
+#define SOAP_TYPE__trt__GetMetadataConfigurationOptions (1136)
 /* trt:GetMetadataConfigurationOptions */
 class SOAP_CMAC _trt__GetMetadataConfigurationOptions
 {
@@ -31305,7 +31996,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1087;
+    return 1136;
   } /* = unique type id SOAP_TYPE__trt__GetMetadataConfigurationOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31324,7 +32015,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetMetadataConfigurationOptionsResponse
-#define SOAP_TYPE__trt__GetMetadataConfigurationOptionsResponse (1088)
+#define SOAP_TYPE__trt__GetMetadataConfigurationOptionsResponse (1137)
 /* trt:GetMetadataConfigurationOptionsResponse */
 class SOAP_CMAC _trt__GetMetadataConfigurationOptionsResponse
 {
@@ -31335,7 +32026,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1088;
+    return 1137;
   } /* = unique type id SOAP_TYPE__trt__GetMetadataConfigurationOptionsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31354,7 +32045,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioOutputConfigurationOptions
-#define SOAP_TYPE__trt__GetAudioOutputConfigurationOptions (1089)
+#define SOAP_TYPE__trt__GetAudioOutputConfigurationOptions (1138)
 /* trt:GetAudioOutputConfigurationOptions */
 class SOAP_CMAC _trt__GetAudioOutputConfigurationOptions
 {
@@ -31365,7 +32056,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1089;
+    return 1138;
   } /* = unique type id SOAP_TYPE__trt__GetAudioOutputConfigurationOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31384,7 +32075,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioOutputConfigurationOptionsResponse
-#define SOAP_TYPE__trt__GetAudioOutputConfigurationOptionsResponse (1090)
+#define SOAP_TYPE__trt__GetAudioOutputConfigurationOptionsResponse (1139)
 /* trt:GetAudioOutputConfigurationOptionsResponse */
 class SOAP_CMAC _trt__GetAudioOutputConfigurationOptionsResponse
 {
@@ -31396,7 +32087,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1090;
+    return 1139;
   } /* = unique type id SOAP_TYPE__trt__GetAudioOutputConfigurationOptionsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31415,7 +32106,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioDecoderConfigurationOptions
-#define SOAP_TYPE__trt__GetAudioDecoderConfigurationOptions (1091)
+#define SOAP_TYPE__trt__GetAudioDecoderConfigurationOptions (1140)
 /* trt:GetAudioDecoderConfigurationOptions */
 class SOAP_CMAC _trt__GetAudioDecoderConfigurationOptions
 {
@@ -31426,7 +32117,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1091;
+    return 1140;
   } /* = unique type id SOAP_TYPE__trt__GetAudioDecoderConfigurationOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31445,7 +32136,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetAudioDecoderConfigurationOptionsResponse
-#define SOAP_TYPE__trt__GetAudioDecoderConfigurationOptionsResponse (1092)
+#define SOAP_TYPE__trt__GetAudioDecoderConfigurationOptionsResponse (1141)
 /* trt:GetAudioDecoderConfigurationOptionsResponse */
 class SOAP_CMAC _trt__GetAudioDecoderConfigurationOptionsResponse
 {
@@ -31457,7 +32148,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1092;
+    return 1141;
   } /* = unique type id SOAP_TYPE__trt__GetAudioDecoderConfigurationOptionsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31476,7 +32167,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetGuaranteedNumberOfVideoEncoderInstances
-#define SOAP_TYPE__trt__GetGuaranteedNumberOfVideoEncoderInstances (1093)
+#define SOAP_TYPE__trt__GetGuaranteedNumberOfVideoEncoderInstances (1142)
 /* trt:GetGuaranteedNumberOfVideoEncoderInstances */
 class SOAP_CMAC _trt__GetGuaranteedNumberOfVideoEncoderInstances
 {
@@ -31486,7 +32177,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1093;
+    return 1142;
   } /* = unique type id SOAP_TYPE__trt__GetGuaranteedNumberOfVideoEncoderInstances */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31505,7 +32196,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetGuaranteedNumberOfVideoEncoderInstancesResponse
-#define SOAP_TYPE__trt__GetGuaranteedNumberOfVideoEncoderInstancesResponse (1094)
+#define SOAP_TYPE__trt__GetGuaranteedNumberOfVideoEncoderInstancesResponse (1143)
 /* trt:GetGuaranteedNumberOfVideoEncoderInstancesResponse */
 class SOAP_CMAC _trt__GetGuaranteedNumberOfVideoEncoderInstancesResponse
 {
@@ -31518,7 +32209,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1094;
+    return 1143;
   } /* = unique type id SOAP_TYPE__trt__GetGuaranteedNumberOfVideoEncoderInstancesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31537,7 +32228,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetStreamUri
-#define SOAP_TYPE__trt__GetStreamUri (1095)
+#define SOAP_TYPE__trt__GetStreamUri (1144)
 /* trt:GetStreamUri */
 class SOAP_CMAC _trt__GetStreamUri
 {
@@ -31548,7 +32239,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1095;
+    return 1144;
   } /* = unique type id SOAP_TYPE__trt__GetStreamUri */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31567,7 +32258,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetStreamUriResponse
-#define SOAP_TYPE__trt__GetStreamUriResponse (1096)
+#define SOAP_TYPE__trt__GetStreamUriResponse (1145)
 /* trt:GetStreamUriResponse */
 class SOAP_CMAC _trt__GetStreamUriResponse
 {
@@ -31578,7 +32269,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1096;
+    return 1145;
   } /* = unique type id SOAP_TYPE__trt__GetStreamUriResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31597,7 +32288,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__StartMulticastStreaming
-#define SOAP_TYPE__trt__StartMulticastStreaming (1097)
+#define SOAP_TYPE__trt__StartMulticastStreaming (1146)
 /* trt:StartMulticastStreaming */
 class SOAP_CMAC _trt__StartMulticastStreaming
 {
@@ -31607,7 +32298,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1097;
+    return 1146;
   } /* = unique type id SOAP_TYPE__trt__StartMulticastStreaming */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31626,7 +32317,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__StartMulticastStreamingResponse
-#define SOAP_TYPE__trt__StartMulticastStreamingResponse (1098)
+#define SOAP_TYPE__trt__StartMulticastStreamingResponse (1147)
 /* trt:StartMulticastStreamingResponse */
 class SOAP_CMAC _trt__StartMulticastStreamingResponse
 {
@@ -31635,7 +32326,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1098;
+    return 1147;
   } /* = unique type id SOAP_TYPE__trt__StartMulticastStreamingResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31654,7 +32345,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__StopMulticastStreaming
-#define SOAP_TYPE__trt__StopMulticastStreaming (1099)
+#define SOAP_TYPE__trt__StopMulticastStreaming (1148)
 /* trt:StopMulticastStreaming */
 class SOAP_CMAC _trt__StopMulticastStreaming
 {
@@ -31664,7 +32355,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1099;
+    return 1148;
   } /* = unique type id SOAP_TYPE__trt__StopMulticastStreaming */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31683,7 +32374,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__StopMulticastStreamingResponse
-#define SOAP_TYPE__trt__StopMulticastStreamingResponse (1100)
+#define SOAP_TYPE__trt__StopMulticastStreamingResponse (1149)
 /* trt:StopMulticastStreamingResponse */
 class SOAP_CMAC _trt__StopMulticastStreamingResponse
 {
@@ -31692,7 +32383,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1100;
+    return 1149;
   } /* = unique type id SOAP_TYPE__trt__StopMulticastStreamingResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31711,7 +32402,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__SetSynchronizationPoint
-#define SOAP_TYPE__trt__SetSynchronizationPoint (1101)
+#define SOAP_TYPE__trt__SetSynchronizationPoint (1150)
 /* trt:SetSynchronizationPoint */
 class SOAP_CMAC _trt__SetSynchronizationPoint
 {
@@ -31721,7 +32412,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1101;
+    return 1150;
   } /* = unique type id SOAP_TYPE__trt__SetSynchronizationPoint */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31740,7 +32431,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__SetSynchronizationPointResponse
-#define SOAP_TYPE__trt__SetSynchronizationPointResponse (1102)
+#define SOAP_TYPE__trt__SetSynchronizationPointResponse (1151)
 /* trt:SetSynchronizationPointResponse */
 class SOAP_CMAC _trt__SetSynchronizationPointResponse
 {
@@ -31749,7 +32440,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1102;
+    return 1151;
   } /* = unique type id SOAP_TYPE__trt__SetSynchronizationPointResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31768,7 +32459,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetSnapshotUri
-#define SOAP_TYPE__trt__GetSnapshotUri (1103)
+#define SOAP_TYPE__trt__GetSnapshotUri (1152)
 /* trt:GetSnapshotUri */
 class SOAP_CMAC _trt__GetSnapshotUri
 {
@@ -31778,7 +32469,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1103;
+    return 1152;
   } /* = unique type id SOAP_TYPE__trt__GetSnapshotUri */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31797,7 +32488,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetSnapshotUriResponse
-#define SOAP_TYPE__trt__GetSnapshotUriResponse (1104)
+#define SOAP_TYPE__trt__GetSnapshotUriResponse (1153)
 /* trt:GetSnapshotUriResponse */
 class SOAP_CMAC _trt__GetSnapshotUriResponse
 {
@@ -31808,7 +32499,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1104;
+    return 1153;
   } /* = unique type id SOAP_TYPE__trt__GetSnapshotUriResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31827,7 +32518,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetVideoSourceModes
-#define SOAP_TYPE__trt__GetVideoSourceModes (1105)
+#define SOAP_TYPE__trt__GetVideoSourceModes (1154)
 /* trt:GetVideoSourceModes */
 class SOAP_CMAC _trt__GetVideoSourceModes
 {
@@ -31837,7 +32528,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1105;
+    return 1154;
   } /* = unique type id SOAP_TYPE__trt__GetVideoSourceModes */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31856,7 +32547,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetVideoSourceModesResponse
-#define SOAP_TYPE__trt__GetVideoSourceModesResponse (1106)
+#define SOAP_TYPE__trt__GetVideoSourceModesResponse (1155)
 /* trt:GetVideoSourceModesResponse */
 class SOAP_CMAC _trt__GetVideoSourceModesResponse
 {
@@ -31867,7 +32558,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1106;
+    return 1155;
   } /* = unique type id SOAP_TYPE__trt__GetVideoSourceModesResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31886,7 +32577,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__SetVideoSourceMode
-#define SOAP_TYPE__trt__SetVideoSourceMode (1107)
+#define SOAP_TYPE__trt__SetVideoSourceMode (1156)
 /* trt:SetVideoSourceMode */
 class SOAP_CMAC _trt__SetVideoSourceMode
 {
@@ -31897,7 +32588,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1107;
+    return 1156;
   } /* = unique type id SOAP_TYPE__trt__SetVideoSourceMode */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31916,7 +32607,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__SetVideoSourceModeResponse
-#define SOAP_TYPE__trt__SetVideoSourceModeResponse (1108)
+#define SOAP_TYPE__trt__SetVideoSourceModeResponse (1157)
 /* trt:SetVideoSourceModeResponse */
 class SOAP_CMAC _trt__SetVideoSourceModeResponse
 {
@@ -31926,7 +32617,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1108;
+    return 1157;
   } /* = unique type id SOAP_TYPE__trt__SetVideoSourceModeResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31945,7 +32636,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetOSDs
-#define SOAP_TYPE__trt__GetOSDs (1109)
+#define SOAP_TYPE__trt__GetOSDs (1158)
 /* trt:GetOSDs */
 class SOAP_CMAC _trt__GetOSDs
 {
@@ -31955,7 +32646,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1109;
+    return 1158;
   } /* = unique type id SOAP_TYPE__trt__GetOSDs */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -31974,7 +32665,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetOSDsResponse
-#define SOAP_TYPE__trt__GetOSDsResponse (1110)
+#define SOAP_TYPE__trt__GetOSDsResponse (1159)
 /* trt:GetOSDsResponse */
 class SOAP_CMAC _trt__GetOSDsResponse
 {
@@ -31985,7 +32676,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1110;
+    return 1159;
   } /* = unique type id SOAP_TYPE__trt__GetOSDsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32004,7 +32695,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetOSD
-#define SOAP_TYPE__trt__GetOSD (1111)
+#define SOAP_TYPE__trt__GetOSD (1160)
 /* trt:GetOSD */
 class SOAP_CMAC _trt__GetOSD
 {
@@ -32015,7 +32706,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1111;
+    return 1160;
   } /* = unique type id SOAP_TYPE__trt__GetOSD */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32034,7 +32725,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetOSDResponse
-#define SOAP_TYPE__trt__GetOSDResponse (1112)
+#define SOAP_TYPE__trt__GetOSDResponse (1161)
 /* trt:GetOSDResponse */
 class SOAP_CMAC _trt__GetOSDResponse
 {
@@ -32046,7 +32737,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1112;
+    return 1161;
   } /* = unique type id SOAP_TYPE__trt__GetOSDResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32065,7 +32756,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__SetOSD
-#define SOAP_TYPE__trt__SetOSD (1113)
+#define SOAP_TYPE__trt__SetOSD (1162)
 /* trt:SetOSD */
 class SOAP_CMAC _trt__SetOSD
 {
@@ -32076,7 +32767,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1113;
+    return 1162;
   } /* = unique type id SOAP_TYPE__trt__SetOSD */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32095,7 +32786,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__SetOSDResponse
-#define SOAP_TYPE__trt__SetOSDResponse (1114)
+#define SOAP_TYPE__trt__SetOSDResponse (1163)
 /* trt:SetOSDResponse */
 class SOAP_CMAC _trt__SetOSDResponse
 {
@@ -32105,7 +32796,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1114;
+    return 1163;
   } /* = unique type id SOAP_TYPE__trt__SetOSDResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32124,7 +32815,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetOSDOptions
-#define SOAP_TYPE__trt__GetOSDOptions (1115)
+#define SOAP_TYPE__trt__GetOSDOptions (1164)
 /* trt:GetOSDOptions */
 class SOAP_CMAC _trt__GetOSDOptions
 {
@@ -32135,7 +32826,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1115;
+    return 1164;
   } /* = unique type id SOAP_TYPE__trt__GetOSDOptions */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32154,7 +32845,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__GetOSDOptionsResponse
-#define SOAP_TYPE__trt__GetOSDOptionsResponse (1116)
+#define SOAP_TYPE__trt__GetOSDOptionsResponse (1165)
 /* trt:GetOSDOptionsResponse */
 class SOAP_CMAC _trt__GetOSDOptionsResponse
 {
@@ -32166,7 +32857,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1116;
+    return 1165;
   } /* = unique type id SOAP_TYPE__trt__GetOSDOptionsResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32185,7 +32876,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__CreateOSD
-#define SOAP_TYPE__trt__CreateOSD (1117)
+#define SOAP_TYPE__trt__CreateOSD (1166)
 /* trt:CreateOSD */
 class SOAP_CMAC _trt__CreateOSD
 {
@@ -32196,7 +32887,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1117;
+    return 1166;
   } /* = unique type id SOAP_TYPE__trt__CreateOSD */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32215,7 +32906,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__CreateOSDResponse
-#define SOAP_TYPE__trt__CreateOSDResponse (1118)
+#define SOAP_TYPE__trt__CreateOSDResponse (1167)
 /* trt:CreateOSDResponse */
 class SOAP_CMAC _trt__CreateOSDResponse
 {
@@ -32227,7 +32918,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1118;
+    return 1167;
   } /* = unique type id SOAP_TYPE__trt__CreateOSDResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32246,7 +32937,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__DeleteOSD
-#define SOAP_TYPE__trt__DeleteOSD (1119)
+#define SOAP_TYPE__trt__DeleteOSD (1168)
 /* trt:DeleteOSD */
 class SOAP_CMAC _trt__DeleteOSD
 {
@@ -32257,7 +32948,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1119;
+    return 1168;
   } /* = unique type id SOAP_TYPE__trt__DeleteOSD */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32276,7 +32967,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__trt__DeleteOSDResponse
-#define SOAP_TYPE__trt__DeleteOSDResponse (1120)
+#define SOAP_TYPE__trt__DeleteOSDResponse (1169)
 /* trt:DeleteOSDResponse */
 class SOAP_CMAC _trt__DeleteOSDResponse
 {
@@ -32286,7 +32977,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1120;
+    return 1169;
   } /* = unique type id SOAP_TYPE__trt__DeleteOSDResponse */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32305,7 +32996,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tds__StorageConfiguration
-#define SOAP_TYPE_tds__StorageConfiguration (193)
+#define SOAP_TYPE_tds__StorageConfiguration (233)
 /* tds:StorageConfiguration */
 class SOAP_CMAC tds__StorageConfiguration : public tt__DeviceEntity
 {
@@ -32314,7 +33005,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 193;
+    return 233;
   } /* = unique type id SOAP_TYPE_tds__StorageConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32333,7 +33024,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoSource
-#define SOAP_TYPE_tt__VideoSource (377)
+#define SOAP_TYPE_tt__VideoSource (417)
 /* tt:VideoSource */
 class SOAP_CMAC tt__VideoSource : public tt__DeviceEntity
 {
@@ -32346,7 +33037,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 377;
+    return 417;
   } /* = unique type id SOAP_TYPE_tt__VideoSource */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32365,7 +33056,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AudioSource
-#define SOAP_TYPE_tt__AudioSource (380)
+#define SOAP_TYPE_tt__AudioSource (420)
 /* tt:AudioSource */
 class SOAP_CMAC tt__AudioSource : public tt__DeviceEntity
 {
@@ -32376,7 +33067,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 380;
+    return 420;
   } /* = unique type id SOAP_TYPE_tt__AudioSource */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32395,7 +33086,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoSourceConfiguration
-#define SOAP_TYPE_tt__VideoSourceConfiguration (385)
+#define SOAP_TYPE_tt__VideoSourceConfiguration (425)
 /* tt:VideoSourceConfiguration */
 class SOAP_CMAC tt__VideoSourceConfiguration : public tt__ConfigurationEntity
 {
@@ -32408,7 +33099,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 385;
+    return 425;
   } /* = unique type id SOAP_TYPE_tt__VideoSourceConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32427,7 +33118,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoEncoderConfiguration
-#define SOAP_TYPE_tt__VideoEncoderConfiguration (395)
+#define SOAP_TYPE_tt__VideoEncoderConfiguration (438)
 /* tt:VideoEncoderConfiguration */
 class SOAP_CMAC tt__VideoEncoderConfiguration : public tt__ConfigurationEntity
 {
@@ -32445,7 +33136,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 395;
+    return 438;
   } /* = unique type id SOAP_TYPE_tt__VideoEncoderConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32464,7 +33155,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__JpegOptions2
-#define SOAP_TYPE_tt__JpegOptions2 (404)
+#define SOAP_TYPE_tt__JpegOptions2 (447)
 /* tt:JpegOptions2 */
 class SOAP_CMAC tt__JpegOptions2 : public tt__JpegOptions
 {
@@ -32475,7 +33166,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 404;
+    return 447;
   } /* = unique type id SOAP_TYPE_tt__JpegOptions2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32494,7 +33185,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Mpeg4Options2
-#define SOAP_TYPE_tt__Mpeg4Options2 (406)
+#define SOAP_TYPE_tt__Mpeg4Options2 (449)
 /* tt:Mpeg4Options2 */
 class SOAP_CMAC tt__Mpeg4Options2 : public tt__Mpeg4Options
 {
@@ -32505,7 +33196,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 406;
+    return 449;
   } /* = unique type id SOAP_TYPE_tt__Mpeg4Options2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32524,7 +33215,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__H264Options2
-#define SOAP_TYPE_tt__H264Options2 (408)
+#define SOAP_TYPE_tt__H264Options2 (451)
 /* tt:H264Options2 */
 class SOAP_CMAC tt__H264Options2 : public tt__H264Options
 {
@@ -32535,7 +33226,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 408;
+    return 451;
   } /* = unique type id SOAP_TYPE_tt__H264Options2 */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32553,8 +33244,44 @@ public:
 };
 #endif
 
+#ifndef SOAP_TYPE_tt__VideoEncoder2Configuration
+#define SOAP_TYPE_tt__VideoEncoder2Configuration (452)
+/* tt:VideoEncoder2Configuration */
+class SOAP_CMAC tt__VideoEncoder2Configuration : public tt__ConfigurationEntity
+{
+public:
+  std::string Encoding;                  /* required element of type xsd:string */
+  tt__VideoResolution2* Resolution;      /* required element of type tt:VideoResolution2 */
+  tt__VideoRateControl2* RateControl;    /* optional element of type tt:VideoRateControl2 */
+  tt__MulticastConfiguration* Multicast; /* optional element of type tt:MulticastConfiguration */
+  float Quality;                         /* required element of type xsd:float */
+  std::vector<char*> __any;
+  int* GovLength;       /* optional attribute */
+  std::string* Profile; /* optional attribute */
+  char* __anyAttribute; /* optional attribute */
+public:
+  virtual int soap_type() const
+  {
+    return 452;
+  } /* = unique type id SOAP_TYPE_tt__VideoEncoder2Configuration */
+  virtual void soap_default(struct soap*);
+  virtual void soap_serialize(struct soap*) const;
+  virtual int soap_put(struct soap*, const char*, const char*) const;
+  virtual int soap_out(struct soap*, const char*, int, const char*) const;
+  virtual void* soap_get(struct soap*, const char*, const char*);
+  virtual void* soap_in(struct soap*, const char*, const char*);
+  tt__VideoEncoder2Configuration()
+  {
+    tt__VideoEncoder2Configuration::soap_default(NULL);
+  }
+  virtual ~tt__VideoEncoder2Configuration()
+  {
+  }
+};
+#endif
+
 #ifndef SOAP_TYPE_tt__AudioSourceConfiguration
-#define SOAP_TYPE_tt__AudioSourceConfiguration (409)
+#define SOAP_TYPE_tt__AudioSourceConfiguration (456)
 /* tt:AudioSourceConfiguration */
 class SOAP_CMAC tt__AudioSourceConfiguration : public tt__ConfigurationEntity
 {
@@ -32565,7 +33292,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 409;
+    return 456;
   } /* = unique type id SOAP_TYPE_tt__AudioSourceConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32584,7 +33311,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AudioEncoderConfiguration
-#define SOAP_TYPE_tt__AudioEncoderConfiguration (412)
+#define SOAP_TYPE_tt__AudioEncoderConfiguration (459)
 /* tt:AudioEncoderConfiguration */
 class SOAP_CMAC tt__AudioEncoderConfiguration : public tt__ConfigurationEntity
 {
@@ -32599,7 +33326,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 412;
+    return 459;
   } /* = unique type id SOAP_TYPE_tt__AudioEncoderConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32617,8 +33344,41 @@ public:
 };
 #endif
 
+#ifndef SOAP_TYPE_tt__AudioEncoder2Configuration
+#define SOAP_TYPE_tt__AudioEncoder2Configuration (462)
+/* tt:AudioEncoder2Configuration */
+class SOAP_CMAC tt__AudioEncoder2Configuration : public tt__ConfigurationEntity
+{
+public:
+  std::string Encoding;                  /* required element of type xsd:string */
+  tt__MulticastConfiguration* Multicast; /* optional element of type tt:MulticastConfiguration */
+  int Bitrate;                           /* required element of type xsd:int */
+  int SampleRate;                        /* required element of type xsd:int */
+  std::vector<char*> __any;
+  char* __anyAttribute; /* optional attribute */
+public:
+  virtual int soap_type() const
+  {
+    return 462;
+  } /* = unique type id SOAP_TYPE_tt__AudioEncoder2Configuration */
+  virtual void soap_default(struct soap*);
+  virtual void soap_serialize(struct soap*) const;
+  virtual int soap_put(struct soap*, const char*, const char*) const;
+  virtual int soap_out(struct soap*, const char*, int, const char*) const;
+  virtual void* soap_get(struct soap*, const char*, const char*);
+  virtual void* soap_in(struct soap*, const char*, const char*);
+  tt__AudioEncoder2Configuration()
+  {
+    tt__AudioEncoder2Configuration::soap_default(NULL);
+  }
+  virtual ~tt__AudioEncoder2Configuration()
+  {
+  }
+};
+#endif
+
 #ifndef SOAP_TYPE_tt__VideoAnalyticsConfiguration
-#define SOAP_TYPE_tt__VideoAnalyticsConfiguration (415)
+#define SOAP_TYPE_tt__VideoAnalyticsConfiguration (464)
 /* tt:VideoAnalyticsConfiguration */
 class SOAP_CMAC tt__VideoAnalyticsConfiguration : public tt__ConfigurationEntity
 {
@@ -32631,7 +33391,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 415;
+    return 464;
   } /* = unique type id SOAP_TYPE_tt__VideoAnalyticsConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32650,7 +33410,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__MetadataConfiguration
-#define SOAP_TYPE_tt__MetadataConfiguration (416)
+#define SOAP_TYPE_tt__MetadataConfiguration (465)
 /* tt:MetadataConfiguration */
 class SOAP_CMAC tt__MetadataConfiguration : public tt__ConfigurationEntity
 {
@@ -32669,7 +33429,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 416;
+    return 465;
   } /* = unique type id SOAP_TYPE_tt__MetadataConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32688,7 +33448,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoOutput
-#define SOAP_TYPE_tt__VideoOutput (425)
+#define SOAP_TYPE_tt__VideoOutput (474)
 /* tt:VideoOutput */
 class SOAP_CMAC tt__VideoOutput : public tt__DeviceEntity
 {
@@ -32702,7 +33462,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 425;
+    return 474;
   } /* = unique type id SOAP_TYPE_tt__VideoOutput */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32721,7 +33481,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__VideoOutputConfiguration
-#define SOAP_TYPE_tt__VideoOutputConfiguration (427)
+#define SOAP_TYPE_tt__VideoOutputConfiguration (476)
 /* tt:VideoOutputConfiguration */
 class SOAP_CMAC tt__VideoOutputConfiguration : public tt__ConfigurationEntity
 {
@@ -32732,7 +33492,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 427;
+    return 476;
   } /* = unique type id SOAP_TYPE_tt__VideoOutputConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32751,7 +33511,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AudioOutput
-#define SOAP_TYPE_tt__AudioOutput (434)
+#define SOAP_TYPE_tt__AudioOutput (483)
 /* tt:AudioOutput */
 class SOAP_CMAC tt__AudioOutput : public tt__DeviceEntity
 {
@@ -32761,7 +33521,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 434;
+    return 483;
   } /* = unique type id SOAP_TYPE_tt__AudioOutput */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32780,7 +33540,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AudioOutputConfiguration
-#define SOAP_TYPE_tt__AudioOutputConfiguration (435)
+#define SOAP_TYPE_tt__AudioOutputConfiguration (484)
 /* tt:AudioOutputConfiguration */
 class SOAP_CMAC tt__AudioOutputConfiguration : public tt__ConfigurationEntity
 {
@@ -32793,7 +33553,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 435;
+    return 484;
   } /* = unique type id SOAP_TYPE_tt__AudioOutputConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32812,7 +33572,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AudioDecoderConfiguration
-#define SOAP_TYPE_tt__AudioDecoderConfiguration (437)
+#define SOAP_TYPE_tt__AudioDecoderConfiguration (486)
 /* tt:AudioDecoderConfiguration */
 class SOAP_CMAC tt__AudioDecoderConfiguration : public tt__ConfigurationEntity
 {
@@ -32822,7 +33582,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 437;
+    return 486;
   } /* = unique type id SOAP_TYPE_tt__AudioDecoderConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32841,7 +33601,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkInterface
-#define SOAP_TYPE_tt__NetworkInterface (448)
+#define SOAP_TYPE_tt__NetworkInterface (497)
 /* tt:NetworkInterface */
 class SOAP_CMAC tt__NetworkInterface : public tt__DeviceEntity
 {
@@ -32856,7 +33616,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 448;
+    return 497;
   } /* = unique type id SOAP_TYPE_tt__NetworkInterface */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32875,7 +33635,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__CertificateUsage
-#define SOAP_TYPE_tt__CertificateUsage (552)
+#define SOAP_TYPE_tt__CertificateUsage (601)
 /* Primitive tt:CertificateUsage schema type: */
 class SOAP_CMAC tt__CertificateUsage : public xsd__anyType
 {
@@ -32885,7 +33645,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 552;
+    return 601;
   } /* = unique type id SOAP_TYPE_tt__CertificateUsage */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32904,7 +33664,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__RelayOutput
-#define SOAP_TYPE_tt__RelayOutput (561)
+#define SOAP_TYPE_tt__RelayOutput (610)
 /* tt:RelayOutput */
 class SOAP_CMAC tt__RelayOutput : public tt__DeviceEntity
 {
@@ -32915,7 +33675,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 561;
+    return 610;
   } /* = unique type id SOAP_TYPE_tt__RelayOutput */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32934,17 +33694,18 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__DigitalInput
-#define SOAP_TYPE_tt__DigitalInput (562)
+#define SOAP_TYPE_tt__DigitalInput (611)
 /* tt:DigitalInput */
 class SOAP_CMAC tt__DigitalInput : public tt__DeviceEntity
 {
 public:
   std::vector<char*> __any;
-  char* __anyAttribute; /* optional attribute */
+  enum tt__DigitalIdleState* IdleState; /* optional attribute */
+  char* __anyAttribute;                 /* optional attribute */
 public:
   virtual int soap_type() const
   {
-    return 562;
+    return 611;
   } /* = unique type id SOAP_TYPE_tt__DigitalInput */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32963,7 +33724,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZNode
-#define SOAP_TYPE_tt__PTZNode (563)
+#define SOAP_TYPE_tt__PTZNode (612)
 /* tt:PTZNode */
 class SOAP_CMAC tt__PTZNode : public tt__DeviceEntity
 {
@@ -32979,7 +33740,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 563;
+    return 612;
   } /* = unique type id SOAP_TYPE_tt__PTZNode */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -32998,7 +33759,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__PTZConfiguration
-#define SOAP_TYPE_tt__PTZConfiguration (568)
+#define SOAP_TYPE_tt__PTZConfiguration (617)
 /* tt:PTZConfiguration */
 class SOAP_CMAC tt__PTZConfiguration : public tt__ConfigurationEntity
 {
@@ -33022,7 +33783,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 568;
+    return 617;
   } /* = unique type id SOAP_TYPE_tt__PTZConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33041,7 +33802,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__Object
-#define SOAP_TYPE_tt__Object (704)
+#define SOAP_TYPE_tt__Object (753)
 /* tt:Object */
 class SOAP_CMAC tt__Object : public tt__ObjectId
 {
@@ -33053,7 +33814,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 704;
+    return 753;
   } /* = unique type id SOAP_TYPE_tt__Object */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33072,7 +33833,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__EventFilter
-#define SOAP_TYPE_tt__EventFilter (767)
+#define SOAP_TYPE_tt__EventFilter (816)
 /* tt:EventFilter */
 class SOAP_CMAC tt__EventFilter : public wsnt__FilterType
 {
@@ -33081,7 +33842,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 767;
+    return 816;
   } /* = unique type id SOAP_TYPE_tt__EventFilter */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33100,7 +33861,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AnalyticsEngine
-#define SOAP_TYPE_tt__AnalyticsEngine (803)
+#define SOAP_TYPE_tt__AnalyticsEngine (852)
 /* tt:AnalyticsEngine */
 class SOAP_CMAC tt__AnalyticsEngine : public tt__ConfigurationEntity
 {
@@ -33112,7 +33873,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 803;
+    return 852;
   } /* = unique type id SOAP_TYPE_tt__AnalyticsEngine */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33131,7 +33892,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AnalyticsEngineInput
-#define SOAP_TYPE_tt__AnalyticsEngineInput (809)
+#define SOAP_TYPE_tt__AnalyticsEngineInput (858)
 /* tt:AnalyticsEngineInput */
 class SOAP_CMAC tt__AnalyticsEngineInput : public tt__ConfigurationEntity
 {
@@ -33144,7 +33905,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 809;
+    return 858;
   } /* = unique type id SOAP_TYPE_tt__AnalyticsEngineInput */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33163,7 +33924,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__AnalyticsEngineControl
-#define SOAP_TYPE_tt__AnalyticsEngineControl (814)
+#define SOAP_TYPE_tt__AnalyticsEngineControl (863)
 /* tt:AnalyticsEngineControl */
 class SOAP_CMAC tt__AnalyticsEngineControl : public tt__ConfigurationEntity
 {
@@ -33180,7 +33941,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 814;
+    return 863;
   } /* = unique type id SOAP_TYPE_tt__AnalyticsEngineControl */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33199,7 +33960,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__OSDConfiguration
-#define SOAP_TYPE_tt__OSDConfiguration (838)
+#define SOAP_TYPE_tt__OSDConfiguration (887)
 /* tt:OSDConfiguration */
 class SOAP_CMAC tt__OSDConfiguration : public tt__DeviceEntity
 {
@@ -33214,7 +33975,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 838;
+    return 887;
   } /* = unique type id SOAP_TYPE_tt__OSDConfiguration */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33233,14 +33994,14 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__SubscribeCreationFailedFaultType
-#define SOAP_TYPE_wsnt__SubscribeCreationFailedFaultType (854)
+#define SOAP_TYPE_wsnt__SubscribeCreationFailedFaultType (903)
 /* wsnt:SubscribeCreationFailedFaultType */
 class SOAP_CMAC wsnt__SubscribeCreationFailedFaultType : public wsrfbf__BaseFaultType
 {
 public:
   virtual int soap_type() const
   {
-    return 854;
+    return 903;
   } /* = unique type id SOAP_TYPE_wsnt__SubscribeCreationFailedFaultType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33259,7 +34020,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__InvalidFilterFaultType
-#define SOAP_TYPE_wsnt__InvalidFilterFaultType (855)
+#define SOAP_TYPE_wsnt__InvalidFilterFaultType (904)
 /* wsnt:InvalidFilterFaultType */
 class SOAP_CMAC wsnt__InvalidFilterFaultType : public wsrfbf__BaseFaultType
 {
@@ -33268,7 +34029,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 855;
+    return 904;
   } /* = unique type id SOAP_TYPE_wsnt__InvalidFilterFaultType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33287,14 +34048,14 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__TopicExpressionDialectUnknownFaultType
-#define SOAP_TYPE_wsnt__TopicExpressionDialectUnknownFaultType (856)
+#define SOAP_TYPE_wsnt__TopicExpressionDialectUnknownFaultType (905)
 /* wsnt:TopicExpressionDialectUnknownFaultType */
 class SOAP_CMAC wsnt__TopicExpressionDialectUnknownFaultType : public wsrfbf__BaseFaultType
 {
 public:
   virtual int soap_type() const
   {
-    return 856;
+    return 905;
   } /* = unique type id SOAP_TYPE_wsnt__TopicExpressionDialectUnknownFaultType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33313,14 +34074,14 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__InvalidTopicExpressionFaultType
-#define SOAP_TYPE_wsnt__InvalidTopicExpressionFaultType (857)
+#define SOAP_TYPE_wsnt__InvalidTopicExpressionFaultType (906)
 /* wsnt:InvalidTopicExpressionFaultType */
 class SOAP_CMAC wsnt__InvalidTopicExpressionFaultType : public wsrfbf__BaseFaultType
 {
 public:
   virtual int soap_type() const
   {
-    return 857;
+    return 906;
   } /* = unique type id SOAP_TYPE_wsnt__InvalidTopicExpressionFaultType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33339,14 +34100,14 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__TopicNotSupportedFaultType
-#define SOAP_TYPE_wsnt__TopicNotSupportedFaultType (858)
+#define SOAP_TYPE_wsnt__TopicNotSupportedFaultType (907)
 /* wsnt:TopicNotSupportedFaultType */
 class SOAP_CMAC wsnt__TopicNotSupportedFaultType : public wsrfbf__BaseFaultType
 {
 public:
   virtual int soap_type() const
   {
-    return 858;
+    return 907;
   } /* = unique type id SOAP_TYPE_wsnt__TopicNotSupportedFaultType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33365,14 +34126,14 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__MultipleTopicsSpecifiedFaultType
-#define SOAP_TYPE_wsnt__MultipleTopicsSpecifiedFaultType (859)
+#define SOAP_TYPE_wsnt__MultipleTopicsSpecifiedFaultType (908)
 /* wsnt:MultipleTopicsSpecifiedFaultType */
 class SOAP_CMAC wsnt__MultipleTopicsSpecifiedFaultType : public wsrfbf__BaseFaultType
 {
 public:
   virtual int soap_type() const
   {
-    return 859;
+    return 908;
   } /* = unique type id SOAP_TYPE_wsnt__MultipleTopicsSpecifiedFaultType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33391,14 +34152,14 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__InvalidProducerPropertiesExpressionFaultType
-#define SOAP_TYPE_wsnt__InvalidProducerPropertiesExpressionFaultType (860)
+#define SOAP_TYPE_wsnt__InvalidProducerPropertiesExpressionFaultType (909)
 /* wsnt:InvalidProducerPropertiesExpressionFaultType */
 class SOAP_CMAC wsnt__InvalidProducerPropertiesExpressionFaultType : public wsrfbf__BaseFaultType
 {
 public:
   virtual int soap_type() const
   {
-    return 860;
+    return 909;
   } /* = unique type id SOAP_TYPE_wsnt__InvalidProducerPropertiesExpressionFaultType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33417,14 +34178,14 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__InvalidMessageContentExpressionFaultType
-#define SOAP_TYPE_wsnt__InvalidMessageContentExpressionFaultType (861)
+#define SOAP_TYPE_wsnt__InvalidMessageContentExpressionFaultType (910)
 /* wsnt:InvalidMessageContentExpressionFaultType */
 class SOAP_CMAC wsnt__InvalidMessageContentExpressionFaultType : public wsrfbf__BaseFaultType
 {
 public:
   virtual int soap_type() const
   {
-    return 861;
+    return 910;
   } /* = unique type id SOAP_TYPE_wsnt__InvalidMessageContentExpressionFaultType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33443,7 +34204,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__UnrecognizedPolicyRequestFaultType
-#define SOAP_TYPE_wsnt__UnrecognizedPolicyRequestFaultType (862)
+#define SOAP_TYPE_wsnt__UnrecognizedPolicyRequestFaultType (911)
 /* wsnt:UnrecognizedPolicyRequestFaultType */
 class SOAP_CMAC wsnt__UnrecognizedPolicyRequestFaultType : public wsrfbf__BaseFaultType
 {
@@ -33452,7 +34213,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 862;
+    return 911;
   } /* = unique type id SOAP_TYPE_wsnt__UnrecognizedPolicyRequestFaultType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33471,7 +34232,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__UnsupportedPolicyRequestFaultType
-#define SOAP_TYPE_wsnt__UnsupportedPolicyRequestFaultType (863)
+#define SOAP_TYPE_wsnt__UnsupportedPolicyRequestFaultType (912)
 /* wsnt:UnsupportedPolicyRequestFaultType */
 class SOAP_CMAC wsnt__UnsupportedPolicyRequestFaultType : public wsrfbf__BaseFaultType
 {
@@ -33480,7 +34241,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 863;
+    return 912;
   } /* = unique type id SOAP_TYPE_wsnt__UnsupportedPolicyRequestFaultType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33499,14 +34260,14 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__NotifyMessageNotSupportedFaultType
-#define SOAP_TYPE_wsnt__NotifyMessageNotSupportedFaultType (864)
+#define SOAP_TYPE_wsnt__NotifyMessageNotSupportedFaultType (913)
 /* wsnt:NotifyMessageNotSupportedFaultType */
 class SOAP_CMAC wsnt__NotifyMessageNotSupportedFaultType : public wsrfbf__BaseFaultType
 {
 public:
   virtual int soap_type() const
   {
-    return 864;
+    return 913;
   } /* = unique type id SOAP_TYPE_wsnt__NotifyMessageNotSupportedFaultType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33525,7 +34286,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__UnacceptableInitialTerminationTimeFaultType
-#define SOAP_TYPE_wsnt__UnacceptableInitialTerminationTimeFaultType (865)
+#define SOAP_TYPE_wsnt__UnacceptableInitialTerminationTimeFaultType (914)
 /* wsnt:UnacceptableInitialTerminationTimeFaultType */
 class SOAP_CMAC wsnt__UnacceptableInitialTerminationTimeFaultType : public wsrfbf__BaseFaultType
 {
@@ -33535,7 +34296,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 865;
+    return 914;
   } /* = unique type id SOAP_TYPE_wsnt__UnacceptableInitialTerminationTimeFaultType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33554,14 +34315,14 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__NoCurrentMessageOnTopicFaultType
-#define SOAP_TYPE_wsnt__NoCurrentMessageOnTopicFaultType (866)
+#define SOAP_TYPE_wsnt__NoCurrentMessageOnTopicFaultType (915)
 /* wsnt:NoCurrentMessageOnTopicFaultType */
 class SOAP_CMAC wsnt__NoCurrentMessageOnTopicFaultType : public wsrfbf__BaseFaultType
 {
 public:
   virtual int soap_type() const
   {
-    return 866;
+    return 915;
   } /* = unique type id SOAP_TYPE_wsnt__NoCurrentMessageOnTopicFaultType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33580,14 +34341,14 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__UnableToGetMessagesFaultType
-#define SOAP_TYPE_wsnt__UnableToGetMessagesFaultType (867)
+#define SOAP_TYPE_wsnt__UnableToGetMessagesFaultType (916)
 /* wsnt:UnableToGetMessagesFaultType */
 class SOAP_CMAC wsnt__UnableToGetMessagesFaultType : public wsrfbf__BaseFaultType
 {
 public:
   virtual int soap_type() const
   {
-    return 867;
+    return 916;
   } /* = unique type id SOAP_TYPE_wsnt__UnableToGetMessagesFaultType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33606,14 +34367,14 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__UnableToDestroyPullPointFaultType
-#define SOAP_TYPE_wsnt__UnableToDestroyPullPointFaultType (868)
+#define SOAP_TYPE_wsnt__UnableToDestroyPullPointFaultType (917)
 /* wsnt:UnableToDestroyPullPointFaultType */
 class SOAP_CMAC wsnt__UnableToDestroyPullPointFaultType : public wsrfbf__BaseFaultType
 {
 public:
   virtual int soap_type() const
   {
-    return 868;
+    return 917;
   } /* = unique type id SOAP_TYPE_wsnt__UnableToDestroyPullPointFaultType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33632,14 +34393,14 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__UnableToCreatePullPointFaultType
-#define SOAP_TYPE_wsnt__UnableToCreatePullPointFaultType (869)
+#define SOAP_TYPE_wsnt__UnableToCreatePullPointFaultType (918)
 /* wsnt:UnableToCreatePullPointFaultType */
 class SOAP_CMAC wsnt__UnableToCreatePullPointFaultType : public wsrfbf__BaseFaultType
 {
 public:
   virtual int soap_type() const
   {
-    return 869;
+    return 918;
   } /* = unique type id SOAP_TYPE_wsnt__UnableToCreatePullPointFaultType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33658,7 +34419,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__UnacceptableTerminationTimeFaultType
-#define SOAP_TYPE_wsnt__UnacceptableTerminationTimeFaultType (870)
+#define SOAP_TYPE_wsnt__UnacceptableTerminationTimeFaultType (919)
 /* wsnt:UnacceptableTerminationTimeFaultType */
 class SOAP_CMAC wsnt__UnacceptableTerminationTimeFaultType : public wsrfbf__BaseFaultType
 {
@@ -33668,7 +34429,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 870;
+    return 919;
   } /* = unique type id SOAP_TYPE_wsnt__UnacceptableTerminationTimeFaultType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33687,14 +34448,14 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__UnableToDestroySubscriptionFaultType
-#define SOAP_TYPE_wsnt__UnableToDestroySubscriptionFaultType (871)
+#define SOAP_TYPE_wsnt__UnableToDestroySubscriptionFaultType (920)
 /* wsnt:UnableToDestroySubscriptionFaultType */
 class SOAP_CMAC wsnt__UnableToDestroySubscriptionFaultType : public wsrfbf__BaseFaultType
 {
 public:
   virtual int soap_type() const
   {
-    return 871;
+    return 920;
   } /* = unique type id SOAP_TYPE_wsnt__UnableToDestroySubscriptionFaultType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33713,14 +34474,14 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__PauseFailedFaultType
-#define SOAP_TYPE_wsnt__PauseFailedFaultType (872)
+#define SOAP_TYPE_wsnt__PauseFailedFaultType (921)
 /* wsnt:PauseFailedFaultType */
 class SOAP_CMAC wsnt__PauseFailedFaultType : public wsrfbf__BaseFaultType
 {
 public:
   virtual int soap_type() const
   {
-    return 872;
+    return 921;
   } /* = unique type id SOAP_TYPE_wsnt__PauseFailedFaultType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33739,14 +34500,14 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wsnt__ResumeFailedFaultType
-#define SOAP_TYPE_wsnt__ResumeFailedFaultType (873)
+#define SOAP_TYPE_wsnt__ResumeFailedFaultType (922)
 /* wsnt:ResumeFailedFaultType */
 class SOAP_CMAC wsnt__ResumeFailedFaultType : public wsrfbf__BaseFaultType
 {
 public:
   virtual int soap_type() const
   {
-    return 873;
+    return 922;
   } /* = unique type id SOAP_TYPE_wsnt__ResumeFailedFaultType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33765,7 +34526,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE__wstop__TopicNamespaceType_Topic
-#define SOAP_TYPE__wstop__TopicNamespaceType_Topic (1959)
+#define SOAP_TYPE__wstop__TopicNamespaceType_Topic (2025)
 /* wstop:TopicNamespaceType-Topic */
 class SOAP_CMAC _wstop__TopicNamespaceType_Topic
 {
@@ -33782,7 +34543,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 1959;
+    return 2025;
   } /* = unique type id SOAP_TYPE__wstop__TopicNamespaceType_Topic */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33801,7 +34562,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wstop__TopicNamespaceType
-#define SOAP_TYPE_wstop__TopicNamespaceType (900)
+#define SOAP_TYPE_wstop__TopicNamespaceType (949)
 /* wstop:TopicNamespaceType */
 class SOAP_CMAC wstop__TopicNamespaceType : public wstop__ExtensibleDocumented
 {
@@ -33814,7 +34575,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 900;
+    return 949;
   } /* = unique type id SOAP_TYPE_wstop__TopicNamespaceType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33833,7 +34594,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wstop__TopicType
-#define SOAP_TYPE_wstop__TopicType (901)
+#define SOAP_TYPE_wstop__TopicType (950)
 /* wstop:TopicType */
 class SOAP_CMAC wstop__TopicType : public wstop__ExtensibleDocumented
 {
@@ -33847,7 +34608,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 901;
+    return 950;
   } /* = unique type id SOAP_TYPE_wstop__TopicType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33866,7 +34627,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_wstop__TopicSetType
-#define SOAP_TYPE_wstop__TopicSetType (902)
+#define SOAP_TYPE_wstop__TopicSetType (951)
 /* wstop:TopicSetType */
 class SOAP_CMAC wstop__TopicSetType : public wstop__ExtensibleDocumented
 {
@@ -33876,7 +34637,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 902;
+    return 951;
   } /* = unique type id SOAP_TYPE_wstop__TopicSetType */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33895,7 +34656,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_tt__OSDReference
-#define SOAP_TYPE_tt__OSDReference (822)
+#define SOAP_TYPE_tt__OSDReference (871)
 /* Primitive tt:OSDReference schema type: */
 class SOAP_CMAC tt__OSDReference : public xsd__anyType
 {
@@ -33905,7 +34666,7 @@ public:
 public:
   virtual int soap_type() const
   {
-    return 822;
+    return 871;
   } /* = unique type id SOAP_TYPE_tt__OSDReference */
   virtual void soap_default(struct soap*);
   virtual void soap_serialize(struct soap*) const;
@@ -33923,8 +34684,53 @@ public:
 };
 #endif
 
+#ifndef SOAP_TYPE___tdn__Hello
+#define SOAP_TYPE___tdn__Hello (2036)
+/* Operation wrapper: */
+struct __tdn__Hello
+{
+public:
+  struct wsdd__HelloType tdn__Hello; /* required element of type wsdd:HelloType */
+public:
+  int soap_type() const
+  {
+    return 2036;
+  } /* = unique type id SOAP_TYPE___tdn__Hello */
+};
+#endif
+
+#ifndef SOAP_TYPE___tdn__Bye
+#define SOAP_TYPE___tdn__Bye (2038)
+/* Operation wrapper: */
+struct __tdn__Bye
+{
+public:
+  struct wsdd__ByeType tdn__Bye; /* required element of type wsdd:ByeType */
+public:
+  int soap_type() const
+  {
+    return 2038;
+  } /* = unique type id SOAP_TYPE___tdn__Bye */
+};
+#endif
+
+#ifndef SOAP_TYPE___tdn__Probe
+#define SOAP_TYPE___tdn__Probe (2041)
+/* Operation wrapper: */
+struct __tdn__Probe
+{
+public:
+  struct wsdd__ProbeType tdn__Probe; /* required element of type wsdd:ProbeType */
+public:
+  int soap_type() const
+  {
+    return 2041;
+  } /* = unique type id SOAP_TYPE___tdn__Probe */
+};
+#endif
+
 #ifndef SOAP_TYPE___tds__GetServices
-#define SOAP_TYPE___tds__GetServices (1971)
+#define SOAP_TYPE___tds__GetServices (2045)
 /* Operation wrapper: */
 struct __tds__GetServices
 {
@@ -33933,13 +34739,13 @@ public:
 public:
   int soap_type() const
   {
-    return 1971;
+    return 2045;
   } /* = unique type id SOAP_TYPE___tds__GetServices */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetServiceCapabilities
-#define SOAP_TYPE___tds__GetServiceCapabilities (1975)
+#define SOAP_TYPE___tds__GetServiceCapabilities (2049)
 /* Operation wrapper: */
 struct __tds__GetServiceCapabilities
 {
@@ -33948,13 +34754,13 @@ public:
 public:
   int soap_type() const
   {
-    return 1975;
+    return 2049;
   } /* = unique type id SOAP_TYPE___tds__GetServiceCapabilities */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetDeviceInformation
-#define SOAP_TYPE___tds__GetDeviceInformation (1979)
+#define SOAP_TYPE___tds__GetDeviceInformation (2053)
 /* Operation wrapper: */
 struct __tds__GetDeviceInformation
 {
@@ -33963,13 +34769,13 @@ public:
 public:
   int soap_type() const
   {
-    return 1979;
+    return 2053;
   } /* = unique type id SOAP_TYPE___tds__GetDeviceInformation */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetSystemDateAndTime
-#define SOAP_TYPE___tds__SetSystemDateAndTime (1983)
+#define SOAP_TYPE___tds__SetSystemDateAndTime (2057)
 /* Operation wrapper: */
 struct __tds__SetSystemDateAndTime
 {
@@ -33978,13 +34784,13 @@ public:
 public:
   int soap_type() const
   {
-    return 1983;
+    return 2057;
   } /* = unique type id SOAP_TYPE___tds__SetSystemDateAndTime */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetSystemDateAndTime
-#define SOAP_TYPE___tds__GetSystemDateAndTime (1987)
+#define SOAP_TYPE___tds__GetSystemDateAndTime (2061)
 /* Operation wrapper: */
 struct __tds__GetSystemDateAndTime
 {
@@ -33993,13 +34799,13 @@ public:
 public:
   int soap_type() const
   {
-    return 1987;
+    return 2061;
   } /* = unique type id SOAP_TYPE___tds__GetSystemDateAndTime */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetSystemFactoryDefault
-#define SOAP_TYPE___tds__SetSystemFactoryDefault (1991)
+#define SOAP_TYPE___tds__SetSystemFactoryDefault (2065)
 /* Operation wrapper: */
 struct __tds__SetSystemFactoryDefault
 {
@@ -34008,13 +34814,13 @@ public:
 public:
   int soap_type() const
   {
-    return 1991;
+    return 2065;
   } /* = unique type id SOAP_TYPE___tds__SetSystemFactoryDefault */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__UpgradeSystemFirmware
-#define SOAP_TYPE___tds__UpgradeSystemFirmware (1995)
+#define SOAP_TYPE___tds__UpgradeSystemFirmware (2069)
 /* Operation wrapper: */
 struct __tds__UpgradeSystemFirmware
 {
@@ -34023,13 +34829,13 @@ public:
 public:
   int soap_type() const
   {
-    return 1995;
+    return 2069;
   } /* = unique type id SOAP_TYPE___tds__UpgradeSystemFirmware */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SystemReboot
-#define SOAP_TYPE___tds__SystemReboot (1999)
+#define SOAP_TYPE___tds__SystemReboot (2073)
 /* Operation wrapper: */
 struct __tds__SystemReboot
 {
@@ -34038,13 +34844,13 @@ public:
 public:
   int soap_type() const
   {
-    return 1999;
+    return 2073;
   } /* = unique type id SOAP_TYPE___tds__SystemReboot */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__RestoreSystem
-#define SOAP_TYPE___tds__RestoreSystem (2003)
+#define SOAP_TYPE___tds__RestoreSystem (2077)
 /* Operation wrapper: */
 struct __tds__RestoreSystem
 {
@@ -34053,13 +34859,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2003;
+    return 2077;
   } /* = unique type id SOAP_TYPE___tds__RestoreSystem */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetSystemBackup
-#define SOAP_TYPE___tds__GetSystemBackup (2007)
+#define SOAP_TYPE___tds__GetSystemBackup (2081)
 /* Operation wrapper: */
 struct __tds__GetSystemBackup
 {
@@ -34068,13 +34874,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2007;
+    return 2081;
   } /* = unique type id SOAP_TYPE___tds__GetSystemBackup */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetSystemLog
-#define SOAP_TYPE___tds__GetSystemLog (2011)
+#define SOAP_TYPE___tds__GetSystemLog (2085)
 /* Operation wrapper: */
 struct __tds__GetSystemLog
 {
@@ -34083,13 +34889,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2011;
+    return 2085;
   } /* = unique type id SOAP_TYPE___tds__GetSystemLog */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetSystemSupportInformation
-#define SOAP_TYPE___tds__GetSystemSupportInformation (2015)
+#define SOAP_TYPE___tds__GetSystemSupportInformation (2089)
 /* Operation wrapper: */
 struct __tds__GetSystemSupportInformation
 {
@@ -34099,13 +34905,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2015;
+    return 2089;
   } /* = unique type id SOAP_TYPE___tds__GetSystemSupportInformation */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetScopes
-#define SOAP_TYPE___tds__GetScopes (2019)
+#define SOAP_TYPE___tds__GetScopes (2093)
 /* Operation wrapper: */
 struct __tds__GetScopes
 {
@@ -34114,13 +34920,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2019;
+    return 2093;
   } /* = unique type id SOAP_TYPE___tds__GetScopes */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetScopes
-#define SOAP_TYPE___tds__SetScopes (2023)
+#define SOAP_TYPE___tds__SetScopes (2097)
 /* Operation wrapper: */
 struct __tds__SetScopes
 {
@@ -34129,13 +34935,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2023;
+    return 2097;
   } /* = unique type id SOAP_TYPE___tds__SetScopes */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__AddScopes
-#define SOAP_TYPE___tds__AddScopes (2027)
+#define SOAP_TYPE___tds__AddScopes (2101)
 /* Operation wrapper: */
 struct __tds__AddScopes
 {
@@ -34144,13 +34950,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2027;
+    return 2101;
   } /* = unique type id SOAP_TYPE___tds__AddScopes */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__RemoveScopes
-#define SOAP_TYPE___tds__RemoveScopes (2031)
+#define SOAP_TYPE___tds__RemoveScopes (2105)
 /* Operation wrapper: */
 struct __tds__RemoveScopes
 {
@@ -34159,13 +34965,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2031;
+    return 2105;
   } /* = unique type id SOAP_TYPE___tds__RemoveScopes */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetDiscoveryMode
-#define SOAP_TYPE___tds__GetDiscoveryMode (2035)
+#define SOAP_TYPE___tds__GetDiscoveryMode (2109)
 /* Operation wrapper: */
 struct __tds__GetDiscoveryMode
 {
@@ -34174,13 +34980,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2035;
+    return 2109;
   } /* = unique type id SOAP_TYPE___tds__GetDiscoveryMode */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetDiscoveryMode
-#define SOAP_TYPE___tds__SetDiscoveryMode (2039)
+#define SOAP_TYPE___tds__SetDiscoveryMode (2113)
 /* Operation wrapper: */
 struct __tds__SetDiscoveryMode
 {
@@ -34189,13 +34995,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2039;
+    return 2113;
   } /* = unique type id SOAP_TYPE___tds__SetDiscoveryMode */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetRemoteDiscoveryMode
-#define SOAP_TYPE___tds__GetRemoteDiscoveryMode (2043)
+#define SOAP_TYPE___tds__GetRemoteDiscoveryMode (2117)
 /* Operation wrapper: */
 struct __tds__GetRemoteDiscoveryMode
 {
@@ -34204,13 +35010,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2043;
+    return 2117;
   } /* = unique type id SOAP_TYPE___tds__GetRemoteDiscoveryMode */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetRemoteDiscoveryMode
-#define SOAP_TYPE___tds__SetRemoteDiscoveryMode (2047)
+#define SOAP_TYPE___tds__SetRemoteDiscoveryMode (2121)
 /* Operation wrapper: */
 struct __tds__SetRemoteDiscoveryMode
 {
@@ -34219,13 +35025,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2047;
+    return 2121;
   } /* = unique type id SOAP_TYPE___tds__SetRemoteDiscoveryMode */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetDPAddresses
-#define SOAP_TYPE___tds__GetDPAddresses (2051)
+#define SOAP_TYPE___tds__GetDPAddresses (2125)
 /* Operation wrapper: */
 struct __tds__GetDPAddresses
 {
@@ -34234,13 +35040,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2051;
+    return 2125;
   } /* = unique type id SOAP_TYPE___tds__GetDPAddresses */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetEndpointReference
-#define SOAP_TYPE___tds__GetEndpointReference (2055)
+#define SOAP_TYPE___tds__GetEndpointReference (2129)
 /* Operation wrapper: */
 struct __tds__GetEndpointReference
 {
@@ -34249,13 +35055,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2055;
+    return 2129;
   } /* = unique type id SOAP_TYPE___tds__GetEndpointReference */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetRemoteUser
-#define SOAP_TYPE___tds__GetRemoteUser (2059)
+#define SOAP_TYPE___tds__GetRemoteUser (2133)
 /* Operation wrapper: */
 struct __tds__GetRemoteUser
 {
@@ -34264,13 +35070,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2059;
+    return 2133;
   } /* = unique type id SOAP_TYPE___tds__GetRemoteUser */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetRemoteUser
-#define SOAP_TYPE___tds__SetRemoteUser (2063)
+#define SOAP_TYPE___tds__SetRemoteUser (2137)
 /* Operation wrapper: */
 struct __tds__SetRemoteUser
 {
@@ -34279,13 +35085,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2063;
+    return 2137;
   } /* = unique type id SOAP_TYPE___tds__SetRemoteUser */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetUsers
-#define SOAP_TYPE___tds__GetUsers (2067)
+#define SOAP_TYPE___tds__GetUsers (2141)
 /* Operation wrapper: */
 struct __tds__GetUsers
 {
@@ -34294,13 +35100,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2067;
+    return 2141;
   } /* = unique type id SOAP_TYPE___tds__GetUsers */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__CreateUsers
-#define SOAP_TYPE___tds__CreateUsers (2071)
+#define SOAP_TYPE___tds__CreateUsers (2145)
 /* Operation wrapper: */
 struct __tds__CreateUsers
 {
@@ -34309,13 +35115,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2071;
+    return 2145;
   } /* = unique type id SOAP_TYPE___tds__CreateUsers */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__DeleteUsers
-#define SOAP_TYPE___tds__DeleteUsers (2075)
+#define SOAP_TYPE___tds__DeleteUsers (2149)
 /* Operation wrapper: */
 struct __tds__DeleteUsers
 {
@@ -34324,13 +35130,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2075;
+    return 2149;
   } /* = unique type id SOAP_TYPE___tds__DeleteUsers */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetUser
-#define SOAP_TYPE___tds__SetUser (2079)
+#define SOAP_TYPE___tds__SetUser (2153)
 /* Operation wrapper: */
 struct __tds__SetUser
 {
@@ -34339,13 +35145,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2079;
+    return 2153;
   } /* = unique type id SOAP_TYPE___tds__SetUser */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetWsdlUrl
-#define SOAP_TYPE___tds__GetWsdlUrl (2083)
+#define SOAP_TYPE___tds__GetWsdlUrl (2157)
 /* Operation wrapper: */
 struct __tds__GetWsdlUrl
 {
@@ -34354,13 +35160,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2083;
+    return 2157;
   } /* = unique type id SOAP_TYPE___tds__GetWsdlUrl */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetCapabilities
-#define SOAP_TYPE___tds__GetCapabilities (2087)
+#define SOAP_TYPE___tds__GetCapabilities (2161)
 /* Operation wrapper: */
 struct __tds__GetCapabilities
 {
@@ -34369,13 +35175,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2087;
+    return 2161;
   } /* = unique type id SOAP_TYPE___tds__GetCapabilities */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetDPAddresses
-#define SOAP_TYPE___tds__SetDPAddresses (2091)
+#define SOAP_TYPE___tds__SetDPAddresses (2165)
 /* Operation wrapper: */
 struct __tds__SetDPAddresses
 {
@@ -34384,13 +35190,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2091;
+    return 2165;
   } /* = unique type id SOAP_TYPE___tds__SetDPAddresses */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetHostname
-#define SOAP_TYPE___tds__GetHostname (2095)
+#define SOAP_TYPE___tds__GetHostname (2169)
 /* Operation wrapper: */
 struct __tds__GetHostname
 {
@@ -34399,13 +35205,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2095;
+    return 2169;
   } /* = unique type id SOAP_TYPE___tds__GetHostname */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetHostname
-#define SOAP_TYPE___tds__SetHostname (2099)
+#define SOAP_TYPE___tds__SetHostname (2173)
 /* Operation wrapper: */
 struct __tds__SetHostname
 {
@@ -34414,13 +35220,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2099;
+    return 2173;
   } /* = unique type id SOAP_TYPE___tds__SetHostname */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetHostnameFromDHCP
-#define SOAP_TYPE___tds__SetHostnameFromDHCP (2103)
+#define SOAP_TYPE___tds__SetHostnameFromDHCP (2177)
 /* Operation wrapper: */
 struct __tds__SetHostnameFromDHCP
 {
@@ -34429,13 +35235,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2103;
+    return 2177;
   } /* = unique type id SOAP_TYPE___tds__SetHostnameFromDHCP */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetDNS
-#define SOAP_TYPE___tds__GetDNS (2107)
+#define SOAP_TYPE___tds__GetDNS (2181)
 /* Operation wrapper: */
 struct __tds__GetDNS
 {
@@ -34444,13 +35250,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2107;
+    return 2181;
   } /* = unique type id SOAP_TYPE___tds__GetDNS */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetDNS
-#define SOAP_TYPE___tds__SetDNS (2111)
+#define SOAP_TYPE___tds__SetDNS (2185)
 /* Operation wrapper: */
 struct __tds__SetDNS
 {
@@ -34459,13 +35265,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2111;
+    return 2185;
   } /* = unique type id SOAP_TYPE___tds__SetDNS */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetNTP
-#define SOAP_TYPE___tds__GetNTP (2115)
+#define SOAP_TYPE___tds__GetNTP (2189)
 /* Operation wrapper: */
 struct __tds__GetNTP
 {
@@ -34474,13 +35280,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2115;
+    return 2189;
   } /* = unique type id SOAP_TYPE___tds__GetNTP */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetNTP
-#define SOAP_TYPE___tds__SetNTP (2119)
+#define SOAP_TYPE___tds__SetNTP (2193)
 /* Operation wrapper: */
 struct __tds__SetNTP
 {
@@ -34489,13 +35295,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2119;
+    return 2193;
   } /* = unique type id SOAP_TYPE___tds__SetNTP */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetDynamicDNS
-#define SOAP_TYPE___tds__GetDynamicDNS (2123)
+#define SOAP_TYPE___tds__GetDynamicDNS (2197)
 /* Operation wrapper: */
 struct __tds__GetDynamicDNS
 {
@@ -34504,13 +35310,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2123;
+    return 2197;
   } /* = unique type id SOAP_TYPE___tds__GetDynamicDNS */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetDynamicDNS
-#define SOAP_TYPE___tds__SetDynamicDNS (2127)
+#define SOAP_TYPE___tds__SetDynamicDNS (2201)
 /* Operation wrapper: */
 struct __tds__SetDynamicDNS
 {
@@ -34519,13 +35325,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2127;
+    return 2201;
   } /* = unique type id SOAP_TYPE___tds__SetDynamicDNS */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetNetworkInterfaces
-#define SOAP_TYPE___tds__GetNetworkInterfaces (2131)
+#define SOAP_TYPE___tds__GetNetworkInterfaces (2205)
 /* Operation wrapper: */
 struct __tds__GetNetworkInterfaces
 {
@@ -34534,13 +35340,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2131;
+    return 2205;
   } /* = unique type id SOAP_TYPE___tds__GetNetworkInterfaces */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetNetworkInterfaces
-#define SOAP_TYPE___tds__SetNetworkInterfaces (2135)
+#define SOAP_TYPE___tds__SetNetworkInterfaces (2209)
 /* Operation wrapper: */
 struct __tds__SetNetworkInterfaces
 {
@@ -34549,13 +35355,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2135;
+    return 2209;
   } /* = unique type id SOAP_TYPE___tds__SetNetworkInterfaces */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetNetworkProtocols
-#define SOAP_TYPE___tds__GetNetworkProtocols (2139)
+#define SOAP_TYPE___tds__GetNetworkProtocols (2213)
 /* Operation wrapper: */
 struct __tds__GetNetworkProtocols
 {
@@ -34564,13 +35370,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2139;
+    return 2213;
   } /* = unique type id SOAP_TYPE___tds__GetNetworkProtocols */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetNetworkProtocols
-#define SOAP_TYPE___tds__SetNetworkProtocols (2143)
+#define SOAP_TYPE___tds__SetNetworkProtocols (2217)
 /* Operation wrapper: */
 struct __tds__SetNetworkProtocols
 {
@@ -34579,13 +35385,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2143;
+    return 2217;
   } /* = unique type id SOAP_TYPE___tds__SetNetworkProtocols */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetNetworkDefaultGateway
-#define SOAP_TYPE___tds__GetNetworkDefaultGateway (2147)
+#define SOAP_TYPE___tds__GetNetworkDefaultGateway (2221)
 /* Operation wrapper: */
 struct __tds__GetNetworkDefaultGateway
 {
@@ -34595,13 +35401,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2147;
+    return 2221;
   } /* = unique type id SOAP_TYPE___tds__GetNetworkDefaultGateway */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetNetworkDefaultGateway
-#define SOAP_TYPE___tds__SetNetworkDefaultGateway (2151)
+#define SOAP_TYPE___tds__SetNetworkDefaultGateway (2225)
 /* Operation wrapper: */
 struct __tds__SetNetworkDefaultGateway
 {
@@ -34611,13 +35417,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2151;
+    return 2225;
   } /* = unique type id SOAP_TYPE___tds__SetNetworkDefaultGateway */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetZeroConfiguration
-#define SOAP_TYPE___tds__GetZeroConfiguration (2155)
+#define SOAP_TYPE___tds__GetZeroConfiguration (2229)
 /* Operation wrapper: */
 struct __tds__GetZeroConfiguration
 {
@@ -34626,13 +35432,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2155;
+    return 2229;
   } /* = unique type id SOAP_TYPE___tds__GetZeroConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetZeroConfiguration
-#define SOAP_TYPE___tds__SetZeroConfiguration (2159)
+#define SOAP_TYPE___tds__SetZeroConfiguration (2233)
 /* Operation wrapper: */
 struct __tds__SetZeroConfiguration
 {
@@ -34641,13 +35447,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2159;
+    return 2233;
   } /* = unique type id SOAP_TYPE___tds__SetZeroConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetIPAddressFilter
-#define SOAP_TYPE___tds__GetIPAddressFilter (2163)
+#define SOAP_TYPE___tds__GetIPAddressFilter (2237)
 /* Operation wrapper: */
 struct __tds__GetIPAddressFilter
 {
@@ -34656,13 +35462,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2163;
+    return 2237;
   } /* = unique type id SOAP_TYPE___tds__GetIPAddressFilter */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetIPAddressFilter
-#define SOAP_TYPE___tds__SetIPAddressFilter (2167)
+#define SOAP_TYPE___tds__SetIPAddressFilter (2241)
 /* Operation wrapper: */
 struct __tds__SetIPAddressFilter
 {
@@ -34671,13 +35477,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2167;
+    return 2241;
   } /* = unique type id SOAP_TYPE___tds__SetIPAddressFilter */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__AddIPAddressFilter
-#define SOAP_TYPE___tds__AddIPAddressFilter (2171)
+#define SOAP_TYPE___tds__AddIPAddressFilter (2245)
 /* Operation wrapper: */
 struct __tds__AddIPAddressFilter
 {
@@ -34686,13 +35492,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2171;
+    return 2245;
   } /* = unique type id SOAP_TYPE___tds__AddIPAddressFilter */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__RemoveIPAddressFilter
-#define SOAP_TYPE___tds__RemoveIPAddressFilter (2175)
+#define SOAP_TYPE___tds__RemoveIPAddressFilter (2249)
 /* Operation wrapper: */
 struct __tds__RemoveIPAddressFilter
 {
@@ -34701,13 +35507,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2175;
+    return 2249;
   } /* = unique type id SOAP_TYPE___tds__RemoveIPAddressFilter */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetAccessPolicy
-#define SOAP_TYPE___tds__GetAccessPolicy (2179)
+#define SOAP_TYPE___tds__GetAccessPolicy (2253)
 /* Operation wrapper: */
 struct __tds__GetAccessPolicy
 {
@@ -34716,13 +35522,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2179;
+    return 2253;
   } /* = unique type id SOAP_TYPE___tds__GetAccessPolicy */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetAccessPolicy
-#define SOAP_TYPE___tds__SetAccessPolicy (2183)
+#define SOAP_TYPE___tds__SetAccessPolicy (2257)
 /* Operation wrapper: */
 struct __tds__SetAccessPolicy
 {
@@ -34731,13 +35537,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2183;
+    return 2257;
   } /* = unique type id SOAP_TYPE___tds__SetAccessPolicy */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__CreateCertificate
-#define SOAP_TYPE___tds__CreateCertificate (2187)
+#define SOAP_TYPE___tds__CreateCertificate (2261)
 /* Operation wrapper: */
 struct __tds__CreateCertificate
 {
@@ -34746,13 +35552,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2187;
+    return 2261;
   } /* = unique type id SOAP_TYPE___tds__CreateCertificate */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetCertificates
-#define SOAP_TYPE___tds__GetCertificates (2191)
+#define SOAP_TYPE___tds__GetCertificates (2265)
 /* Operation wrapper: */
 struct __tds__GetCertificates
 {
@@ -34761,13 +35567,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2191;
+    return 2265;
   } /* = unique type id SOAP_TYPE___tds__GetCertificates */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetCertificatesStatus
-#define SOAP_TYPE___tds__GetCertificatesStatus (2195)
+#define SOAP_TYPE___tds__GetCertificatesStatus (2269)
 /* Operation wrapper: */
 struct __tds__GetCertificatesStatus
 {
@@ -34776,13 +35582,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2195;
+    return 2269;
   } /* = unique type id SOAP_TYPE___tds__GetCertificatesStatus */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetCertificatesStatus
-#define SOAP_TYPE___tds__SetCertificatesStatus (2199)
+#define SOAP_TYPE___tds__SetCertificatesStatus (2273)
 /* Operation wrapper: */
 struct __tds__SetCertificatesStatus
 {
@@ -34791,13 +35597,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2199;
+    return 2273;
   } /* = unique type id SOAP_TYPE___tds__SetCertificatesStatus */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__DeleteCertificates
-#define SOAP_TYPE___tds__DeleteCertificates (2203)
+#define SOAP_TYPE___tds__DeleteCertificates (2277)
 /* Operation wrapper: */
 struct __tds__DeleteCertificates
 {
@@ -34806,13 +35612,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2203;
+    return 2277;
   } /* = unique type id SOAP_TYPE___tds__DeleteCertificates */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetPkcs10Request
-#define SOAP_TYPE___tds__GetPkcs10Request (2207)
+#define SOAP_TYPE___tds__GetPkcs10Request (2281)
 /* Operation wrapper: */
 struct __tds__GetPkcs10Request
 {
@@ -34821,13 +35627,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2207;
+    return 2281;
   } /* = unique type id SOAP_TYPE___tds__GetPkcs10Request */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__LoadCertificates
-#define SOAP_TYPE___tds__LoadCertificates (2211)
+#define SOAP_TYPE___tds__LoadCertificates (2285)
 /* Operation wrapper: */
 struct __tds__LoadCertificates
 {
@@ -34836,13 +35642,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2211;
+    return 2285;
   } /* = unique type id SOAP_TYPE___tds__LoadCertificates */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetClientCertificateMode
-#define SOAP_TYPE___tds__GetClientCertificateMode (2215)
+#define SOAP_TYPE___tds__GetClientCertificateMode (2289)
 /* Operation wrapper: */
 struct __tds__GetClientCertificateMode
 {
@@ -34852,13 +35658,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2215;
+    return 2289;
   } /* = unique type id SOAP_TYPE___tds__GetClientCertificateMode */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetClientCertificateMode
-#define SOAP_TYPE___tds__SetClientCertificateMode (2219)
+#define SOAP_TYPE___tds__SetClientCertificateMode (2293)
 /* Operation wrapper: */
 struct __tds__SetClientCertificateMode
 {
@@ -34868,13 +35674,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2219;
+    return 2293;
   } /* = unique type id SOAP_TYPE___tds__SetClientCertificateMode */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetRelayOutputs
-#define SOAP_TYPE___tds__GetRelayOutputs (2223)
+#define SOAP_TYPE___tds__GetRelayOutputs (2297)
 /* Operation wrapper: */
 struct __tds__GetRelayOutputs
 {
@@ -34883,13 +35689,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2223;
+    return 2297;
   } /* = unique type id SOAP_TYPE___tds__GetRelayOutputs */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetRelayOutputSettings
-#define SOAP_TYPE___tds__SetRelayOutputSettings (2227)
+#define SOAP_TYPE___tds__SetRelayOutputSettings (2301)
 /* Operation wrapper: */
 struct __tds__SetRelayOutputSettings
 {
@@ -34898,13 +35704,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2227;
+    return 2301;
   } /* = unique type id SOAP_TYPE___tds__SetRelayOutputSettings */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetRelayOutputState
-#define SOAP_TYPE___tds__SetRelayOutputState (2231)
+#define SOAP_TYPE___tds__SetRelayOutputState (2305)
 /* Operation wrapper: */
 struct __tds__SetRelayOutputState
 {
@@ -34913,13 +35719,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2231;
+    return 2305;
   } /* = unique type id SOAP_TYPE___tds__SetRelayOutputState */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SendAuxiliaryCommand
-#define SOAP_TYPE___tds__SendAuxiliaryCommand (2235)
+#define SOAP_TYPE___tds__SendAuxiliaryCommand (2309)
 /* Operation wrapper: */
 struct __tds__SendAuxiliaryCommand
 {
@@ -34928,13 +35734,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2235;
+    return 2309;
   } /* = unique type id SOAP_TYPE___tds__SendAuxiliaryCommand */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetCACertificates
-#define SOAP_TYPE___tds__GetCACertificates (2239)
+#define SOAP_TYPE___tds__GetCACertificates (2313)
 /* Operation wrapper: */
 struct __tds__GetCACertificates
 {
@@ -34943,13 +35749,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2239;
+    return 2313;
   } /* = unique type id SOAP_TYPE___tds__GetCACertificates */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__LoadCertificateWithPrivateKey
-#define SOAP_TYPE___tds__LoadCertificateWithPrivateKey (2243)
+#define SOAP_TYPE___tds__LoadCertificateWithPrivateKey (2317)
 /* Operation wrapper: */
 struct __tds__LoadCertificateWithPrivateKey
 {
@@ -34959,13 +35765,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2243;
+    return 2317;
   } /* = unique type id SOAP_TYPE___tds__LoadCertificateWithPrivateKey */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetCertificateInformation
-#define SOAP_TYPE___tds__GetCertificateInformation (2247)
+#define SOAP_TYPE___tds__GetCertificateInformation (2321)
 /* Operation wrapper: */
 struct __tds__GetCertificateInformation
 {
@@ -34975,13 +35781,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2247;
+    return 2321;
   } /* = unique type id SOAP_TYPE___tds__GetCertificateInformation */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__LoadCACertificates
-#define SOAP_TYPE___tds__LoadCACertificates (2251)
+#define SOAP_TYPE___tds__LoadCACertificates (2325)
 /* Operation wrapper: */
 struct __tds__LoadCACertificates
 {
@@ -34990,13 +35796,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2251;
+    return 2325;
   } /* = unique type id SOAP_TYPE___tds__LoadCACertificates */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__CreateDot1XConfiguration
-#define SOAP_TYPE___tds__CreateDot1XConfiguration (2255)
+#define SOAP_TYPE___tds__CreateDot1XConfiguration (2329)
 /* Operation wrapper: */
 struct __tds__CreateDot1XConfiguration
 {
@@ -35006,13 +35812,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2255;
+    return 2329;
   } /* = unique type id SOAP_TYPE___tds__CreateDot1XConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetDot1XConfiguration
-#define SOAP_TYPE___tds__SetDot1XConfiguration (2259)
+#define SOAP_TYPE___tds__SetDot1XConfiguration (2333)
 /* Operation wrapper: */
 struct __tds__SetDot1XConfiguration
 {
@@ -35021,13 +35827,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2259;
+    return 2333;
   } /* = unique type id SOAP_TYPE___tds__SetDot1XConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetDot1XConfiguration
-#define SOAP_TYPE___tds__GetDot1XConfiguration (2263)
+#define SOAP_TYPE___tds__GetDot1XConfiguration (2337)
 /* Operation wrapper: */
 struct __tds__GetDot1XConfiguration
 {
@@ -35036,13 +35842,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2263;
+    return 2337;
   } /* = unique type id SOAP_TYPE___tds__GetDot1XConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetDot1XConfigurations
-#define SOAP_TYPE___tds__GetDot1XConfigurations (2267)
+#define SOAP_TYPE___tds__GetDot1XConfigurations (2341)
 /* Operation wrapper: */
 struct __tds__GetDot1XConfigurations
 {
@@ -35051,13 +35857,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2267;
+    return 2341;
   } /* = unique type id SOAP_TYPE___tds__GetDot1XConfigurations */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__DeleteDot1XConfiguration
-#define SOAP_TYPE___tds__DeleteDot1XConfiguration (2271)
+#define SOAP_TYPE___tds__DeleteDot1XConfiguration (2345)
 /* Operation wrapper: */
 struct __tds__DeleteDot1XConfiguration
 {
@@ -35067,13 +35873,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2271;
+    return 2345;
   } /* = unique type id SOAP_TYPE___tds__DeleteDot1XConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetDot11Capabilities
-#define SOAP_TYPE___tds__GetDot11Capabilities (2275)
+#define SOAP_TYPE___tds__GetDot11Capabilities (2349)
 /* Operation wrapper: */
 struct __tds__GetDot11Capabilities
 {
@@ -35082,13 +35888,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2275;
+    return 2349;
   } /* = unique type id SOAP_TYPE___tds__GetDot11Capabilities */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetDot11Status
-#define SOAP_TYPE___tds__GetDot11Status (2279)
+#define SOAP_TYPE___tds__GetDot11Status (2353)
 /* Operation wrapper: */
 struct __tds__GetDot11Status
 {
@@ -35097,13 +35903,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2279;
+    return 2353;
   } /* = unique type id SOAP_TYPE___tds__GetDot11Status */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__ScanAvailableDot11Networks
-#define SOAP_TYPE___tds__ScanAvailableDot11Networks (2283)
+#define SOAP_TYPE___tds__ScanAvailableDot11Networks (2357)
 /* Operation wrapper: */
 struct __tds__ScanAvailableDot11Networks
 {
@@ -35113,13 +35919,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2283;
+    return 2357;
   } /* = unique type id SOAP_TYPE___tds__ScanAvailableDot11Networks */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetSystemUris
-#define SOAP_TYPE___tds__GetSystemUris (2287)
+#define SOAP_TYPE___tds__GetSystemUris (2361)
 /* Operation wrapper: */
 struct __tds__GetSystemUris
 {
@@ -35128,13 +35934,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2287;
+    return 2361;
   } /* = unique type id SOAP_TYPE___tds__GetSystemUris */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__StartFirmwareUpgrade
-#define SOAP_TYPE___tds__StartFirmwareUpgrade (2291)
+#define SOAP_TYPE___tds__StartFirmwareUpgrade (2365)
 /* Operation wrapper: */
 struct __tds__StartFirmwareUpgrade
 {
@@ -35143,13 +35949,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2291;
+    return 2365;
   } /* = unique type id SOAP_TYPE___tds__StartFirmwareUpgrade */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__StartSystemRestore
-#define SOAP_TYPE___tds__StartSystemRestore (2295)
+#define SOAP_TYPE___tds__StartSystemRestore (2369)
 /* Operation wrapper: */
 struct __tds__StartSystemRestore
 {
@@ -35158,13 +35964,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2295;
+    return 2369;
   } /* = unique type id SOAP_TYPE___tds__StartSystemRestore */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetStorageConfigurations
-#define SOAP_TYPE___tds__GetStorageConfigurations (2299)
+#define SOAP_TYPE___tds__GetStorageConfigurations (2373)
 /* Operation wrapper: */
 struct __tds__GetStorageConfigurations
 {
@@ -35174,13 +35980,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2299;
+    return 2373;
   } /* = unique type id SOAP_TYPE___tds__GetStorageConfigurations */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__CreateStorageConfiguration
-#define SOAP_TYPE___tds__CreateStorageConfiguration (2303)
+#define SOAP_TYPE___tds__CreateStorageConfiguration (2377)
 /* Operation wrapper: */
 struct __tds__CreateStorageConfiguration
 {
@@ -35190,13 +35996,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2303;
+    return 2377;
   } /* = unique type id SOAP_TYPE___tds__CreateStorageConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__GetStorageConfiguration
-#define SOAP_TYPE___tds__GetStorageConfiguration (2307)
+#define SOAP_TYPE___tds__GetStorageConfiguration (2381)
 /* Operation wrapper: */
 struct __tds__GetStorageConfiguration
 {
@@ -35205,13 +36011,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2307;
+    return 2381;
   } /* = unique type id SOAP_TYPE___tds__GetStorageConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__SetStorageConfiguration
-#define SOAP_TYPE___tds__SetStorageConfiguration (2311)
+#define SOAP_TYPE___tds__SetStorageConfiguration (2385)
 /* Operation wrapper: */
 struct __tds__SetStorageConfiguration
 {
@@ -35220,13 +36026,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2311;
+    return 2385;
   } /* = unique type id SOAP_TYPE___tds__SetStorageConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___tds__DeleteStorageConfiguration
-#define SOAP_TYPE___tds__DeleteStorageConfiguration (2315)
+#define SOAP_TYPE___tds__DeleteStorageConfiguration (2389)
 /* Operation wrapper: */
 struct __tds__DeleteStorageConfiguration
 {
@@ -35236,13 +36042,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2315;
+    return 2389;
   } /* = unique type id SOAP_TYPE___tds__DeleteStorageConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__GetServiceCapabilities
-#define SOAP_TYPE___tptz__GetServiceCapabilities (2319)
+#define SOAP_TYPE___tptz__GetServiceCapabilities (2393)
 /* Operation wrapper: */
 struct __tptz__GetServiceCapabilities
 {
@@ -35251,13 +36057,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2319;
+    return 2393;
   } /* = unique type id SOAP_TYPE___tptz__GetServiceCapabilities */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__GetConfigurations
-#define SOAP_TYPE___tptz__GetConfigurations (2323)
+#define SOAP_TYPE___tptz__GetConfigurations (2397)
 /* Operation wrapper: */
 struct __tptz__GetConfigurations
 {
@@ -35266,13 +36072,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2323;
+    return 2397;
   } /* = unique type id SOAP_TYPE___tptz__GetConfigurations */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__GetPresets
-#define SOAP_TYPE___tptz__GetPresets (2327)
+#define SOAP_TYPE___tptz__GetPresets (2401)
 /* Operation wrapper: */
 struct __tptz__GetPresets
 {
@@ -35281,13 +36087,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2327;
+    return 2401;
   } /* = unique type id SOAP_TYPE___tptz__GetPresets */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__SetPreset
-#define SOAP_TYPE___tptz__SetPreset (2331)
+#define SOAP_TYPE___tptz__SetPreset (2405)
 /* Operation wrapper: */
 struct __tptz__SetPreset
 {
@@ -35296,13 +36102,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2331;
+    return 2405;
   } /* = unique type id SOAP_TYPE___tptz__SetPreset */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__RemovePreset
-#define SOAP_TYPE___tptz__RemovePreset (2335)
+#define SOAP_TYPE___tptz__RemovePreset (2409)
 /* Operation wrapper: */
 struct __tptz__RemovePreset
 {
@@ -35311,13 +36117,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2335;
+    return 2409;
   } /* = unique type id SOAP_TYPE___tptz__RemovePreset */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__GotoPreset
-#define SOAP_TYPE___tptz__GotoPreset (2339)
+#define SOAP_TYPE___tptz__GotoPreset (2413)
 /* Operation wrapper: */
 struct __tptz__GotoPreset
 {
@@ -35326,13 +36132,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2339;
+    return 2413;
   } /* = unique type id SOAP_TYPE___tptz__GotoPreset */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__GetStatus
-#define SOAP_TYPE___tptz__GetStatus (2343)
+#define SOAP_TYPE___tptz__GetStatus (2417)
 /* Operation wrapper: */
 struct __tptz__GetStatus
 {
@@ -35341,13 +36147,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2343;
+    return 2417;
   } /* = unique type id SOAP_TYPE___tptz__GetStatus */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__GetConfiguration
-#define SOAP_TYPE___tptz__GetConfiguration (2347)
+#define SOAP_TYPE___tptz__GetConfiguration (2421)
 /* Operation wrapper: */
 struct __tptz__GetConfiguration
 {
@@ -35356,13 +36162,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2347;
+    return 2421;
   } /* = unique type id SOAP_TYPE___tptz__GetConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__GetNodes
-#define SOAP_TYPE___tptz__GetNodes (2351)
+#define SOAP_TYPE___tptz__GetNodes (2425)
 /* Operation wrapper: */
 struct __tptz__GetNodes
 {
@@ -35371,13 +36177,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2351;
+    return 2425;
   } /* = unique type id SOAP_TYPE___tptz__GetNodes */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__GetNode
-#define SOAP_TYPE___tptz__GetNode (2355)
+#define SOAP_TYPE___tptz__GetNode (2429)
 /* Operation wrapper: */
 struct __tptz__GetNode
 {
@@ -35386,13 +36192,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2355;
+    return 2429;
   } /* = unique type id SOAP_TYPE___tptz__GetNode */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__SetConfiguration
-#define SOAP_TYPE___tptz__SetConfiguration (2359)
+#define SOAP_TYPE___tptz__SetConfiguration (2433)
 /* Operation wrapper: */
 struct __tptz__SetConfiguration
 {
@@ -35401,13 +36207,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2359;
+    return 2433;
   } /* = unique type id SOAP_TYPE___tptz__SetConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__GetConfigurationOptions
-#define SOAP_TYPE___tptz__GetConfigurationOptions (2363)
+#define SOAP_TYPE___tptz__GetConfigurationOptions (2437)
 /* Operation wrapper: */
 struct __tptz__GetConfigurationOptions
 {
@@ -35417,13 +36223,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2363;
+    return 2437;
   } /* = unique type id SOAP_TYPE___tptz__GetConfigurationOptions */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__GotoHomePosition
-#define SOAP_TYPE___tptz__GotoHomePosition (2367)
+#define SOAP_TYPE___tptz__GotoHomePosition (2441)
 /* Operation wrapper: */
 struct __tptz__GotoHomePosition
 {
@@ -35432,13 +36238,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2367;
+    return 2441;
   } /* = unique type id SOAP_TYPE___tptz__GotoHomePosition */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__SetHomePosition
-#define SOAP_TYPE___tptz__SetHomePosition (2371)
+#define SOAP_TYPE___tptz__SetHomePosition (2445)
 /* Operation wrapper: */
 struct __tptz__SetHomePosition
 {
@@ -35447,13 +36253,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2371;
+    return 2445;
   } /* = unique type id SOAP_TYPE___tptz__SetHomePosition */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__ContinuousMove
-#define SOAP_TYPE___tptz__ContinuousMove (2375)
+#define SOAP_TYPE___tptz__ContinuousMove (2449)
 /* Operation wrapper: */
 struct __tptz__ContinuousMove
 {
@@ -35462,13 +36268,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2375;
+    return 2449;
   } /* = unique type id SOAP_TYPE___tptz__ContinuousMove */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__RelativeMove
-#define SOAP_TYPE___tptz__RelativeMove (2379)
+#define SOAP_TYPE___tptz__RelativeMove (2453)
 /* Operation wrapper: */
 struct __tptz__RelativeMove
 {
@@ -35477,13 +36283,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2379;
+    return 2453;
   } /* = unique type id SOAP_TYPE___tptz__RelativeMove */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__SendAuxiliaryCommand
-#define SOAP_TYPE___tptz__SendAuxiliaryCommand (2383)
+#define SOAP_TYPE___tptz__SendAuxiliaryCommand (2457)
 /* Operation wrapper: */
 struct __tptz__SendAuxiliaryCommand
 {
@@ -35492,13 +36298,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2383;
+    return 2457;
   } /* = unique type id SOAP_TYPE___tptz__SendAuxiliaryCommand */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__AbsoluteMove
-#define SOAP_TYPE___tptz__AbsoluteMove (2387)
+#define SOAP_TYPE___tptz__AbsoluteMove (2461)
 /* Operation wrapper: */
 struct __tptz__AbsoluteMove
 {
@@ -35507,13 +36313,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2387;
+    return 2461;
   } /* = unique type id SOAP_TYPE___tptz__AbsoluteMove */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__Stop
-#define SOAP_TYPE___tptz__Stop (2391)
+#define SOAP_TYPE___tptz__Stop (2465)
 /* Operation wrapper: */
 struct __tptz__Stop
 {
@@ -35522,13 +36328,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2391;
+    return 2465;
   } /* = unique type id SOAP_TYPE___tptz__Stop */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__GetPresetTours
-#define SOAP_TYPE___tptz__GetPresetTours (2395)
+#define SOAP_TYPE___tptz__GetPresetTours (2469)
 /* Operation wrapper: */
 struct __tptz__GetPresetTours
 {
@@ -35537,13 +36343,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2395;
+    return 2469;
   } /* = unique type id SOAP_TYPE___tptz__GetPresetTours */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__GetPresetTour
-#define SOAP_TYPE___tptz__GetPresetTour (2399)
+#define SOAP_TYPE___tptz__GetPresetTour (2473)
 /* Operation wrapper: */
 struct __tptz__GetPresetTour
 {
@@ -35552,13 +36358,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2399;
+    return 2473;
   } /* = unique type id SOAP_TYPE___tptz__GetPresetTour */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__GetPresetTourOptions
-#define SOAP_TYPE___tptz__GetPresetTourOptions (2403)
+#define SOAP_TYPE___tptz__GetPresetTourOptions (2477)
 /* Operation wrapper: */
 struct __tptz__GetPresetTourOptions
 {
@@ -35567,13 +36373,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2403;
+    return 2477;
   } /* = unique type id SOAP_TYPE___tptz__GetPresetTourOptions */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__CreatePresetTour
-#define SOAP_TYPE___tptz__CreatePresetTour (2407)
+#define SOAP_TYPE___tptz__CreatePresetTour (2481)
 /* Operation wrapper: */
 struct __tptz__CreatePresetTour
 {
@@ -35582,13 +36388,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2407;
+    return 2481;
   } /* = unique type id SOAP_TYPE___tptz__CreatePresetTour */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__ModifyPresetTour
-#define SOAP_TYPE___tptz__ModifyPresetTour (2411)
+#define SOAP_TYPE___tptz__ModifyPresetTour (2485)
 /* Operation wrapper: */
 struct __tptz__ModifyPresetTour
 {
@@ -35597,13 +36403,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2411;
+    return 2485;
   } /* = unique type id SOAP_TYPE___tptz__ModifyPresetTour */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__OperatePresetTour
-#define SOAP_TYPE___tptz__OperatePresetTour (2415)
+#define SOAP_TYPE___tptz__OperatePresetTour (2489)
 /* Operation wrapper: */
 struct __tptz__OperatePresetTour
 {
@@ -35612,13 +36418,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2415;
+    return 2489;
   } /* = unique type id SOAP_TYPE___tptz__OperatePresetTour */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__RemovePresetTour
-#define SOAP_TYPE___tptz__RemovePresetTour (2419)
+#define SOAP_TYPE___tptz__RemovePresetTour (2493)
 /* Operation wrapper: */
 struct __tptz__RemovePresetTour
 {
@@ -35627,13 +36433,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2419;
+    return 2493;
   } /* = unique type id SOAP_TYPE___tptz__RemovePresetTour */
 };
 #endif
 
 #ifndef SOAP_TYPE___tptz__GetCompatibleConfigurations
-#define SOAP_TYPE___tptz__GetCompatibleConfigurations (2423)
+#define SOAP_TYPE___tptz__GetCompatibleConfigurations (2497)
 /* Operation wrapper: */
 struct __tptz__GetCompatibleConfigurations
 {
@@ -35643,13 +36449,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2423;
+    return 2497;
   } /* = unique type id SOAP_TYPE___tptz__GetCompatibleConfigurations */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetServiceCapabilities
-#define SOAP_TYPE___trt__GetServiceCapabilities (2427)
+#define SOAP_TYPE___trt__GetServiceCapabilities (2501)
 /* Operation wrapper: */
 struct __trt__GetServiceCapabilities
 {
@@ -35658,13 +36464,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2427;
+    return 2501;
   } /* = unique type id SOAP_TYPE___trt__GetServiceCapabilities */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetVideoSources
-#define SOAP_TYPE___trt__GetVideoSources (2431)
+#define SOAP_TYPE___trt__GetVideoSources (2505)
 /* Operation wrapper: */
 struct __trt__GetVideoSources
 {
@@ -35673,13 +36479,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2431;
+    return 2505;
   } /* = unique type id SOAP_TYPE___trt__GetVideoSources */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetAudioSources
-#define SOAP_TYPE___trt__GetAudioSources (2435)
+#define SOAP_TYPE___trt__GetAudioSources (2509)
 /* Operation wrapper: */
 struct __trt__GetAudioSources
 {
@@ -35688,13 +36494,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2435;
+    return 2509;
   } /* = unique type id SOAP_TYPE___trt__GetAudioSources */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetAudioOutputs
-#define SOAP_TYPE___trt__GetAudioOutputs (2439)
+#define SOAP_TYPE___trt__GetAudioOutputs (2513)
 /* Operation wrapper: */
 struct __trt__GetAudioOutputs
 {
@@ -35703,13 +36509,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2439;
+    return 2513;
   } /* = unique type id SOAP_TYPE___trt__GetAudioOutputs */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__CreateProfile
-#define SOAP_TYPE___trt__CreateProfile (2443)
+#define SOAP_TYPE___trt__CreateProfile (2517)
 /* Operation wrapper: */
 struct __trt__CreateProfile
 {
@@ -35718,13 +36524,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2443;
+    return 2517;
   } /* = unique type id SOAP_TYPE___trt__CreateProfile */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetProfile
-#define SOAP_TYPE___trt__GetProfile (2447)
+#define SOAP_TYPE___trt__GetProfile (2521)
 /* Operation wrapper: */
 struct __trt__GetProfile
 {
@@ -35733,13 +36539,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2447;
+    return 2521;
   } /* = unique type id SOAP_TYPE___trt__GetProfile */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetProfiles
-#define SOAP_TYPE___trt__GetProfiles (2451)
+#define SOAP_TYPE___trt__GetProfiles (2525)
 /* Operation wrapper: */
 struct __trt__GetProfiles
 {
@@ -35748,13 +36554,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2451;
+    return 2525;
   } /* = unique type id SOAP_TYPE___trt__GetProfiles */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__AddVideoEncoderConfiguration
-#define SOAP_TYPE___trt__AddVideoEncoderConfiguration (2455)
+#define SOAP_TYPE___trt__AddVideoEncoderConfiguration (2529)
 /* Operation wrapper: */
 struct __trt__AddVideoEncoderConfiguration
 {
@@ -35764,13 +36570,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2455;
+    return 2529;
   } /* = unique type id SOAP_TYPE___trt__AddVideoEncoderConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__AddVideoSourceConfiguration
-#define SOAP_TYPE___trt__AddVideoSourceConfiguration (2459)
+#define SOAP_TYPE___trt__AddVideoSourceConfiguration (2533)
 /* Operation wrapper: */
 struct __trt__AddVideoSourceConfiguration
 {
@@ -35780,13 +36586,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2459;
+    return 2533;
   } /* = unique type id SOAP_TYPE___trt__AddVideoSourceConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__AddAudioEncoderConfiguration
-#define SOAP_TYPE___trt__AddAudioEncoderConfiguration (2463)
+#define SOAP_TYPE___trt__AddAudioEncoderConfiguration (2537)
 /* Operation wrapper: */
 struct __trt__AddAudioEncoderConfiguration
 {
@@ -35796,13 +36602,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2463;
+    return 2537;
   } /* = unique type id SOAP_TYPE___trt__AddAudioEncoderConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__AddAudioSourceConfiguration
-#define SOAP_TYPE___trt__AddAudioSourceConfiguration (2467)
+#define SOAP_TYPE___trt__AddAudioSourceConfiguration (2541)
 /* Operation wrapper: */
 struct __trt__AddAudioSourceConfiguration
 {
@@ -35812,13 +36618,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2467;
+    return 2541;
   } /* = unique type id SOAP_TYPE___trt__AddAudioSourceConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__AddPTZConfiguration
-#define SOAP_TYPE___trt__AddPTZConfiguration (2471)
+#define SOAP_TYPE___trt__AddPTZConfiguration (2545)
 /* Operation wrapper: */
 struct __trt__AddPTZConfiguration
 {
@@ -35827,13 +36633,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2471;
+    return 2545;
   } /* = unique type id SOAP_TYPE___trt__AddPTZConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__AddVideoAnalyticsConfiguration
-#define SOAP_TYPE___trt__AddVideoAnalyticsConfiguration (2475)
+#define SOAP_TYPE___trt__AddVideoAnalyticsConfiguration (2549)
 /* Operation wrapper: */
 struct __trt__AddVideoAnalyticsConfiguration
 {
@@ -35843,13 +36649,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2475;
+    return 2549;
   } /* = unique type id SOAP_TYPE___trt__AddVideoAnalyticsConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__AddMetadataConfiguration
-#define SOAP_TYPE___trt__AddMetadataConfiguration (2479)
+#define SOAP_TYPE___trt__AddMetadataConfiguration (2553)
 /* Operation wrapper: */
 struct __trt__AddMetadataConfiguration
 {
@@ -35859,13 +36665,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2479;
+    return 2553;
   } /* = unique type id SOAP_TYPE___trt__AddMetadataConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__AddAudioOutputConfiguration
-#define SOAP_TYPE___trt__AddAudioOutputConfiguration (2483)
+#define SOAP_TYPE___trt__AddAudioOutputConfiguration (2557)
 /* Operation wrapper: */
 struct __trt__AddAudioOutputConfiguration
 {
@@ -35875,13 +36681,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2483;
+    return 2557;
   } /* = unique type id SOAP_TYPE___trt__AddAudioOutputConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__AddAudioDecoderConfiguration
-#define SOAP_TYPE___trt__AddAudioDecoderConfiguration (2487)
+#define SOAP_TYPE___trt__AddAudioDecoderConfiguration (2561)
 /* Operation wrapper: */
 struct __trt__AddAudioDecoderConfiguration
 {
@@ -35891,13 +36697,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2487;
+    return 2561;
   } /* = unique type id SOAP_TYPE___trt__AddAudioDecoderConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__RemoveVideoEncoderConfiguration
-#define SOAP_TYPE___trt__RemoveVideoEncoderConfiguration (2491)
+#define SOAP_TYPE___trt__RemoveVideoEncoderConfiguration (2565)
 /* Operation wrapper: */
 struct __trt__RemoveVideoEncoderConfiguration
 {
@@ -35907,13 +36713,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2491;
+    return 2565;
   } /* = unique type id SOAP_TYPE___trt__RemoveVideoEncoderConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__RemoveVideoSourceConfiguration
-#define SOAP_TYPE___trt__RemoveVideoSourceConfiguration (2495)
+#define SOAP_TYPE___trt__RemoveVideoSourceConfiguration (2569)
 /* Operation wrapper: */
 struct __trt__RemoveVideoSourceConfiguration
 {
@@ -35923,13 +36729,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2495;
+    return 2569;
   } /* = unique type id SOAP_TYPE___trt__RemoveVideoSourceConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__RemoveAudioEncoderConfiguration
-#define SOAP_TYPE___trt__RemoveAudioEncoderConfiguration (2499)
+#define SOAP_TYPE___trt__RemoveAudioEncoderConfiguration (2573)
 /* Operation wrapper: */
 struct __trt__RemoveAudioEncoderConfiguration
 {
@@ -35939,13 +36745,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2499;
+    return 2573;
   } /* = unique type id SOAP_TYPE___trt__RemoveAudioEncoderConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__RemoveAudioSourceConfiguration
-#define SOAP_TYPE___trt__RemoveAudioSourceConfiguration (2503)
+#define SOAP_TYPE___trt__RemoveAudioSourceConfiguration (2577)
 /* Operation wrapper: */
 struct __trt__RemoveAudioSourceConfiguration
 {
@@ -35955,13 +36761,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2503;
+    return 2577;
   } /* = unique type id SOAP_TYPE___trt__RemoveAudioSourceConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__RemovePTZConfiguration
-#define SOAP_TYPE___trt__RemovePTZConfiguration (2507)
+#define SOAP_TYPE___trt__RemovePTZConfiguration (2581)
 /* Operation wrapper: */
 struct __trt__RemovePTZConfiguration
 {
@@ -35970,13 +36776,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2507;
+    return 2581;
   } /* = unique type id SOAP_TYPE___trt__RemovePTZConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__RemoveVideoAnalyticsConfiguration
-#define SOAP_TYPE___trt__RemoveVideoAnalyticsConfiguration (2511)
+#define SOAP_TYPE___trt__RemoveVideoAnalyticsConfiguration (2585)
 /* Operation wrapper: */
 struct __trt__RemoveVideoAnalyticsConfiguration
 {
@@ -35986,13 +36792,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2511;
+    return 2585;
   } /* = unique type id SOAP_TYPE___trt__RemoveVideoAnalyticsConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__RemoveMetadataConfiguration
-#define SOAP_TYPE___trt__RemoveMetadataConfiguration (2515)
+#define SOAP_TYPE___trt__RemoveMetadataConfiguration (2589)
 /* Operation wrapper: */
 struct __trt__RemoveMetadataConfiguration
 {
@@ -36002,13 +36808,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2515;
+    return 2589;
   } /* = unique type id SOAP_TYPE___trt__RemoveMetadataConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__RemoveAudioOutputConfiguration
-#define SOAP_TYPE___trt__RemoveAudioOutputConfiguration (2519)
+#define SOAP_TYPE___trt__RemoveAudioOutputConfiguration (2593)
 /* Operation wrapper: */
 struct __trt__RemoveAudioOutputConfiguration
 {
@@ -36018,13 +36824,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2519;
+    return 2593;
   } /* = unique type id SOAP_TYPE___trt__RemoveAudioOutputConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__RemoveAudioDecoderConfiguration
-#define SOAP_TYPE___trt__RemoveAudioDecoderConfiguration (2523)
+#define SOAP_TYPE___trt__RemoveAudioDecoderConfiguration (2597)
 /* Operation wrapper: */
 struct __trt__RemoveAudioDecoderConfiguration
 {
@@ -36034,13 +36840,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2523;
+    return 2597;
   } /* = unique type id SOAP_TYPE___trt__RemoveAudioDecoderConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__DeleteProfile
-#define SOAP_TYPE___trt__DeleteProfile (2527)
+#define SOAP_TYPE___trt__DeleteProfile (2601)
 /* Operation wrapper: */
 struct __trt__DeleteProfile
 {
@@ -36049,13 +36855,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2527;
+    return 2601;
   } /* = unique type id SOAP_TYPE___trt__DeleteProfile */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetVideoSourceConfigurations
-#define SOAP_TYPE___trt__GetVideoSourceConfigurations (2531)
+#define SOAP_TYPE___trt__GetVideoSourceConfigurations (2605)
 /* Operation wrapper: */
 struct __trt__GetVideoSourceConfigurations
 {
@@ -36065,13 +36871,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2531;
+    return 2605;
   } /* = unique type id SOAP_TYPE___trt__GetVideoSourceConfigurations */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetVideoEncoderConfigurations
-#define SOAP_TYPE___trt__GetVideoEncoderConfigurations (2535)
+#define SOAP_TYPE___trt__GetVideoEncoderConfigurations (2609)
 /* Operation wrapper: */
 struct __trt__GetVideoEncoderConfigurations
 {
@@ -36081,13 +36887,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2535;
+    return 2609;
   } /* = unique type id SOAP_TYPE___trt__GetVideoEncoderConfigurations */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetAudioSourceConfigurations
-#define SOAP_TYPE___trt__GetAudioSourceConfigurations (2539)
+#define SOAP_TYPE___trt__GetAudioSourceConfigurations (2613)
 /* Operation wrapper: */
 struct __trt__GetAudioSourceConfigurations
 {
@@ -36097,13 +36903,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2539;
+    return 2613;
   } /* = unique type id SOAP_TYPE___trt__GetAudioSourceConfigurations */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetAudioEncoderConfigurations
-#define SOAP_TYPE___trt__GetAudioEncoderConfigurations (2543)
+#define SOAP_TYPE___trt__GetAudioEncoderConfigurations (2617)
 /* Operation wrapper: */
 struct __trt__GetAudioEncoderConfigurations
 {
@@ -36113,13 +36919,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2543;
+    return 2617;
   } /* = unique type id SOAP_TYPE___trt__GetAudioEncoderConfigurations */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetVideoAnalyticsConfigurations
-#define SOAP_TYPE___trt__GetVideoAnalyticsConfigurations (2547)
+#define SOAP_TYPE___trt__GetVideoAnalyticsConfigurations (2621)
 /* Operation wrapper: */
 struct __trt__GetVideoAnalyticsConfigurations
 {
@@ -36129,13 +36935,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2547;
+    return 2621;
   } /* = unique type id SOAP_TYPE___trt__GetVideoAnalyticsConfigurations */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetMetadataConfigurations
-#define SOAP_TYPE___trt__GetMetadataConfigurations (2551)
+#define SOAP_TYPE___trt__GetMetadataConfigurations (2625)
 /* Operation wrapper: */
 struct __trt__GetMetadataConfigurations
 {
@@ -36145,13 +36951,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2551;
+    return 2625;
   } /* = unique type id SOAP_TYPE___trt__GetMetadataConfigurations */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetAudioOutputConfigurations
-#define SOAP_TYPE___trt__GetAudioOutputConfigurations (2555)
+#define SOAP_TYPE___trt__GetAudioOutputConfigurations (2629)
 /* Operation wrapper: */
 struct __trt__GetAudioOutputConfigurations
 {
@@ -36161,13 +36967,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2555;
+    return 2629;
   } /* = unique type id SOAP_TYPE___trt__GetAudioOutputConfigurations */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetAudioDecoderConfigurations
-#define SOAP_TYPE___trt__GetAudioDecoderConfigurations (2559)
+#define SOAP_TYPE___trt__GetAudioDecoderConfigurations (2633)
 /* Operation wrapper: */
 struct __trt__GetAudioDecoderConfigurations
 {
@@ -36177,13 +36983,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2559;
+    return 2633;
   } /* = unique type id SOAP_TYPE___trt__GetAudioDecoderConfigurations */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetVideoSourceConfiguration
-#define SOAP_TYPE___trt__GetVideoSourceConfiguration (2563)
+#define SOAP_TYPE___trt__GetVideoSourceConfiguration (2637)
 /* Operation wrapper: */
 struct __trt__GetVideoSourceConfiguration
 {
@@ -36193,13 +36999,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2563;
+    return 2637;
   } /* = unique type id SOAP_TYPE___trt__GetVideoSourceConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetVideoEncoderConfiguration
-#define SOAP_TYPE___trt__GetVideoEncoderConfiguration (2567)
+#define SOAP_TYPE___trt__GetVideoEncoderConfiguration (2641)
 /* Operation wrapper: */
 struct __trt__GetVideoEncoderConfiguration
 {
@@ -36209,13 +37015,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2567;
+    return 2641;
   } /* = unique type id SOAP_TYPE___trt__GetVideoEncoderConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetAudioSourceConfiguration
-#define SOAP_TYPE___trt__GetAudioSourceConfiguration (2571)
+#define SOAP_TYPE___trt__GetAudioSourceConfiguration (2645)
 /* Operation wrapper: */
 struct __trt__GetAudioSourceConfiguration
 {
@@ -36225,13 +37031,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2571;
+    return 2645;
   } /* = unique type id SOAP_TYPE___trt__GetAudioSourceConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetAudioEncoderConfiguration
-#define SOAP_TYPE___trt__GetAudioEncoderConfiguration (2575)
+#define SOAP_TYPE___trt__GetAudioEncoderConfiguration (2649)
 /* Operation wrapper: */
 struct __trt__GetAudioEncoderConfiguration
 {
@@ -36241,13 +37047,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2575;
+    return 2649;
   } /* = unique type id SOAP_TYPE___trt__GetAudioEncoderConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetVideoAnalyticsConfiguration
-#define SOAP_TYPE___trt__GetVideoAnalyticsConfiguration (2579)
+#define SOAP_TYPE___trt__GetVideoAnalyticsConfiguration (2653)
 /* Operation wrapper: */
 struct __trt__GetVideoAnalyticsConfiguration
 {
@@ -36257,13 +37063,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2579;
+    return 2653;
   } /* = unique type id SOAP_TYPE___trt__GetVideoAnalyticsConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetMetadataConfiguration
-#define SOAP_TYPE___trt__GetMetadataConfiguration (2583)
+#define SOAP_TYPE___trt__GetMetadataConfiguration (2657)
 /* Operation wrapper: */
 struct __trt__GetMetadataConfiguration
 {
@@ -36273,13 +37079,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2583;
+    return 2657;
   } /* = unique type id SOAP_TYPE___trt__GetMetadataConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetAudioOutputConfiguration
-#define SOAP_TYPE___trt__GetAudioOutputConfiguration (2587)
+#define SOAP_TYPE___trt__GetAudioOutputConfiguration (2661)
 /* Operation wrapper: */
 struct __trt__GetAudioOutputConfiguration
 {
@@ -36289,13 +37095,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2587;
+    return 2661;
   } /* = unique type id SOAP_TYPE___trt__GetAudioOutputConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetAudioDecoderConfiguration
-#define SOAP_TYPE___trt__GetAudioDecoderConfiguration (2591)
+#define SOAP_TYPE___trt__GetAudioDecoderConfiguration (2665)
 /* Operation wrapper: */
 struct __trt__GetAudioDecoderConfiguration
 {
@@ -36305,13 +37111,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2591;
+    return 2665;
   } /* = unique type id SOAP_TYPE___trt__GetAudioDecoderConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetCompatibleVideoEncoderConfigurations
-#define SOAP_TYPE___trt__GetCompatibleVideoEncoderConfigurations (2595)
+#define SOAP_TYPE___trt__GetCompatibleVideoEncoderConfigurations (2669)
 /* Operation wrapper: */
 struct __trt__GetCompatibleVideoEncoderConfigurations
 {
@@ -36321,13 +37127,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2595;
+    return 2669;
   } /* = unique type id SOAP_TYPE___trt__GetCompatibleVideoEncoderConfigurations */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetCompatibleVideoSourceConfigurations
-#define SOAP_TYPE___trt__GetCompatibleVideoSourceConfigurations (2599)
+#define SOAP_TYPE___trt__GetCompatibleVideoSourceConfigurations (2673)
 /* Operation wrapper: */
 struct __trt__GetCompatibleVideoSourceConfigurations
 {
@@ -36337,13 +37143,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2599;
+    return 2673;
   } /* = unique type id SOAP_TYPE___trt__GetCompatibleVideoSourceConfigurations */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetCompatibleAudioEncoderConfigurations
-#define SOAP_TYPE___trt__GetCompatibleAudioEncoderConfigurations (2603)
+#define SOAP_TYPE___trt__GetCompatibleAudioEncoderConfigurations (2677)
 /* Operation wrapper: */
 struct __trt__GetCompatibleAudioEncoderConfigurations
 {
@@ -36353,13 +37159,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2603;
+    return 2677;
   } /* = unique type id SOAP_TYPE___trt__GetCompatibleAudioEncoderConfigurations */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetCompatibleAudioSourceConfigurations
-#define SOAP_TYPE___trt__GetCompatibleAudioSourceConfigurations (2607)
+#define SOAP_TYPE___trt__GetCompatibleAudioSourceConfigurations (2681)
 /* Operation wrapper: */
 struct __trt__GetCompatibleAudioSourceConfigurations
 {
@@ -36369,13 +37175,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2607;
+    return 2681;
   } /* = unique type id SOAP_TYPE___trt__GetCompatibleAudioSourceConfigurations */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetCompatibleVideoAnalyticsConfigurations
-#define SOAP_TYPE___trt__GetCompatibleVideoAnalyticsConfigurations (2611)
+#define SOAP_TYPE___trt__GetCompatibleVideoAnalyticsConfigurations (2685)
 /* Operation wrapper: */
 struct __trt__GetCompatibleVideoAnalyticsConfigurations
 {
@@ -36386,13 +37192,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2611;
+    return 2685;
   } /* = unique type id SOAP_TYPE___trt__GetCompatibleVideoAnalyticsConfigurations */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetCompatibleMetadataConfigurations
-#define SOAP_TYPE___trt__GetCompatibleMetadataConfigurations (2615)
+#define SOAP_TYPE___trt__GetCompatibleMetadataConfigurations (2689)
 /* Operation wrapper: */
 struct __trt__GetCompatibleMetadataConfigurations
 {
@@ -36402,13 +37208,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2615;
+    return 2689;
   } /* = unique type id SOAP_TYPE___trt__GetCompatibleMetadataConfigurations */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetCompatibleAudioOutputConfigurations
-#define SOAP_TYPE___trt__GetCompatibleAudioOutputConfigurations (2619)
+#define SOAP_TYPE___trt__GetCompatibleAudioOutputConfigurations (2693)
 /* Operation wrapper: */
 struct __trt__GetCompatibleAudioOutputConfigurations
 {
@@ -36418,13 +37224,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2619;
+    return 2693;
   } /* = unique type id SOAP_TYPE___trt__GetCompatibleAudioOutputConfigurations */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetCompatibleAudioDecoderConfigurations
-#define SOAP_TYPE___trt__GetCompatibleAudioDecoderConfigurations (2623)
+#define SOAP_TYPE___trt__GetCompatibleAudioDecoderConfigurations (2697)
 /* Operation wrapper: */
 struct __trt__GetCompatibleAudioDecoderConfigurations
 {
@@ -36434,13 +37240,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2623;
+    return 2697;
   } /* = unique type id SOAP_TYPE___trt__GetCompatibleAudioDecoderConfigurations */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__SetVideoSourceConfiguration
-#define SOAP_TYPE___trt__SetVideoSourceConfiguration (2627)
+#define SOAP_TYPE___trt__SetVideoSourceConfiguration (2701)
 /* Operation wrapper: */
 struct __trt__SetVideoSourceConfiguration
 {
@@ -36450,13 +37256,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2627;
+    return 2701;
   } /* = unique type id SOAP_TYPE___trt__SetVideoSourceConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__SetVideoEncoderConfiguration
-#define SOAP_TYPE___trt__SetVideoEncoderConfiguration (2631)
+#define SOAP_TYPE___trt__SetVideoEncoderConfiguration (2705)
 /* Operation wrapper: */
 struct __trt__SetVideoEncoderConfiguration
 {
@@ -36466,13 +37272,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2631;
+    return 2705;
   } /* = unique type id SOAP_TYPE___trt__SetVideoEncoderConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__SetAudioSourceConfiguration
-#define SOAP_TYPE___trt__SetAudioSourceConfiguration (2635)
+#define SOAP_TYPE___trt__SetAudioSourceConfiguration (2709)
 /* Operation wrapper: */
 struct __trt__SetAudioSourceConfiguration
 {
@@ -36482,13 +37288,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2635;
+    return 2709;
   } /* = unique type id SOAP_TYPE___trt__SetAudioSourceConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__SetAudioEncoderConfiguration
-#define SOAP_TYPE___trt__SetAudioEncoderConfiguration (2639)
+#define SOAP_TYPE___trt__SetAudioEncoderConfiguration (2713)
 /* Operation wrapper: */
 struct __trt__SetAudioEncoderConfiguration
 {
@@ -36498,13 +37304,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2639;
+    return 2713;
   } /* = unique type id SOAP_TYPE___trt__SetAudioEncoderConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__SetVideoAnalyticsConfiguration
-#define SOAP_TYPE___trt__SetVideoAnalyticsConfiguration (2643)
+#define SOAP_TYPE___trt__SetVideoAnalyticsConfiguration (2717)
 /* Operation wrapper: */
 struct __trt__SetVideoAnalyticsConfiguration
 {
@@ -36514,13 +37320,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2643;
+    return 2717;
   } /* = unique type id SOAP_TYPE___trt__SetVideoAnalyticsConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__SetMetadataConfiguration
-#define SOAP_TYPE___trt__SetMetadataConfiguration (2647)
+#define SOAP_TYPE___trt__SetMetadataConfiguration (2721)
 /* Operation wrapper: */
 struct __trt__SetMetadataConfiguration
 {
@@ -36530,13 +37336,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2647;
+    return 2721;
   } /* = unique type id SOAP_TYPE___trt__SetMetadataConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__SetAudioOutputConfiguration
-#define SOAP_TYPE___trt__SetAudioOutputConfiguration (2651)
+#define SOAP_TYPE___trt__SetAudioOutputConfiguration (2725)
 /* Operation wrapper: */
 struct __trt__SetAudioOutputConfiguration
 {
@@ -36546,13 +37352,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2651;
+    return 2725;
   } /* = unique type id SOAP_TYPE___trt__SetAudioOutputConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__SetAudioDecoderConfiguration
-#define SOAP_TYPE___trt__SetAudioDecoderConfiguration (2655)
+#define SOAP_TYPE___trt__SetAudioDecoderConfiguration (2729)
 /* Operation wrapper: */
 struct __trt__SetAudioDecoderConfiguration
 {
@@ -36562,13 +37368,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2655;
+    return 2729;
   } /* = unique type id SOAP_TYPE___trt__SetAudioDecoderConfiguration */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetVideoSourceConfigurationOptions
-#define SOAP_TYPE___trt__GetVideoSourceConfigurationOptions (2659)
+#define SOAP_TYPE___trt__GetVideoSourceConfigurationOptions (2733)
 /* Operation wrapper: */
 struct __trt__GetVideoSourceConfigurationOptions
 {
@@ -36578,13 +37384,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2659;
+    return 2733;
   } /* = unique type id SOAP_TYPE___trt__GetVideoSourceConfigurationOptions */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetVideoEncoderConfigurationOptions
-#define SOAP_TYPE___trt__GetVideoEncoderConfigurationOptions (2663)
+#define SOAP_TYPE___trt__GetVideoEncoderConfigurationOptions (2737)
 /* Operation wrapper: */
 struct __trt__GetVideoEncoderConfigurationOptions
 {
@@ -36594,13 +37400,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2663;
+    return 2737;
   } /* = unique type id SOAP_TYPE___trt__GetVideoEncoderConfigurationOptions */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetAudioSourceConfigurationOptions
-#define SOAP_TYPE___trt__GetAudioSourceConfigurationOptions (2667)
+#define SOAP_TYPE___trt__GetAudioSourceConfigurationOptions (2741)
 /* Operation wrapper: */
 struct __trt__GetAudioSourceConfigurationOptions
 {
@@ -36610,13 +37416,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2667;
+    return 2741;
   } /* = unique type id SOAP_TYPE___trt__GetAudioSourceConfigurationOptions */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetAudioEncoderConfigurationOptions
-#define SOAP_TYPE___trt__GetAudioEncoderConfigurationOptions (2671)
+#define SOAP_TYPE___trt__GetAudioEncoderConfigurationOptions (2745)
 /* Operation wrapper: */
 struct __trt__GetAudioEncoderConfigurationOptions
 {
@@ -36626,13 +37432,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2671;
+    return 2745;
   } /* = unique type id SOAP_TYPE___trt__GetAudioEncoderConfigurationOptions */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetMetadataConfigurationOptions
-#define SOAP_TYPE___trt__GetMetadataConfigurationOptions (2675)
+#define SOAP_TYPE___trt__GetMetadataConfigurationOptions (2749)
 /* Operation wrapper: */
 struct __trt__GetMetadataConfigurationOptions
 {
@@ -36642,13 +37448,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2675;
+    return 2749;
   } /* = unique type id SOAP_TYPE___trt__GetMetadataConfigurationOptions */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetAudioOutputConfigurationOptions
-#define SOAP_TYPE___trt__GetAudioOutputConfigurationOptions (2679)
+#define SOAP_TYPE___trt__GetAudioOutputConfigurationOptions (2753)
 /* Operation wrapper: */
 struct __trt__GetAudioOutputConfigurationOptions
 {
@@ -36658,13 +37464,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2679;
+    return 2753;
   } /* = unique type id SOAP_TYPE___trt__GetAudioOutputConfigurationOptions */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetAudioDecoderConfigurationOptions
-#define SOAP_TYPE___trt__GetAudioDecoderConfigurationOptions (2683)
+#define SOAP_TYPE___trt__GetAudioDecoderConfigurationOptions (2757)
 /* Operation wrapper: */
 struct __trt__GetAudioDecoderConfigurationOptions
 {
@@ -36674,13 +37480,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2683;
+    return 2757;
   } /* = unique type id SOAP_TYPE___trt__GetAudioDecoderConfigurationOptions */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetGuaranteedNumberOfVideoEncoderInstances
-#define SOAP_TYPE___trt__GetGuaranteedNumberOfVideoEncoderInstances (2687)
+#define SOAP_TYPE___trt__GetGuaranteedNumberOfVideoEncoderInstances (2761)
 /* Operation wrapper: */
 struct __trt__GetGuaranteedNumberOfVideoEncoderInstances
 {
@@ -36691,13 +37497,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2687;
+    return 2761;
   } /* = unique type id SOAP_TYPE___trt__GetGuaranteedNumberOfVideoEncoderInstances */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetStreamUri
-#define SOAP_TYPE___trt__GetStreamUri (2691)
+#define SOAP_TYPE___trt__GetStreamUri (2765)
 /* Operation wrapper: */
 struct __trt__GetStreamUri
 {
@@ -36706,13 +37512,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2691;
+    return 2765;
   } /* = unique type id SOAP_TYPE___trt__GetStreamUri */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__StartMulticastStreaming
-#define SOAP_TYPE___trt__StartMulticastStreaming (2695)
+#define SOAP_TYPE___trt__StartMulticastStreaming (2769)
 /* Operation wrapper: */
 struct __trt__StartMulticastStreaming
 {
@@ -36721,13 +37527,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2695;
+    return 2769;
   } /* = unique type id SOAP_TYPE___trt__StartMulticastStreaming */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__StopMulticastStreaming
-#define SOAP_TYPE___trt__StopMulticastStreaming (2699)
+#define SOAP_TYPE___trt__StopMulticastStreaming (2773)
 /* Operation wrapper: */
 struct __trt__StopMulticastStreaming
 {
@@ -36736,13 +37542,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2699;
+    return 2773;
   } /* = unique type id SOAP_TYPE___trt__StopMulticastStreaming */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__SetSynchronizationPoint
-#define SOAP_TYPE___trt__SetSynchronizationPoint (2703)
+#define SOAP_TYPE___trt__SetSynchronizationPoint (2777)
 /* Operation wrapper: */
 struct __trt__SetSynchronizationPoint
 {
@@ -36751,13 +37557,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2703;
+    return 2777;
   } /* = unique type id SOAP_TYPE___trt__SetSynchronizationPoint */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetSnapshotUri
-#define SOAP_TYPE___trt__GetSnapshotUri (2707)
+#define SOAP_TYPE___trt__GetSnapshotUri (2781)
 /* Operation wrapper: */
 struct __trt__GetSnapshotUri
 {
@@ -36766,13 +37572,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2707;
+    return 2781;
   } /* = unique type id SOAP_TYPE___trt__GetSnapshotUri */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetVideoSourceModes
-#define SOAP_TYPE___trt__GetVideoSourceModes (2711)
+#define SOAP_TYPE___trt__GetVideoSourceModes (2785)
 /* Operation wrapper: */
 struct __trt__GetVideoSourceModes
 {
@@ -36781,13 +37587,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2711;
+    return 2785;
   } /* = unique type id SOAP_TYPE___trt__GetVideoSourceModes */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__SetVideoSourceMode
-#define SOAP_TYPE___trt__SetVideoSourceMode (2715)
+#define SOAP_TYPE___trt__SetVideoSourceMode (2789)
 /* Operation wrapper: */
 struct __trt__SetVideoSourceMode
 {
@@ -36796,13 +37602,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2715;
+    return 2789;
   } /* = unique type id SOAP_TYPE___trt__SetVideoSourceMode */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetOSDs
-#define SOAP_TYPE___trt__GetOSDs (2719)
+#define SOAP_TYPE___trt__GetOSDs (2793)
 /* Operation wrapper: */
 struct __trt__GetOSDs
 {
@@ -36811,13 +37617,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2719;
+    return 2793;
   } /* = unique type id SOAP_TYPE___trt__GetOSDs */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetOSD
-#define SOAP_TYPE___trt__GetOSD (2723)
+#define SOAP_TYPE___trt__GetOSD (2797)
 /* Operation wrapper: */
 struct __trt__GetOSD
 {
@@ -36826,13 +37632,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2723;
+    return 2797;
   } /* = unique type id SOAP_TYPE___trt__GetOSD */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__GetOSDOptions
-#define SOAP_TYPE___trt__GetOSDOptions (2727)
+#define SOAP_TYPE___trt__GetOSDOptions (2801)
 /* Operation wrapper: */
 struct __trt__GetOSDOptions
 {
@@ -36841,13 +37647,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2727;
+    return 2801;
   } /* = unique type id SOAP_TYPE___trt__GetOSDOptions */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__SetOSD
-#define SOAP_TYPE___trt__SetOSD (2731)
+#define SOAP_TYPE___trt__SetOSD (2805)
 /* Operation wrapper: */
 struct __trt__SetOSD
 {
@@ -36856,13 +37662,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2731;
+    return 2805;
   } /* = unique type id SOAP_TYPE___trt__SetOSD */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__CreateOSD
-#define SOAP_TYPE___trt__CreateOSD (2735)
+#define SOAP_TYPE___trt__CreateOSD (2809)
 /* Operation wrapper: */
 struct __trt__CreateOSD
 {
@@ -36871,13 +37677,13 @@ public:
 public:
   int soap_type() const
   {
-    return 2735;
+    return 2809;
   } /* = unique type id SOAP_TYPE___trt__CreateOSD */
 };
 #endif
 
 #ifndef SOAP_TYPE___trt__DeleteOSD
-#define SOAP_TYPE___trt__DeleteOSD (2739)
+#define SOAP_TYPE___trt__DeleteOSD (2813)
 /* Operation wrapper: */
 struct __trt__DeleteOSD
 {
@@ -36886,7 +37692,7 @@ public:
 public:
   int soap_type() const
   {
-    return 2739;
+    return 2813;
   } /* = unique type id SOAP_TYPE___trt__DeleteOSD */
 };
 #endif
@@ -36907,308 +37713,323 @@ typedef char* _QName;
 typedef char* _XML;
 #endif
 
-#ifndef SOAP_TYPE_wsa5__RelationshipTypeOpenEnum
-#define SOAP_TYPE_wsa5__RelationshipTypeOpenEnum (17)
-typedef char* wsa5__RelationshipTypeOpenEnum;
-#endif
-
-#ifndef SOAP_TYPE_wsa5__FaultCodesOpenEnumType
-#define SOAP_TYPE_wsa5__FaultCodesOpenEnumType (18)
-typedef char* wsa5__FaultCodesOpenEnumType;
-#endif
-
-#ifndef SOAP_TYPE__wsa5__EndpointReference
-#define SOAP_TYPE__wsa5__EndpointReference (25)
-typedef struct wsa5__EndpointReferenceType _wsa5__EndpointReference;
-#endif
-
-#ifndef SOAP_TYPE__wsa5__ReferenceParameters
-#define SOAP_TYPE__wsa5__ReferenceParameters (26)
-typedef struct wsa5__ReferenceParametersType _wsa5__ReferenceParameters;
-#endif
-
-#ifndef SOAP_TYPE__wsa5__Metadata
-#define SOAP_TYPE__wsa5__Metadata (27)
-typedef struct wsa5__MetadataType _wsa5__Metadata;
-#endif
-
-#ifndef SOAP_TYPE__wsa5__MessageID
-#define SOAP_TYPE__wsa5__MessageID (28)
-typedef char* _wsa5__MessageID;
-#endif
-
-#ifndef SOAP_TYPE__wsa5__RelatesTo
-#define SOAP_TYPE__wsa5__RelatesTo (29)
-typedef struct wsa5__RelatesToType _wsa5__RelatesTo;
-#endif
-
-#ifndef SOAP_TYPE__wsa5__ReplyTo
-#define SOAP_TYPE__wsa5__ReplyTo (30)
-typedef struct wsa5__EndpointReferenceType _wsa5__ReplyTo;
-#endif
-
-#ifndef SOAP_TYPE__wsa5__From
-#define SOAP_TYPE__wsa5__From (31)
-typedef struct wsa5__EndpointReferenceType _wsa5__From;
-#endif
-
-#ifndef SOAP_TYPE__wsa5__FaultTo
-#define SOAP_TYPE__wsa5__FaultTo (32)
-typedef struct wsa5__EndpointReferenceType _wsa5__FaultTo;
-#endif
-
-#ifndef SOAP_TYPE__wsa5__To
-#define SOAP_TYPE__wsa5__To (33)
-typedef char* _wsa5__To;
-#endif
-
-#ifndef SOAP_TYPE__wsa5__Action
-#define SOAP_TYPE__wsa5__Action (34)
-typedef char* _wsa5__Action;
-#endif
-
-#ifndef SOAP_TYPE__wsa5__RetryAfter
-#define SOAP_TYPE__wsa5__RetryAfter (36)
-typedef ULONG64 _wsa5__RetryAfter;
-#endif
-
-#ifndef SOAP_TYPE__wsa5__ProblemHeaderQName
-#define SOAP_TYPE__wsa5__ProblemHeaderQName (37)
-typedef char* _wsa5__ProblemHeaderQName;
-#endif
-
-#ifndef SOAP_TYPE__wsa5__ProblemIRI
-#define SOAP_TYPE__wsa5__ProblemIRI (38)
-typedef char* _wsa5__ProblemIRI;
-#endif
-
-#ifndef SOAP_TYPE__wsa5__ProblemAction
-#define SOAP_TYPE__wsa5__ProblemAction (39)
-typedef struct wsa5__ProblemActionType _wsa5__ProblemAction;
-#endif
-
 #ifndef SOAP_TYPE__ds__Signature
-#define SOAP_TYPE__ds__Signature (78)
+#define SOAP_TYPE__ds__Signature (28)
 typedef struct ds__SignatureType _ds__Signature;
 #endif
 
 #ifndef SOAP_TYPE__ds__Transform
-#define SOAP_TYPE__ds__Transform (86)
+#define SOAP_TYPE__ds__Transform (36)
 typedef struct ds__TransformType _ds__Transform;
 #endif
 
 #ifndef SOAP_TYPE__ds__KeyInfo
-#define SOAP_TYPE__ds__KeyInfo (93)
+#define SOAP_TYPE__ds__KeyInfo (43)
 typedef struct ds__KeyInfoType _ds__KeyInfo;
 #endif
 
 #ifndef SOAP_TYPE_wsc__FaultCodeOpenEnumType
-#define SOAP_TYPE_wsc__FaultCodeOpenEnumType (130)
+#define SOAP_TYPE_wsc__FaultCodeOpenEnumType (81)
 typedef char* wsc__FaultCodeOpenEnumType;
 #endif
 
+#ifndef SOAP_TYPE_wsa5__RelationshipTypeOpenEnum
+#define SOAP_TYPE_wsa5__RelationshipTypeOpenEnum (107)
+typedef char* wsa5__RelationshipTypeOpenEnum;
+#endif
+
+#ifndef SOAP_TYPE_wsa5__FaultCodesOpenEnumType
+#define SOAP_TYPE_wsa5__FaultCodesOpenEnumType (108)
+typedef char* wsa5__FaultCodesOpenEnumType;
+#endif
+
+#ifndef SOAP_TYPE__wsa5__EndpointReference
+#define SOAP_TYPE__wsa5__EndpointReference (114)
+typedef struct wsa5__EndpointReferenceType _wsa5__EndpointReference;
+#endif
+
+#ifndef SOAP_TYPE__wsa5__ReferenceParameters
+#define SOAP_TYPE__wsa5__ReferenceParameters (115)
+typedef struct wsa5__ReferenceParametersType _wsa5__ReferenceParameters;
+#endif
+
+#ifndef SOAP_TYPE__wsa5__Metadata
+#define SOAP_TYPE__wsa5__Metadata (116)
+typedef struct wsa5__MetadataType _wsa5__Metadata;
+#endif
+
+#ifndef SOAP_TYPE__wsa5__MessageID
+#define SOAP_TYPE__wsa5__MessageID (117)
+typedef char* _wsa5__MessageID;
+#endif
+
+#ifndef SOAP_TYPE__wsa5__RelatesTo
+#define SOAP_TYPE__wsa5__RelatesTo (118)
+typedef struct wsa5__RelatesToType _wsa5__RelatesTo;
+#endif
+
+#ifndef SOAP_TYPE__wsa5__ReplyTo
+#define SOAP_TYPE__wsa5__ReplyTo (119)
+typedef struct wsa5__EndpointReferenceType _wsa5__ReplyTo;
+#endif
+
+#ifndef SOAP_TYPE__wsa5__From
+#define SOAP_TYPE__wsa5__From (120)
+typedef struct wsa5__EndpointReferenceType _wsa5__From;
+#endif
+
+#ifndef SOAP_TYPE__wsa5__FaultTo
+#define SOAP_TYPE__wsa5__FaultTo (121)
+typedef struct wsa5__EndpointReferenceType _wsa5__FaultTo;
+#endif
+
+#ifndef SOAP_TYPE__wsa5__To
+#define SOAP_TYPE__wsa5__To (122)
+typedef char* _wsa5__To;
+#endif
+
+#ifndef SOAP_TYPE__wsa5__Action
+#define SOAP_TYPE__wsa5__Action (123)
+typedef char* _wsa5__Action;
+#endif
+
+#ifndef SOAP_TYPE__wsa5__RetryAfter
+#define SOAP_TYPE__wsa5__RetryAfter (124)
+typedef ULONG64 _wsa5__RetryAfter;
+#endif
+
+#ifndef SOAP_TYPE__wsa5__ProblemHeaderQName
+#define SOAP_TYPE__wsa5__ProblemHeaderQName (125)
+typedef char* _wsa5__ProblemHeaderQName;
+#endif
+
+#ifndef SOAP_TYPE__wsa5__ProblemIRI
+#define SOAP_TYPE__wsa5__ProblemIRI (126)
+typedef char* _wsa5__ProblemIRI;
+#endif
+
+#ifndef SOAP_TYPE__wsa5__ProblemAction
+#define SOAP_TYPE__wsa5__ProblemAction (127)
+typedef struct wsa5__ProblemActionType _wsa5__ProblemAction;
+#endif
+
+#ifndef SOAP_TYPE_wsdd__QNameListType
+#define SOAP_TYPE_wsdd__QNameListType (156)
+typedef char* wsdd__QNameListType;
+#endif
+
+#ifndef SOAP_TYPE_wsdd__UriListType
+#define SOAP_TYPE_wsdd__UriListType (157)
+typedef char* wsdd__UriListType;
+#endif
+
+#ifndef SOAP_TYPE_wsdd__FaultCodeOpenType
+#define SOAP_TYPE_wsdd__FaultCodeOpenType (158)
+typedef char* wsdd__FaultCodeOpenType;
+#endif
+
 #ifndef SOAP_TYPE_xsd__NCName
-#define SOAP_TYPE_xsd__NCName (160)
+#define SOAP_TYPE_xsd__NCName (200)
 typedef std::string xsd__NCName;
 #endif
 
 #ifndef SOAP_TYPE_xsd__anySimpleType
-#define SOAP_TYPE_xsd__anySimpleType (163)
+#define SOAP_TYPE_xsd__anySimpleType (203)
 typedef std::string xsd__anySimpleType;
 #endif
 
 #ifndef SOAP_TYPE_xsd__anyURI
-#define SOAP_TYPE_xsd__anyURI (165)
+#define SOAP_TYPE_xsd__anyURI (205)
 typedef std::string xsd__anyURI;
 #endif
 
 #ifndef SOAP_TYPE_xsd__integer
-#define SOAP_TYPE_xsd__integer (177)
+#define SOAP_TYPE_xsd__integer (217)
 typedef std::string xsd__integer;
 #endif
 
 #ifndef SOAP_TYPE_xsd__nonNegativeInteger
-#define SOAP_TYPE_xsd__nonNegativeInteger (179)
+#define SOAP_TYPE_xsd__nonNegativeInteger (219)
 typedef std::string xsd__nonNegativeInteger;
 #endif
 
 #ifndef SOAP_TYPE_xsd__token
-#define SOAP_TYPE_xsd__token (182)
+#define SOAP_TYPE_xsd__token (222)
 typedef std::string xsd__token;
 #endif
 
 #ifndef SOAP_TYPE__xml__lang
-#define SOAP_TYPE__xml__lang (184)
+#define SOAP_TYPE__xml__lang (224)
 typedef std::string _xml__lang;
 #endif
 
 #ifndef SOAP_TYPE_tds__EAPMethodTypes
-#define SOAP_TYPE_tds__EAPMethodTypes (1121)
+#define SOAP_TYPE_tds__EAPMethodTypes (1170)
 typedef std::string tds__EAPMethodTypes;
 #endif
 
 #ifndef SOAP_TYPE_tt__IntAttrList
-#define SOAP_TYPE_tt__IntAttrList (1122)
+#define SOAP_TYPE_tt__IntAttrList (1171)
 typedef std::string tt__IntAttrList;
 #endif
 
 #ifndef SOAP_TYPE_tt__FloatAttrList
-#define SOAP_TYPE_tt__FloatAttrList (1123)
+#define SOAP_TYPE_tt__FloatAttrList (1172)
 typedef std::string tt__FloatAttrList;
 #endif
 
 #ifndef SOAP_TYPE_tt__StringAttrList
-#define SOAP_TYPE_tt__StringAttrList (1124)
+#define SOAP_TYPE_tt__StringAttrList (1173)
 typedef std::string tt__StringAttrList;
 #endif
 
 #ifndef SOAP_TYPE_tt__ReferenceTokenList
-#define SOAP_TYPE_tt__ReferenceTokenList (1125)
+#define SOAP_TYPE_tt__ReferenceTokenList (1174)
 typedef std::string tt__ReferenceTokenList;
 #endif
 
 #ifndef SOAP_TYPE_wsnt__AbsoluteOrRelativeTimeType
-#define SOAP_TYPE_wsnt__AbsoluteOrRelativeTimeType (1126)
+#define SOAP_TYPE_wsnt__AbsoluteOrRelativeTimeType (1175)
 typedef std::string wsnt__AbsoluteOrRelativeTimeType;
 #endif
 
 #ifndef SOAP_TYPE_trt__EncodingTypes
-#define SOAP_TYPE_trt__EncodingTypes (1127)
+#define SOAP_TYPE_trt__EncodingTypes (1176)
 typedef std::string trt__EncodingTypes;
 #endif
 
 #ifndef SOAP_TYPE_tt__ReferenceToken
-#define SOAP_TYPE_tt__ReferenceToken (1130)
+#define SOAP_TYPE_tt__ReferenceToken (1179)
 typedef std::string tt__ReferenceToken;
 #endif
 
 #ifndef SOAP_TYPE_tt__Name
-#define SOAP_TYPE_tt__Name (1132)
+#define SOAP_TYPE_tt__Name (1181)
 typedef std::string tt__Name;
 #endif
 
 #ifndef SOAP_TYPE_tt__NetworkInterfaceConfigPriority
-#define SOAP_TYPE_tt__NetworkInterfaceConfigPriority (1154)
+#define SOAP_TYPE_tt__NetworkInterfaceConfigPriority (1209)
 typedef std::string tt__NetworkInterfaceConfigPriority;
 #endif
 
 #ifndef SOAP_TYPE_tt__IANA_IfTypes
-#define SOAP_TYPE_tt__IANA_IfTypes (1158)
+#define SOAP_TYPE_tt__IANA_IfTypes (1213)
 typedef int tt__IANA_IfTypes;
 #endif
 
 #ifndef SOAP_TYPE_tt__IPv4Address
-#define SOAP_TYPE_tt__IPv4Address (1166)
+#define SOAP_TYPE_tt__IPv4Address (1221)
 typedef std::string tt__IPv4Address;
 #endif
 
 #ifndef SOAP_TYPE_tt__IPv6Address
-#define SOAP_TYPE_tt__IPv6Address (1168)
+#define SOAP_TYPE_tt__IPv6Address (1223)
 typedef std::string tt__IPv6Address;
 #endif
 
 #ifndef SOAP_TYPE_tt__HwAddress
-#define SOAP_TYPE_tt__HwAddress (1170)
+#define SOAP_TYPE_tt__HwAddress (1225)
 typedef std::string tt__HwAddress;
 #endif
 
 #ifndef SOAP_TYPE_tt__DNSName
-#define SOAP_TYPE_tt__DNSName (1174)
+#define SOAP_TYPE_tt__DNSName (1229)
 typedef std::string tt__DNSName;
 #endif
 
 #ifndef SOAP_TYPE_tt__Domain
-#define SOAP_TYPE_tt__Domain (1176)
+#define SOAP_TYPE_tt__Domain (1231)
 typedef std::string tt__Domain;
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11SSIDType
-#define SOAP_TYPE_tt__Dot11SSIDType (1182)
+#define SOAP_TYPE_tt__Dot11SSIDType (1237)
 typedef xsd__hexBinary tt__Dot11SSIDType;
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11PSK
-#define SOAP_TYPE_tt__Dot11PSK (1190)
+#define SOAP_TYPE_tt__Dot11PSK (1245)
 typedef xsd__hexBinary tt__Dot11PSK;
 #endif
 
 #ifndef SOAP_TYPE_tt__Dot11PSKPassphrase
-#define SOAP_TYPE_tt__Dot11PSKPassphrase (1192)
+#define SOAP_TYPE_tt__Dot11PSKPassphrase (1247)
 typedef std::string tt__Dot11PSKPassphrase;
 #endif
 
 #ifndef SOAP_TYPE_tt__AuxiliaryData
-#define SOAP_TYPE_tt__AuxiliaryData (1218)
+#define SOAP_TYPE_tt__AuxiliaryData (1275)
 typedef std::string tt__AuxiliaryData;
 #endif
 
 #ifndef SOAP_TYPE_tt__TopicNamespaceLocation
-#define SOAP_TYPE_tt__TopicNamespaceLocation (1252)
+#define SOAP_TYPE_tt__TopicNamespaceLocation (1309)
 typedef std::string tt__TopicNamespaceLocation;
 #endif
 
 #ifndef SOAP_TYPE_tt__Description
-#define SOAP_TYPE_tt__Description (1264)
+#define SOAP_TYPE_tt__Description (1321)
 typedef std::string tt__Description;
 #endif
 
 #ifndef SOAP_TYPE_tt__XPathExpression
-#define SOAP_TYPE_tt__XPathExpression (1266)
+#define SOAP_TYPE_tt__XPathExpression (1323)
 typedef std::string tt__XPathExpression;
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingJobMode
-#define SOAP_TYPE_tt__RecordingJobMode (1274)
+#define SOAP_TYPE_tt__RecordingJobMode (1331)
 typedef std::string tt__RecordingJobMode;
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingJobState
-#define SOAP_TYPE_tt__RecordingJobState (1276)
+#define SOAP_TYPE_tt__RecordingJobState (1333)
 typedef std::string tt__RecordingJobState;
 #endif
 
 #ifndef SOAP_TYPE_tt__AudioClassType
-#define SOAP_TYPE_tt__AudioClassType (1280)
+#define SOAP_TYPE_tt__AudioClassType (1337)
 typedef std::string tt__AudioClassType;
 #endif
 
 #ifndef SOAP_TYPE_wstop__FullTopicExpression
-#define SOAP_TYPE_wstop__FullTopicExpression (1284)
+#define SOAP_TYPE_wstop__FullTopicExpression (1341)
 typedef std::string wstop__FullTopicExpression;
 #endif
 
 #ifndef SOAP_TYPE_wstop__ConcreteTopicExpression
-#define SOAP_TYPE_wstop__ConcreteTopicExpression (1286)
+#define SOAP_TYPE_wstop__ConcreteTopicExpression (1343)
 typedef std::string wstop__ConcreteTopicExpression;
 #endif
 
 #ifndef SOAP_TYPE_wstop__SimpleTopicExpression
-#define SOAP_TYPE_wstop__SimpleTopicExpression (1288)
+#define SOAP_TYPE_wstop__SimpleTopicExpression (1345)
 typedef std::string wstop__SimpleTopicExpression;
 #endif
 
 #ifndef SOAP_TYPE_tt__ReceiverReference
-#define SOAP_TYPE_tt__ReceiverReference (1290)
+#define SOAP_TYPE_tt__ReceiverReference (1347)
 typedef std::string tt__ReceiverReference;
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingReference
-#define SOAP_TYPE_tt__RecordingReference (1292)
+#define SOAP_TYPE_tt__RecordingReference (1349)
 typedef std::string tt__RecordingReference;
 #endif
 
 #ifndef SOAP_TYPE_tt__TrackReference
-#define SOAP_TYPE_tt__TrackReference (1294)
+#define SOAP_TYPE_tt__TrackReference (1351)
 typedef std::string tt__TrackReference;
 #endif
 
 #ifndef SOAP_TYPE_tt__JobToken
-#define SOAP_TYPE_tt__JobToken (1296)
+#define SOAP_TYPE_tt__JobToken (1353)
 typedef std::string tt__JobToken;
 #endif
 
 #ifndef SOAP_TYPE_tt__RecordingJobReference
-#define SOAP_TYPE_tt__RecordingJobReference (1298)
+#define SOAP_TYPE_tt__RecordingJobReference (1355)
 typedef std::string tt__RecordingJobReference;
 #endif
 

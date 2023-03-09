@@ -52,7 +52,7 @@ void OnvifClientPTZ::getConfigurations()
   }
   else
   {
-    for (int i = 0; i < tptz__GetConfigurationsResponse->PTZConfiguration.size(); ++i)
+    for (int i = 0; i < (int)tptz__GetConfigurationsResponse->PTZConfiguration.size(); ++i)
     {
       this->_PTZConfigurationsNames.push_back(tptz__GetConfigurationsResponse->PTZConfiguration[i]->Name);
       this->_PTZConfigurationsTokens.push_back(tptz__GetConfigurationsResponse->PTZConfiguration[i]->token);
@@ -121,7 +121,6 @@ void OnvifClientPTZ::gotoPreset(std::string profileToken, int PresetToken, float
   }
   _tptz__GotoPreset* go_preset = soap_new__tptz__GotoPreset(soap, -1);
   _tptz__GotoPresetResponse* go_presetResponse = soap_new__tptz__GotoPresetResponse(soap, -1);
-  int dwPresetIndex = 1;
   std::string strPresetToken = std::to_string(PresetToken);
   go_preset->ProfileToken = profileToken;
   go_preset->PresetToken = strPresetToken;
@@ -173,7 +172,7 @@ void OnvifClientPTZ::getPresets(std::string profileToken)
   }
   LOG(INFO) << get_presetsResponse;
 
-  for (int i = 0; i < get_presetsResponse->Preset.size(); ++i)
+  for (int i = 0; i < (int)get_presetsResponse->Preset.size(); ++i)
   {
     LOG(INFO) << " Preset : " << *get_presetsResponse->Preset[i]->Name
               << " Token : " << *get_presetsResponse->Preset[i]->token;

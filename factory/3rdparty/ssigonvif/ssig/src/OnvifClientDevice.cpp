@@ -117,7 +117,7 @@ void OnvifClientDevice::getUsers()
   }
   else
   {
-    for (int i = 0; i < tds_GetUsersResponse->User.size(); ++i)
+    for (int i = 0; i < (int)tds_GetUsersResponse->User.size(); ++i)
     {
       this->_username.push_back(tds_GetUsersResponse->User[i]->Username);
     }

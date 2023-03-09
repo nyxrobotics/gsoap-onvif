@@ -50,7 +50,7 @@ Ptz::Ptz(const CameraConfig& config)
   media_.reset(new OnvifClientMedia(ip_, name_, passwd_));
   // get media profile
   media_->getProfiles();
-  for (int i = 0; i < media_->getProfilesTokens().size(); ++i)
+  for (int i = 0; i < (int)media_->getProfilesTokens().size(); ++i)
   {
     LOG(INFO) << i << " " << media_->getProfilesNames()[i] << "  " << media_->getProfilesTokens()[i];
   }
@@ -168,7 +168,7 @@ OpenCVImageReader::OpenCVImageReader(const std::vector<std::string>& img_lst) : 
 
 bool OpenCVImageReader::Next(Frame* frame)
 {
-  if (counter_ < img_lst_.size())
+  if (counter_ < (int)img_lst_.size())
   {
     cv::Mat img = cv::imread(img_lst_[counter_]);
     CHECK(img.data) << "Can\'t read " << img_lst_[counter_];

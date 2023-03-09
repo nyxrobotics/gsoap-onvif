@@ -141,7 +141,7 @@ void OnvifClientMedia::getProfiles()
   {
     if (trt__GetProfilesResponse->Profiles.size() > 0)
     {
-      for (int i = 0; i < trt__GetProfilesResponse->Profiles.size(); i++)
+      for (int i = 0; i < (int)trt__GetProfilesResponse->Profiles.size(); i++)
       {
         this->_profilesNames.push_back(trt__GetProfilesResponse->Profiles[i]->Name);
         this->_profilesTokens.push_back(trt__GetProfilesResponse->Profiles[i]->token);
@@ -233,7 +233,7 @@ void OnvifClientMedia::getVideoSourceConfigurations()
   {
     if (trt__GetVideoSourceConfigurationsResponse->Configurations.size() > 0)
     {
-      for (int i = 0; i < trt__GetVideoSourceConfigurationsResponse->Configurations.size(); ++i)
+      for (int i = 0; i < (int)trt__GetVideoSourceConfigurationsResponse->Configurations.size(); ++i)
       {
         this->_videoSourceConfigurationsTokens.push_back(
             trt__GetVideoSourceConfigurationsResponse->Configurations[i]->token);
@@ -326,7 +326,7 @@ void OnvifClientMedia::getVideoEncoderConfigurations()
   {
     if (trt__GetVideoEncoderConfigurationsResponse->Configurations.size() > 0)
     {
-      for (int i = 0; i < trt__GetVideoEncoderConfigurationsResponse->Configurations.size(); ++i)
+      for (int i = 0; i < (int)trt__GetVideoEncoderConfigurationsResponse->Configurations.size(); ++i)
       {
         this->_videoEncoderConfigurationsTokens.push_back(
             trt__GetVideoEncoderConfigurationsResponse->Configurations[i]->token);

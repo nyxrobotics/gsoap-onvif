@@ -1,2 +1,0 @@
-# ssig-onvif
-Onvif Library

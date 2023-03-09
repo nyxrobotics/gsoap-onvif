@@ -24,15 +24,7 @@ void OnvifClientMedia::createProfile(std::string profileName, std::string profil
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   _trt__CreateProfile* trt__CreateProfile = soap_new__trt__CreateProfile(soap, -1);
@@ -43,15 +35,7 @@ void OnvifClientMedia::createProfile(std::string profileName, std::string profil
 
   if (SOAP_OK != proxyMedia.CreateProfile(trt__CreateProfile, trt__CreateProfileResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   soap_destroy(soap);
@@ -61,15 +45,7 @@ void OnvifClientMedia::deleteProfile(std::string profileToken)
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   _trt__DeleteProfile* trt__DeleteProfile = soap_new__trt__DeleteProfile(soap, -1);
@@ -79,15 +55,7 @@ void OnvifClientMedia::deleteProfile(std::string profileToken)
 
   if (SOAP_OK != proxyMedia.DeleteProfile(trt__DeleteProfile, trt__DeleteProfileResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   soap_destroy(soap);
@@ -98,28 +66,12 @@ void OnvifClientMedia::getProfiles()
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   if (SOAP_OK != soap_wsse_add_Timestamp(proxyMedia.soap, "Time", 100000))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   _trt__GetProfiles* trt__GetProfiles = soap_new__trt__GetProfiles(soap, -1);
@@ -127,15 +79,7 @@ void OnvifClientMedia::getProfiles()
 
   if (SOAP_OK != proxyMedia.GetProfiles(trt__GetProfiles, trt__GetProfilesResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
   else
   {
@@ -159,15 +103,7 @@ void OnvifClientMedia::getProfile(std::string profileToken)
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   _trt__GetProfile* trt__GetProfile = soap_new__trt__GetProfile(soap, -1);
@@ -177,15 +113,7 @@ void OnvifClientMedia::getProfile(std::string profileToken)
 
   if (SOAP_OK != proxyMedia.GetProfile(trt__GetProfile, trt__GetProfileResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
   else
   {
@@ -200,15 +128,7 @@ void OnvifClientMedia::getVideoSourceConfigurations()
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   _trt__GetVideoSourceConfigurations* trt__GetVideoSourceConfigurations =
@@ -219,15 +139,7 @@ void OnvifClientMedia::getVideoSourceConfigurations()
   if (SOAP_OK != proxyMedia.GetVideoSourceConfigurations(trt__GetVideoSourceConfigurations,
                                                          trt__GetVideoSourceConfigurationsResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
   else
   {
@@ -252,15 +164,7 @@ void OnvifClientMedia::addVideoSourceConfiguration(std::string profileToken, std
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   _trt__AddVideoSourceConfiguration* trt__AddVideoSourceConfiguration =
@@ -274,15 +178,7 @@ void OnvifClientMedia::addVideoSourceConfiguration(std::string profileToken, std
   if (SOAP_OK != proxyMedia.AddVideoSourceConfiguration(trt__AddVideoSourceConfiguration,
                                                         trt__AddVideoSourceConfigurationResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   soap_destroy(soap);
@@ -293,15 +189,7 @@ void OnvifClientMedia::getVideoEncoderConfigurations()
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   _trt__GetVideoEncoderConfigurations* trt__GetVideoEncoderConfigurations =
@@ -312,15 +200,7 @@ void OnvifClientMedia::getVideoEncoderConfigurations()
   if (SOAP_OK != proxyMedia.GetVideoEncoderConfigurations(trt__GetVideoEncoderConfigurations,
                                                           trt__GetVideoEncoderConfigurationsResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
   else
   {
@@ -345,15 +225,7 @@ void OnvifClientMedia::addVideoEncoderConfiguration(std::string profileToken, st
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   _trt__AddVideoEncoderConfiguration* trt__AddVideoEncoderConfiguration =
@@ -367,15 +239,7 @@ void OnvifClientMedia::addVideoEncoderConfiguration(std::string profileToken, st
   if (SOAP_OK != proxyMedia.AddVideoEncoderConfiguration(trt__AddVideoEncoderConfiguration,
                                                          trt__AddVideoEncoderConfigurationResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   soap_destroy(soap);
@@ -385,15 +249,7 @@ void OnvifClientMedia::getVideoEncoderConfigurationOptions(std::string profileTo
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   _trt__GetVideoEncoderConfigurationOptions* trt__GetVideoEncoderConfigurationOptions =
@@ -404,15 +260,7 @@ void OnvifClientMedia::getVideoEncoderConfigurationOptions(std::string profileTo
   if (SOAP_OK != proxyMedia.GetVideoEncoderConfigurationOptions(trt__GetVideoEncoderConfigurationOptions,
                                                                 trt__GetVideoEncoderConfigurationOptionsResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   soap_destroy(soap);
@@ -422,15 +270,7 @@ void OnvifClientMedia::setVideoEncoderConfiguration(std::string configurationTok
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   _trt__SetVideoEncoderConfiguration* trt__SetVideoEncoderConfiguration =
@@ -448,15 +288,7 @@ void OnvifClientMedia::setVideoEncoderConfiguration(std::string configurationTok
   if (SOAP_OK != proxyMedia.SetVideoEncoderConfiguration(trt__SetVideoEncoderConfiguration,
                                                          trt__SetVideoEncoderConfigurationResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   soap_destroy(soap);
@@ -467,15 +299,7 @@ void OnvifClientMedia::getStreamURI(std::string profileToken)
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
   _trt__GetStreamUri* trt__GetStreamUri = soap_new__trt__GetStreamUri(soap, -1);
   trt__GetStreamUri->StreamSetup = soap_new_tt__StreamSetup(soap, -1);
@@ -488,15 +312,7 @@ void OnvifClientMedia::getStreamURI(std::string profileToken)
 
   if (SOAP_OK != proxyMedia.GetStreamUri(trt__GetStreamUri, trt__GetStreamUriResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
   else
   {
@@ -518,15 +334,7 @@ void OnvifClientMedia::addPTZConfiguration(std::string profileToken, std::string
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyMedia.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   _trt__AddPTZConfiguration* trt__AddPTZConfiguration = soap_new__trt__AddPTZConfiguration(soap, -1);
@@ -538,15 +346,7 @@ void OnvifClientMedia::addPTZConfiguration(std::string profileToken, std::string
 
   if (SOAP_OK != proxyMedia.AddPTZConfiguration(trt__AddPTZConfiguration, trt__AddPTZConfigurationResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   soap_destroy(soap);

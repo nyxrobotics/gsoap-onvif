@@ -89,15 +89,7 @@ void OnvifClientDevice::getUsers()
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyDevice.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   _tds__GetUsers* tds_GetUsers = soap_new__tds__GetUsers(soap, -1);
@@ -105,15 +97,7 @@ void OnvifClientDevice::getUsers()
 
   if (SOAP_OK != proxyDevice.GetUsers(tds_GetUsers, tds_GetUsersResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
   else
   {

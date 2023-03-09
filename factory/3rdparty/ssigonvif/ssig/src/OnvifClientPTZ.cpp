@@ -23,15 +23,7 @@ void OnvifClientPTZ::getConfigurations()
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   _tptz__GetConfigurations* tptz__GetConfigurations = soap_new__tptz__GetConfigurations(soap, -1);
@@ -40,15 +32,7 @@ void OnvifClientPTZ::getConfigurations()
 
   if (SOAP_OK != proxyPTZ.GetConfigurations(tptz__GetConfigurations, tptz__GetConfigurationsResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
   else
   {
@@ -67,15 +51,7 @@ void OnvifClientPTZ::getStatus(std::string profileToken)
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   _tptz__GetStatus* tptz__GetStatus = soap_new__tptz__GetStatus(soap, -1);
@@ -85,15 +61,7 @@ void OnvifClientPTZ::getStatus(std::string profileToken)
 
   if (SOAP_OK != proxyPTZ.GetStatus(tptz__GetStatus, tptz__GetStatusResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
   else
   {
@@ -109,15 +77,7 @@ void OnvifClientPTZ::gotoPreset(std::string profileToken, int PresetToken, float
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
   _tptz__GotoPreset* go_preset = soap_new__tptz__GotoPreset(soap, -1);
   _tptz__GotoPresetResponse* go_presetResponse = soap_new__tptz__GotoPresetResponse(soap, -1);
@@ -126,15 +86,7 @@ void OnvifClientPTZ::gotoPreset(std::string profileToken, int PresetToken, float
   go_preset->PresetToken = strPresetToken;
   if (SOAP_OK != proxyPTZ.GotoPreset(go_preset, go_presetResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
   soap_destroy(soap);
   soap_end(soap);
@@ -144,15 +96,7 @@ void OnvifClientPTZ::getPresets(std::string profileToken)
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
   struct soap* soap = soap_new();
   _tptz__GetPresets* get_presets = soap_new__tptz__GetPresets(soap);
@@ -160,15 +104,7 @@ void OnvifClientPTZ::getPresets(std::string profileToken)
   get_presets->ProfileToken = profileToken.c_str();
   if (SOAP_OK != proxyPTZ.GetPresets(get_presets, get_presetsResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
   LOG(INFO) << get_presetsResponse;
 
@@ -188,15 +124,7 @@ void OnvifClientPTZ::absoluteMove(std::string profileToken, float pan, float pan
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   _tptz__AbsoluteMove* tptz__AbsoluteMove = soap_new__tptz__AbsoluteMove(soap, -1);
@@ -223,15 +151,7 @@ void OnvifClientPTZ::absoluteMove(std::string profileToken, float pan, float pan
 
   if (SOAP_OK != proxyPTZ.AbsoluteMove(tptz__AbsoluteMove, tptz__AbsoluteMoveResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   soap_destroy(soap);
@@ -243,15 +163,7 @@ void OnvifClientPTZ::relativeMove(std::string profileToken, float pan, float pan
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   _tptz__RelativeMove* tptz__RelativeMove = soap_new__tptz__RelativeMove(soap, -1);
@@ -278,15 +190,7 @@ void OnvifClientPTZ::relativeMove(std::string profileToken, float pan, float pan
 
   if (SOAP_OK != proxyPTZ.RelativeMove(tptz__RelativeMove, tptz__RelativeMoveResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
   soap_destroy(soap);
   soap_end(soap);
@@ -296,15 +200,7 @@ void OnvifClientPTZ::continuousMove(std::string profileToken, float panSpeed, fl
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   _tptz__ContinuousMove* tptz__ContinuousMove = soap_new__tptz__ContinuousMove(soap, -1);
@@ -327,15 +223,7 @@ void OnvifClientPTZ::continuousMove(std::string profileToken, float panSpeed, fl
 
   if (SOAP_OK != proxyPTZ.ContinuousMove(tptz__ContinuousMove, tptz__ContinuousMoveResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   soap_destroy(soap);
@@ -346,15 +234,7 @@ void OnvifClientPTZ::stop(std::string profileToken, bool panTilt, bool zoom)
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   _tptz__Stop* tptz__Stop = soap_new__tptz__Stop(soap, -1);
@@ -366,15 +246,7 @@ void OnvifClientPTZ::stop(std::string profileToken, bool panTilt, bool zoom)
 
   if (SOAP_OK != proxyPTZ.Stop(tptz__Stop, tptz__StopResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   soap_destroy(soap);
@@ -385,15 +257,7 @@ void OnvifClientPTZ::setHomePosition(std::string profileToken)
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   _tptz__SetHomePosition* tptz__SetHomePosition = soap_new__tptz__SetHomePosition(soap, -1);
@@ -403,15 +267,7 @@ void OnvifClientPTZ::setHomePosition(std::string profileToken)
 
   if (SOAP_OK != proxyPTZ.SetHomePosition(tptz__SetHomePosition, tptz__SetHomePositionResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   soap_destroy(soap);
@@ -422,15 +278,7 @@ void OnvifClientPTZ::goToHomePosition(std::string profileToken)
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   _tptz__GotoHomePosition* tptz__GotoHomePosition = soap_new__tptz__GotoHomePosition(soap, -1);
@@ -440,15 +288,7 @@ void OnvifClientPTZ::goToHomePosition(std::string profileToken)
 
   if (SOAP_OK != proxyPTZ.GotoHomePosition(tptz__GotoHomePosition, tptz__GotoHomePositionResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   soap_destroy(soap);
@@ -459,15 +299,7 @@ void OnvifClientPTZ::getConfiguration(std::string configurationToken)
 {
   if (SOAP_OK != soap_wsse_add_UsernameTokenDigest(proxyPTZ.soap, NULL, _user.c_str(), _password.c_str()))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   _tptz__GetConfiguration* tptz__GetConfiguration = soap_new__tptz__GetConfiguration(soap, -1);
@@ -477,15 +309,7 @@ void OnvifClientPTZ::getConfiguration(std::string configurationToken)
 
   if (SOAP_OK != proxyPTZ.GetConfiguration(tptz__GetConfiguration, tptz__GetConfigurationResponse))
   {
-    std::string errorDetail;
-    errorDetail += "ERROR:\nError Code:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultcode;
-    errorDetail += "\nFault:";
-    if (soap->fault->faultcode != NULL)
-      errorDetail += soap->fault->faultstring;
-    errorDetail + "\n";
-    throw std::runtime_error(errorDetail);
+    throw std::runtime_error(ErrorString());
   }
 
   soap_destroy(soap);

@@ -1,7 +1,7 @@
 /*
-  threads.c
+	threads.c
 
-  Portable threads and locks API implementation
+	Portable threads and locks API implementation
 
 gSOAP XML Web services tools
 Copyright (C) 2000-2010, Robert van Engelen, Genivia Inc., All Rights Reserved.
@@ -60,7 +60,7 @@ A commercial use license is available from Genivia, Inc., contact@genivia.com
 extern "C" {
 #endif
 
-int emulate_pthread_mutex_lock(volatile MUTEX_TYPE* mx)
+int emulate_pthread_mutex_lock(volatile MUTEX_TYPE *mx)
 {
   if (*mx == NULL) /* static initializer? */
   {
@@ -73,7 +73,7 @@ int emulate_pthread_mutex_lock(volatile MUTEX_TYPE* mx)
   return WaitForSingleObject(*mx, INFINITE) == WAIT_FAILED;
 }
 
-int emulate_pthread_cond_init(COND_TYPE* cv)
+int emulate_pthread_cond_init(COND_TYPE *cv)
 {
   cv->waiters_count_ = 0;
   cv->signal_event_ = CreateEvent(NULL, FALSE, FALSE, NULL);
@@ -82,7 +82,7 @@ int emulate_pthread_cond_init(COND_TYPE* cv)
   return 0;
 }
 
-int emulate_pthread_cond_destroy(COND_TYPE* cv)
+int emulate_pthread_cond_destroy(COND_TYPE *cv)
 {
   CloseHandle(cv->signal_event_);
   DeleteCriticalSection(&cv->waiters_count_lock_);
@@ -90,7 +90,7 @@ int emulate_pthread_cond_destroy(COND_TYPE* cv)
   return 0;
 }
 
-int emulate_pthread_cond_signal(COND_TYPE* cv)
+int emulate_pthread_cond_signal(COND_TYPE *cv)
 {
   int have_waiters;
 
@@ -104,7 +104,7 @@ int emulate_pthread_cond_signal(COND_TYPE* cv)
   return 0;
 }
 
-int emulate_pthread_cond_wait(COND_TYPE* cv, MUTEX_TYPE* cs)
+int emulate_pthread_cond_wait(COND_TYPE *cv, MUTEX_TYPE *cs)
 {
   int result;
 
@@ -132,4 +132,4 @@ int emulate_pthread_cond_wait(COND_TYPE* cv, MUTEX_TYPE* cs)
 }
 #endif
 
-#endif
+#endif 

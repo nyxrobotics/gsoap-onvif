@@ -1,16 +1,8 @@
-file(
-  GLOB
-  INCLUDE_FILES
-  "${CMAKE_CURRENT_LIST_DIR}/include/*.hpp"
-)
-file(
-  GLOB
-  SOURCE_FILES
-  "${CMAKE_CURRENT_LIST_DIR}/src/*.cpp"
-)
+file(GLOB INCLUDE_FILES "${PROJECT_SOURCE_DIR}/ssigonvif/include/ssigonvif/*.hpp")
+file(GLOB SOURCE_FILES "${PROJECT_SOURCE_DIR}/ssigonvif/src/*.cpp")
 
 add_library(ssigonvif ${SOURCE_FILES} ${INCLUDE_FILES})
-target_include_directories(ssigonvif PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include/)
+target_include_directories(ssigonvif PUBLIC ${PROJECT_SOURCE_DIR}/ssigonvif/include/)
 set_target_properties(ssigonvif PROPERTIES FOLDER LIBRARY)
 
 string(TOUPPER "SSIGONVIF_API_EXPORTS" EXPORTS_MACRO)

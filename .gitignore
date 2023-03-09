@@ -29,3 +29,5 @@
 
 # Build
 build/
+
+.vscode/

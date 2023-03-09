@@ -1,4 +1,4 @@
-#include "ssigonvif/OnvifClientPTZ.hpp"
+#include "OnvifClientPTZ.hpp"
 
 OnvifClientPTZ::OnvifClientPTZ(std::string url, std::string user, std::string password) : OnvifClientDevice(url, user, password){
 	if(_hasPTZ){

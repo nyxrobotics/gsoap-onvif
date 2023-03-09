@@ -1,4 +1,4 @@
-#include "ssigonvif/OnvifClientMedia.hpp"
+#include "OnvifClientMedia.hpp"
 #include <stdexcept>
 
 OnvifClientMedia::OnvifClientMedia(std::string url, std::string user, std::string password) : OnvifClientDevice(url, user, password){

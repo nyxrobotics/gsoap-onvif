@@ -1,4 +1,4 @@
-#include "ssigonvif/OnvifClientDevice.hpp"
+#include "OnvifClientDevice.hpp"
 #include "DeviceBinding.nsmap"
 #include <stdexcept>
 #include <string>

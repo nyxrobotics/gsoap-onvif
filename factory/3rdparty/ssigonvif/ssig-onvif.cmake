@@ -19,22 +19,6 @@ set(VERSION_MAJOR   0   CACHE STRING "Project major version number.")
 set(VERSION_MINOR   0   CACHE STRING "Project minor version number.")
 set(VERSION_PATCH   1   CACHE STRING "Project patch version number.")
 
-#Option to check if 'test' will be available
-option(BUILD_TESTS "Build tests" ON)
-
-#Option to check if 'app' will be available
-option(BUILD_APPS "Build APP's" ON)
-
-# BUILD_SHARED_LIBS is a standard CMake variable, but we declare it here to
-# make it prominent in the GUI.
-option(BUILD_SHARED_LIBS "Build shared libraries (DLLs)." ON)
-
-#Option to check if 'docs' will be build
-# option(BUILD_DOCS "Create and install the HTML based API documentation (requires Doxygen)" OFF)
-
-#Option to check if 'docs' will be build
-option(BUILD_SAMPLES "Build onvif samples" ON)
-
 # BUILD_SHARED_LIBS is a standard CMake variable, but we declare it here to
 # make it prominent in the GUI.
 # option(ENABLE_COVERAGE "Enable coverage collection with  GCov." OFF)
@@ -115,32 +99,19 @@ endif()
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-
-#Enable tests if BUILD_TEST was checked by user
-if(BUILD_TESTS)
-	enable_testing()
-endif()
-
-# if(ENABLE_COVERAGE)
-# 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 --coverage")
-# endif()
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/)
 
 ###############################################################################
 # CMake Auxiliary Files
 ###############################################################################
-include(cmake/SSIGOnvifOpenSSLUtil.cmake)
-include(cmake/SSIGOnvifUtil.cmake)
-
+include(${CMAKE_CURRENT_LIST_DIR}/cmake/SSIGOnvifOpenSSLUtil.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/cmake/SSIGOnvifUtil.cmake)
 ###############################################################################
 # SUBDIRECTORIES
 ###############################################################################
 
 #Add 3rdparty
-add_subdirectory(3rdparty)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/onvif)
 
 # Add modules
-add_subdirectory(ssigonvif)
-
-# Add documentation
-add_subdirectory(samples)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/ssig)

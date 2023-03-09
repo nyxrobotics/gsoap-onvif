@@ -1,1 +1,1 @@
-#include "ssigonvif/OnvifClientDiscovery.hpp"
+#include "OnvifClientDiscovery.hpp"

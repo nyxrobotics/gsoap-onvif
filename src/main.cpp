@@ -10,7 +10,7 @@
 using namespace std;
 
 int main(int argc, char** argv) {
-  TeaAnalyser teacher(0);
+  TeaAnalyser teacher;
   wl::CameraConfig config;
   config.ip = "192.168.66.64";
   config.port = 8000;

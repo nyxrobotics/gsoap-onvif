@@ -9,10 +9,7 @@ using namespace std;
 using namespace wl;
 
 
-void TeaAnalyser::SetReader(const wl::CameraConfig& config
-)
-
-{
+void TeaAnalyser::SetReader(const wl::CameraConfig& config) {
   LOG(INFO) << "Test HIKIPCameraReader.";
   std::string url = "rtsp://" + config.username + ":" + config.password + "@"
     + config.ip + "/mpeg4/ch1/sub/av_stream";
@@ -24,14 +21,14 @@ void TeaAnalyser::SetReader(const wl::CameraConfig& config
 
 void TeaAnalyser::Run() {
   fs::Timer timer;
-  //std::vector<int> PresetTokens = {1,2};
+  std::vector<int> PresetTokens = {1,2};
   while (!cam_is_stop_) {
     timer.tic();
 	for(auto &PresetToken:PresetTokens){
         // goto one preset
 		ptzer_->GotoPreset(PresetToken);
 		
-		wait(1300);
+		usleep(1300000);
 		// get one frame 
 		reader_->Next(&frame_);
 		//save one frame 

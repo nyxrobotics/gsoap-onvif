@@ -271,7 +271,11 @@ soap_mec_init(struct soap *soap, struct soap_mec_data *data, int alg, SOAP_MEC_K
 { int ok = 1;
   DBGLOG(TEST, SOAP_MESSAGE(fdebug, "soap_mec_init()\n"));
   soap_ssl_init();
+#if OPENSSL_VERSION_NUMBER >= 0x1010000fL
+  data->ctx = EVP_CIPHER_CTX_new();
+#else
   data->ctx = (EVP_CIPHER_CTX*)SOAP_MALLOC(soap, sizeof(EVP_CIPHER_CTX));
+#endif
   if (!data->ctx)
     return soap->error = SOAP_EOM;
   EVP_CIPHER_CTX_init(data->ctx);

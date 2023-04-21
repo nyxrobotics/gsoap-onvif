@@ -4403,8 +4403,15 @@ again:
               break;
             name = X509_NAME_ENTRY_get_data(X509_NAME_get_entry(subj, i));
             if (name)
-            { if (!soap_tag_cmp(host, (const char*)M_ASN1_STRING_data(name)))
+            {
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+              const char *tmp = (const char*)ASN1_STRING_data(name);
+#else
+              const char *tmp = (const char*)ASN1_STRING_get0_data(name);
+#endif
+              if (!soap_tag_cmp(host, tmp)){
                 ok = 1;
+              }
               else
               { unsigned char *tmp = NULL;
                 ASN1_STRING_to_UTF8(&tmp, name);

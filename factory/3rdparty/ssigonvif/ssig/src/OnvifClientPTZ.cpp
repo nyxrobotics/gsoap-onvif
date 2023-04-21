@@ -193,9 +193,6 @@ void OnvifClientPTZ::continuousMove(std::string profileToken, float panSpeed, fl
   cnt_move->Velocity->Zoom = soap_new_tt__Vector1D(soap_, -1);
   cnt_move->Velocity->Zoom->x = zoomSpeed;
 
-  int64_t tempo = 1;
-  cnt_move->Timeout = &tempo;
-
   CHECK_EQ(SOAP_OK, proxy_ptz_.ContinuousMove(cnt_move, cnt_moveResponse)) << "relative move error " << ErrorString();
 
   soap_destroy(soap_);

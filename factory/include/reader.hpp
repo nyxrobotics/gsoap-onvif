@@ -11,30 +11,42 @@
 #include "OnvifClientMedia.hpp"
 #include "channel.hpp"
 
+namespace wl
+{
 
-namespace wl {
-
-struct Frame {
+struct Frame
+{
   cv::Mat img;
   int frame_id;
 };
 
-struct CameraConfig {
+struct CameraConfig
+{
   std::string ip;
   int port;
   std::string username;
   std::string password;
 };
 
-class Reader {
+class Reader
+{
 public:
-  virtual ~Reader() {}
-  virtual bool Open() { return true; }
+  virtual ~Reader()
+  {
+  }
+  virtual bool Open()
+  {
+    return true;
+  }
   virtual bool Next(Frame* frame) = 0;
-  virtual bool Close() { return true; }
+  virtual bool Close()
+  {
+    return true;
+  }
 };
 
-class Ptz {
+class Ptz
+{
 public:
   Ptz(const CameraConfig& config);
   ~Ptz();
@@ -42,25 +54,28 @@ public:
   void ZoomIn(float scale);
   void ZoomOut();
   void Reset();
-	void GotoPreset(int PresetToken);
+  void GotoPreset(int PresetToken);
+
 private:
   std::string ip_;
   std::string name_;
   std::string passwd_;
   std::shared_ptr<OnvifClientPTZ> ptz_;
   std::shared_ptr<OnvifClientMedia> media_;
-	std::vector<_ocp_Profile> profiles_;
+  std::vector<_ocp_Profile> profiles_;
   bool zoom_;
   float zoom_scale_;
   float speed_;
 };
 
-class OpenCVCameraReader : public Reader {
+class OpenCVCameraReader : public Reader
+{
 public:
   OpenCVCameraReader(const std::string uri);
   ~OpenCVCameraReader();
 
   virtual bool Next(Frame* frame) override;
+
 private:
   std::string uri_;
   int counter_;
@@ -69,7 +84,8 @@ private:
   Channel<Frame> ch_;
 };
 
-class OpenCVVideoReader : public Reader {
+class OpenCVVideoReader : public Reader
+{
 public:
   OpenCVVideoReader(const std::string uri);
   ~OpenCVVideoReader();
@@ -81,7 +97,8 @@ private:
   cv::VideoCapture cap_;
 };
 
-class OpenCVImageReader : public Reader {
+class OpenCVImageReader : public Reader
+{
 public:
   OpenCVImageReader(const std::vector<std::string>& img_lst);
 

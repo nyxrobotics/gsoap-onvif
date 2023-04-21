@@ -16,63 +16,72 @@
 #endif  // WIN32
 #include "glog/logging.h"
 #ifdef WIN32
-#define ACCESS(fileName,accessMode) _access(fileName,accessMode)
+#define ACCESS(fileName, accessMode) _access(fileName, accessMode)
 #define MKDIR(path) _mkdir(path)
 #else
-#define ACCESS(fileName,accessMode) access(fileName,accessMode)
-#define MKDIR(path) mkdir(path,S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)
+#define ACCESS(fileName, accessMode) access(fileName, accessMode)
+#define MKDIR(path) mkdir(path, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)
 #endif
-using std::vector;
 using std::string;
-namespace wl {
-namespace fs {
+using std::vector;
+namespace wl
+{
+namespace fs
+{
 
 string GetFullPath()
 {
 #ifdef WIN32
-  char exeFullPath[MAX_PATH]; // Full path
+  char exeFullPath[MAX_PATH];  // Full path
   string strPath = "";
 
   GetModuleFileName(NULL, exeFullPath, MAX_PATH);
-  strPath = (string)exeFullPath;    // Get full path of the file
+  strPath = (string)exeFullPath;  // Get full path of the file
   int pos = strPath.find_last_of('\\', strPath.length());
   return strPath.substr(0, pos);  // Return the directory without the file name
 #else
   char szCurWorkPath[256];
   memset(szCurWorkPath, '\0', 256);
   int nRet = readlink("/proc/self/exe", szCurWorkPath, 256);
-  if (nRet>256 || nRet<0) {
-    return  "";
+  if (nRet > 256 || nRet < 0)
+  {
+    return "";
   }
-  //The path to the executable file (including the file name) has been obtained above.
-  //The following for loop is to remove the filename from the path, if needed
-  for (int i = nRet; i>0; i--) {
-    if (szCurWorkPath[i] == '/' || szCurWorkPath[i] == '\\') {
+  // The path to the executable file (including the file name) has been obtained above.
+  // The following for loop is to remove the filename from the path, if needed
+  for (int i = nRet; i > 0; i--)
+  {
+    if (szCurWorkPath[i] == '/' || szCurWorkPath[i] == '\\')
+    {
       szCurWorkPath[i] = '\0';
       break;
     }
   }
-  //This is the final file path, e.g. "/usr/var"
+  // This is the final file path, e.g. "/usr/var"
   string szRet = szCurWorkPath;
   return szRet;
 #endif
 }
 
-
-
-bool IsExists(const string& path) {
-  if (access(path.c_str(), 0) != -1) {
+bool IsExists(const string& path)
+{
+  if (access(path.c_str(), 0) != -1)
+  {
     return true;
   }
-  else {
+  else
+  {
     return false;
   }
 }
-bool MakeDir(const string& dpath) {
-  if (IsExists(dpath) == true) {
+bool MakeDir(const string& dpath)
+{
+  if (IsExists(dpath) == true)
+  {
     return true;
   }
-  else {
+  else
+  {
     int rc;
 #ifdef WIN32
     rc = mkdir(dpath.c_str());
@@ -80,26 +89,34 @@ bool MakeDir(const string& dpath) {
     // default mode, -rwxrwxr-x
     rc = mkdir(dpath.c_str(), 0775);
 #endif  // WIN32
-    if (rc == 0) {
+    if (rc == 0)
+    {
       return true;
     }
-    else {
+    else
+    {
       return false;
     }
   }
 }
-bool CreatDirs(const string& path) {
+bool CreatDirs(const string& path)
+{
   int dirPathLen = path.length();
-  if (dirPathLen > 2048) {
+  if (dirPathLen > 2048)
+  {
     return false;
   }
   char tmpDirPath[2048] = { 0 };
-  for (int i = 0; i < dirPathLen; ++i) {
+  for (int i = 0; i < dirPathLen; ++i)
+  {
     tmpDirPath[i] = path[i];
-    if (tmpDirPath[i] == '\\' || tmpDirPath[i] == '/' || i == (dirPathLen - 1)) {
-      if (ACCESS(tmpDirPath, 0) != 0) {
+    if (tmpDirPath[i] == '\\' || tmpDirPath[i] == '/' || i == (dirPathLen - 1))
+    {
+      if (ACCESS(tmpDirPath, 0) != 0)
+      {
         int ret = MKDIR(tmpDirPath);
-        if (ret != 0) {
+        if (ret != 0)
+        {
           return ret;
         }
       }
@@ -107,27 +124,35 @@ bool CreatDirs(const string& path) {
   }
   return true;
 }
-bool DeleteFile(const string& path) {
-  if (remove(path.c_str()) == 0) {
+bool DeleteFile(const string& path)
+{
+  if (remove(path.c_str()) == 0)
+  {
     return true;
   }
-  else {
+  else
+  {
     return false;
   }
 }
-bool MoveFile(const string& src_path, const string& dst_path) {
-  if (rename(src_path.c_str(), dst_path.c_str()) == 0) {
+bool MoveFile(const string& src_path, const string& dst_path)
+{
+  if (rename(src_path.c_str(), dst_path.c_str()) == 0)
+  {
     return true;
   }
-  else {
+  else
+  {
     return false;
   }
 }
-string JoinPath(std::initializer_list<string> args) {
+string JoinPath(std::initializer_list<string> args)
+{
   std::vector<string> paths(std::move(args));
   CHECK_GE(paths.size(), 2);
   string res = paths[0];
-  for (int i = 1; i < paths.size(); i++) {
+  for (int i = 1; i < paths.size(); i++)
+  {
 #ifdef WIN32
     res += "\\" + paths[i];
 #else
@@ -136,54 +161,70 @@ string JoinPath(std::initializer_list<string> args) {
   }
   return res;
 }
-string GetFileName(const string& path) {
+string GetFileName(const string& path)
+{
   int pos = path.find_last_of("/");
-  if (pos == string::npos) {  // xxx.yyy
+  if (pos == string::npos)
+  {  // xxx.yyy
     return path.substr(0, path.find_last_of("."));
   }
-  else {  // /path/to/xxx.yyy
+  else
+  {  // /path/to/xxx.yyy
     string tmp = path.substr(pos + 1);
     return tmp.substr(0, tmp.find_last_of("."));
   }
 }
-string GetFileExtension(const string& path) {
+string GetFileExtension(const string& path)
+{
   int pos = path.find_last_of(".");
-  if (pos == string::npos) {
+  if (pos == string::npos)
+  {
     return "";
   }
-  else {
+  else
+  {
     return path.substr(pos + 1);
   }
 }
 /*!
-* \brief compare two string with case insensitive
-* \param s1  string1
-* \param s2  string2
-* \return    true if equal else false
-*/
-static bool StringCompareCaseInsensitive(const string& s1, const string& s2) {
-  if (s1.length() != s2.length()) return false;
+ * \brief compare two string with case insensitive
+ * \param s1  string1
+ * \param s2  string2
+ * \return    true if equal else false
+ */
+static bool StringCompareCaseInsensitive(const string& s1, const string& s2)
+{
+  if (s1.length() != s2.length())
+    return false;
   const int n = s1.length();
-  for (int i = 0; i < n; i++) {
-    if (std::tolower(s1[i]) != std::tolower(s2[i])) return false;
+  for (int i = 0; i < n; i++)
+  {
+    if (std::tolower(s1[i]) != std::tolower(s2[i]))
+      return false;
   }
   return true;
 }
-vector<string> ListDir(const string& dpath, const vector<string>& exts) {
+vector<string> ListDir(const string& dpath, const vector<string>& exts)
+{
   vector<string> lists;
-  if (!IsExists(dpath)) {
+  if (!IsExists(dpath))
+  {
     return lists;
   }
 #ifdef WIN32
-  //long fd;
+  // long fd;
   intptr_t fd;
   _finddata_t fi;
   string mp = dpath + "/*";
-  if ((fd = _findfirst(mp.c_str(), &fi)) != -1) {
-    do {
+  if ((fd = _findfirst(mp.c_str(), &fi)) != -1)
+  {
+    do
+    {
       string ext = GetFileExtension(fi.name);
-      for (int i = 0; i < exts.size(); i++) {
-        if (StringCompareCaseInsensitive(ext, exts[i])) {
+      for (int i = 0; i < exts.size(); i++)
+      {
+        if (StringCompareCaseInsensitive(ext, exts[i]))
+        {
           lists.push_back(fi.name);
           break;
         }
@@ -192,21 +233,26 @@ vector<string> ListDir(const string& dpath, const vector<string>& exts) {
     _findclose(fd);
   }
 #else
-  DIR *dir;
-  struct dirent *file;
+  DIR* dir;
+  struct dirent* file;
   struct stat st;
-  if (!(dir = opendir(dpath.c_str()))) {
+  if (!(dir = opendir(dpath.c_str())))
+  {
     return lists;
   }
-  while ((file = readdir(dir)) != NULL) {
+  while ((file = readdir(dir)) != NULL)
+  {
     string fn(file->d_name);
     // remove '.', '..'
-    if (fn == "." || fn == "..") {
+    if (fn == "." || fn == "..")
+    {
       continue;
     }
     string ext = GetFileExtension(fn);
-    for (int i = 0; i < exts.size(); i++) {
-      if (StringCompareCaseInsensitive(ext, exts[i])) {
+    for (int i = 0; i < exts.size(); i++)
+    {
+      if (StringCompareCaseInsensitive(ext, exts[i]))
+      {
         lists.push_back(fn);
         break;
       }
@@ -216,40 +262,50 @@ vector<string> ListDir(const string& dpath, const vector<string>& exts) {
 #endif  // WIN32
   return lists;
 }
-vector<string> ListSubDir(const string& dpath) {
+vector<string> ListSubDir(const string& dpath)
+{
   vector<string> lists;
-  if (!IsExists(dpath)) {
+  if (!IsExists(dpath))
+  {
     return lists;
   }
 #ifdef WIN32
   long fd;
   _finddata_t fi;
   string mp = dpath + "/*";
-  if ((fd = _findfirst(mp.c_str(), &fi)) == -1) {  // no file
+  if ((fd = _findfirst(mp.c_str(), &fi)) == -1)
+  {  // no file
     return lists;
   }
-  do {
-    if (fi.attrib & _A_SUBDIR) {
+  do
+  {
+    if (fi.attrib & _A_SUBDIR)
+    {
       string dn(fi.name);
-      if (dn != "." && dn != "..") {
+      if (dn != "." && dn != "..")
+      {
         lists.push_back(fi.name);
       }
     }
   } while (_findnext(fd, &fi) == 0);
   _findclose(fd);
 #else
-  DIR *dir;
-  struct dirent *file;
+  DIR* dir;
+  struct dirent* file;
   struct stat st;
-  if (!(dir = opendir(dpath.c_str()))) {
+  if (!(dir = opendir(dpath.c_str())))
+  {
     return lists;
   }
-  while ((file = readdir(dir)) != NULL) {
+  while ((file = readdir(dir)) != NULL)
+  {
     string fn(file->d_name);
     string fp = dpath + "/" + fn;
-    if (stat(fp.c_str(), &st) == 0 && S_ISDIR(st.st_mode)) {
+    if (stat(fp.c_str(), &st) == 0 && S_ISDIR(st.st_mode))
+    {
       // remove '.', '..'
-      if (fn == "." || fn == "..") {
+      if (fn == "." || fn == "..")
+      {
         continue;
       }
       lists.push_back(fn);
@@ -260,41 +316,48 @@ vector<string> ListSubDir(const string& dpath) {
   return lists;
 }
 
-datetime DatetimeToString(time_t time) {
-  tm *tm_ = localtime(&time);                // Convert time_t format to tm structure
-  int year, month, day, hour, minute, second;// Defines the individual int temporary variables for the time.
-  year = tm_->tm_year + 1900;                // Temporary variable, year, since the tm structure stores the time from 1900, the temporary variable int is tm_year plus 1900.
-  month = tm_->tm_mon + 1;                   // Temporary variable, month. Since the month storage range of tm structure is 0-11, the temporary variable int is tm_mon plus 1.
-  day = tm_->tm_mday;                        // Temporary variables, day.
-  hour = tm_->tm_hour;                       // Temporary variables, hours.
-  minute = tm_->tm_min;                      // Temporary variables, mins.
-  second = tm_->tm_sec;                      // Temporary variable, seconds.
+datetime DatetimeToString(time_t time)
+{
+  tm* tm_ = localtime(&time);                  // Convert time_t format to tm structure
+  int year, month, day, hour, minute, second;  // Defines the individual int temporary variables for the time.
+  year = tm_->tm_year + 1900;  // Temporary variable, year, since the tm structure stores the time from 1900, the
+                               // temporary variable int is tm_year plus 1900.
+  month = tm_->tm_mon + 1;     // Temporary variable, month. Since the month storage range of tm structure is 0-11, the
+                               // temporary variable int is tm_mon plus 1.
+  day = tm_->tm_mday;          // Temporary variables, day.
+  hour = tm_->tm_hour;         // Temporary variables, hours.
+  minute = tm_->tm_min;        // Temporary variables, mins.
+  second = tm_->tm_sec;        // Temporary variable, seconds.
 
   std::string yearStr = std::to_string(year);
   std::string monthStr = std::to_string(month);
   std::string dayStr = std::to_string(day);
   std::string hourStr = std::to_string(hour);
   std::string minuteStr, secondStr;
-  if (minute < 10) {
+  if (minute < 10)
+  {
     minuteStr = "0" + std::to_string(minute);
   }
-  else {
+  else
+  {
     minuteStr = std::to_string(minute);
   }
 
-  if (second < 10) {
+  if (second < 10)
+  {
     secondStr = "0" + std::to_string(second);
   }
-  else {
+  else
+  {
     secondStr = std::to_string(second);
   }
 
-	datetime datetimer;
-	datetimer.year = yearStr;
-	datetimer.month = monthStr;
-	datetimer.day = dayStr;
-	datetimer.time = hourStr + "-" + minuteStr + "-" + secondStr;
-	return datetimer;
+  datetime datetimer;
+  datetimer.year = yearStr;
+  datetimer.month = monthStr;
+  datetimer.day = dayStr;
+  datetimer.time = hourStr + "-" + minuteStr + "-" + secondStr;
+  return datetimer;
 }
 }  // namespace fs
 }  // namespace wl

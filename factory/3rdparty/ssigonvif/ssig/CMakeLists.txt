@@ -1,5 +1,13 @@
-file(GLOB INCLUDE_FILES "${CMAKE_CURRENT_LIST_DIR}/include/*.hpp")
-file(GLOB SOURCE_FILES "${CMAKE_CURRENT_LIST_DIR}/src/*.cpp")
+file(
+  GLOB
+  INCLUDE_FILES
+  "${CMAKE_CURRENT_LIST_DIR}/include/*.hpp"
+)
+file(
+  GLOB
+  SOURCE_FILES
+  "${CMAKE_CURRENT_LIST_DIR}/src/*.cpp"
+)
 
 add_library(ssigonvif ${SOURCE_FILES} ${INCLUDE_FILES})
 target_include_directories(ssigonvif PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include/)

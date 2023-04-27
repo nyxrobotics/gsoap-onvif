@@ -18,6 +18,7 @@ int main(int argc, char** argv)
   config.username = "admin";
   config.password = "wst123456";
   teacher.setConfig(config);
-  teacher.Run();
+  // teacher.Run();
+  teacher.runThreads();
   return 0;
 }

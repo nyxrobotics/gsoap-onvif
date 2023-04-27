@@ -17,7 +17,7 @@ int main(int argc, char** argv)
   config.port = 8000;
   config.username = "admin";
   config.password = "wst123456";
-  teacher.SetReader(config);
+  teacher.setConfig(config);
   teacher.Run();
   return 0;
 }

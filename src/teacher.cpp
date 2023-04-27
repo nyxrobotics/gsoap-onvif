@@ -7,47 +7,30 @@ using namespace cv;
 using namespace std;
 using namespace wl;
 
-void TeaAnalyser::SetHikReader(const wl::CameraConfig& config)
+void TeaAnalyser::setConfig(const wl::CameraConfig& config)
 {
-  LOG(INFO) << "Test HIKIPCameraReader.";
-  std::string url = "rtsp://" + config.username + ":" + config.password + "@" + config.ip + "/mpeg4/ch1/sub/av_stream";
-  reader_.reset(new OpenCVCameraReader(url));
-  ptzer_.reset(new Ptz(config));
-}
-
-void TeaAnalyser::SetDahuaReader(const wl::CameraConfig& config)
-{
-  LOG(INFO) << "OnvifCameraReader.";
-  std::string url = "rtsp://" + config.username + ":" + config.password + "@" + config.ip + "/live";
-  reader_.reset(new OpenCVCameraReader(url));
-  ptzer_.reset(new Ptz(config));
+  image_reader_.SetDahuaReader(config);
+  ptz_command_.SetPtzConfig(config);
 }
 
 void TeaAnalyser::Run()
 {
   fs::Timer timer;
-  std::vector<int> PresetTokens = { 1, 2 };
   // initialize motors
-  ptzer_->ReturnOrigin();
+  ptz_command_.GoHome();
   usleep(1000000);
-  float pan_rad, tilt_rad, zoom_scale;
-  while (!cam_is_stop_)
+  while (true)
   {
     timer.tic();
-    for (auto& PresetToken : PresetTokens)
-    {
-      // get current angle
-      ptzer_->GetPTZ(pan_rad, tilt_rad, zoom_scale);
-      // get one frame
-      reader_->Next(&frame_);
-      // show image
-      cv::imshow("onvif_cam_img", frame_.img);
-      cv::waitKey(3.3);
-      // save one frame
-      // std::string frame_path = "~/blackboard.jpg";
-      // cv::imwrite(frame_path, frame_.img);
-      timer.toc();
-      LOG(INFO) << "frame : " << frame_.frame_id << " cost: " << timer.total_time();
-    }
+    // set target angle
+    ptz_command_.SetTarget(3.14, 0, 1.0);
+    // get current angle
+    double pan_rad, tilt_rad, zoom_scale;
+    ptz_command_.GetCurrent(pan_rad, tilt_rad, zoom_scale);
+    // show image
+    cv::imshow("onvif_cam_img", image_reader_.GetNextImage());
+    cv::waitKey(1000.0 / 30.0);
+    timer.toc();
+    // LOG(INFO) << "frame : " << frame_.frame_id << " cost: " << timer.total_time();
   }
 }

@@ -59,6 +59,22 @@ void OnvifClientPTZ::getStatus(std::string profileToken)
   soap_destroy(soap_);
   soap_end(soap_);
 }
+
+void OnvifClientPTZ::getAbsolutePose(std::string profileToken, float& pan, float& tilt, float& zoom)
+{
+  CHECK_EQ(SOAP_OK, soap_wsse_add_UsernameTokenDigest(proxy_ptz_.soap, NULL, user_.c_str(), passwd_.c_str()))
+      << "wsse error";
+  auto* status = soap_new__tptz__GetStatus(soap_, -1);
+  auto* status_response = soap_new__tptz__GetStatusResponse(soap_, -1);
+  status->ProfileToken = profileToken.c_str();
+  CHECK_EQ(SOAP_OK, proxy_ptz_.GetStatus(status, status_response)) << "get status error " << ErrorString();
+  pan = status_response->PTZStatus->Position->PanTilt->x;
+  tilt = status_response->PTZStatus->Position->PanTilt->y;
+  zoom = status_response->PTZStatus->Position->Zoom->x;
+  soap_destroy(soap_);
+  soap_end(soap_);
+}
+
 void OnvifClientPTZ::gotoPreset(std::string profileToken, int PresetToken, float Speed)
 {
   CHECK_EQ(SOAP_OK, soap_wsse_add_UsernameTokenDigest(proxy_ptz_.soap, NULL, user_.c_str(), passwd_.c_str()))

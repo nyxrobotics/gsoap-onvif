@@ -12,6 +12,7 @@ public:
   virtual std::string ErrorString();
   void getPTZConfigurations();
   void getStatus(std::string profileToken);
+  void getAbsolutePose(std::string profileToken, float& pan, float& tilt, float& zoom);
   void getConfiguration(std::string configurationToken);
 
   void absoluteMove(std::string profileToken, float pan, float panSpeed, float tilt, float tiltSpeed, float zoom,

@@ -72,6 +72,35 @@ void Ptz::GotoPreset(int PresetToken)
   ptz_->gotoPreset(profiles_[0].profileToken, PresetToken, 0.5);
 }
 
+void Ptz::ReturnOrigin()
+{
+  ptz_->absoluteMove(profiles_[0].profileToken, 0, 1.0, 0, 1.0, 0, 1.0);
+  usleep(5000000);
+  ptz_->continuousMove(profiles_[0].profileToken, 0, -1.0, 0);
+  usleep(7000000);
+  ptz_->continuousMove(profiles_[0].profileToken, 0, 0, 0);
+  usleep(100000);
+  ptz_->continuousMove(profiles_[0].profileToken, 0, -1.0, 0);
+  usleep(7000000);
+  ptz_->goToHomePosition(profiles_[0].profileToken);
+  usleep(100000);
+}
+
+void Ptz::SetPTZ(float pan, float tilt, float zoom)
+{
+  ptz_->absoluteMove(profiles_[0].profileToken, pan, 1.0, tilt, 1.0, zoom, 1.0);
+}
+void Ptz::GetPTZ(float& pan, float& tilt, float& zoom)
+{
+  float pan_abs, tilt_abs, zoom_abs;
+  ptz_->getAbsolutePose(profiles_[0].profileToken, pan_abs, tilt_abs, zoom_abs);
+  pan = M_PI * pan_abs;
+  tilt = (M_PI * 0.25) + (M_PI * 0.5 * tilt_abs);
+  zoom = 1.0 + 37.5 * (zoom_abs - 0.04);
+  LOG(INFO) << "pan = " << pan;
+  LOG(INFO) << "tilt = " << tilt;
+  LOG(INFO) << "zoom = " << zoom;
+}
 // if speed > 0, move right; else move left
 void Ptz::Move(float speed)
 {

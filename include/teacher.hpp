@@ -18,7 +18,8 @@ public:
   TeaAnalyser(){
     // Initialize(gpu);
   };
-  void SetReader(const wl::CameraConfig& config);
+  void SetHikReader(const wl::CameraConfig& config);
+  void SetDahuaReader(const wl::CameraConfig& config);
   void Run();
   std::string ObjectNameProduce(bool realtime);
 

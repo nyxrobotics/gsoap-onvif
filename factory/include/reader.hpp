@@ -55,6 +55,9 @@ public:
   void ZoomOut();
   void Reset();
   void GotoPreset(int PresetToken);
+  void ReturnOrigin();
+  void SetPTZ(float pan, float tilt, float zoom);
+  void GetPTZ(float& pan, float& tilt, float& zoom);
 
 private:
   std::string ip_;

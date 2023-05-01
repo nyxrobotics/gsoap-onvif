@@ -22,6 +22,7 @@ public:
   OnvifClientDevice(std::string url, std::string user, std::string password, bool showCapabilities);
   ~OnvifClientDevice();
   virtual std::string ErrorString();
+  bool syncTime(std::string url, std::string user, std::string password);
 
 protected:
   bool has_media_;

@@ -79,10 +79,8 @@ bool OnvifClientDevice::syncTime(std::string url, std::string user, std::string 
   has_media_ = false;
   has_ptz_ = false;
   proxy_device_.soap_endpoint = device_url_.c_str();
-  long time_offset = 0;
   int soap_result;
-  soap_result =
-      soap_wsse_add_UsernameTokenDigestOffset(proxy_device_.soap, NULL, user.c_str(), password.c_str(), time_offset);
+  soap_result = soap_wsse_add_UsernameTokenDigest(proxy_device_.soap, NULL, user.c_str(), password.c_str());
   if (SOAP_OK != soap_result)
   {
     printf("ERROR: %d - \nsoap_wsse_add_UsernameTokenDigestOffset: %s", soap_result, proxy_device_.soap_fault_detail());
@@ -99,6 +97,7 @@ bool OnvifClientDevice::syncTime(std::string url, std::string user, std::string 
   time_t cam_gmt_time;
   time_t pc_gmt_time;
   std::string cam_time_zone;
+  long time_offset = 0;
   _tds__GetSystemDateAndTime get_request;
   _tds__GetSystemDateAndTimeResponse get_response;
   soap_result = proxy_device_.GetSystemDateAndTime(&get_request, &get_response);
@@ -126,18 +125,18 @@ bool OnvifClientDevice::syncTime(std::string url, std::string user, std::string 
   printf("Time: %2d:%2d:%2d \n", get_response.SystemDateAndTime->UTCDateTime->Time->Hour,
          get_response.SystemDateAndTime->UTCDateTime->Time->Minute,
          get_response.SystemDateAndTime->UTCDateTime->Time->Second);
-  struct tm camtimestruct;
-  camtimestruct.tm_sec = get_response.SystemDateAndTime->UTCDateTime->Time->Second;
-  camtimestruct.tm_min = get_response.SystemDateAndTime->UTCDateTime->Time->Minute;
-  camtimestruct.tm_hour = get_response.SystemDateAndTime->UTCDateTime->Time->Hour;
-  camtimestruct.tm_mday = get_response.SystemDateAndTime->UTCDateTime->Date->Day;
-  camtimestruct.tm_mon = get_response.SystemDateAndTime->UTCDateTime->Date->Month - 1;
-  camtimestruct.tm_year = get_response.SystemDateAndTime->UTCDateTime->Date->Year - 1900;
-  camtimestruct.tm_isdst = get_response.SystemDateAndTime->DaylightSavings;
-  camtimestruct.tm_zone = "GMT";
-  camtimestruct.tm_gmtoff = 0;
+  struct tm cam_gmt_tm;
+  cam_gmt_tm.tm_sec = get_response.SystemDateAndTime->UTCDateTime->Time->Second;
+  cam_gmt_tm.tm_min = get_response.SystemDateAndTime->UTCDateTime->Time->Minute;
+  cam_gmt_tm.tm_hour = get_response.SystemDateAndTime->UTCDateTime->Time->Hour;
+  cam_gmt_tm.tm_mday = get_response.SystemDateAndTime->UTCDateTime->Date->Day;
+  cam_gmt_tm.tm_mon = get_response.SystemDateAndTime->UTCDateTime->Date->Month - 1;
+  cam_gmt_tm.tm_year = get_response.SystemDateAndTime->UTCDateTime->Date->Year - 1900;
+  cam_gmt_tm.tm_isdst = get_response.SystemDateAndTime->DaylightSavings;
+  cam_gmt_tm.tm_zone = "GMT";
+  cam_gmt_tm.tm_gmtoff = 0;
   cam_time_zone = get_response.SystemDateAndTime->TimeZone->TZ;
-  cam_gmt_time = mktime(&camtimestruct);
+  cam_gmt_time = mktime(&cam_gmt_tm);
   printf("Cam GMT Time: %ld\n", cam_gmt_time);
 
   // Get PC GMT time
@@ -153,14 +152,13 @@ bool OnvifClientDevice::syncTime(std::string url, std::string user, std::string 
   printf("Local GMT Time: %ld\n", pc_gmt_time);
   printf("--- PC GMT Time ---\n");
   printf("DST: %d \n", pc_gmt_tm->tm_isdst);
-  printf("TZ: %s \n", pc_gmt_tm->tm_zone);
   printf("Date: %4d-%2d-%2d - \n", pc_gmt_tm->tm_year + 1900, pc_gmt_tm->tm_mon + 1, pc_gmt_tm->tm_mday);
   printf("Time: %2d:%2d:%2d \n", pc_gmt_tm->tm_hour, pc_gmt_tm->tm_min, pc_gmt_tm->tm_sec);
   printf("Local GMT Time: %ld\n", pc_gmt_time);
   printf("--- Time Offset Seconds ---\n");
   time_offset = cam_gmt_time - pc_gmt_time;
   printf("Time Offset: %ld\n", time_offset);
-  if (time_offset == 0)
+  if (abs(time_offset) < 2)
   {
     printf("Time is already synchronized\n");
     return true;

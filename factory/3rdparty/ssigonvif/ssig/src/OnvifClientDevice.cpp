@@ -80,15 +80,18 @@ bool OnvifClientDevice::syncTime(std::string url, std::string user, std::string 
   has_ptz_ = false;
   proxy_device_.soap_endpoint = device_url_.c_str();
   long time_offset = 0;
-  if (SOAP_OK !=
-      soap_wsse_add_UsernameTokenDigestOffset(proxy_device_.soap, NULL, user.c_str(), password.c_str(), time_offset))
+  int soap_result;
+  soap_result =
+      soap_wsse_add_UsernameTokenDigestOffset(proxy_device_.soap, NULL, user.c_str(), password.c_str(), time_offset);
+  if (SOAP_OK != soap_result)
   {
-    LOG(INFO) << "Device binding 1 Error";
+    printf("ERROR: %d - \nsoap_wsse_add_UsernameTokenDigestOffset: %s", soap_result, proxy_device_.soap_fault_detail());
     return false;
   }
-  if (SOAP_OK != soap_wsse_add_Timestamp(proxy_device_.soap, "Time", 10))
+  soap_result = soap_wsse_add_Timestamp(proxy_device_.soap, "Time", 10);
+  if (SOAP_OK != soap_result)
   {
-    LOG(INFO) << "Device binding 2 Error";
+    printf("ERROR: %d - \nsoap_wsse_add_Timestamp: %s", soap_result, proxy_device_.soap_fault_detail());
     return false;
   }
 
@@ -98,47 +101,45 @@ bool OnvifClientDevice::syncTime(std::string url, std::string user, std::string 
   std::string cam_time_zone;
   _tds__GetSystemDateAndTime get_request;
   _tds__GetSystemDateAndTimeResponse get_response;
-  int result = proxy_device_.GetSystemDateAndTime(&get_request, &get_response);
-  if (result == SOAP_OK)
+  soap_result = proxy_device_.GetSystemDateAndTime(&get_request, &get_response);
+  if (soap_result != SOAP_OK)
   {
-    printf("--- Camera Local Time ---\n");
-    printf("DST: %d \n", get_response.SystemDateAndTime->DaylightSavings);
-    printf("TZ: %s \n", get_response.SystemDateAndTime->TimeZone->TZ.c_str());
-    printf("NTP: %s \n", get_response.SystemDateAndTime->DateTimeType == 0 ? "yes" : "no");
-    printf("Date: %4d-%2d-%2d - \n", get_response.SystemDateAndTime->LocalDateTime->Date->Year,
-           get_response.SystemDateAndTime->LocalDateTime->Date->Month,
-           get_response.SystemDateAndTime->LocalDateTime->Date->Day);
-    printf("Time: %2d:%2d:%2d \n", get_response.SystemDateAndTime->LocalDateTime->Time->Hour,
-           get_response.SystemDateAndTime->LocalDateTime->Time->Minute,
-           get_response.SystemDateAndTime->LocalDateTime->Time->Second);
-    printf("--- Camera GMT Time ---\n");
-    printf("DST: %d \n", get_response.SystemDateAndTime->DaylightSavings);
-    printf("NTP: %s \n", get_response.SystemDateAndTime->DateTimeType == 0 ? "yes" : "no");
-    printf("Date: %4d-%2d-%2d - \n", get_response.SystemDateAndTime->UTCDateTime->Date->Year,
-           get_response.SystemDateAndTime->UTCDateTime->Date->Month,
-           get_response.SystemDateAndTime->UTCDateTime->Date->Day);
-    printf("Time: %2d:%2d:%2d \n", get_response.SystemDateAndTime->UTCDateTime->Time->Hour,
-           get_response.SystemDateAndTime->UTCDateTime->Time->Minute,
-           get_response.SystemDateAndTime->UTCDateTime->Time->Second);
-    struct tm camtimestruct;
-    camtimestruct.tm_sec = get_response.SystemDateAndTime->UTCDateTime->Time->Second;
-    camtimestruct.tm_min = get_response.SystemDateAndTime->UTCDateTime->Time->Minute;
-    camtimestruct.tm_hour = get_response.SystemDateAndTime->UTCDateTime->Time->Hour;
-    camtimestruct.tm_mday = get_response.SystemDateAndTime->UTCDateTime->Date->Day;
-    camtimestruct.tm_mon = get_response.SystemDateAndTime->UTCDateTime->Date->Month - 1;
-    camtimestruct.tm_year = get_response.SystemDateAndTime->UTCDateTime->Date->Year - 1900;
-    camtimestruct.tm_isdst = get_response.SystemDateAndTime->DaylightSavings;
-    camtimestruct.tm_zone = "GMT";
-    camtimestruct.tm_gmtoff = 0;
-    cam_time_zone = get_response.SystemDateAndTime->TimeZone->TZ;
-    cam_gmt_time = mktime(&camtimestruct);
-    printf("Cam GMT Time: %ld\n", cam_gmt_time);
-  }
-  else
-  {
-    printf("ERROR: %d - GetSystemDateAndTime: %s\n", result, proxy_device_.soap_fault_detail());
+    printf("ERROR: %d - \nGetSystemDateAndTime: %s", soap_result, proxy_device_.soap_fault_detail());
     return false;
   }
+  printf("--- Camera Local Time ---\n");
+  printf("DST: %d \n", get_response.SystemDateAndTime->DaylightSavings);
+  printf("TZ: %s \n", get_response.SystemDateAndTime->TimeZone->TZ.c_str());
+  printf("NTP: %s \n", get_response.SystemDateAndTime->DateTimeType == 0 ? "yes" : "no");
+  printf("Date: %4d-%2d-%2d - \n", get_response.SystemDateAndTime->LocalDateTime->Date->Year,
+         get_response.SystemDateAndTime->LocalDateTime->Date->Month,
+         get_response.SystemDateAndTime->LocalDateTime->Date->Day);
+  printf("Time: %2d:%2d:%2d \n", get_response.SystemDateAndTime->LocalDateTime->Time->Hour,
+         get_response.SystemDateAndTime->LocalDateTime->Time->Minute,
+         get_response.SystemDateAndTime->LocalDateTime->Time->Second);
+  printf("--- Camera GMT Time ---\n");
+  printf("DST: %d \n", get_response.SystemDateAndTime->DaylightSavings);
+  printf("NTP: %s \n", get_response.SystemDateAndTime->DateTimeType == 0 ? "yes" : "no");
+  printf("Date: %4d-%2d-%2d - \n", get_response.SystemDateAndTime->UTCDateTime->Date->Year,
+         get_response.SystemDateAndTime->UTCDateTime->Date->Month,
+         get_response.SystemDateAndTime->UTCDateTime->Date->Day);
+  printf("Time: %2d:%2d:%2d \n", get_response.SystemDateAndTime->UTCDateTime->Time->Hour,
+         get_response.SystemDateAndTime->UTCDateTime->Time->Minute,
+         get_response.SystemDateAndTime->UTCDateTime->Time->Second);
+  struct tm camtimestruct;
+  camtimestruct.tm_sec = get_response.SystemDateAndTime->UTCDateTime->Time->Second;
+  camtimestruct.tm_min = get_response.SystemDateAndTime->UTCDateTime->Time->Minute;
+  camtimestruct.tm_hour = get_response.SystemDateAndTime->UTCDateTime->Time->Hour;
+  camtimestruct.tm_mday = get_response.SystemDateAndTime->UTCDateTime->Date->Day;
+  camtimestruct.tm_mon = get_response.SystemDateAndTime->UTCDateTime->Date->Month - 1;
+  camtimestruct.tm_year = get_response.SystemDateAndTime->UTCDateTime->Date->Year - 1900;
+  camtimestruct.tm_isdst = get_response.SystemDateAndTime->DaylightSavings;
+  camtimestruct.tm_zone = "GMT";
+  camtimestruct.tm_gmtoff = 0;
+  cam_time_zone = get_response.SystemDateAndTime->TimeZone->TZ;
+  cam_gmt_time = mktime(&camtimestruct);
+  printf("Cam GMT Time: %ld\n", cam_gmt_time);
+
   // Get PC GMT time
   time_t pc_local_time = time(0);
   tm* pc_local_tm = localtime(&pc_local_time);
@@ -166,15 +167,17 @@ bool OnvifClientDevice::syncTime(std::string url, std::string user, std::string 
   }
   // Set camera time
   printf("--- Set Camera Time ---\n");
-  if (SOAP_OK !=
-      soap_wsse_add_UsernameTokenDigestOffset(proxy_device_.soap, NULL, user.c_str(), password.c_str(), time_offset))
+  soap_result =
+      soap_wsse_add_UsernameTokenDigestOffset(proxy_device_.soap, NULL, user.c_str(), password.c_str(), time_offset);
+  if (SOAP_OK != soap_result)
   {
-    LOG(INFO) << "Device binding 1 Error";
+    printf("ERROR: %d - \nsoap_wsse_add_UsernameTokenDigestOffset: %s", soap_result, proxy_device_.soap_fault_detail());
     return false;
   }
-  if (SOAP_OK != soap_wsse_add_Timestamp(proxy_device_.soap, "Time", 10))
+  soap_result = soap_wsse_add_Timestamp(proxy_device_.soap, "Time", 10);
+  if (SOAP_OK != soap_result)
   {
-    LOG(INFO) << "Device binding 2 Error";
+    printf("ERROR: %d - \nsoap_wsse_add_Timestamp: %s", soap_result, proxy_device_.soap_fault_detail());
     return false;
   }
   _tds__SetSystemDateAndTime set_request;
@@ -197,15 +200,15 @@ bool OnvifClientDevice::syncTime(std::string url, std::string user, std::string 
   utc_datetime.Time = &utc_time;
   utc_datetime.Date = &utc_date;
   set_request.UTCDateTime = &utc_datetime;
-  result = proxy_device_.SetSystemDateAndTime(&set_request, &set_response);
-  if (result == SOAP_OK)
+  soap_result = proxy_device_.SetSystemDateAndTime(&set_request, &set_response);
+  if (soap_result == SOAP_OK)
   {
     LOG(INFO) << "System Date and Time set successfully";
     sleep(1);
   }
   else
   {
-    LOG(INFO) << "ERROR:" << result << "\nSetSystemDateAndTime : " << proxy_device_.soap_fault_detail();
+    LOG(INFO) << "ERROR:" << soap_result << "\nSetSystemDateAndTime : " << proxy_device_.soap_fault_detail();
     return false;
   }
   proxy_device_.destroy();

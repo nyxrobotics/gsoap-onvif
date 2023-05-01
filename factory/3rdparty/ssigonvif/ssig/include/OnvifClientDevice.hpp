@@ -4,6 +4,7 @@
 #include <iostream>
 #include "stdio.h"
 #include "gsoap/wsseapi.h"
+#include "wsseapi_extra.hpp"
 #include <openssl/rsa.h>
 
 #include "onvif/soapDeviceBindingProxy.h"
